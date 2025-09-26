@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seguimiento de Pedido - Sabor Limeño</title>
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header que ocupa toda la anchura y se desplaza con la página */
+.header {
+    width: 100%;
+    background-color: mediumturquoise;
+    color: white;
+    text-align: center;
+    padding: 1.5rem 1rem;
+}
+
+.header h1 {
+    margin-bottom: 0.2rem;
+    font-weight: 600;
+}
+
+.header p {
+    margin: 0;
+}
+
+/* Contenedor centrado */
+.container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+    margin: 20px auto;
+}
+
+/* Contenido del pedido */
+h1 {
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.order-info {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.order-number {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.delivery-man {
+    font-size: 16px;
+    color: #666;
+}
+
+.status-timeline {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: #e9ecef;
+    z-index: 1;
+}
+
+.status-step {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 2;
+}
+
+.step-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-right: 20px;
+    border: 3px solid #e9ecef;
+    background-color: white;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-title {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.step-description {
+    color: #666;
+    font-size: 14px;
+}
+
+.step-active .step-icon {
+    border-color: #4a90e2;
+    background-color: #4a90e2;
+    color: white;
+}
+
+.step-active .step-title {
+    color: #4a90e2;
+}
+
+.step-completed .step-icon {
+    border-color: #28a745;
+    background-color: #28a745;
+    color: white;
+}
+
+.step-completed .step-title {
+    color: #28a745;
+}
+
+.current-status {
+    text-align: center;
+    padding: 20px;
+    background-color: #e8f5e8;
+    border: 2px solid #28a745;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.status-label {
+    font-size: 20px;
+    font-weight: 700;
+    color: #28a745;
+    margin-bottom: 10px;
+}
+
+.status-time {
+    color: #666;
+    font-size: 14px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background-color: #4a90e2;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #3a7bc8;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.delivery-info {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.info-label {
+    font-weight: 500;
+    color: #555;
+}
+
+.info-value {
+    font-weight: 600;
+    color: #333;
+}
+
+.confirmation-message {
+    display: none;
+    text-align: center;
+    padding: 15px;
+    background-color: #d4edda;
+    color: #155724;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+</style>
+</head>
+<body>
+
+<!-- Header nuevo -->
+<div class="header">
+    <h1>Sabor Limeño</h1>
+    <p>Seguimiento de Pedido</p>
+</div>
+
+<div class="container">
+    <h1>Pedido asignado</h1>
+    
+    <div class="order-info">
+        <div class="order-number">Número de orden #4501</div>
+        <div class="delivery-man">Repartidor: Carlos R.</div>
+    </div>
+    
+    <div class="current-status">
+        <div class="status-label" id="currentStatusLabel">En ruta</div>
+        <div class="status-time" id="statusTime">Actualizado: 15/03/2024 19:15</div>
+    </div>
+    
+    <div class="status-timeline">
+        <div class="timeline-line"></div>
+        
+        <div class="status-step step-completed">
+            <div class="step-icon">📋</div>
+            <div class="step-content">
+                <div class="step-title">Pedido Recibido</div>
+                <div class="step-description">15/03/2024 18:30</div>
+            </div>
+        </div>
+        
+        <div class="status-step step-completed">
+            <div class="step-icon">👨‍🍳</div>
+            <div class="step-content">
+                <div class="step-title">En Preparación</div>
+                <div class="step-description">15/03/2024 18:35</div>
+            </div>
+        </div>
+        
+        <div class="status-step step-completed">
+            <div class="step-icon">✅</div>
+            <div class="step-content">
+                <div class="step-title">Listo para Entrega</div>
+                <div class="step-description">15/03/2024 19:00</div>
+            </div>
+        </div>
+        
+        <div class="status-step step-active">
+            <div class="step-icon">🚗</div>
+            <div class="step-content">
+                <div class="step-title">En Ruta</div>
+                <div class="step-description">15/03/2024 19:10</div>
+            </div>
+        </div>
+        
+        <div class="status-step">
+            <div class="step-icon">📦</div>
+            <div class="step-content">
+                <div class="step-title">Entregado</div>
+                <div class="step-description">--:--</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="action-buttons">
+        <button class="btn btn-primary" id="assignBtn" disabled>Asignar Repartidor</button>
+        <button class="btn btn-success" id="deliverBtn">Marcar como Entregado</button>
+    </div>
+    
+    <div id="confirmationMessage" class="confirmation-message">
+        ✅ Pedido marcado como entregado exitosamente
+    </div>
+    
+    <div class="delivery-info">
+        <div class="info-row">
+            <span class="info-label">Cliente:</span>
+            <span class="info-value">Juan Pérez</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Dirección:</span>
+            <span class="info-value">Av. Principal 123, Santiago</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Teléfono:</span>
+            <span class="info-value">+56 9 1234 5678</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Tiempo estimado:</span>
+            <span class="info-value">25-35 minutos</span>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const assignBtn = document.getElementById('assignBtn');
+    const deliverBtn = document.getElementById('deliverBtn');
+    const currentStatusLabel = document.getElementById('currentStatusLabel');
+    const statusTime = document.getElementById('statusTime');
+    const confirmationMessage = document.getElementById('confirmationMessage');
+    
+    let pedidoEstado = "en_ruta";
+    
+    function actualizarInterfaz() {
+        if (pedidoEstado === "en_ruta") {
+            currentStatusLabel.textContent = "En ruta";
+            assignBtn.disabled = true;
+            deliverBtn.disabled = false;
+        } else if (pedidoEstado === "entregado") {
+            currentStatusLabel.textContent = "Entregado";
+            assignBtn.disabled = true;
+            deliverBtn.disabled = true;
+            
+            const lastStep = document.querySelectorAll('.status-step')[4];
+            lastStep.classList.add('step-completed');
+            lastStep.classList.remove('step-active');
+            
+            const now = new Date();
+            const timeString = now.toLocaleDateString('es-CL') + ' ' + now.toLocaleTimeString('es-CL', {hour: '2-digit', minute:'2-digit'});
+            lastStep.querySelector('.step-description').textContent = timeString;
+            statusTime.textContent = `Entregado: ${timeString}`;
+            
+            confirmationMessage.style.display = 'block';
+            setTimeout(() => {
+                confirmationMessage.style.display = 'none';
+            }, 5000);
+        }
+    }
+    
+    deliverBtn.addEventListener('click', function() {
+        pedidoEstado = "entregado";
+        actualizarInterfaz();
+    });
+    
+    actualizarInterfaz();
+});
+</script>
+</body>
+</html>

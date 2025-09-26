@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orden de Cocina - Sabor Limeño</title>
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header normal, ya no fijo */
+.header {
+    width: 100%;
+    background-color: mediumturquoise;
+    color: white;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin-bottom: 0.2rem;
+    font-weight: 600;
+}
+
+.header p {
+    margin: 0;
+}
+
+/* Contenedor centrado */
+.container {
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Tarjeta principal */
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 30px;
+}
+
+.kitchen-order {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    background-color: #fafafa;
+}
+
+.order-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.restaurant-name {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.order-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.order-info {
+    font-size: 14px;
+    color: #666;
+}
+
+.detail-section {
+    margin-bottom: 15px;
+}
+
+.section-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.customer-info, .special-instructions {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.4;
+}
+
+.items-list {
+    margin-top: 10px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #ccc;
+}
+
+.item-quantity {
+    font-weight: 600;
+    min-width: 30px;
+}
+
+.item-name {
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.order-footer {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.status-indicator {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: 600;
+    color: white;
+    background-color: #ff6b6b;
+    margin-top: 10px;
+}
+
+.sending-status {
+    text-align: center;
+    padding: 15px;
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: none;
+    font-weight: 500;
+    color: #856404;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: #4a90e2;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #357abd;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Sabor Limeño</h1>
+    <p>Orden de Cocina</p>
+</div>
+
+<div class="container">
+    <div id="sendingStatus" class="sending-status">
+        ⏳ Enviando orden a cocina...
+    </div>
+
+    <div class="card kitchen-order">
+        <div class="order-header">
+            <div class="restaurant-name">Sabor Limeño</div>
+            <div class="order-title">ORDEN DE COCINA</div>
+            <div class="order-info">Pedido #P-2024-00123</div>
+            <div class="order-info">15/03/2024 - 18:30:45</div>
+        </div>
+
+        <div class="detail-section">
+            <div class="section-title">INFORMACIÓN DEL CLIENTE</div>
+            <div class="customer-info">
+                <strong>Nombre:</strong> Juan Pérez<br>
+                <strong>Teléfono:</strong> +56 9 1234 5678<br>
+                <strong>Dirección:</strong> Av. Principal 123, Santiago<br>
+                <strong>Comuna:</strong> Providencia
+            </div>
+        </div>
+
+        <div class="detail-section">
+            <div class="section-title">DETALLE DEL PEDIDO</div>
+            <div class="items-list">
+                <div class="order-item">
+                    <span class="item-quantity">2x</span>
+                    <span class="item-name">Lomo Saltado</span>
+                </div>
+                <div class="special-instructions">Sin cebolla morada</div>
+
+                <div class="order-item">
+                    <span class="item-quantity">2x</span>
+                    <span class="item-name">Ceviche Clásico</span>
+                </div>
+                <div class="special-instructions">Picante suave</div>
+
+                <div class="order-item">
+                    <span class="item-quantity">1x</span>
+                    <span class="item-name">Suspiro Limeño</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-section">
+            <div class="section-title">OBSERVACIONES</div>
+            <div class="customer-info">Entregar en portería. Timbre 123.</div>
+        </div>
+
+        <div class="order-footer">
+            <div class="order-number">ORDEN: OC-2024-00123</div>
+            <div class="status-indicator" id="statusIndicator">PENDIENTE</div>
+        </div>
+    </div>
+
+    <button class="btn btn-success" id="printBtn">Imprimir Orden</button>
+    <button class="btn btn-primary" id="confirmBtn">Marcar como Preparando</button>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const printBtn = document.getElementById('printBtn');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const sendingStatus = document.getElementById('sendingStatus');
+    const statusIndicator = document.getElementById('statusIndicator');
+
+    // Mostrar estado de envío al cargar
+    sendingStatus.style.display = 'block';
+
+    setTimeout(function() {
+        sendingStatus.textContent = '✅ Orden enviada a cocina exitosamente';
+        sendingStatus.style.backgroundColor = '#d4edda';
+        sendingStatus.style.color = '#155724';
+        sendingStatus.style.borderColor = '#c3e6cb';
+    }, 2000);
+
+    // Imprimir orden
+    printBtn.addEventListener('click', function() {
+        window.print();
+    });
+
+    // Marcar como preparando
+    confirmBtn.addEventListener('click', function() {
+        statusIndicator.textContent = 'EN PREPARACIÓN';
+        statusIndicator.style.backgroundColor = '#28a745';
+        confirmBtn.textContent = 'Preparación en Curso';
+        confirmBtn.disabled = true;
+        confirmBtn.classList.remove('btn-primary');
+        confirmBtn.classList.add('btn-secondary');
+        alert('Orden marcada como en preparación');
+    });
+});
+</script>
+
+</body>
+</html>
