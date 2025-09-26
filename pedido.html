@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu Pedido - Sabor Limeño</title>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+    body {
+        font-family: 'Open Sans', sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .header {
+        background-color: mediumturquoise;
+        color: white;
+        text-align: center;
+        padding: 2rem 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .container {
+        max-width: 600px;
+    }
+
+    h1 {
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 25px;
+        color: #333;
+    }
+
+    .order-items {
+        margin-bottom: 25px;
+    }
+
+    .order-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .order-item:last-child {
+        border-bottom: none;
+    }
+
+    .item-name {
+        font-weight: 500;
+        color: #333;
+        font-size: 16px;
+    }
+
+    .item-details {
+        color: #666;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .item-price {
+        text-align: right;
+    }
+
+    .price-amount {
+        font-weight: 600;
+        color: #333;
+    }
+
+    .price-total {
+        color: #28a745;
+        font-weight: 600;
+        margin-top: 5px;
+    }
+
+    .total-section {
+        background-color: #f0f0f0;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 25px;
+    }
+
+    .total-line {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .total-label {
+        font-weight: 500;
+        color: #333;
+    }
+
+    .total-amount {
+        font-size: 24px;
+        font-weight: 700;
+        color: #28a745;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .btn-primary {
+        background-color: #4a90e2;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #357abd;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+    .payment-section {
+        display: none;
+        margin-top: 25px;
+        padding: 20px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+    }
+
+    .payment-title {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    .payment-options {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .payment-option input {
+        width: 18px;
+        height: 18px;
+    }
+
+    .confirmation-message {
+        display: none;
+        text-align: center;
+        padding: 30px;
+    }
+
+    .confirmation-icon {
+        font-size: 64px;
+        margin-bottom: 20px;
+    }
+
+    .confirmation-title {
+        color: #333;
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .confirmation-text {
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 25px;
+    }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Sabor Limeño</h1>
+    <p class="mb-0">Tu Pedido</p>
+</div>
+
+<div class="container card shadow p-4">
+
+    <div id="orderSection">
+        <h1>Tu pedido:</h1>
+        
+        <div class="order-items">
+            <div class="order-item">
+                <div>
+                    <div class="item-name">Lomo Saltado</div>
+                    <div class="item-details">Trozos de filete de vacuno salteado</div>
+                </div>
+                <div class="item-price">
+                    <div class="price-amount">$12.990 x2</div>
+                    <div class="price-total">$25.980</div>
+                </div>
+            </div>
+            <div class="order-item">
+                <div>
+                    <div class="item-name">Ceviche Clásico</div>
+                    <div class="item-details">Pescado fresco marinado en limón</div>
+                </div>
+                <div class="item-price">
+                    <div class="price-amount">$10.990 x2</div>
+                    <div class="price-total">$21.980</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="total-section">
+            <div class="total-line">
+                <span class="total-label">Total:</span>
+                <span class="total-amount">$47.960</span>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" id="continueBtn">Continuar al pago</button>
+
+        <div class="payment-section" id="paymentSection">
+            <div class="payment-title">Método de pago:</div>
+            
+            <div class="payment-options">
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="card" checked>
+                    Tarjeta de crédito/débito
+                </label>
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="paypal">
+                    PayPal
+                </label>
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="transfer">
+                    Transferencia bancaria
+                </label>
+            </div>
+
+            <button class="btn btn-success" id="payBtn">Pagar ahora</button>
+        </div>
+    </div>
+
+    <div id="confirmationSection" class="confirmation-message">
+        <div class="confirmation-icon">✅</div>
+        <div class="confirmation-title">Pedido Confirmado</div>
+        <div class="confirmation-text">
+            Recibo confirmado.<br>
+            Se envía a cocina.
+        </div>
+        <button class="btn btn-primary" id="okBtn">OK</button>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const continueBtn = document.getElementById('continueBtn');
+    const payBtn = document.getElementById('payBtn');
+    const okBtn = document.getElementById('okBtn');
+    const paymentSection = document.getElementById('paymentSection');
+    const orderSection = document.getElementById('orderSection');
+    const confirmationSection = document.getElementById('confirmationSection');
+
+    continueBtn.addEventListener('click', () => {
+        paymentSection.style.display = 'block';
+        continueBtn.style.display = 'none';
+    });
+
+    payBtn.addEventListener('click', () => {
+        setTimeout(() => {
+            orderSection.style.display = 'none';
+            confirmationSection.style.display = 'block';
+        }, 1000);
+    });
+
+    okBtn.addEventListener('click', () => {
+        alert('Redirigiendo a la página principal...');
+    });
+});
+</script>
+
+</body>
+</html>
