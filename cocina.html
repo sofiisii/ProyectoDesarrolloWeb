@@ -5,30 +5,66 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Orden de Cocina - Sabor Limeño</title>
 <style>
+:root {
+    --azul-pacifico: #1E88E5;
+    --azul-pacifico-oscuro: #1565C0;
+    --azul-pacifico-claro: #64B5F6;
+    --aji-amarillo: #FFC107;
+    --terracota: #BF360C;
+    --verde-menta: #4CAF50;
+    --purpura-nazca: #6A1B9A;
+    --blanco-roto: #F8F9FA;
+    --gris-texto: #424242;
+}
+
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #f8f9fa;
+    background-color: var(--blanco-roto);
     margin: 0;
     padding: 0;
+    color: var(--gris-texto);
 }
 
 /* Header normal, ya no fijo */
 .header {
     width: 100%;
-    background-color: mediumturquoise;
+    background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%);
     color: white;
     text-align: center;
     padding: 1.5rem 1rem;
     margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+    background-size: cover;
 }
 
 .header h1 {
     margin-bottom: 0.2rem;
-    font-weight: 600;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: white;
 }
 
 .header p {
     margin: 0;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    color: white;
+    font-weight: 500;
 }
 
 /* Contenedor centrado */
@@ -42,54 +78,84 @@ body {
 /* Tarjeta principal */
 .card {
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1);
     padding: 30px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 15px 35px rgba(30, 136, 229, 0.15);
+    border-color: var(--azul-pacifico);
 }
 
 .kitchen-order {
-    border: 1px solid #eee;
-    border-radius: 8px;
+    border: 2px solid var(--blanco-roto);
+    border-radius: 12px;
     padding: 20px;
     margin-bottom: 25px;
-    background-color: #fafafa;
+    background: linear-gradient(135deg, #E3F2FD, #FFFFFF);
+    position: relative;
+    overflow: hidden;
+}
+
+.kitchen-order::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--azul-pacifico), var(--verde-menta));
 }
 
 .order-header {
     text-align: center;
     margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--azul-pacifico-claro);
 }
 
 .restaurant-name {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     margin-bottom: 5px;
+    color: var(--azul-pacifico-oscuro);
 }
 
 .order-title {
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 5px;
+    color: var(--gris-texto);
 }
 
 .order-info {
     font-size: 14px;
-    color: #666;
+    color: var(--gris-texto);
 }
 
 .detail-section {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    border: 1px solid var(--blanco-roto);
 }
 
 .section-title {
     font-weight: 600;
-    margin-bottom: 5px;
-    color: #333;
+    margin-bottom: 8px;
+    color: var(--azul-pacifico-oscuro);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .customer-info, .special-instructions {
     font-size: 14px;
-    color: #555;
+    color: var(--gris-texto);
     line-height: 1.4;
 }
 
@@ -100,85 +166,138 @@ body {
 .order-item {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 5px;
-    padding-bottom: 5px;
-    border-bottom: 1px dashed #ccc;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--azul-pacifico-claro);
 }
 
 .item-quantity {
     font-weight: 600;
     min-width: 30px;
+    color: var(--azul-pacifico-oscuro);
 }
 
 .item-name {
     flex-grow: 1;
     margin-left: 10px;
+    font-weight: 500;
+}
+
+.special-instructions {
+    font-style: italic;
+    color: var(--terracota);
+    margin-left: 40px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    background-color: rgba(191, 54, 12, 0.05);
+    padding: 5px 10px;
+    border-radius: 5px;
+    border-left: 3px solid var(--terracota);
 }
 
 .order-footer {
     text-align: center;
-    margin-top: 15px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px solid var(--azul-pacifico-claro);
+}
+
+.order-number {
+    font-weight: 600;
+    color: var(--azul-pacifico-oscuro);
+    margin-bottom: 10px;
 }
 
 .status-indicator {
     display: inline-block;
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: 8px 15px;
+    border-radius: 8px;
     font-weight: 600;
     color: white;
-    background-color: #ff6b6b;
+    background: linear-gradient(135deg, var(--terracota), #D84315);
     margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(191, 54, 12, 0.2);
+}
+
+.status-preparando {
+    background: linear-gradient(135deg, var(--verde-menta), #66BB6A);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
 }
 
 .sending-status {
     text-align: center;
     padding: 15px;
-    background-color: #fff3cd;
-    border: 1px solid #ffeaa7;
-    border-radius: 5px;
+    background-color: rgba(255, 193, 7, 0.15);
+    border: 2px solid var(--aji-amarillo);
+    border-radius: 8px;
     margin-bottom: 20px;
     display: none;
     font-weight: 500;
-    color: #856404;
+    color: var(--azul-pacifico-oscuro);
+}
+
+.sending-status.success {
+    background-color: rgba(76, 175, 80, 0.15);
+    border-color: var(--verde-menta);
+    color: var(--verde-menta);
 }
 
 .btn {
     width: 100%;
-    padding: 12px;
+    padding: 15px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
     font-size: 16px;
     margin-bottom: 10px;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
 }
 
 .btn-primary {
-    background-color: #4a90e2;
+    background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
     color: white;
+    box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
 }
 
 .btn-primary:hover {
-    background-color: #357abd;
+    background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3);
 }
 
 .btn-secondary {
-    background-color: #6c757d;
-    color: white;
+    background: linear-gradient(135deg, var(--aji-amarillo), #FFB300);
+    color: var(--azul-pacifico-oscuro);
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
 }
 
 .btn-secondary:hover {
-    background-color: #5a6268;
+    background: linear-gradient(135deg, #FFB300, var(--aji-amarillo));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 193, 7, 0.3);
 }
 
 .btn-success {
-    background-color: #28a745;
+    background: linear-gradient(135deg, var(--verde-menta), #66BB6A);
     color: white;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
 }
 
 .btn-success:hover {
-    background-color: #218838;
+    background: linear-gradient(135deg, #66BB6A, var(--verde-menta));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
+}
+
+.btn:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 </style>
 </head>
@@ -261,9 +380,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     setTimeout(function() {
         sendingStatus.textContent = '✅ Orden enviada a cocina exitosamente';
-        sendingStatus.style.backgroundColor = '#d4edda';
-        sendingStatus.style.color = '#155724';
-        sendingStatus.style.borderColor = '#c3e6cb';
+        sendingStatus.classList.add('success');
     }, 2000);
 
     // Imprimir orden
@@ -274,7 +391,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Marcar como preparando
     confirmBtn.addEventListener('click', function() {
         statusIndicator.textContent = 'EN PREPARACIÓN';
-        statusIndicator.style.backgroundColor = '#28a745';
+        statusIndicator.classList.add('status-preparando');
         confirmBtn.textContent = 'Preparación en Curso';
         confirmBtn.disabled = true;
         confirmBtn.classList.remove('btn-primary');

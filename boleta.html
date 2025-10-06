@@ -1,183 +1,268 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Boleta Electrónica - Sabor Limeño</title>
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<style>
-body {
-    font-family: 'Open Sans', sans-serif;
-    background-color: #f8f9fa;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boleta Electrónica - Sabor Limeño</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+    :root {
+        --azul-pacifico: #1E88E5;
+        --azul-pacifico-oscuro: #1565C0;
+        --azul-pacifico-claro: #64B5F6;
+        --aji-amarillo: #FFC107;
+        --terracota: #BF360C;
+        --verde-menta: #4CAF50;
+        --purpura-nazca: #6A1B9A;
+        --blanco-roto: #F8F9FA;
+        --gris-texto: #424242;
+    }
 
-.header {
-    background-color: mediumturquoise;
-    color: white;
-    text-align: center;
-    padding: 2rem 1rem;
-    margin-bottom: 2rem;
-}
+    body {
+        font-family: 'Open Sans', sans-serif;
+        background-color: var(--blanco-roto);
+        color: var(--gris-texto);
+    }
 
-.container {
-    max-width: 600px;
-}
+    .header {
+        background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%);
+        color: white;
+        text-align: center;
+        padding: 2rem 1rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
 
-.card {
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    padding: 30px;
-    background-color: white;
-}
+    .header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+        background-size: cover;
+    }
 
-h1 {
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 25px;
-    color: #333;
-}
+    .header h1 {
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        position: relative;
+        z-index: 1;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        color: white;
+    }
 
-.email-confirmation {
-    background-color: #d4edda;
-    border: 1px solid #c3e6cb;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 25px;
-    text-align: center;
-    color: #155724;
-    font-weight: 500;
-}
+    .header p {
+        margin: 0;
+        font-size: 1.1rem;
+        position: relative;
+        z-index: 1;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        color: white;
+        font-weight: 500;
+    }
 
-.receipt {
-    border: 1px solid #eee;
-    border-radius: 8px;
-    padding: 20px;
-    background-color: #fafafa;
-    margin-bottom: 25px;
-}
+    .container {
+        max-width: 600px;
+    }
 
-.receipt-header {
-    text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #ddd;
-}
+    .card {
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1);
+        padding: 30px;
+        background-color: white;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
 
-.restaurant-name {
-    font-size: 20px;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 5px;
-}
+    .card:hover {
+        box-shadow: 0 15px 35px rgba(30, 136, 229, 0.15);
+        border-color: var(--azul-pacifico);
+    }
 
-.receipt-info {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 5px;
-}
+    h1 {
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 25px;
+        color: var(--azul-pacifico-oscuro);
+    }
 
-.receipt-details .detail-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    padding: 5px 0;
-}
+    .email-confirmation {
+        background-color: rgba(76, 175, 80, 0.15);
+        border: 2px solid var(--verde-menta);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 25px;
+        text-align: center;
+        color: var(--verde-menta);
+        font-weight: 600;
+    }
 
-.detail-label {
-    font-weight: 500;
-    color: #555;
-}
+    .receipt {
+        border: 2px solid var(--blanco-roto);
+        border-radius: 12px;
+        padding: 20px;
+        background: linear-gradient(135deg, #E3F2FD, #FFFFFF);
+        margin-bottom: 25px;
+        position: relative;
+        overflow: hidden;
+    }
 
-.detail-value {
-    font-weight: 600;
-    color: #333;
-}
+    .receipt::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--azul-pacifico), var(--verde-menta));
+    }
 
-.items-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
+    .receipt-header {
+        text-align: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid var(--azul-pacifico-claro);
+    }
 
-.items-table th {
-    text-align: left;
-    padding: 10px 5px;
-    border-bottom: 2px solid #ddd;
-    font-weight: 600;
-    color: #333;
-}
+    .restaurant-name {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--azul-pacifico-oscuro);
+        margin-bottom: 5px;
+    }
 
-.items-table td {
-    padding: 8px 5px;
-    border-bottom: 1px solid #eee;
-}
+    .receipt-info {
+        font-size: 14px;
+        color: var(--gris-texto);
+        margin-bottom: 5px;
+    }
 
-.item-name {
-    font-weight: 500;
-}
+    .receipt-details .detail-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        padding: 5px 0;
+    }
 
-.item-qty, .item-price {
-    text-align: center;
-}
+    .detail-label {
+        font-weight: 500;
+        color: var(--gris-texto);
+    }
 
-.item-total {
-    text-align: right;
-    font-weight: 600;
-}
+    .detail-value {
+        font-weight: 600;
+        color: var(--azul-pacifico-oscuro);
+    }
 
-.total-section {
-    background-color: #f0f0f0;
-    padding: 15px;
-    border-radius: 5px;
-    margin-top: 15px;
-    font-weight: 600;
-    color: #28a745;
-    display: flex;
-    justify-content: space-between;
-}
+    .items-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
 
-.btn {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
+    .items-table th {
+        text-align: left;
+        padding: 10px 5px;
+        border-bottom: 2px solid var(--azul-pacifico-claro);
+        font-weight: 600;
+        color: var(--azul-pacifico-oscuro);
+        background-color: rgba(30, 136, 229, 0.05);
+    }
 
-.btn-primary {
-    background-color: #4a90e2;
-    color: white;
-}
+    .items-table td {
+        padding: 8px 5px;
+        border-bottom: 1px solid var(--azul-pacifico-claro);
+    }
 
-.btn-primary:hover {
-    background-color: #357abd;
-}
+    .item-name {
+        font-weight: 500;
+    }
 
-.btn-secondary {
-    background-color: #6c757d;
-    color: white;
-}
+    .item-qty, .item-price {
+        text-align: center;
+    }
 
-.btn-secondary:hover {
-    background-color: #5a6268;
-}
+    .item-total {
+        text-align: right;
+        font-weight: 600;
+    }
 
-.print-section {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-}
+    .total-section {
+        background: linear-gradient(135deg, var(--verde-menta), #66BB6A);
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 15px;
+        font-weight: 600;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+    }
 
-.print-section .btn {
-    flex: 1;
-}
-</style>
-</head>
+    .btn {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 16px;
+        margin-bottom: 10px;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
+        color: white;
+        box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico));
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3);
+    }
+
+    .btn-secondary {
+        background: linear-gradient(135deg, var(--aji-amarillo), #FFB300);
+        color: var(--azul-pacifico-oscuro);
+        box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
+    }
+
+    .btn-secondary:hover {
+        background: linear-gradient(135deg, #FFB300, var(--aji-amarillo));
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(255, 193, 7, 0.3);
+    }
+
+    .print-section {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .print-section .btn {
+        flex: 1;
+    }
+
+    .footer-note {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 12px;
+        color: var(--gris-texto);
+        font-style: italic;
+    }
+    </style>
+    </head>
 <body>
 
 <div class="header">
@@ -236,7 +321,7 @@ h1 {
             <span>$47.960</span>
         </div>
 
-        <div style="text-align:center; margin-top:15px; font-size:12px; color:#666;">
+        <div class="footer-note">
             ¡Gracias por su compra!
         </div>
     </div>

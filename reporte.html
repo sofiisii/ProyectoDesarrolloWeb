@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reportes de Ventas - Sabor Limeño</title>
 <style>
+:root {
+    --azul-pacifico: #1E88E5;
+    --azul-pacifico-oscuro: #1565C0;
+    --azul-pacifico-claro: #64B5F6;
+    --aji-amarillo: #FFC107;
+    --terracota: #BF360C;
+    --verde-menta: #4CAF50;
+    --purpura-nazca: #6A1B9A;
+    --blanco-roto: #F8F9FA;
+    --gris-texto: #424242;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -13,94 +25,145 @@
 }
 
 body {
-    background-color: #f5f5f5;
+    background-color: var(--blanco-roto);
     margin: 0;
     padding: 0;
+    color: var(--gris-texto);
 }
 
 /* Header que se desplaza con la página */
 .header {
     width: 100%;
-    background-color: mediumturquoise;
+    background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%);
     color: white;
     text-align: center;
     padding: 1.5rem 1rem;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+    background-size: cover;
 }
 
 .header h1 {
     margin-bottom: 0.2rem;
-    font-weight: 600;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: white;
 }
 
 .header p {
     margin: 0;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    color: white;
+    font-weight: 500;
 }
 
 /* Contenedor centrado debajo del header */
 .container {
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1);
     width: 100%;
     max-width: 800px;
     padding: 30px;
-    margin: 20px auto; /* margen normal, ya no necesitamos espacio extra por header fijo */
+    margin: 20px auto;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.container:hover {
+    box-shadow: 0 15px 35px rgba(30, 136, 229, 0.15);
+    border-color: var(--azul-pacifico);
 }
 
 /* Resto de estilos existentes */
 h1 {
-    color: #333;
+    color: var(--azul-pacifico-oscuro);
     margin-bottom: 25px;
     font-weight: 600;
     text-align: center;
 }
 
 .report-filters {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 5px;
+    background: linear-gradient(135deg, #E3F2FD, #FFFFFF);
+    padding: 25px;
+    border-radius: 12px;
     margin-bottom: 30px;
+    border: 2px solid var(--blanco-roto);
 }
 
 .filter-group {
     display: flex;
     gap: 15px;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .filter-label {
-    font-weight: 500;
-    color: #555;
+    font-weight: 600;
+    color: var(--azul-pacifico-oscuro);
     min-width: 80px;
 }
 
 select {
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    padding: 12px 15px;
+    border: 2px solid var(--azul-pacifico-claro);
+    border-radius: 8px;
     font-size: 16px;
     background-color: white;
+    transition: all 0.3s;
+}
+
+select:focus {
+    border-color: var(--azul-pacifico);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.2);
 }
 
 .btn {
-    padding: 12px 25px;
+    padding: 15px 25px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
 }
 
 .btn-primary {
-    background-color: #4a90e2;
+    background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
     color: white;
+    box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
 }
 
-.btn-primary:hover {
-    background-color: #3a7bc8;
+.btn-primary:hover:not(:disabled) {
+    background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3);
+}
+
+.btn:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 .metrics-grid {
@@ -111,23 +174,48 @@ select {
 }
 
 .metric-card {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
+    background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
+    padding: 25px;
+    border-radius: 12px;
     text-align: center;
-    border-left: 4px solid #4a90e2;
+    box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+    background-size: cover;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(30, 136, 229, 0.4);
 }
 
 .metric-value {
     font-size: 28px;
     font-weight: 700;
-    color: #333;
-    margin: 10px 0;
+    color: white;
+    margin: 15px 0;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .metric-label {
-    color: #666;
+    color: rgba(255, 255, 255, 0.9);
     font-size: 14px;
+    position: relative;
+    z-index: 1;
+    font-weight: 500;
 }
 
 .top-dishes {
@@ -137,41 +225,49 @@ select {
 .section-title {
     font-size: 20px;
     font-weight: 600;
-    color: #333;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #eee;
+    color: var(--azul-pacifico-oscuro);
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--azul-pacifico-claro);
 }
 
 .dishes-table {
     width: 100%;
     border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(30, 136, 229, 0.1);
 }
 
 .dishes-table th {
-    background-color: #f8f9fa;
-    padding: 12px 15px;
+    background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
+    padding: 15px;
     text-align: left;
     font-weight: 600;
-    color: #333;
-    border-bottom: 2px solid #dee2e6;
+    color: white;
+    border: none;
 }
 
 .dishes-table td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #eee;
+    padding: 15px;
+    border-bottom: 1px solid var(--azul-pacifico-claro);
+    transition: all 0.3s;
+}
+
+.dishes-table tr:hover td {
+    background-color: rgba(30, 136, 229, 0.05);
 }
 
 .dish-rank {
-    font-weight: 600;
-    color: #4a90e2;
+    font-weight: 700;
+    color: var(--azul-pacifico-oscuro);
     width: 50px;
 }
 
 .dish-sales {
     text-align: right;
     font-weight: 600;
-    color: #28a745;
+    color: var(--verde-menta);
 }
 
 .export-buttons {
@@ -181,45 +277,54 @@ select {
 }
 
 .btn-export {
-    background-color: #28a745;
+    background: linear-gradient(135deg, var(--verde-menta), #66BB6A);
     color: white;
-    padding: 12px 20px;
+    padding: 15px 25px;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
 }
 
 .btn-export:hover {
-    background-color: #218838;
+    background: linear-gradient(135deg, #66BB6A, var(--verde-menta));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
 }
 
 .btn-pdf {
-    background-color: #dc3545;
+    background: linear-gradient(135deg, var(--terracota), #D84315);
+    box-shadow: 0 4px 12px rgba(191, 54, 12, 0.2);
 }
 
 .btn-pdf:hover {
-    background-color: #c82333;
+    background: linear-gradient(135deg, #D84315, var(--terracota));
+    box-shadow: 0 6px 15px rgba(191, 54, 12, 0.3);
 }
 
 .report-period {
     text-align: center;
-    color: #666;
+    color: var(--gris-texto);
     margin-bottom: 20px;
     font-style: italic;
+    font-weight: 500;
 }
 
 .loading {
     text-align: center;
     padding: 40px;
-    color: #666;
+    color: var(--gris-texto);
     display: none;
+    font-weight: 500;
 }
 
 .success-message {
-    background-color: #d4edda;
-    color: #155724;
+    background-color: rgba(76, 175, 80, 0.15);
+    color: var(--verde-menta);
     padding: 15px;
-    border-radius: 5px;
+    border-radius: 8px;
     text-align: center;
     margin-top: 20px;
     display: none;
+    border: 2px solid var(--verde-menta);
+    font-weight: 600;
 }
 </style>
 </head>
