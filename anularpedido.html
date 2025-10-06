@@ -271,84 +271,84 @@
     </head>
     <body>
 
-    <!-- Header mejorado -->
-    <div class="header">
-        <h1>Sabor Limeño</h1>
-        <p>Anulación de Pedido</p>
-    </div>
+        <!-- Header mejorado -->
+        <div class="header">
+            <h1>Sabor Limeño</h1>
+            <p>Anulación de Pedido</p>
+        </div>
 
-    <div class="container">
-        <h1>Anulación de Pedido</h1>
-        
-        <div id="orderStatus" class="order-status status-en-ruta">
-            Estado del pedido: En ruta
-        </div>
-        
-        <div class="order-details">
-            <div class="detail-row">
-                <span class="detail-label">Número de pedido:</span>
-                <span class="detail-value">#4501</span>
-            </div>
-            <div class="detail-row">
-                <span class="detail-label">Fecha:</span>
-                <span class="detail-value">15/03/2024 18:30</span>
-            </div>
-            <div class="detail-row">
-                <span class="detail-label">Total:</span>
-                <span class="detail-value">$47.960</span>
-            </div>
-            <div class="detail-row">
-                <span class="detail-label">Método de pago:</span>
-                <span class="detail-value">Tarjeta de crédito</span>
-            </div>
-            <div class="detail-row">
-                <span class="detail-label">Repartidor:</span>
-                <span class="detail-value">Carlos R.</span>
-            </div>
-        </div>
-        
-        <div id="cancellationBlocked" class="message error">
-            No es posible anular con el pedido en ruta
-        </div>
-        
-        <div id="cancellationForm" class="cancellation-form" style="display: none;">
-            <div class="form-group">
-                <label for="cancellationReason">Motivo de anulación:</label>
-                <select id="cancellationReason">
-                    <option value="">Seleccione un motivo</option>
-                    <option value="cambio_direccion">Cambio de dirección</option>
-                    <option value="arrepentimiento">Arrepentimiento de compra</option>
-                    <option value="duplicado">Pedido duplicado</option>
-                    <option value="tiempo_espera">Tiempo de espera excesivo</option>
-                    <option value="otro">Otro motivo</option>
-                </select>
+        <div class="container">
+            <h1>Anulación de Pedido</h1>
+            
+            <div id="orderStatus" class="order-status status-en-ruta">
+                Estado del pedido: En ruta
             </div>
             
-            <div class="form-group">
-                <label for="additionalComments">Comentarios adicionales:</label>
-                <textarea id="additionalComments" placeholder="Describa el motivo de la anulación..."></textarea>
+            <div class="order-details">
+                <div class="detail-row">
+                    <span class="detail-label">Número de pedido:</span>
+                    <span class="detail-value">#4501</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Fecha:</span>
+                    <span class="detail-value">15/03/2024 18:30</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Total:</span>
+                    <span class="detail-value">$47.960</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Método de pago:</span>
+                    <span class="detail-value">Tarjeta de crédito</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Repartidor:</span>
+                    <span class="detail-value">Carlos R.</span>
+                </div>
             </div>
             
-            <button class="btn btn-danger" id="confirmCancellation">Solicitar Anulación</button>
-            <button class="btn btn-secondary" id="cancelButton">Cancelar</button>
-        </div>
-        
-        <div id="successMessage" class="message success" style="display: none;">
-            Anulación aprobada. Se ha procesado el reembolso y la venta queda revertida.
-        </div>
-        
-        <div id="refundInfo" class="refund-info">
-            <div class="refund-title">Información de reembolso:</div>
-            <div class="refund-details">
-                • Monto reembolsado: $47.960<br>
-                • Método: Tarjeta de crédito<br>
-                • Tiempo estimado: 3-5 días hábiles<br>
-                • Número de transacción: REF-2024-00123
+            <div id="cancellationBlocked" class="message error">
+                No es posible anular con el pedido en ruta
             </div>
+            
+            <div id="cancellationForm" class="cancellation-form" style="display: none;">
+                <div class="form-group">
+                    <label for="cancellationReason">Motivo de anulación:</label>
+                    <select id="cancellationReason">
+                        <option value="">Seleccione un motivo</option>
+                        <option value="cambio_direccion">Cambio de dirección</option>
+                        <option value="arrepentimiento">Arrepentimiento de compra</option>
+                        <option value="duplicado">Pedido duplicado</option>
+                        <option value="tiempo_espera">Tiempo de espera excesivo</option>
+                        <option value="otro">Otro motivo</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="additionalComments">Comentarios adicionales:</label>
+                    <textarea id="additionalComments" placeholder="Describa el motivo de la anulación..."></textarea>
+                </div>
+                
+                <button class="btn btn-danger" id="confirmCancellation">Solicitar Anulación</button>
+                <button class="btn btn-secondary" id="cancelButton">Cancelar</button>
+            </div>
+            
+            <div id="successMessage" class="message success" style="display: none;">
+                Anulación aprobada. Se ha procesado el reembolso y la venta queda revertida.
+            </div>
+            
+            <div id="refundInfo" class="refund-info">
+                <div class="refund-title">Información de reembolso:</div>
+                <div class="refund-details">
+                    • Monto reembolsado: $47.960<br>
+                    • Método: Tarjeta de crédito<br>
+                    • Tiempo estimado: 3-5 días hábiles<br>
+                    • Número de transacción: REF-2024-00123
+                </div>
+            </div>
+            
+            <button class="btn btn-danger" id="requestCancellation">Solicitar Anulación</button>
         </div>
-        
-        <button class="btn btn-danger" id="requestCancellation">Solicitar Anulación</button>
-    </div>
 
         <script>
         document.addEventListener('DOMContentLoaded', function() {

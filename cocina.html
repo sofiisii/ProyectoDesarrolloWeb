@@ -1,405 +1,405 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Orden de Cocina - Sabor Limeño</title>
-<style>
-:root {
-    --azul-pacifico: #1E88E5;
-    --azul-pacifico-oscuro: #1565C0;
-    --azul-pacifico-claro: #64B5F6;
-    --aji-amarillo: #FFC107;
-    --terracota: #BF360C;
-    --verde-menta: #4CAF50;
-    --purpura-nazca: #6A1B9A;
-    --blanco-roto: #F8F9FA;
-    --gris-texto: #424242;
-}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Orden de Cocina - Sabor Limeño</title>
+        <style>
+        :root {
+            --azul-pacifico: #1E88E5;
+            --azul-pacifico-oscuro: #1565C0;
+            --azul-pacifico-claro: #64B5F6;
+            --aji-amarillo: #FFC107;
+            --terracota: #BF360C;
+            --verde-menta: #4CAF50;
+            --purpura-nazca: #6A1B9A;
+            --blanco-roto: #F8F9FA;
+            --gris-texto: #424242;
+        }
 
-body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: var(--blanco-roto);
-    margin: 0;
-    padding: 0;
-    color: var(--gris-texto);
-}
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--blanco-roto);
+            margin: 0;
+            padding: 0;
+            color: var(--gris-texto);
+        }
 
-/* Header normal, ya no fijo */
-.header {
-    width: 100%;
-    background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%);
-    color: white;
-    text-align: center;
-    padding: 1.5rem 1rem;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
-    position: relative;
-    overflow: hidden;
-}
+        /* Header normal, ya no fijo */
+        .header {
+            width: 100%;
+            background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 1rem;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
 
-.header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-    background-size: cover;
-}
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
 
-.header h1 {
-    margin-bottom: 0.2rem;
-    font-weight: 700;
-    position: relative;
-    z-index: 1;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    color: white;
-}
+        .header h1 {
+            margin-bottom: 0.2rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
 
-.header p {
-    margin: 0;
-    position: relative;
-    z-index: 1;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    color: white;
-    font-weight: 500;
-}
+        .header p {
+            margin: 0;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            color: white;
+            font-weight: 500;
+        }
 
-/* Contenedor centrado */
-.container {
-    max-width: 500px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 20px;
-}
+        /* Contenedor centrado */
+        .container {
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-/* Tarjeta principal */
-.card {
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1);
-    padding: 30px;
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
-}
+        /* Tarjeta principal */
+        .card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1);
+            padding: 30px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
 
-.card:hover {
-    box-shadow: 0 15px 35px rgba(30, 136, 229, 0.15);
-    border-color: var(--azul-pacifico);
-}
+        .card:hover {
+            box-shadow: 0 15px 35px rgba(30, 136, 229, 0.15);
+            border-color: var(--azul-pacifico);
+        }
 
-.kitchen-order {
-    border: 2px solid var(--blanco-roto);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 25px;
-    background: linear-gradient(135deg, #E3F2FD, #FFFFFF);
-    position: relative;
-    overflow: hidden;
-}
+        .kitchen-order {
+            border: 2px solid var(--blanco-roto);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #E3F2FD, #FFFFFF);
+            position: relative;
+            overflow: hidden;
+        }
 
-.kitchen-order::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--azul-pacifico), var(--verde-menta));
-}
+        .kitchen-order::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--azul-pacifico), var(--verde-menta));
+        }
 
-.order-header {
-    text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid var(--azul-pacifico-claro);
-}
+        .order-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--azul-pacifico-claro);
+        }
 
-.restaurant-name {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 5px;
-    color: var(--azul-pacifico-oscuro);
-}
+        .restaurant-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--azul-pacifico-oscuro);
+        }
 
-.order-title {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: var(--gris-texto);
-}
+        .order-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--gris-texto);
+        }
 
-.order-info {
-    font-size: 14px;
-    color: var(--gris-texto);
-}
+        .order-info {
+            font-size: 14px;
+            color: var(--gris-texto);
+        }
 
-.detail-section {
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 8px;
-    border: 1px solid var(--blanco-roto);
-}
+        .detail-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            border: 1px solid var(--blanco-roto);
+        }
 
-.section-title {
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: var(--azul-pacifico-oscuro);
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
+        .section-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--azul-pacifico-oscuro);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-.customer-info, .special-instructions {
-    font-size: 14px;
-    color: var(--gris-texto);
-    line-height: 1.4;
-}
+        .customer-info, .special-instructions {
+            font-size: 14px;
+            color: var(--gris-texto);
+            line-height: 1.4;
+        }
 
-.items-list {
-    margin-top: 10px;
-}
+        .items-list {
+            margin-top: 10px;
+        }
 
-.order-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    padding-bottom: 8px;
-    border-bottom: 1px dashed var(--azul-pacifico-claro);
-}
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed var(--azul-pacifico-claro);
+        }
 
-.item-quantity {
-    font-weight: 600;
-    min-width: 30px;
-    color: var(--azul-pacifico-oscuro);
-}
+        .item-quantity {
+            font-weight: 600;
+            min-width: 30px;
+            color: var(--azul-pacifico-oscuro);
+        }
 
-.item-name {
-    flex-grow: 1;
-    margin-left: 10px;
-    font-weight: 500;
-}
+        .item-name {
+            flex-grow: 1;
+            margin-left: 10px;
+            font-weight: 500;
+        }
 
-.special-instructions {
-    font-style: italic;
-    color: var(--terracota);
-    margin-left: 40px;
-    margin-bottom: 10px;
-    font-size: 13px;
-    background-color: rgba(191, 54, 12, 0.05);
-    padding: 5px 10px;
-    border-radius: 5px;
-    border-left: 3px solid var(--terracota);
-}
+        .special-instructions {
+            font-style: italic;
+            color: var(--terracota);
+            margin-left: 40px;
+            margin-bottom: 10px;
+            font-size: 13px;
+            background-color: rgba(191, 54, 12, 0.05);
+            padding: 5px 10px;
+            border-radius: 5px;
+            border-left: 3px solid var(--terracota);
+        }
 
-.order-footer {
-    text-align: center;
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 2px solid var(--azul-pacifico-claro);
-}
+        .order-footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px solid var(--azul-pacifico-claro);
+        }
 
-.order-number {
-    font-weight: 600;
-    color: var(--azul-pacifico-oscuro);
-    margin-bottom: 10px;
-}
+        .order-number {
+            font-weight: 600;
+            color: var(--azul-pacifico-oscuro);
+            margin-bottom: 10px;
+        }
 
-.status-indicator {
-    display: inline-block;
-    padding: 8px 15px;
-    border-radius: 8px;
-    font-weight: 600;
-    color: white;
-    background: linear-gradient(135deg, var(--terracota), #D84315);
-    margin-top: 10px;
-    box-shadow: 0 4px 12px rgba(191, 54, 12, 0.2);
-}
+        .status-indicator {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, var(--terracota), #D84315);
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(191, 54, 12, 0.2);
+        }
 
-.status-preparando {
-    background: linear-gradient(135deg, var(--verde-menta), #66BB6A);
-    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
-}
+        .status-preparando {
+            background: linear-gradient(135deg, var(--verde-menta), #66BB6A);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+        }
 
-.sending-status {
-    text-align: center;
-    padding: 15px;
-    background-color: rgba(255, 193, 7, 0.15);
-    border: 2px solid var(--aji-amarillo);
-    border-radius: 8px;
-    margin-bottom: 20px;
-    display: none;
-    font-weight: 500;
-    color: var(--azul-pacifico-oscuro);
-}
+        .sending-status {
+            text-align: center;
+            padding: 15px;
+            background-color: rgba(255, 193, 7, 0.15);
+            border: 2px solid var(--aji-amarillo);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-weight: 500;
+            color: var(--azul-pacifico-oscuro);
+        }
 
-.sending-status.success {
-    background-color: rgba(76, 175, 80, 0.15);
-    border-color: var(--verde-menta);
-    color: var(--verde-menta);
-}
+        .sending-status.success {
+            background-color: rgba(76, 175, 80, 0.15);
+            border-color: var(--verde-menta);
+            color: var(--verde-menta);
+        }
 
-.btn {
-    width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 16px;
-    margin-bottom: 10px;
-    transition: all 0.3s;
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
-}
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
 
-.btn-primary {
-    background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
-    color: white;
-    box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
-}
+        .btn-primary {
+            background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
+            color: white;
+            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
+        }
 
-.btn-primary:hover {
-    background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico));
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3);
-}
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3);
+        }
 
-.btn-secondary {
-    background: linear-gradient(135deg, var(--aji-amarillo), #FFB300);
-    color: var(--azul-pacifico-oscuro);
-    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
-}
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--aji-amarillo), #FFB300);
+            color: var(--azul-pacifico-oscuro);
+            box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
+        }
 
-.btn-secondary:hover {
-    background: linear-gradient(135deg, #FFB300, var(--aji-amarillo));
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(255, 193, 7, 0.3);
-}
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #FFB300, var(--aji-amarillo));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 193, 7, 0.3);
+        }
 
-.btn-success {
-    background: linear-gradient(135deg, var(--verde-menta), #66BB6A);
-    color: white;
-    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
-}
+        .btn-success {
+            background: linear-gradient(135deg, var(--verde-menta), #66BB6A);
+            color: white;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+        }
 
-.btn-success:hover {
-    background: linear-gradient(135deg, #66BB6A, var(--verde-menta));
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
-}
+        .btn-success:hover {
+            background: linear-gradient(135deg, #66BB6A, var(--verde-menta));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
+        }
 
-.btn:disabled {
-    background: #cccccc;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-</style>
-</head>
-<body>
+        .btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        </style>
+    </head>
+    <body>
 
-<div class="header">
-    <h1>Sabor Limeño</h1>
-    <p>Orden de Cocina</p>
-</div>
-
-<div class="container">
-    <div id="sendingStatus" class="sending-status">
-        ⏳ Enviando orden a cocina...
-    </div>
-
-    <div class="card kitchen-order">
-        <div class="order-header">
-            <div class="restaurant-name">Sabor Limeño</div>
-            <div class="order-title">ORDEN DE COCINA</div>
-            <div class="order-info">Pedido #P-2024-00123</div>
-            <div class="order-info">15/03/2024 - 18:30:45</div>
+        <div class="header">
+            <h1>Sabor Limeño</h1>
+            <p>Orden de Cocina</p>
         </div>
 
-        <div class="detail-section">
-            <div class="section-title">INFORMACIÓN DEL CLIENTE</div>
-            <div class="customer-info">
-                <strong>Nombre:</strong> Juan Pérez<br>
-                <strong>Teléfono:</strong> +56 9 1234 5678<br>
-                <strong>Dirección:</strong> Av. Principal 123, Santiago<br>
-                <strong>Comuna:</strong> Providencia
+        <div class="container">
+            <div id="sendingStatus" class="sending-status">
+                ⏳ Enviando orden a cocina...
             </div>
-        </div>
 
-        <div class="detail-section">
-            <div class="section-title">DETALLE DEL PEDIDO</div>
-            <div class="items-list">
-                <div class="order-item">
-                    <span class="item-quantity">2x</span>
-                    <span class="item-name">Lomo Saltado</span>
+            <div class="card kitchen-order">
+                <div class="order-header">
+                    <div class="restaurant-name">Sabor Limeño</div>
+                    <div class="order-title">ORDEN DE COCINA</div>
+                    <div class="order-info">Pedido #P-2024-00123</div>
+                    <div class="order-info">15/03/2024 - 18:30:45</div>
                 </div>
-                <div class="special-instructions">Sin cebolla morada</div>
 
-                <div class="order-item">
-                    <span class="item-quantity">2x</span>
-                    <span class="item-name">Ceviche Clásico</span>
+                <div class="detail-section">
+                    <div class="section-title">INFORMACIÓN DEL CLIENTE</div>
+                    <div class="customer-info">
+                        <strong>Nombre:</strong> Juan Pérez<br>
+                        <strong>Teléfono:</strong> +56 9 1234 5678<br>
+                        <strong>Dirección:</strong> Av. Principal 123, Santiago<br>
+                        <strong>Comuna:</strong> Providencia
+                    </div>
                 </div>
-                <div class="special-instructions">Picante suave</div>
 
-                <div class="order-item">
-                    <span class="item-quantity">1x</span>
-                    <span class="item-name">Suspiro Limeño</span>
+                <div class="detail-section">
+                    <div class="section-title">DETALLE DEL PEDIDO</div>
+                    <div class="items-list">
+                        <div class="order-item">
+                            <span class="item-quantity">2x</span>
+                            <span class="item-name">Lomo Saltado</span>
+                        </div>
+                        <div class="special-instructions">Sin cebolla morada</div>
+
+                        <div class="order-item">
+                            <span class="item-quantity">2x</span>
+                            <span class="item-name">Ceviche Clásico</span>
+                        </div>
+                        <div class="special-instructions">Picante suave</div>
+
+                        <div class="order-item">
+                            <span class="item-quantity">1x</span>
+                            <span class="item-name">Suspiro Limeño</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="section-title">OBSERVACIONES</div>
+                    <div class="customer-info">Entregar en portería. Timbre 123.</div>
+                </div>
+
+                <div class="order-footer">
+                    <div class="order-number">ORDEN: OC-2024-00123</div>
+                    <div class="status-indicator" id="statusIndicator">PENDIENTE</div>
                 </div>
             </div>
+
+            <button class="btn btn-success" id="printBtn">Imprimir Orden</button>
+            <button class="btn btn-primary" id="confirmBtn">Marcar como Preparando</button>
         </div>
 
-        <div class="detail-section">
-            <div class="section-title">OBSERVACIONES</div>
-            <div class="customer-info">Entregar en portería. Timbre 123.</div>
-        </div>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const printBtn = document.getElementById('printBtn');
+            const confirmBtn = document.getElementById('confirmBtn');
+            const sendingStatus = document.getElementById('sendingStatus');
+            const statusIndicator = document.getElementById('statusIndicator');
 
-        <div class="order-footer">
-            <div class="order-number">ORDEN: OC-2024-00123</div>
-            <div class="status-indicator" id="statusIndicator">PENDIENTE</div>
-        </div>
-    </div>
+            // Mostrar estado de envío al cargar
+            sendingStatus.style.display = 'block';
 
-    <button class="btn btn-success" id="printBtn">Imprimir Orden</button>
-    <button class="btn btn-primary" id="confirmBtn">Marcar como Preparando</button>
-</div>
+            setTimeout(function() {
+                sendingStatus.textContent = '✅ Orden enviada a cocina exitosamente';
+                sendingStatus.classList.add('success');
+            }, 2000);
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const printBtn = document.getElementById('printBtn');
-    const confirmBtn = document.getElementById('confirmBtn');
-    const sendingStatus = document.getElementById('sendingStatus');
-    const statusIndicator = document.getElementById('statusIndicator');
+            // Imprimir orden
+            printBtn.addEventListener('click', function() {
+                window.print();
+            });
 
-    // Mostrar estado de envío al cargar
-    sendingStatus.style.display = 'block';
+            // Marcar como preparando
+            confirmBtn.addEventListener('click', function() {
+                statusIndicator.textContent = 'EN PREPARACIÓN';
+                statusIndicator.classList.add('status-preparando');
+                confirmBtn.textContent = 'Preparación en Curso';
+                confirmBtn.disabled = true;
+                confirmBtn.classList.remove('btn-primary');
+                confirmBtn.classList.add('btn-secondary');
+                alert('Orden marcada como en preparación');
+            });
+        });
+        </script>
 
-    setTimeout(function() {
-        sendingStatus.textContent = '✅ Orden enviada a cocina exitosamente';
-        sendingStatus.classList.add('success');
-    }, 2000);
-
-    // Imprimir orden
-    printBtn.addEventListener('click', function() {
-        window.print();
-    });
-
-    // Marcar como preparando
-    confirmBtn.addEventListener('click', function() {
-        statusIndicator.textContent = 'EN PREPARACIÓN';
-        statusIndicator.classList.add('status-preparando');
-        confirmBtn.textContent = 'Preparación en Curso';
-        confirmBtn.disabled = true;
-        confirmBtn.classList.remove('btn-primary');
-        confirmBtn.classList.add('btn-secondary');
-        alert('Orden marcada como en preparación');
-    });
-});
-</script>
-
-</body>
+    </body>
 </html>
