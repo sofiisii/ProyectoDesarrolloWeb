@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>Registro</title>
+        <title>Registro - Sabor Limeño</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet">
@@ -21,23 +21,114 @@
             }
 
             body {
-                font-family: 'Open Sans', sans-serif;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 background-color: var(--blanco-roto);
                 color: var(--gris-texto);
+                margin: 0;
+                padding: 0;
             }
 
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+            
+            /* Header */
             .header {
                 background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%);
                 color: white;
-                text-align: center;
-                padding: 2rem 1rem;
-                margin-bottom: 2rem;
                 box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
+                padding: 1rem 0;
+            }
+            
+            .nav-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .nav-links {
+                display: flex;
+                gap: 2rem;
+                list-style: none;
+            }
+            
+            .nav-links a {
+                color: white;
+                text-decoration: none;
+                font-weight: 500;
+                transition: all 0.3s;
+                padding: 0.5rem 1rem;
+                border-radius: 25px;
+            }
+            
+            .nav-links a:hover {
+                background-color: rgba(255, 255, 255, 0.15);
+                transform: translateY(-2px);
+            }
+            
+            .auth-buttons {
+                display: flex;
+                gap: 1rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 25px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 14px;
+            }
+            
+            .btn-outline {
+                background: transparent;
+                border: 2px solid white;
+                color: white;
+            }
+            
+            .btn-outline:hover {
+                background: white;
+                color: var(--azul-pacifico);
+                transform: translateY(-2px);
+            }
+            
+            .btn-primary {
+                background: var(--aji-amarillo);
+                color: var(--azul-pacifico-oscuro);
+                font-weight: 700;
+            }
+            
+            .btn-primary:hover {
+                background: #FFB300;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+            }
+
+            /* Hero Section Reducida */
+            .hero {
+                background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%);
+                color: white;
+                padding: 2rem 0;
+                text-align: center;
+                margin-bottom: 2rem;
                 position: relative;
                 overflow: hidden;
             }
-
-            .header::before {
+            
+            .hero::before {
                 content: '';
                 position: absolute;
                 top: 0;
@@ -47,24 +138,30 @@
                 background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
                 background-size: cover;
             }
-
-            .header h1 {
-                font-weight: 700;
-                margin-bottom: 0.5rem;
+            
+            .hero-content {
+                max-width: 600px;
+                margin: 0 auto;
                 position: relative;
                 z-index: 1;
-                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-                color: white;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+                font-weight: 700;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 0;
+                opacity: 0.9;
             }
 
-            .header p {
-                margin: 0;
-                font-size: 1.1rem;
-                position: relative;
-                z-index: 1;
-                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-                color: white;
-                font-weight: 500;
+            .register-container {
+                max-width: 500px;
+                margin: 0 auto;
+                padding: 0 15px;
             }
 
             .card {
@@ -73,11 +170,30 @@
                 border: 2px solid transparent;
                 transition: all 0.3s ease;
                 overflow: hidden;
+                margin-bottom: 2rem;
             }
 
             .card:hover {
                 box-shadow: 0 15px 35px rgba(30, 136, 229, 0.15);
                 border-color: var(--azul-pacifico);
+            }
+
+            .card-header {
+                background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
+                color: white;
+                padding: 1.5rem;
+                text-align: center;
+                border-bottom: none;
+            }
+
+            .card-header h2 {
+                margin: 0;
+                font-weight: 600;
+                font-size: 1.5rem;
+            }
+
+            .card-body {
+                padding: 2rem;
             }
 
             .form-control {
@@ -105,27 +221,7 @@
                 font-style: italic;
             }
 
-            .alert {
-                border-radius: 8px;
-                padding: 15px;
-                margin-bottom: 20px;
-                border: 2px solid transparent;
-                font-weight: 500;
-            }
-
-            .alert-success {
-                background-color: rgba(76, 175, 80, 0.15);
-                color: var(--verde-menta);
-                border-color: var(--verde-menta);
-            }
-
-            .alert-danger {
-                background: linear-gradient(135deg, rgba(255, 193, 7, 0.15), rgba(255, 193, 7, 0.1));
-                color: var(--azul-pacifico-oscuro);
-                border-color: var(--aji-amarillo);
-            }
-
-            .btn {
+            .btn-register {
                 padding: 15px;
                 border: none;
                 border-radius: 8px;
@@ -136,15 +232,13 @@
                 text-decoration: none;
                 display: inline-block;
                 text-align: center;
-            }
-
-            .btn-primary {
+                width: 100%;
                 background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
                 color: white;
                 box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
             }
 
-            .btn-primary:hover:not(:disabled) {
+            .btn-register:hover:not(:disabled) {
                 background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico));
                 transform: translateY(-2px);
                 box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3);
@@ -182,6 +276,28 @@
                 text-decoration: none;
             }
 
+            /* Alertas */
+            .alert {
+                border-radius: 8px;
+                padding: 15px;
+                margin-bottom: 20px;
+                border: 2px solid transparent;
+                font-weight: 500;
+            }
+
+            .alert-success {
+                background-color: rgba(76, 175, 80, 0.15);
+                color: var(--verde-menta);
+                border-color: var(--verde-menta);
+            }
+
+            .alert-danger {
+                background: linear-gradient(135deg, rgba(255, 193, 7, 0.15), rgba(255, 193, 7, 0.1));
+                color: var(--azul-pacifico-oscuro);
+                border-color: var(--aji-amarillo);
+            }
+
+            /* Indicadores de contraseña */
             .password-strength {
                 margin-top: 5px;
                 font-size: 12px;
@@ -191,72 +307,187 @@
             .strength-weak { color: var(--terracota); }
             .strength-medium { color: var(--aji-amarillo); }
             .strength-strong { color: var(--verde-menta); }
+
+            .password-match {
+                margin-top: 5px;
+                font-size: 12px;
+                font-weight: 500;
+            }
+
+            .match-success { color: var(--verde-menta); }
+            .match-error { color: var(--terracota); }
+
+            /* Responsive */
+            @media (max-width: 768px) {
+                .nav-container {
+                    flex-direction: column;
+                    gap: 1rem;
+                }
+                
+                .nav-links {
+                    gap: 1rem;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+                
+                .auth-buttons {
+                    flex-direction: column;
+                    width: 100%;
+                }
+                
+                .auth-buttons .btn {
+                    text-align: center;
+                }
+                
+                .hero h1 {
+                    font-size: 1.8rem;
+                }
+                
+                .hero p {
+                    font-size: 0.9rem;
+                }
+                
+                .card-body {
+                    padding: 1.5rem;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .logo {
+                    font-size: 1.5rem;
+                    justify-content: center;
+                    text-align: center;
+                    width: 100%;
+                    margin-bottom: 1rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                
+                .nav-links {
+                    flex-direction: column;
+                    gap: 0.5rem;
+                    text-align: center;
+                    width: 100%;
+                }
+                
+                .nav-links a {
+                    display: block;
+                    width: 100%;
+                    text-align: center;
+                }
+                
+                .auth-buttons {
+                    width: 100%;
+                }
+                
+                .auth-buttons .btn {
+                    width: 100%;
+                }
+                
+                .hero {
+                    padding: 1.5rem 0;
+                }
+                
+                .hero h1 {
+                    font-size: 1.6rem;
+                }
+                
+                .hero p {
+                    font-size: 0.85rem;
+                }
+            }
         </style>
     </head>
     <body>
+
         <!-- Header -->
-        <div class="header w-100">
-            <h1 class="fw-bold">Sabor Limeño</h1>
-            <p class="mb-0">Registro de usuarios</p>
-        </div>
-
-        <!-- Formulario -->
-        <div class="container my-4">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-
-                    <!-- Mensajes -->
-                    <div id="successMessage" class="alert alert-success d-none" role="alert">
-                        ¡Registro exitoso! Se ha enviado un enlace de validación a tu correo electrónico.
+        <header class="header">
+            <div class="container">
+                <nav class="nav-container">
+                    <div class="logo">
+                        <span>Sabor Limeño</span>
                     </div>
-
-                    <div id="errorMessage" class="alert alert-danger d-none" role="alert">
-                        Ha ocurrido un error. Por favor, verifica tus datos e intenta nuevamente.
+                    
+                    <ul class="nav-links">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="catalogo.html">Catálogo</a></li>
+                        <li><a href="signin.html">Iniciar Sesión</a></li>
+                    </ul>
+                    
+                    <div class="auth-buttons">
+                        <a href="signin.html" class="btn btn-outline">Iniciar Sesión</a>
+                        <a href="registro.html" class="btn btn-primary">Registrarse</a>
                     </div>
+                </nav>
+            </div>
+        </header>
 
-                    <div class="card shadow p-4">
-                        <form id="registrationForm">
-                            <!-- Nombre -->
-                            <div class="mb-3">
-                                <label for="nombre" class="form-label">Nombre completo</label>
-                                <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre" required>
+        <!-- Hero Section Reducida -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Únete a Sabor Limeño</h1>
+                    <p>Crea tu cuenta para disfrutar de la auténtica cocina peruana</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="register-container">
+            <!-- Mensajes -->
+            <div id="successMessage" class="alert alert-success d-none" role="alert">
+                ¡Registro exitoso! Se ha enviado un enlace de validación a tu correo electrónico.
+            </div>
+
+            <div id="errorMessage" class="alert alert-danger d-none" role="alert">
+                Ha ocurrido un error. Por favor, verifica tus datos e intenta nuevamente.
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Crear Cuenta</h2>
+                </div>
+                <div class="card-body">
+                    <form id="registrationForm">
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre completo</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre" required>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo electrónico</label>
+                            <input type="email" class="form-control" id="email" placeholder="ejemplo@email.com" required>
+                        </div>
+
+                        <!-- Contraseña -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="password" placeholder="********" required>
+                            <div class="form-text">
+                                La contraseña debe tener al menos 8 caracteres, incluir mayúsculas, minúsculas y números.
                             </div>
+                            <div id="passwordStrength" class="password-strength"></div>
+                        </div>
 
-                            <!-- Email -->
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Correo electrónico</label>
-                                <input type="email" class="form-control" id="email" placeholder="ejemplo@email.com" required>
-                            </div>
+                        <!-- Confirmar contraseña -->
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirmar contraseña</label>
+                            <input type="password" class="form-control" id="confirmPassword" placeholder="********" required>
+                            <div id="passwordMatch" class="password-match"></div>
+                        </div>
 
-                            <!-- Contraseña -->
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" id="password" placeholder="********" required>
-                                <div class="form-text">
-                                    La contraseña debe tener al menos 8 caracteres, incluir mayúsculas, minúsculas y números.
-                                </div>
-                                <div id="passwordStrength" class="password-strength"></div>
-                            </div>
-
-                            <!-- Confirmar contraseña -->
-                            <div class="mb-3">
-                                <label for="confirmPassword" class="form-label">Confirmar contraseña</label>
-                                <input type="password" class="form-control" id="confirmPassword" placeholder="********" required>
-                                <div id="passwordMatch" class="form-text"></div>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary w-100">Registrarse</button>
-                        </form>
-                    </div>
-
+                        <button type="submit" class="btn-register">Registrarse</button>
+                    </form>
+                    
                     <div class="text-center mt-3">
-                        ¿Ya tienes una cuenta? <a href="signin.html">Inicia sesión aquí</a>
+                        ¿Ya tienes cuenta? <a href="signin.html">Inicia sesión aquí</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Script de validación -->
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const form = document.getElementById('registrationForm');
@@ -297,13 +528,14 @@
                     if (passwordInput.value && this.value) {
                         if (passwordInput.value === this.value) {
                             passwordMatch.textContent = '✓ Las contraseñas coinciden';
-                            passwordMatch.style.color = 'var(--verde-menta)';
+                            passwordMatch.className = 'password-match match-success';
                         } else {
                             passwordMatch.textContent = '✗ Las contraseñas no coinciden';
-                            passwordMatch.style.color = 'var(--terracota)';
+                            passwordMatch.className = 'password-match match-error';
                         }
                     } else {
                         passwordMatch.textContent = '';
+                        passwordMatch.className = 'password-match';
                     }
                 });
 
@@ -363,6 +595,7 @@
                         form.reset();
                         passwordStrength.textContent = '';
                         passwordMatch.textContent = '';
+                        passwordMatch.className = 'password-match';
                         submitBtn.disabled = false;
                         submitBtn.textContent = 'Registrarse';
                     }, 1500);

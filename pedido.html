@@ -21,23 +21,114 @@
             }
 
             body {
-                font-family: 'Open Sans', sans-serif;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 background-color: var(--blanco-roto);
                 color: var(--gris-texto);
+                margin: 0;
+                padding: 0;
             }
 
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+            
+            /* Header */
             .header {
                 background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%);
                 color: white;
-                text-align: center;
-                padding: 2rem 1rem;
-                margin-bottom: 2rem;
                 box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
+                padding: 1rem 0;
+            }
+            
+            .nav-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .nav-links {
+                display: flex;
+                gap: 2rem;
+                list-style: none;
+            }
+            
+            .nav-links a {
+                color: white;
+                text-decoration: none;
+                font-weight: 500;
+                transition: all 0.3s;
+                padding: 0.5rem 1rem;
+                border-radius: 25px;
+            }
+            
+            .nav-links a:hover {
+                background-color: rgba(255, 255, 255, 0.15);
+                transform: translateY(-2px);
+            }
+            
+            .auth-buttons {
+                display: flex;
+                gap: 1rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 25px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 14px;
+            }
+            
+            .btn-outline {
+                background: transparent;
+                border: 2px solid white;
+                color: white;
+            }
+            
+            .btn-outline:hover {
+                background: white;
+                color: var(--azul-pacifico);
+                transform: translateY(-2px);
+            }
+            
+            .btn-primary {
+                background: var(--aji-amarillo);
+                color: var(--azul-pacifico-oscuro);
+                font-weight: 700;
+            }
+            
+            .btn-primary:hover {
+                background: #FFB300;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+            }
+
+            /* Hero Section Reducida */
+            .hero {
+                background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%);
+                color: white;
+                padding: 2rem 0;
+                text-align: center;
+                margin-bottom: 2rem;
                 position: relative;
                 overflow: hidden;
             }
-
-            .header::before {
+            
+            .hero::before {
                 content: '';
                 position: absolute;
                 top: 0;
@@ -47,24 +138,31 @@
                 background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
                 background-size: cover;
             }
-
-            .header h1 {
-                font-weight: 700;
-                margin-bottom: 0.5rem;
+            
+            .hero-content {
+                max-width: 600px;
+                margin: 0 auto;
                 position: relative;
                 z-index: 1;
-                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-                color: white;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+                font-weight: 700;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 0;
+                opacity: 0.9;
             }
 
-            .header p {
-                margin: 0;
-                font-size: 1.1rem;
-                position: relative;
-                z-index: 1;
-                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-                color: white;
-                font-weight: 500;
+            /* Contenido principal */
+            .order-container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 0 15px;
             }
 
             .card {
@@ -73,6 +171,7 @@
                 border: 2px solid transparent;
                 transition: all 0.3s ease;
                 overflow: hidden;
+                margin-bottom: 2rem;
             }
 
             .card:hover {
@@ -80,15 +179,22 @@
                 border-color: var(--azul-pacifico);
             }
 
-            .container {
-                max-width: 600px;
+            .card-header {
+                background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
+                color: white;
+                padding: 1.5rem;
+                text-align: center;
+                border-bottom: none;
             }
 
-            h1 {
+            .card-header h2 {
+                margin: 0;
                 font-weight: 600;
-                text-align: center;
-                margin-bottom: 25px;
-                color: var(--azul-pacifico-oscuro);
+                font-size: 1.5rem;
+            }
+
+            .card-body {
+                padding: 2rem;
             }
 
             .order-items {
@@ -171,28 +277,24 @@
                 text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             }
 
-            .btn {
-                width: 100%;
+            .btn-action {
                 padding: 15px;
                 border: none;
                 border-radius: 8px;
                 font-weight: 600;
                 cursor: pointer;
                 font-size: 16px;
-                margin-bottom: 10px;
                 transition: all 0.3s;
                 text-decoration: none;
                 display: inline-block;
                 text-align: center;
-            }
-
-            .btn-primary {
+                width: 100%;
                 background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
                 color: white;
                 box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
             }
 
-            .btn-primary:hover:not(:disabled) {
+            .btn-action:hover:not(:disabled) {
                 background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico));
                 transform: translateY(-2px);
                 box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3);
@@ -293,82 +395,311 @@
                 margin-bottom: 25px;
                 font-size: 16px;
             }
+
+            .order-status {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
+                position: relative;
+            }
+
+            .status-step {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                flex: 1;
+                position: relative;
+            }
+
+            .status-step:not(:last-child)::after {
+                content: '';
+                position: absolute;
+                top: 15px;
+                right: -50%;
+                width: 100%;
+                height: 3px;
+                background-color: var(--azul-pacifico-claro);
+                z-index: 1;
+            }
+
+            .status-step.active:not(:last-child)::after {
+                background-color: var(--azul-pacifico);
+            }
+
+            .status-icon {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background-color: var(--azul-pacifico-claro);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-weight: bold;
+                margin-bottom: 8px;
+                z-index: 2;
+                position: relative;
+            }
+
+            .status-step.active .status-icon {
+                background-color: var(--azul-pacifico);
+            }
+
+            .status-step.completed .status-icon {
+                background-color: var(--verde-menta);
+            }
+
+            .status-label {
+                font-size: 12px;
+                text-align: center;
+                color: var(--gris-texto);
+            }
+
+            .status-step.active .status-label {
+                color: var(--azul-pacifico);
+                font-weight: 600;
+            }
+
+            .status-step.completed .status-label {
+                color: var(--verde-menta);
+                font-weight: 600;
+            }
+
+            /* Responsive */
+            @media (max-width: 768px) {
+                .nav-container {
+                    flex-direction: column;
+                    gap: 1rem;
+                }
+                
+                .nav-links {
+                    gap: 1rem;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+                
+                .auth-buttons {
+                    flex-direction: column;
+                    width: 100%;
+                }
+                
+                .auth-buttons .btn {
+                    text-align: center;
+                }
+                
+                .hero h1 {
+                    font-size: 1.8rem;
+                }
+                
+                .hero p {
+                    font-size: 0.9rem;
+                }
+                
+                .card-body {
+                    padding: 1.5rem;
+                }
+
+                .order-item {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+
+                .item-price {
+                    text-align: left;
+                    margin-top: 10px;
+                }
+
+                .status-step:not(:last-child)::after {
+                    right: -40%;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .logo {
+                    font-size: 1.5rem;
+                    justify-content: center;
+                    text-align: center;
+                    width: 100%;
+                    margin-bottom: 1rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                
+                .nav-links {
+                    flex-direction: column;
+                    gap: 0.5rem;
+                    text-align: center;
+                    width: 100%;
+                }
+                
+                .nav-links a {
+                    display: block;
+                    width: 100%;
+                    text-align: center;
+                }
+                
+                .auth-buttons {
+                    width: 100%;
+                }
+                
+                .auth-buttons .btn {
+                    width: 100%;
+                }
+                
+                .hero {
+                    padding: 1.5rem 0;
+                }
+                
+                .hero h1 {
+                    font-size: 1.6rem;
+                }
+                
+                .hero p {
+                    font-size: 0.85rem;
+                }
+
+                .status-step:not(:last-child)::after {
+                    right: -30%;
+                }
+            }
         </style>
     </head>
     <body>
 
-        <div class="header">
-            <h1>Sabor Limeño</h1>
-            <p class="mb-0">Tu Pedido</p>
-        </div>
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <nav class="nav-container">
+                    <div class="logo">
+                        <span>Sabor Limeño</span>
+                    </div>
+                    
+                    <ul class="nav-links">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="catalogo.html">Catálogo</a></li>
+                        <li><a href="signin.html">Iniciar Sesión</a></li>
+                    </ul>
+                    
+                    <div class="auth-buttons">
+                        <a href="signin.html" class="btn btn-outline">Iniciar Sesión</a>
+                        <a href="registro.html" class="btn btn-primary">Registrarse</a>
+                    </div>
+                </nav>
+            </div>
+        </header>
 
-        <div class="container card shadow p-4">
+        <!-- Hero Section Reducida -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Tu Pedido en Sabor Limeño</h1>
+                    <p>Revisa y confirma tu pedido de comida peruana</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="order-container">
+            <!-- Indicador de estado del pedido -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="order-status">
+                        <div class="status-step active" id="step1">
+                            <div class="status-icon">1</div>
+                            <div class="status-label">Revisar Pedido</div>
+                        </div>
+                        <div class="status-step" id="step2">
+                            <div class="status-icon">2</div>
+                            <div class="status-label">Método de Pago</div>
+                        </div>
+                        <div class="status-step" id="step3">
+                            <div class="status-icon">3</div>
+                            <div class="status-label">Confirmación</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div id="orderSection">
-                <h1>Tu pedido:</h1>
-                
-                <div class="order-items">
-                    <div class="order-item">
-                        <div>
-                            <div class="item-name">Lomo Saltado</div>
-                            <div class="item-details">Trozos de filete de vacuno salteado</div>
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Tu Pedido</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="order-items">
+                            <div class="order-item">
+                                <div>
+                                    <div class="item-name">Lomo Saltado</div>
+                                    <div class="item-details">Trozos de filete de vacuno salteado con cebolla, tomate y papas fritas</div>
+                                </div>
+                                <div class="item-price">
+                                    <div class="price-amount">$12.990 x2</div>
+                                    <div class="price-total">$25.980</div>
+                                </div>
+                            </div>
+                            <div class="order-item">
+                                <div>
+                                    <div class="item-name">Ceviche Clásico</div>
+                                    <div class="item-details">Pescado fresco marinado en limón con cebolla, ají y camote</div>
+                                </div>
+                                <div class="item-price">
+                                    <div class="price-amount">$10.990 x2</div>
+                                    <div class="price-total">$21.980</div>
+                                </div>
+                            </div>
+                            <div class="order-item">
+                                <div>
+                                    <div class="item-name">Causa Limeña</div>
+                                    <div class="item-details">Puré de papa amarilla relleno de pollo o atún</div>
+                                </div>
+                                <div class="item-price">
+                                    <div class="price-amount">$8.990 x1</div>
+                                    <div class="price-total">$8.990</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="item-price">
-                            <div class="price-amount">$12.990 x2</div>
-                            <div class="price-total">$25.980</div>
+
+                        <div class="total-section">
+                            <div class="total-line">
+                                <span class="total-label">Total:</span>
+                                <span class="total-amount">$56.950</span>
+                            </div>
+                        </div>
+
+                        <button class="btn-action" id="continueBtn">Continuar al pago</button>
+
+                        <div class="payment-section" id="paymentSection">
+                            <div class="payment-title">Método de pago:</div>
+                            
+                            <div class="payment-options">
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="card" checked>
+                                    Tarjeta de crédito/débito
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="paypal">
+                                    PayPal
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="transfer">
+                                    Transferencia bancaria
+                                </label>
+                            </div>
+
+                            <button class="btn-action btn-success" id="payBtn">Pagar ahora</button>
                         </div>
                     </div>
-                    <div class="order-item">
-                        <div>
-                            <div class="item-name">Ceviche Clásico</div>
-                            <div class="item-details">Pescado fresco marinado en limón</div>
-                        </div>
-                        <div class="item-price">
-                            <div class="price-amount">$10.990 x2</div>
-                            <div class="price-total">$21.980</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="total-section">
-                    <div class="total-line">
-                        <span class="total-label">Total:</span>
-                        <span class="total-amount">$47.960</span>
-                    </div>
-                </div>
-
-                <button class="btn btn-primary" id="continueBtn">Continuar al pago</button>
-
-                <div class="payment-section" id="paymentSection">
-                    <div class="payment-title">Método de pago:</div>
-                    
-                    <div class="payment-options">
-                        <label class="payment-option">
-                            <input type="radio" name="payment" value="card" checked>
-                            Tarjeta de crédito/débito
-                        </label>
-                        <label class="payment-option">
-                            <input type="radio" name="payment" value="paypal">
-                            PayPal
-                        </label>
-                        <label class="payment-option">
-                            <input type="radio" name="payment" value="transfer">
-                            Transferencia bancaria
-                        </label>
-                    </div>
-
-                    <button class="btn btn-success" id="payBtn">Pagar ahora</button>
                 </div>
             </div>
 
             <div id="confirmationSection" class="confirmation-message">
-                <div class="confirmation-icon">✅</div>
-                <div class="confirmation-title">Pedido Confirmado</div>
+                <div class="confirmation-title">¡Pedido Confirmado!</div>
                 <div class="confirmation-text">
-                    Recibo confirmado.<br>
-                    Se envía a cocina.
+                    Tu pedido ha sido procesado exitosamente.<br>
+                    Hemos enviado un correo de confirmación a tu email.<br>
+                    Tiempo estimado de entrega: 30-45 minutos.
                 </div>
-                <button class="btn btn-primary" id="okBtn">OK</button>
+                <button class="btn-action" id="okBtn">Volver al Catálogo</button>
             </div>
         </div>
 
@@ -380,10 +711,18 @@
             const paymentSection = document.getElementById('paymentSection');
             const orderSection = document.getElementById('orderSection');
             const confirmationSection = document.getElementById('confirmationSection');
+            const step1 = document.getElementById('step1');
+            const step2 = document.getElementById('step2');
+            const step3 = document.getElementById('step3');
 
             continueBtn.addEventListener('click', () => {
                 paymentSection.style.display = 'block';
                 continueBtn.style.display = 'none';
+                
+                // Actualizar estado
+                step1.classList.remove('active');
+                step1.classList.add('completed');
+                step2.classList.add('active');
             });
 
             payBtn.addEventListener('click', () => {
@@ -393,12 +732,17 @@
                 setTimeout(() => {
                     orderSection.style.display = 'none';
                     confirmationSection.style.display = 'block';
+                    
+                    // Actualizar estado
+                    step2.classList.remove('active');
+                    step2.classList.add('completed');
+                    step3.classList.add('active');
                 }, 1500);
             });
 
             okBtn.addEventListener('click', () => {
-                alert('Redirigiendo a la página principal...');
-                // window.location.href = 'index.html';
+                alert('Redirigiendo al inicio...');
+                window.location.href = 'index.html';
             });
         });
         </script>
