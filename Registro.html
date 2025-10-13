@@ -434,9 +434,9 @@
         </section>
 
         <div class="register-container">
-            <!-- Mensajes -->
+            <!-- Mensajes-->
             <div id="successMessage" class="alert alert-success d-none" role="alert">
-                ¡Registro exitoso! Se ha enviado un enlace de validación a tu correo electrónico.
+                ¡Registro y validación exitosa! Se ha enviado un enlace de validación a tu correo electrónico.
             </div>
 
             <div id="errorMessage" class="alert alert-danger d-none" role="alert">
@@ -449,19 +449,17 @@
                 </div>
                 <div class="card-body">
                     <form id="registrationForm">
-                        <!-- Nombre -->
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre completo</label>
                             <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre" required>
                         </div>
 
-                        <!-- Email -->
                         <div class="mb-3">
                             <label for="email" class="form-label">Correo electrónico</label>
                             <input type="email" class="form-control" id="email" placeholder="ejemplo@email.com" required>
+                            <div id="emailError" class="form-text match-error"></div>
                         </div>
 
-                        <!-- Contraseña -->
                         <div class="mb-3">
                             <label for="password" class="form-label">Contraseña</label>
                             <input type="password" class="form-control" id="password" placeholder="********" required>
@@ -469,9 +467,9 @@
                                 La contraseña debe tener al menos 8 caracteres, incluir mayúsculas, minúsculas y números.
                             </div>
                             <div id="passwordStrength" class="password-strength"></div>
+                            <div id="passwordReqError" class="form-text match-error"></div>
                         </div>
 
-                        <!-- Confirmar contraseña -->
                         <div class="mb-3">
                             <label for="confirmPassword" class="form-label">Confirmar contraseña</label>
                             <input type="password" class="form-control" id="confirmPassword" placeholder="********" required>
@@ -493,12 +491,53 @@
                 const form = document.getElementById('registrationForm');
                 const successMessage = document.getElementById('successMessage');
                 const errorMessage = document.getElementById('errorMessage');
+                const emailInput = document.getElementById('email'); // Añadido
                 const passwordInput = document.getElementById('password');
                 const confirmPasswordInput = document.getElementById('confirmPassword');
                 const nombreInput = document.getElementById('nombre');
                 const passwordStrength = document.getElementById('passwordStrength');
                 const passwordMatch = document.getElementById('passwordMatch');
+                const emailError = document.getElementById('emailError'); // Añadido
+                const passwordReqError = document.getElementById('passwordReqError'); // Añadido
                 const submitBtn = form.querySelector('button[type="submit"]');
+
+                // *** Correo de prueba para simular correo duplicado (Escenario 2) ***
+                const DUPLICATE_EMAIL = 'duplicado@test.com';
+
+                // Función para mostrar error
+                function showError(message, elementId) {
+                    errorMessage.classList.add('d-none'); // Ocultar mensaje genérico
+                    
+                    // Limpiar errores específicos antes de mostrar uno nuevo
+                    emailError.textContent = '';
+                    passwordReqError.textContent = '';
+
+                    if (elementId === 'emailError') {
+                        emailError.textContent = message;
+                    } else if (elementId === 'passwordReqError') {
+                        passwordReqError.textContent = message;
+                    } else {
+                        // Mostrar mensaje genérico si no es un error específico
+                        errorMessage.textContent = message;
+                        errorMessage.classList.remove('d-none');
+                    }
+                }
+
+                // Función para mostrar éxito
+                function showSuccess() {
+                    // Limpiar errores
+                    emailError.textContent = '';
+                    passwordReqError.textContent = '';
+                    errorMessage.classList.add('d-none');
+                    // Mostrar éxito
+                    successMessage.classList.remove('d-none');
+                }
+
+                // Función de limpieza de errores específicos
+                function clearSpecificErrors() {
+                    emailError.textContent = '';
+                    passwordReqError.textContent = '';
+                }
 
                 // Validación de fortaleza de contraseña en tiempo real
                 passwordInput.addEventListener('input', function() {
@@ -521,6 +560,7 @@
                     
                     passwordStrength.textContent = strength;
                     passwordStrength.className = 'password-strength ' + strengthClass;
+                    passwordReqError.textContent = ''; // Limpiar mensaje de error de requisito al escribir
                 });
 
                 // Validación de coincidencia de contraseñas en tiempo real
@@ -545,51 +585,63 @@
                     // Ocultar mensajes anteriores
                     successMessage.classList.add('d-none');
                     errorMessage.classList.add('d-none');
+                    clearSpecificErrors(); // Limpiar errores específicos
 
                     const nombre = nombreInput.value.trim();
-                    const email = document.getElementById('email').value.trim();
+                    const email = emailInput.value.trim();
                     const password = passwordInput.value;
                     const confirmPassword = confirmPasswordInput.value;
+                    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
                     // Deshabilitar botón durante validación
                     submitBtn.disabled = true;
                     submitBtn.textContent = 'Registrando...';
 
-                    // Validar nombre no vacío
+                    // 1. Validar nombre
                     if (nombre.length < 2) {
-                        showError('Por favor, ingresa tu nombre completo.');
+                        showError('Por favor, ingresa tu nombre completo.', 'general');
                         submitBtn.disabled = false;
                         submitBtn.textContent = 'Registrarse';
                         return;
                     }
 
-                    // Validar email
+                    // 2. Validar email
                     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     if (!emailRegex.test(email)) {
-                        showError('Por favor, ingresa un correo electrónico válido.');
+                        showError('Por favor, ingresa un correo electrónico válido.', 'general');
                         submitBtn.disabled = false;
                         submitBtn.textContent = 'Registrarse';
                         return;
                     }
+                    
+                    // *** SIMULACIÓN - ESCENARIO: Registro con correo duplicado ***
+                    if (email === DUPLICATE_EMAIL) {
+                        setTimeout(() => {
+                            showError('Este correo ya está en uso', 'emailError');
+                            submitBtn.disabled = false;
+                            submitBtn.textContent = 'Registrarse';
+                        }, 1000); // Pequeño retraso para simular comunicación con servidor
+                        return;
+                    }
 
-                    // Validar contraseña segura
-                    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+                    // *** SIMULACIÓN - ESCENARIO: Contraseña no cumple requisitos ***
                     if (!passwordRegex.test(password)) {
-                        showError('La contraseña debe tener al menos 8 caracteres, incluir mayúsculas, minúsculas y números.');
+                        // El mensaje de error debe ser el que aparece en tu Gherkin
+                        showError('La contraseña debe tener al menos 8 caracteres, una mayúscula y un número', 'passwordReqError');
                         submitBtn.disabled = false;
                         submitBtn.textContent = 'Registrarse';
                         return;
                     }
 
-                    // Validar coincidencia de contraseñas
+                    // 3. Validar coincidencia de contraseñas
                     if (password !== confirmPassword) {
-                        showError('Las contraseñas no coinciden.');
+                        showError('Las contraseñas no coinciden.', 'general');
                         submitBtn.disabled = false;
                         submitBtn.textContent = 'Registrarse';
                         return;
                     }
 
-                    // Simulación de envío exitoso
+                    // *** SIMULACIÓN - ESCENARIO: Registro y validación exitosa ***
                     setTimeout(() => {
                         showSuccess();
                         form.reset();
@@ -600,15 +652,6 @@
                         submitBtn.textContent = 'Registrarse';
                     }, 1500);
                 });
-
-                function showError(message) {
-                    errorMessage.textContent = message;
-                    errorMessage.classList.remove('d-none');
-                }
-
-                function showSuccess() {
-                    successMessage.classList.remove('d-none');
-                }
             });
         </script>
     </body>
