@@ -350,6 +350,19 @@
                 transform: translateY(-2px);
                 box-shadow: 0 6px 15px rgba(255, 193, 7, 0.3);
             }
+            
+            /* Estilo para el botón de Reenvío */
+            .btn-reenviar {
+                background: linear-gradient(135deg, var(--purpura-nazca), #8E24AA);
+                color: white;
+                box-shadow: 0 4px 12px rgba(106, 27, 154, 0.2);
+            }
+
+            .btn-reenviar:hover:not(:disabled) {
+                background: linear-gradient(135deg, #8E24AA, var(--purpura-nazca));
+                transform: translateY(-2px);
+                box-shadow: 0 6px 15px rgba(106, 27, 154, 0.3);
+            }
 
             .btn:disabled {
                 background: #cccccc;
@@ -362,10 +375,12 @@
                 display: flex;
                 gap: 15px;
                 margin-top: 20px;
+                flex-wrap: wrap; 
             }
 
-            .action-buttons .btn {
-                flex: 1;
+            .action-buttons .btn-action {
+                flex: 1 1 auto; 
+                min-width: 180px;
             }
 
             .footer-note {
@@ -380,40 +395,7 @@
                 border: 2px solid var(--aji-amarillo);
             }
 
-            .receipt-status {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 20px;
-                gap: 15px;
-            }
-
-            .status-card {
-                flex: 1;
-                background: white;
-                border-radius: 10px;
-                padding: 15px;
-                text-align: center;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                border: 2px solid var(--azul-pacifico-claro);
-            }
-
-            .status-icon {
-                font-size: 24px;
-                margin-bottom: 8px;
-            }
-
-            .status-label {
-                font-size: 12px;
-                color: var(--gris-texto);
-                font-weight: 500;
-            }
-
-            .status-value {
-                font-size: 14px;
-                font-weight: 600;
-                color: var(--azul-pacifico-oscuro);
-                margin-top: 5px;
-            }
+            /* Se eliminan las clases .receipt-status y asociadas ya que la sección completa fue removida */
 
             /* Responsive */
             @media (max-width: 768px) {
@@ -450,10 +432,6 @@
                 }
 
                 .action-buttons {
-                    flex-direction: column;
-                }
-
-                .receipt-status {
                     flex-direction: column;
                 }
 
@@ -550,7 +528,6 @@
     </head>
     <body>
 
-        <!-- Header -->
         <header class="header">
             <div class="container">
                 <nav class="nav-container">
@@ -571,7 +548,6 @@
             </div>
         </header>
 
-        <!-- Hero Section Reducida -->
         <section class="hero">
             <div class="container">
                 <div class="hero-content">
@@ -582,29 +558,13 @@
         </section>
 
         <div class="receipt-container">
-            <!-- Estado del pedido -->
-            <div class="receipt-status">
-                <div class="status-card">
-                    <div class="status-label">Correo Enviado</div>
-                    <div class="status-value">Sí</div>
-                </div>
-                <div class="status-card">
-                    <div class="status-label">Método de Pago</div>
-                    <div class="status-value">Tarjeta Crédito</div>
-                </div>
-                <div class="status-card">
-                    <div class="status-label">Estado</div>
-                    <div class="status-value">En Preparación</div>
-                </div>
-            </div>
-
             <div class="card">
                 <div class="card-header">
                     <h2>Comprobante de Pago</h2>
                 </div>
                 <div class="card-body">
                     <div class="email-confirmation">
-                        Recibirá un correo electrónico con la boleta adjunta
+                        Recibirá un correo electrónico con la boleta adjunta en formato PDF.
                     </div>
 
                     <div class="receipt">
@@ -626,7 +586,7 @@
                             </div>
                             <div class="detail-row">
                                 <span class="detail-label">Email:</span>
-                                <span class="detail-value">juanito@gmail.com</span>
+                                <span class="detail-value" id="clientEmail">juanito@gmail.com</span>
                             </div>
                             <div class="detail-row">
                                 <span class="detail-label">Dirección:</span>
@@ -686,9 +646,10 @@
                     </div>
 
                     <div class="action-buttons">
+                        <button class="btn-action btn-reenviar" id="reenviarBtn">🔄 Reenviar Boleta</button>
+                        <button class="btn-action btn-secondary" id="downloadBtn">📥 Descargar PDF</button>
+                        <button class="btn-action btn-secondary" id="printBtn">🖨️ Imprimir Boleta</button>
                         <button class="btn-action" id="okBtn">Volver al Inicio</button>
-                        <button class="btn-action btn-secondary" id="printBtn">Imprimir Boleta</button>
-                        <button class="btn-action btn-secondary" id="downloadBtn">Descargar PDF</button>
                     </div>
                 </div>
             </div>
@@ -699,6 +660,28 @@
             const okBtn = document.getElementById('okBtn');
             const printBtn = document.getElementById('printBtn');
             const downloadBtn = document.getElementById('downloadBtn');
+            const reenviarBtn = document.getElementById('reenviarBtn');
+            const clientEmail = document.getElementById('clientEmail').textContent; // Obtener el email del cliente
+
+            // Función para simular el reenvío de la boleta
+            reenviarBtn.addEventListener('click', function() {
+                // Asumimos que la boleta SIEMPRE se ha emitido si estamos en esta página
+                reenviarBtn.disabled = true;
+                reenviarBtn.textContent = 'Enviando...';
+                
+                // Simulación de la lógica de reenvío por correo
+                setTimeout(() => {
+                    alert(`Boleta reenviada exitosamente al correo: ${clientEmail}`);
+                    reenviarBtn.disabled = false;
+                    reenviarBtn.textContent = '✅ Reenviada';
+                    
+                    // Restablecer el botón después de un tiempo para permitir otro reenvío (opcional)
+                    setTimeout(() => {
+                        reenviarBtn.textContent = '🔄 Reenviar Boleta';
+                    }, 3000);
+                    
+                }, 2000);
+            });
 
             okBtn.addEventListener('click', function() {
                 // Deshabilitar botón durante la redirección

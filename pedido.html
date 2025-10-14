@@ -18,6 +18,8 @@
                 --purpura-nazca: #6A1B9A;
                 --blanco-roto: #F8F9FA;
                 --gris-texto: #424242;
+                --rojo-error: #D32F2F; /* Nuevo color para errores */
+                --rojo-error-claro: #FFCDD2; /* Nuevo color para fondo de error */
             }
 
             body {
@@ -312,6 +314,18 @@
                 box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
             }
 
+            .btn-danger { /* Estilo para el botón de reintento/error */
+                background: linear-gradient(135deg, var(--rojo-error), #E53935);
+                color: white;
+                box-shadow: 0 4px 12px rgba(211, 47, 47, 0.2);
+            }
+
+            .btn-danger:hover:not(:disabled) {
+                background: linear-gradient(135deg, #E53935, var(--rojo-error));
+                transform: translateY(-2px);
+                box-shadow: 0 6px 15px rgba(211, 47, 47, 0.3);
+            }
+
             .btn:disabled {
                 background: #cccccc;
                 cursor: not-allowed;
@@ -364,6 +378,31 @@
                 accent-color: var(--azul-pacifico);
             }
 
+            /* Estilos para el mensaje de ERROR */
+            .error-message {
+                display: none;
+                text-align: center;
+                padding: 20px;
+                background: linear-gradient(135deg, var(--rojo-error-claro), #FFFFFF);
+                border-radius: 15px;
+                border: 2px solid var(--rojo-error);
+                margin-bottom: 25px;
+            }
+
+            .error-title {
+                color: var(--rojo-error);
+                font-size: 20px;
+                font-weight: 700;
+                margin-bottom: 10px;
+            }
+
+            .error-text {
+                color: var(--gris-texto);
+                line-height: 1.5;
+                margin-bottom: 15px;
+            }
+
+            /* Estilos para el mensaje de CONFIRMACIÓN (Éxito) */
             .confirmation-message {
                 display: none;
                 text-align: center;
@@ -567,11 +606,10 @@
     </head>
     <body>
 
-        <!-- Header -->
         <header class="header">
             <div class="container">
                 <nav class="nav-container">
-                    <div class="logo">
+                    <div class="logo"> 
                         <span>Sabor Limeño</span>
                     </div>
                     
@@ -589,7 +627,6 @@
             </div>
         </header>
 
-        <!-- Hero Section Reducida -->
         <section class="hero">
             <div class="container">
                 <div class="hero-content">
@@ -600,7 +637,6 @@
         </section>
 
         <div class="order-container">
-            <!-- Indicador de estado del pedido -->
             <div class="card mb-4">
                 <div class="card-body">
                     <div class="order-status">
@@ -669,6 +705,12 @@
                         <button class="btn-action" id="continueBtn">Continuar al pago</button>
 
                         <div class="payment-section" id="paymentSection">
+                            <div class="error-message" id="paymentErrorSection">
+                                <div class="error-title">❌ No se pudo procesar el pago</div>
+                                <div class="error-text">La transacción ha fallado. Por favor, verifica tus datos o intenta con otro método.</div>
+                                <button class="btn-action btn-danger" id="retryBtn">Reintentar pago</button>
+                            </div>
+
                             <div class="payment-title">Método de pago:</div>
                             
                             <div class="payment-options">
@@ -693,11 +735,12 @@
             </div>
 
             <div id="confirmationSection" class="confirmation-message">
+                <div class="confirmation-icon">✔</div>
                 <div class="confirmation-title">¡Pedido Confirmado!</div>
                 <div class="confirmation-text">
                     Tu pedido ha sido procesado exitosamente.<br>
                     Hemos enviado un correo de confirmación a tu email.<br>
-                    Tiempo estimado de entrega: 30-45 minutos.
+                    **La orden se envía automáticamente a cocina.**
                 </div>
                 <button class="btn-action" id="okBtn">Volver al Catálogo</button>
             </div>
@@ -707,14 +750,60 @@
         document.addEventListener('DOMContentLoaded', function() {
             const continueBtn = document.getElementById('continueBtn');
             const payBtn = document.getElementById('payBtn');
+            const retryBtn = document.getElementById('retryBtn'); // Nuevo botón de reintento
             const okBtn = document.getElementById('okBtn');
             const paymentSection = document.getElementById('paymentSection');
             const orderSection = document.getElementById('orderSection');
             const confirmationSection = document.getElementById('confirmationSection');
+            const paymentErrorSection = document.getElementById('paymentErrorSection'); // Nueva sección de error
+
+            // Pasos del indicador de estado
             const step1 = document.getElementById('step1');
             const step2 = document.getElementById('step2');
             const step3 = document.getElementById('step3');
 
+            // Variable para simular los escenarios
+            let paymentAttempt = 0;
+
+            // Función para actualizar el estado a "Pedido confirmado"
+            function confirmOrder() {
+                orderSection.style.display = 'none';
+                confirmationSection.style.display = 'block';
+                paymentErrorSection.style.display = 'none';
+
+                // Actualizar estado del progreso
+                step2.classList.remove('active');
+                step2.classList.add('completed');
+                step3.classList.add('active');
+            }
+
+            // Función para actualizar el estado a "Error en el pago"
+            function paymentError() {
+                payBtn.disabled = false;
+                payBtn.textContent = 'Pagar ahora';
+                payBtn.classList.remove('btn-success');
+                payBtn.classList.add('btn-danger'); // Cambiar a rojo para indicar error
+
+                paymentErrorSection.style.display = 'block'; // Mostrar mensaje de error
+                payBtn.style.display = 'none'; // Ocultar botón de "Pagar ahora" original
+                
+                // Asegurarse de que el paso 2 sigue activo, no completado
+                step2.classList.add('active');
+                step2.classList.remove('completed');
+                step3.classList.remove('active');
+            }
+            
+            // Función para reestablecer el estado de pago para el reintento
+            function resetPaymentAttempt() {
+                paymentErrorSection.style.display = 'none';
+                payBtn.style.display = 'block';
+                payBtn.classList.remove('btn-danger');
+                payBtn.classList.add('btn-success');
+                payBtn.textContent = 'Pagar ahora';
+            }
+
+
+            // Lógica para el botón "Continuar al pago"
             continueBtn.addEventListener('click', () => {
                 paymentSection.style.display = 'block';
                 continueBtn.style.display = 'none';
@@ -723,26 +812,43 @@
                 step1.classList.remove('active');
                 step1.classList.add('completed');
                 step2.classList.add('active');
+
+                // Asegurar que la sección de error no esté visible al iniciar el pago
+                resetPaymentAttempt();
             });
 
+            // Lógica para el botón "Pagar ahora" (Simula los escenarios)
             payBtn.addEventListener('click', () => {
                 payBtn.disabled = true;
                 payBtn.textContent = 'Procesando pago...';
-                
+                paymentAttempt++; // Incrementar el contador de intentos
+
+                // Simulamos el tiempo de procesamiento
                 setTimeout(() => {
-                    orderSection.style.display = 'none';
-                    confirmationSection.style.display = 'block';
-                    
-                    // Actualizar estado
-                    step2.classList.remove('active');
-                    step2.classList.add('completed');
-                    step3.classList.add('active');
+                    if (paymentAttempt === 1) {
+                        // Escenario: Error en el pago (Falla el primer intento)
+                        paymentError();
+                    } else if (paymentAttempt === 2) {
+                        // Escenario: Reintento de pago exitoso
+                        confirmOrder();
+                    } else {
+                        // Escenario: Pedido confirmado (Para intentos posteriores, asumimos éxito)
+                        confirmOrder();
+                    }
                 }, 1500);
             });
 
+            // Lógica para el botón "Reintentar pago" (Escenario: Reintento de pago)
+            retryBtn.addEventListener('click', () => {
+                // Prepara la interfaz para un nuevo intento de pago
+                resetPaymentAttempt();
+            });
+
+            // Lógica para el botón "Volver al Catálogo"
             okBtn.addEventListener('click', () => {
-                alert('Redirigiendo al inicio...');
-                window.location.href = 'index.html';
+                alert('Redirigiendo al catálogo...');
+                // Nota: Redirigir a una página que maneje la lista de platos
+                window.location.href = 'catalogo.html'; 
             });
         });
         </script>
