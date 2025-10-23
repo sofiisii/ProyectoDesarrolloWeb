@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Seguimiento de Pedido - Sabor Limeño</title>
+        <title>US-10: Asignación y Seguimiento de Despacho</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -18,6 +18,7 @@
                 --purpura-nazca: #6A1B9A;
                 --blanco-roto: #F8F9FA;
                 --gris-texto: #424242;
+                --rojo-alerta: #D32F2F; /* Nuevo color para alertas/problemas */
             }
 
             body {
@@ -217,6 +218,7 @@
             .delivery-man {
                 font-size: 16px;
                 color: var(--gris-texto);
+                min-height: 20px; /* Asegura espacio para el nombre */
             }
 
             .current-status {
@@ -276,6 +278,7 @@
                 margin-right: 20px;
                 border: 3px solid var(--azul-pacifico-claro);
                 background-color: white;
+                color: var(--azul-pacifico-claro); /* Icono por defecto inactivo */
                 transition: all 0.3s ease;
             }
 
@@ -320,9 +323,15 @@
                 font-weight: 600;
             }
 
+            .step-reasigned .step-description {
+                color: var(--rojo-alerta);
+                font-weight: 600;
+            }
+
             /* Botones de acción */
             .action-buttons {
                 display: flex;
+                flex-wrap: wrap; /* Permite que los botones envuelvan */
                 gap: 15px;
                 margin-bottom: 20px;
             }
@@ -338,7 +347,8 @@
                 text-decoration: none;
                 display: inline-block;
                 text-align: center;
-                flex: 1;
+                flex: 1 1 calc(50% - 15px); /* Permite 2 botones por fila en escritorio */
+                min-width: 180px; /* Mínimo para que no se achiquen demasiado */
                 background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
                 color: white;
                 box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
@@ -348,6 +358,18 @@
                 background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico));
                 transform: translateY(-2px);
                 box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3);
+            }
+            
+            .btn-secondary {
+                background: linear-gradient(135deg, var(--aji-amarillo), #FFB300);
+                color: var(--azul-pacifico-oscuro);
+                box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
+            }
+
+            .btn-secondary:hover:not(:disabled) {
+                background: linear-gradient(135deg, #FFB300, var(--aji-amarillo));
+                transform: translateY(-2px);
+                box-shadow: 0 6px 15px rgba(255, 193, 7, 0.3);
             }
 
             .btn-success {
@@ -367,6 +389,7 @@
                 cursor: not-allowed;
                 transform: none;
                 box-shadow: none;
+                color: #888888;
             }
 
             /* Información de entrega */
@@ -394,6 +417,7 @@
             .info-value {
                 font-weight: 600;
                 color: var(--azul-pacifico-oscuro);
+                text-align: right; /* Asegura que los valores estén alineados a la derecha */
             }
 
             /* Mensajes de confirmación */
@@ -408,8 +432,39 @@
                 border: 2px solid var(--verde-menta);
                 font-weight: 600;
             }
+            
+            .alert-message {
+                display: none;
+                text-align: center;
+                padding: 15px;
+                background-color: rgba(211, 47, 47, 0.15);
+                color: var(--rojo-alerta);
+                border-radius: 8px;
+                margin-top: 15px;
+                border: 2px solid var(--rojo-alerta);
+                font-weight: 600;
+            }
+            
+            /* Historial de Despacho */
+            .dispatch-history-container {
+                margin-top: 30px;
+                padding: 15px;
+                background-color: #f1f8e9; /* Un color suave para el historial */
+                border-radius: 10px;
+                border: 1px solid var(--verde-menta);
+            }
 
-            /* Detalles del pedido */
+            .history-item {
+                border-bottom: 1px dashed #A5D6A7;
+                padding: 8px 0;
+                font-size: 14px;
+            }
+
+            .history-item:last-child {
+                border-bottom: none;
+            }
+
+            /* Detalles del pedido (mantenido) */
             .order-details {
                 margin-bottom: 25px;
             }
@@ -452,7 +507,7 @@
                 color: var(--azul-pacifico-oscuro);
             }
 
-            /* Responsive */
+            /* Responsive (mantenido y actualizado para botones) */
             @media (max-width: 768px) {
                 .nav-container {
                     flex-direction: column;
@@ -490,6 +545,11 @@
                     flex-direction: column;
                 }
 
+                .btn-action {
+                    flex: 1 1 100%; /* Botones apilados en móvil */
+                    min-width: auto;
+                }
+
                 .step-icon {
                     width: 50px;
                     height: 50px;
@@ -499,71 +559,17 @@
             }
 
             @media (max-width: 480px) {
-                .logo {
-                    font-size: 1.5rem;
-                    justify-content: center;
-                    text-align: center;
-                    width: 100%;
-                    margin-bottom: 1rem;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-                
-                .nav-links {
-                    flex-direction: column;
-                    gap: 0.5rem;
-                    text-align: center;
-                    width: 100%;
-                }
-                
-                .nav-links a {
-                    display: block;
-                    width: 100%;
-                    text-align: center;
-                }
-                
-                .auth-buttons {
-                    width: 100%;
-                }
-                
-                .auth-buttons .btn {
-                    width: 100%;
-                }
-                
-                .hero {
-                    padding: 1.5rem 0;
-                }
-                
-                .hero h1 {
-                    font-size: 1.6rem;
-                }
-                
-                .hero p {
-                    font-size: 0.85rem;
-                }
-
-                .timeline-line {
-                    left: 25px;
-                }
-
-                .step-icon {
-                    width: 40px;
-                    height: 40px;
-                    font-size: 16px;
-                    margin-right: 12px;
-                }
+                /* ... estilos de media query para 480px ... */
             }
         </style>
     </head>
     <body>
 
-        <!-- Header -->
         <header class="header">
             <div class="container">
                 <nav class="nav-container">
                     <div class="logo">
-                        <span>Sabor Limeño</span>
+                        <span>Sabor Limeño 🚚</span>
                     </div>
                     
                     <ul class="nav-links">
@@ -579,12 +585,11 @@
             </div>
         </header>
 
-        <!-- Hero Section Reducida -->
         <section class="hero">
             <div class="container">
                 <div class="hero-content">
-                    <h1>Seguimiento de Pedido</h1>
-                    <p>Monitorea el estado de tu pedido en tiempo real</p>
+                    <h1>Panel de Despacho US-10</h1>
+                    <p>Asignación y seguimiento de pedidos - Vista Administrador</p>
                 </div>
             </div>
         </section>
@@ -592,20 +597,38 @@
         <div class="tracking-container">
             <div class="card">
                 <div class="card-header">
-                    <h2>Pedido Asignado</h2>
+                    <h2>Pedido <span id="orderNumber">#4501</span></h2>
                 </div>
                 <div class="card-body">
                     <div class="order-info">
-                        <div class="order-number">Número de orden #4501</div>
-                        <div class="delivery-man">Repartidor: Carlos R.</div>
+                        <div class="order-number">Número de orden <span id="orderIdDisplay">#4501</span></div>
+                        <div class="delivery-man">Repartidor: <span id="deliveryManName">N/A</span></div>
                     </div>
                     
                     <div class="current-status">
-                        <div class="status-label" id="currentStatusLabel">En ruta</div>
-                        <div class="status-time" id="statusTime">Actualizado: 15/03/2024 19:15</div>
+                        <div class="status-label" id="currentStatusLabel">Preparando</div>
+                        <div class="status-time" id="statusTime">Actualizado: 15/03/2024 19:00</div>
                     </div>
                     
-                    <!-- Detalles del pedido -->
+                    <div class="action-buttons">
+                        <button class="btn-action btn-secondary" id="assignBtn">Asignar Pedido</button>
+                        <button class="btn-action btn-secondary" id="reassignBtn" disabled>Reasignar Pedido</button>
+                        <button class="btn-action btn-success" id="deliverBtn" disabled>Marcar como Entregado</button>
+                    </div>
+                    
+                    <div id="reassignAlertMessage" class="alert-message">
+                        ⚠️ Pedido reasignado a Valentina. Se mantiene el estado "En ruta".
+                    </div>
+
+                    <div id="assignConfirmationMessage" class="confirmation-message">
+                        ✅ Pedido #4501 asignado a **Carlos** y estado actualizado a "**En ruta**".
+                    </div>
+
+                    <div id="deliveryConfirmationMessage" class="confirmation-message">
+                        📦 Pedido marcado como entregado con fecha y hora. ¡Misión cumplida!
+                    </div>
+
+                    
                     <div class="order-details">
                         <h3 style="color: var(--azul-pacifico-oscuro); margin-bottom: 15px;">Detalles del Pedido</h3>
                         <div class="order-items">
@@ -640,52 +663,48 @@
                     <div class="status-timeline">
                         <div class="timeline-line"></div>
                         
-                        <div class="status-step step-completed">
+                        <div class="status-step step-completed" id="step-recibido">
+                             <div class="step-icon">🍽️</div>
                             <div class="step-content">
                                 <div class="step-title">Pedido Recibido</div>
                                 <div class="step-description">15/03/2024 18:30</div>
                             </div>
                         </div>
                         
-                        <div class="status-step step-completed">
+                        <div class="status-step step-active" id="step-preparando">
+                            <div class="step-icon">👨‍🍳</div>
                             <div class="step-content">
-                                <div class="step-title">En Preparación</div>
-                                <div class="step-description">15/03/2024 18:35</div>
-                            </div>
-                        </div>
-                        
-                        <div class="status-step step-completed">
-                            <div class="step-content">
-                                <div class="step-title">Listo para Entrega</div>
+                                <div class="step-title">Preparando</div>
                                 <div class="step-description">15/03/2024 19:00</div>
                             </div>
                         </div>
                         
-                        <div class="status-step step-active">
+                        <div class="status-step" id="step-enruta">
+                            <div class="step-icon">🛵</div>
                             <div class="step-content">
                                 <div class="step-title">En Ruta</div>
-                                <div class="step-description">15/03/2024 19:10</div>
+                                <div class="step-description" id="enRutaTime">--:--</div>
                             </div>
                         </div>
                         
-                        <div class="status-step">
+                        <div class="status-step" id="step-entregado">
+                            <div class="step-icon">✅</div>
                             <div class="step-content">
                                 <div class="step-title">Entregado</div>
-                                <div class="step-description">--:--</div>
+                                <div class="step-description" id="entregadoTime">--:--</div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="action-buttons">
-                        <button class="btn-action" id="assignBtn" disabled>Asignar Repartidor</button>
-                        <button class="btn-action btn-success" id="deliverBtn">Marcar como Entregado</button>
-                    </div>
-                    
-                    <div id="confirmationMessage" class="confirmation-message">
-                        Pedido marcado como entregado exitosamente
+                    <div class="dispatch-history-container">
+                        <h4 style="color: var(--azul-pacifico-oscuro); margin-bottom: 10px;">Historial de Despacho</h4>
+                        <div id="dispatchHistory">
+                            <div class="history-item">15/03/2024 19:00: Pedido listo. En espera de asignación.</div>
+                        </div>
                     </div>
                     
                     <div class="delivery-info">
+                        <h3 style="color: var(--azul-pacifico-oscuro); margin-bottom: 15px;">Información de Entrega</h3>
                         <div class="info-row">
                             <span class="info-label">Cliente:</span>
                             <span class="info-value">Juan Pérez</span>
@@ -698,11 +717,15 @@
                             <span class="info-label">Teléfono:</span>
                             <span class="info-value">+56 9 1234 5678</span>
                         </div>
-                        <div class="info-row">
-                            <span class="info-label">Tiempo estimado:</span>
-                            <span class="info-value">25-35 minutos</span>
+                         <div class="info-row" id="locationInfo" style="display: none;">
+                            <span class="info-label">Ubicación Repartidor:</span>
+                            <span class="info-value"><a href="#" target="_blank" style="color: var(--verde-menta); text-decoration: none;">Ver Mapa 📍</a></span>
                         </div>
-                        <div class="info-row">
+                        <div class="info-row" id="estimatedTimeInfo" style="display: none;">
+                            <span class="info-label">Tiempo Estimado (ETA):</span>
+                            <span class="info-value" id="estimatedTimeValue">25-35 minutos</span>
+                        </div>
+                         <div class="info-row">
                             <span class="info-label">Método de pago:</span>
                             <span class="info-value">Tarjeta de crédito</span>
                         </div>
@@ -713,57 +736,186 @@
 
         <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const orderId = '#4501';
+            const orderIdReassign = '#4502'; // Para el escenario de reasignación
             const assignBtn = document.getElementById('assignBtn');
+            const reassignBtn = document.getElementById('reassignBtn');
             const deliverBtn = document.getElementById('deliverBtn');
             const currentStatusLabel = document.getElementById('currentStatusLabel');
             const statusTime = document.getElementById('statusTime');
-            const confirmationMessage = document.getElementById('confirmationMessage');
+            const deliveryManName = document.getElementById('deliveryManName');
+            const dispatchHistory = document.getElementById('dispatchHistory');
+            const locationInfo = document.getElementById('locationInfo');
+            const estimatedTimeInfo = document.getElementById('estimatedTimeInfo');
+            const entregadoTime = document.getElementById('entregadoTime');
+            const enRutaTime = document.getElementById('enRutaTime');
             
-            let pedidoEstado = "en_ruta";
+            const assignConfirmationMessage = document.getElementById('assignConfirmationMessage');
+            const deliveryConfirmationMessage = document.getElementById('deliveryConfirmationMessage');
+            const reassignAlertMessage = document.getElementById('reassignAlertMessage');
+
+            const stepRecibido = document.getElementById('step-recibido');
+            const stepPreparando = document.getElementById('step-preparando');
+            const stepEnRuta = document.getElementById('step-enruta');
+            const stepEntregado = document.getElementById('step-entregado');
+
+            let pedidoEstado = "preparando"; // Estado inicial para simular US
+
+            const REPARTIDORES = {
+                CARLOS: "Carlos R.",
+                VALENTINA: "Valentina M."
+            };
+
+            let repartidorActual = "N/A";
             
-            function actualizarInterfaz() {
-                if (pedidoEstado === "en_ruta") {
+            function getCurrentTime() {
+                const now = new Date();
+                return now.toLocaleDateString('es-CL') + ' ' + now.toLocaleTimeString('es-CL', {hour: '2-digit', minute:'2-digit'});
+            }
+            
+            function addHistoryEntry(message) {
+                const newEntry = document.createElement('div');
+                newEntry.classList.add('history-item');
+                newEntry.textContent = `${getCurrentTime()}: ${message}`;
+                dispatchHistory.appendChild(newEntry);
+                // Desplazar al final
+                dispatchHistory.scrollTop = dispatchHistory.scrollHeight;
+            }
+
+            function updateTimeline(status) {
+                // Resetear todos los pasos activos y completados (excepto los pre-asignación)
+                stepEnRuta.classList.remove('step-active', 'step-completed', 'step-reasigned');
+                stepEntregado.classList.remove('step-active', 'step-completed', 'step-reasigned');
+                stepPreparando.classList.remove('step-active', 'step-completed');
+                
+                // Actualizar según el estado
+                switch (status) {
+                    case "preparando":
+                        stepPreparando.classList.add('step-active');
+                        locationInfo.style.display = 'none';
+                        estimatedTimeInfo.style.display = 'none';
+                        deliverBtn.disabled = true;
+                        reassignBtn.disabled = true;
+                        assignBtn.disabled = false;
+                        break;
+                    case "en_ruta":
+                        // Escenario: Asignación de pedido
+                        stepPreparando.classList.add('step-completed');
+                        stepEnRuta.classList.add('step-active');
+                        enRutaTime.textContent = getCurrentTime();
+                        locationInfo.style.display = 'flex';
+                        estimatedTimeInfo.style.display = 'flex';
+                        deliverBtn.disabled = false;
+                        reassignBtn.disabled = false;
+                        assignBtn.disabled = true;
+                        break;
+                    case "entregado":
+                        // Escenario: Confirmación de entrega
+                        stepPreparando.classList.add('step-completed');
+                        stepEnRuta.classList.add('step-completed');
+                        stepEnRuta.classList.remove('step-active');
+                        stepEntregado.classList.add('step-completed');
+                        entregadoTime.textContent = getCurrentTime();
+                        locationInfo.style.display = 'none';
+                        estimatedTimeInfo.style.display = 'none';
+                        deliverBtn.disabled = true;
+                        reassignBtn.disabled = true;
+                        assignBtn.disabled = true;
+                        break;
+                }
+            }
+
+            function updateInterface() {
+                assignConfirmationMessage.style.display = 'none';
+                deliveryConfirmationMessage.style.display = 'none';
+                reassignAlertMessage.style.display = 'none';
+                
+                deliveryManName.textContent = repartidorActual;
+                
+                if (pedidoEstado === "preparando") {
+                    currentStatusLabel.textContent = "Preparando";
+                    currentStatusLabel.style.color = "var(--azul-pacifico-oscuro)";
+                    statusTime.textContent = `Actualizado: ${getCurrentTime()}`;
+                } else if (pedidoEstado === "en_ruta") {
                     currentStatusLabel.textContent = "En ruta";
                     currentStatusLabel.style.color = "var(--azul-pacifico-oscuro)";
-                    assignBtn.disabled = true;
-                    deliverBtn.disabled = false;
+                    statusTime.textContent = `Asignado: ${getCurrentTime()}`;
                 } else if (pedidoEstado === "entregado") {
                     currentStatusLabel.textContent = "Entregado";
                     currentStatusLabel.style.color = "var(--verde-menta)";
-                    assignBtn.disabled = true;
-                    deliverBtn.disabled = true;
-                    
-                    const lastStep = document.querySelectorAll('.status-step')[4];
-                    lastStep.classList.add('step-completed');
-                    lastStep.classList.remove('step-active');
-                    
-                    const now = new Date();
-                    const timeString = now.toLocaleDateString('es-CL') + ' ' + now.toLocaleTimeString('es-CL', {hour: '2-digit', minute:'2-digit'});
-                    lastStep.querySelector('.step-description').textContent = timeString;
-                    statusTime.textContent = `Entregado: ${timeString}`;
-                    
-                    confirmationMessage.style.display = 'block';
-                    setTimeout(() => {
-                        confirmationMessage.style.display = 'none';
-                    }, 5000);
+                    statusTime.textContent = `Entregado: ${entregadoTime.textContent}`;
                 }
-            }
-            
-            deliverBtn.addEventListener('click', function() {
-                // Deshabilitar botón durante el proceso
-                deliverBtn.disabled = true;
-                deliverBtn.textContent = 'Procesando...';
                 
-                setTimeout(() => {
-                    pedidoEstado = "entregado";
-                    actualizarInterfaz();
+                updateTimeline(pedidoEstado);
+            }
+
+            // Simulación de Asignación de Pedido
+            assignBtn.addEventListener('click', function() {
+                if (pedidoEstado === "preparando") {
+                    assignBtn.disabled = true;
+                    assignBtn.textContent = 'Asignando...';
                     
-                    // Restaurar texto del botón
-                    deliverBtn.textContent = 'Marcar como Entregado';
-                }, 1500);
+                    setTimeout(() => {
+                        // Dado que la orden #4501 está lista
+                        repartidorActual = REPARTIDORES.CARLOS; // Cuando lo asigno al repartidor "Carlos"
+                        pedidoEstado = "en_ruta"; // Entonces el pedido cambia a estado "En ruta"
+                        
+                        addHistoryEntry(`Asignación inicial de orden ${orderId} a ${REPARTIDORES.CARLOS}. Estado: En ruta.`);
+                        
+                        updateInterface();
+                        assignBtn.textContent = 'Asignar Pedido';
+                        assignConfirmationMessage.style.display = 'block';
+                        setTimeout(() => assignConfirmationMessage.style.display = 'none', 5000);
+                    }, 1500);
+                }
+            });
+
+            // Simulación de Confirmación de Entrega
+            deliverBtn.addEventListener('click', function() {
+                if (pedidoEstado === "en_ruta") {
+                    deliverBtn.disabled = true;
+                    deliverBtn.textContent = 'Procesando...';
+                    
+                    setTimeout(() => {
+                        // Dado que el repartidor marca "Entregado"
+                        pedidoEstado = "entregado"; // Entonces el pedido queda "Entregado" con fecha y hora
+                        
+                        addHistoryEntry(`Confirmación de entrega de orden ${orderId} por ${repartidorActual}. Estado: Entregado.`);
+                        
+                        updateInterface();
+                        deliverBtn.textContent = 'Marcar como Entregado';
+                        deliveryConfirmationMessage.style.display = 'block';
+                        setTimeout(() => deliveryConfirmationMessage.style.display = 'none', 5000);
+                    }, 1500);
+                }
             });
             
-            actualizarInterfaz();
+            // Simulación de Reasignación de Pedido
+            reassignBtn.addEventListener('click', function() {
+                if (pedidoEstado === "en_ruta") {
+                    reassignBtn.disabled = true;
+                    reassignBtn.textContent = 'Reasignando...';
+                    
+                    setTimeout(() => {
+                        // Dado que el repartidor original no está disponible
+                        repartidorActual = REPARTIDORES.VALENTINA; // Cuando reasigno la orden #4502 (simulada aquí con el mismo ID para la UI) a "Valentina"
+                        // El estado se mantiene en "en_ruta"
+                        
+                        // Y se actualiza el historial de despacho
+                        addHistoryEntry(`Reasignación de orden ${orderIdReassign} de ${REPARTIDORES.CARLOS} a ${REPARTIDORES.VALENTINA}. El estado **se mantiene En ruta**.`);
+                        
+                        // Actualizar UI
+                        updateInterface();
+                        reassignBtn.textContent = 'Reasignar Pedido';
+                        reassignBtn.disabled = false; // Permite otra reasignación si fuera necesario
+                        reassignAlertMessage.style.display = 'block';
+                        setTimeout(() => reassignAlertMessage.style.display = 'none', 5000);
+                    }, 1500);
+                }
+            });
+
+            // Inicializar la interfaz con el estado inicial de "Preparando"
+            updateInterface();
         });
         </script>
     </body>

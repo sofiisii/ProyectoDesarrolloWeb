@@ -336,6 +336,13 @@
                 color: var(--verde-menta);
             }
 
+            /* Estilo para el mensaje de error de impresión */
+            .sending-status.error {
+                background-color: rgba(220, 53, 69, 0.15);
+                border-color: #dc3545;
+                color: #dc3545;
+            }
+
             .btn-action {
                 padding: 15px;
                 border: none;
@@ -384,6 +391,18 @@
                 box-shadow: 0 6px 15px rgba(255, 193, 7, 0.3);
             }
 
+            .btn-danger {
+                background: linear-gradient(135deg, #dc3545, #c82333);
+                color: white;
+                box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+            }
+
+            .btn-danger:hover:not(:disabled) {
+                background: linear-gradient(135deg, #c82333, #dc3545);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 15px rgba(220, 53, 69, 0.3);
+            }
+
             .btn:disabled {
                 background: #cccccc;
                 cursor: not-allowed;
@@ -395,10 +414,16 @@
                 display: flex;
                 gap: 15px;
                 margin-top: 20px;
+                flex-wrap: wrap; /* Para responsive */
             }
 
-            .action-buttons .btn {
+            .action-buttons .btn-action {
                 flex: 1;
+                min-width: 150px; /* Para que no se encojan demasiado */
+            }
+
+            #exportPdfBtn {
+                display: none; /* Inicialmente oculto según el escenario de Gherkin */
             }
 
             .order-timer {
@@ -531,12 +556,16 @@
                     box-shadow: none;
                     border: 2px solid #000;
                 }
+                
+                /* Ocultar el estado de PENDIENTE, EN PREPARACIÓN o COMPLETADO en la impresión */
+                .status-indicator {
+                    display: none !important; 
+                }
             }
         </style>
     </head>
     <body>
 
-        <!-- Header -->
         <header class="header">
             <div class="container">
                 <nav class="nav-container">
@@ -557,7 +586,6 @@
             </div>
         </header>
 
-        <!-- Hero Section Reducida -->
         <section class="hero">
             <div class="container">
                 <div class="hero-content">
@@ -569,9 +597,12 @@
 
         <div class="kitchen-container">
             <div id="sendingStatus" class="sending-status">
-                ⏳ Enviando orden a cocina...
+                ⏳ Generando orden de cocina para pedido pagado...
             </div>
-
+            
+            <div id="printErrorStatus" class="sending-status error" style="display: none;">
+                ❌ **No se pudo imprimir la orden**. La impresora no está disponible.
+            </div>
             <div class="card">
                 <div class="card-header" style="background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; padding: 1.5rem; text-align: center; border-bottom: none;">
                     <h2 style="margin: 0; font-weight: 600; font-size: 1.5rem;">Orden de Cocina</h2>
@@ -585,7 +616,6 @@
                             <div class="order-info">15/03/2024 - 18:30:45</div>
                         </div>
 
-                        <!-- Timer de preparación -->
                         <div class="order-timer">
                             <div class="timer-label">TIEMPO DE PREPARACIÓN</div>
                             <div class="timer-value" id="preparationTimer">00:00</div>
@@ -596,8 +626,7 @@
                             <div class="customer-info">
                                 <strong>Nombre:</strong> Juan Pérez<br>
                                 <strong>Teléfono:</strong> +56 9 1234 5678<br>
-                                <strong>Dirección:</strong> Av. Principal 123, Santiago<br>
-                                <strong>Comuna:</strong> Providencia
+                                <strong id="customerAddress">Dirección:</strong> Av. Principal 123, Santiago<br> <strong>Comuna:</strong> Providencia
                             </div>
                         </div>
 
@@ -631,7 +660,7 @@
 
                         <div class="detail-section">
                             <div class="section-title">OBSERVACIONES</div>
-                            <div class="customer-info">Entregar en portería. Timbre 123.</div>
+                            <div class="customer-info" id="customerObservations">Entregar en portería. Timbre 123.</div>
                         </div>
 
                         <div class="order-footer">
@@ -642,8 +671,9 @@
 
                     <div class="action-buttons">
                         <button class="btn-action btn-secondary" id="printBtn">Imprimir Orden</button>
+                        <button class="btn-action btn-danger" id="exportPdfBtn" style="display: none;">Exportar a PDF 📄</button>
                         <button class="btn-action" id="confirmBtn">Marcar como Preparando</button>
-                        <button class="btn-action btn-success" id="completeBtn" disabledMarcar como Completado</button>
+                        <button class="btn-action btn-success" id="completeBtn" disabled>Marcar como Completado</button>
                     </div>
                 </div>
             </div>
@@ -652,25 +682,30 @@
         <script>
         document.addEventListener('DOMContentLoaded', function() {
             const printBtn = document.getElementById('printBtn');
+            const exportPdfBtn = document.getElementById('exportPdfBtn');
             const confirmBtn = document.getElementById('confirmBtn');
             const completeBtn = document.getElementById('completeBtn');
             const sendingStatus = document.getElementById('sendingStatus');
+            const printErrorStatus = document.getElementById('printErrorStatus');
             const statusIndicator = document.getElementById('statusIndicator');
             const preparationTimer = document.getElementById('preparationTimer');
             
             let timerInterval;
             let seconds = 0;
             let isPreparing = false;
+            let printerAvailable = true; // Variable de estado de la impresora
 
-            // Mostrar estado de envío al cargar
+            // Simulación de envío de orden (escenario de "Dado un pedido pagado")
             sendingStatus.style.display = 'block';
 
             setTimeout(function() {
-                sendingStatus.textContent = 'Orden enviada a cocina exitosamente';
+                sendingStatus.textContent = '✅ Orden generada y lista para impresión';
                 sendingStatus.classList.add('success');
+                // Simulación de que la orden fue creada
+                printerAvailable = Math.random() > 0.25; // Simular 25% de fallo en la impresora
             }, 2000);
 
-            // Función para actualizar el timer
+            // Función para actualizar el timer de preparación
             function updateTimer() {
                 seconds++;
                 const minutes = Math.floor(seconds / 60);
@@ -679,14 +714,46 @@
                     `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
             }
 
-            // Imprimir orden
+            // FUNCIÓN: IMPRIMIR ORDEN (Implementa los 2 escenarios de Gherkin)
             printBtn.addEventListener('click', function() {
-                window.print();
+                // Ocultar mensaje de error si estaba visible
+                printErrorStatus.style.display = 'none';
+                exportPdfBtn.style.display = 'none';
+
+                if (printerAvailable) {
+                    // Escenario: Generación de orden de cocina (impresión exitosa)
+                    console.log('Imprimiendo orden con detalle y dirección del cliente...');
+                    // La función nativa window.print() simula la impresión
+                    window.print();
+                    alert('Orden impresa con éxito.');
+                } else {
+                    // Escenario: Fallo en la impresión
+                    printErrorStatus.style.display = 'block'; // Mostrar mensaje de error
+                    exportPdfBtn.style.display = 'block';     // Habilitar opción Exportar a PDF
+                    
+                    // Bloquear botón de impresión para evitar intentos fallidos
+                    printBtn.disabled = true; 
+                    printBtn.textContent = 'Impresora no disponible';
+                }
             });
+
+            // FUNCIÓN: EXPORTAR A PDF (Habilitada en caso de fallo de impresión)
+            exportPdfBtn.addEventListener('click', function() {
+                console.log('Exportando a PDF...');
+                alert('La orden se ha exportado a PDF correctamente.');
+                
+                // Ocultar mensaje de error después de exportar (opcional)
+                printErrorStatus.style.display = 'none';
+                exportPdfBtn.style.display = 'none';
+                printBtn.disabled = false; // Permitir reintentar impresión
+                printBtn.textContent = 'Imprimir Orden';
+            });
+
 
             // Marcar como preparando
             confirmBtn.addEventListener('click', function() {
                 statusIndicator.textContent = 'EN PREPARACIÓN';
+                statusIndicator.classList.remove('status-indicator'); // Quitar estilo inicial
                 statusIndicator.classList.add('status-preparando');
                 confirmBtn.disabled = true;
                 confirmBtn.textContent = 'Preparación en Curso';
@@ -694,6 +761,7 @@
                 
                 // Iniciar timer
                 isPreparing = true;
+                seconds = 0; // Reiniciar o iniciar el tiempo
                 timerInterval = setInterval(updateTimer, 1000);
                 
                 alert('Orden marcada como en preparación');
