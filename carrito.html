@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú - Sabor Limeño</title>
+    <style>
+        /* --- Paleta de Colores de Sabor Limeño --- */
+        :root {
+            --azul-pacifico: #1E88E5;
+            --azul-pacifico-oscuro: #1565C0;
+            --azul-pacifico-claro: #64B5F6;
+            --aji-amarillo: #FFC107;
+            --terracota: #BF360C;
+            --verde-menta: #4CAF50;
+            --verde-menta-oscuro: #388E3C;
+            --purpura-nazca: #6A1B9A;
+            --blanco-roto: #F8F9FA;
+            --gris-texto: #424242;
+        }
+
+        /* --- Estilos Globales de Sabor Limeño --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--blanco-roto);
+            margin: 0;
+            padding: 0;
+            color: var(--gris-texto);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* --- Header de Sabor Limeño --- */
+        .header {
+            background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
+            padding: 1rem 0;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* --- Hero Section de Sabor Limeño (Adaptado) --- */
+        .hero {
+            background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero p {
+            font-size: 1rem;
+            opacity: 0.9;
+            color: white;
+        }
+
+        /* --- NUEVO LAYOUT: Contenedor del Carrito (2 Columnas) --- */
+        .cart-layout {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* --- Estilo de Columna (basado en .report-container) --- */
+        .cart-column {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1);
+            width: 48%;
+            padding: 30px;
+            border: 2px solid transparent;
+        }
+
+        /* --- Títulos de Columna (basado en .section-title) --- */
+        .cart-column h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--azul-pacifico-oscuro);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--azul-pacifico-claro);
+        }
+
+        /* --- Estilos para los Items del Menú --- */
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5px;
+            border-bottom: 1px solid var(--blanco-roto);
+        }
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        .menu-item span {
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        /* --- Estilos para la Lista del Carrito --- */
+        #cart-items {
+            list-style: none;
+            padding: 0;
+        }
+        #cart-items li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5px;
+            border-bottom: 1px solid var(--blanco-roto);
+            font-weight: 500;
+        }
+
+        /* --- NUEVOS BOTONES (Estilo Sabor Limeño) --- */
+        .btn-cart {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .btn-cart:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Botón Agregar (Verde) */
+        .add-btn {
+            background: linear-gradient(135deg, var(--verde-menta), var(--verde-menta-oscuro));
+        }
+        .add-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, var(--verde-menta-oscuro), var(--verde-menta));
+        }
+        .add-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            opacity: 0.7;
+        }
+
+        /* Botón Eliminar (Rojo/Terracota) */
+        .remove-btn {
+            background: linear-gradient(135deg, var(--terracota), #D84315);
+            font-size: 12px;
+            padding: 8px 12px;
+        }
+        .remove-btn:hover {
+            background: linear-gradient(135deg, #D84315, var(--terracota));
+        }
+
+
+        /* --- MENSAJES de Sabor Limeño --- */
+        #message-area {
+            margin-top: 20px;
+        }
+        .success-message {
+            background-color: rgba(76, 175, 80, 0.15);
+            color: var(--verde-menta-oscuro);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid rgba(76, 175, 80, 0.3);
+            font-weight: 600;
+            display: none; /* Se activa con JS */
+        }
+        .error-message {
+            background-color: rgba(191, 54, 12, 0.1);
+            color: var(--terracota);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid rgba(191, 54, 12, 0.3);
+            font-weight: 600;
+            display: none; /* Se activa con JS */
+        }
+
+        /* --- Responsive (Simplificado) --- */
+        @media (max-width: 768px) {
+            .cart-layout {
+                flex-direction: column;
+            }
+            .cart-column {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <nav class="nav-container">
+                <div class="logo">
+                    <span>Sabor Limeño</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Menú</a></li>
+                    <li><a href="#">Mi Pedido</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Haz tu Pedido</h1>
+            <p>Agrega o quita platos de tu carrito con flexibilidad</p>
+        </div>
+    </section>
+
+    <div class="cart-layout">
+        
+        <div class="cart-column">
+            <h2>Menú</h2>
+            <div id="menu">
+                <div class="menu-item">
+                    <span>Ají de Gallina</span>
+                    <button class="btn-cart add-btn" data-name="Ají de Gallina">Agregar</button>
+                </div>
+                
+                <div class="menu-item">
+                    <span>Ceviche Clásico</span>
+                    <button class="btn-cart add-btn" data-name="Ceviche Clásico">Agregar</button>
+                </div>
+                
+                <div class="menu-item">
+                    <span>Lomo Saltado</span>
+                    <button class="btn-cart add-btn" data-name="Lomo Saltado" disabled>No disponible</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-column">
+            <h2>Mi Carrito</h2>
+            <ul id="cart-items">
+                </ul>
+            <div id="message-area"></div>
+        </div>
+    </div>
+
+    <script>
+        const menu = document.getElementById('menu');
+        const cartList = document.getElementById('cart-items');
+        const messageArea = document.getElementById('message-area');
+        let messageTimeout;
+
+        // --- Función de Mensajes ADAPTADA a los estilos de Sabor Limeño ---
+        function showMessage(text, type = 'success') {
+            // Limpia el mensaje anterior si existe
+            clearTimeout(messageTimeout);
+            
+            // Asigna la clase de estilo correcta
+            if (type === 'success') {
+                messageArea.className = 'success-message';
+            } else {
+                messageArea.className = 'error-message';
+            }
+            
+            messageArea.textContent = text;
+            messageArea.style.display = 'block'; // Muestra el mensaje
+            
+            // El mensaje desaparece después de 3 segundos
+            messageTimeout = setTimeout(() => {
+                messageArea.style.display = 'none';
+                messageArea.className = '';
+            }, 3000);
+        }
+
+        // --- Escenario 1: Agregar plato al carrito ---
+        menu.addEventListener('click', function(e) {
+            // Asegurarnos de que se hizo clic en un botón "Agregar"
+            if (e.target.classList.contains('add-btn')) {
+                const button = e.target;
+                const itemName = button.getAttribute('data-name');
+
+                // Escenario 3: Comprobar si está deshabilitado
+                if (button.disabled) {
+                    showMessage('Este plato no está disponible actualmente', 'error');
+                    return; // Detiene la función
+                }
+
+                const existingItem = document.querySelector(`#cart-items li[data-name="${itemName}"]`);
+                
+                if (existingItem) {
+                    // Si ya existe, actualiza la cantidad
+                    const quantitySpan = existingItem.querySelector('.quantity');
+                    let quantity = parseInt(quantitySpan.textContent);
+                    quantity++;
+                    quantitySpan.textContent = quantity;
+                } else {
+                    // Si no existe, crea el nuevo elemento <li>
+                    const li = document.createElement('li');
+                    li.setAttribute('data-name', itemName);
+                    li.innerHTML = `
+                        <span>${itemName} (x<span class="quantity">1</span>)</span>
+                        <button class="btn-cart remove-btn">Eliminar</button>
+                    `;
+                    cartList.appendChild(li);
+                }
+                
+                showMessage(`${itemName} agregado al carrito`, 'success');
+            }
+        });
+
+        // --- Escenario 2: Eliminar plato del carrito ---
+        cartList.addEventListener('click', function(e) {
+            // Asegurarnos de que se hizo clic en un botón "Eliminar"
+            if (e.target.classList.contains('remove-btn')) {
+                const li = e.target.parentElement; // El <li> que contiene el botón
+                const itemName = li.getAttribute('data-name');
+                
+                li.remove(); // Elimina el elemento de la lista
+                
+                showMessage(`${itemName} eliminado del carrito`, 'success');
+            }
+        });
+    </script>
+
+</body>
+</html>

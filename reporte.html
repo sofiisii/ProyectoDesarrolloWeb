@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportes de Ventas - Sabor Limeño</title>
-        <style>
+    <style>
         :root {
             --azul-pacifico: #1E88E5;
             --azul-pacifico-oscuro: #1565C0;
@@ -427,6 +427,19 @@
             font-weight: 600;
         }
 
+        /* --- NUEVO ESTILO AÑADIDO --- */
+        .error-message {
+            background-color: rgba(191, 54, 12, 0.1); /* Color terracota con opacidad */
+            color: var(--terracota);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+            border: 2px solid var(--terracota);
+            font-weight: 600;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-container {
@@ -527,238 +540,271 @@
                 min-width: auto;
             }
         }
-        </style>
-    </head>
-    <body>
+    </style>
+</head>
+<body>
 
-        <!-- Header -->
-        <header class="header">
-            <div class="container">
-                <nav class="nav-container">
-                    <div class="logo">
-                        <span>Sabor Limeño</span>
+    <header class="header">
+        <div class="container">
+            <nav class="nav-container">
+                <div class="logo">
+                    <span>Sabor Limeño</span>
+                </div>
+                
+                <ul class="nav-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="registro.html">Registrarse</a></li>
+                </ul>
+                
+                <div class="auth-buttons">
                     </div>
-                    
-                    <ul class="nav-links">
-                        <li><a href="index.html">Inicio</a></li>
-                        <li><a href="catalogo.html">Catálogo</a></li>
-                        <li><a href="registro.html">Registrarse</a></li>
-                    </ul>
-                    
-                    <div class="auth-buttons">
-                        <!-- Los botones se actualizarán dinámicamente según el estado de sesión -->
-                    </div>
-                </nav>
-            </div>
-        </header>
+            </nav>
+        </div>
+    </header>
 
-        <!-- Hero Section Reducida -->
-        <section class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1>Reportes de Ventas</h1>
-                    <p>Analiza el desempeño de tu restaurante con datos en tiempo real</p>
-                </div>
-            </div>
-        </section>
-
-        <div class="report-container">
-            <h1>Reporte Mensual</h1>
-            
-            <div class="report-filters">
-                <div class="filter-group">
-                    <span class="filter-label">Mes:</span>
-                    <select id="monthSelect">
-                        <option value="1">Enero</option>
-                        <option value="2">Febrero</option>
-                        <option value="3">Marzo</option>
-                        <option value="4">Abril</option>
-                        <option value="5">Mayo</option>
-                        <option value="6">Junio</option>
-                        <option value="7">Julio</option>
-                        <option value="8" selected>Agosto</option>
-                        <option value="9">Septiembre</option>
-                        <option value="10">Octubre</option>
-                        <option value="11">Noviembre</option>
-                        <option value="12">Diciembre</option>
-                    </select>
-                </div>
-                
-                <div class="filter-group">
-                    <span class="filter-label">Año:</span>
-                    <select id="yearSelect">
-                        <option value="2023">2023</option>
-                        <option value="2024">2024</option>
-                        <option value="2025" selected>2025</option>
-                    </select>
-                </div>
-                
-                <button class="btn-report btn-report-primary" id="generateReport">Generar reporte</button>
-            </div>
-            
-            <div class="loading" id="loadingIndicator">
-                <div>Generando reporte...</div>
-            </div>
-            
-            <div id="reportContent" style="display: none;">
-                <div class="report-period" id="reportPeriod">Reporte para: Agosto 2025</div>
-                
-                <div class="metrics-grid">
-                    <div class="metric-card">
-                        <div class="metric-label">Ventas Totales</div>
-                        <div class="metric-value" id="totalSales">$2.450.850</div>
-                        <div class="metric-label">+12% vs mes anterior</div>
-                    </div>
-                    
-                    <div class="metric-card">
-                        <div class="metric-label">Ticket Promedio</div>
-                        <div class="metric-value" id="averageTicket">$24.580</div>
-                        <div class="metric-label">+5% vs mes anterior</div>
-                    </div>
-                    
-                    <div class="metric-card">
-                        <div class="metric-label">Pedidos Totales</div>
-                        <div class="metric-value" id="totalOrders">98</div>
-                        <div class="metric-label">+8% vs mes anterior</div>
-                    </div>
-                </div>
-                
-                <div class="top-dishes">
-                    <div class="section-title">Top 5 Platos Más Vendidos</div>
-                    <table class="dishes-table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Plato</th>
-                                <th>Ventas</th>
-                                <th>Cantidad</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="dish-rank">1</td>
-                                <td>Lomo Saltado</td>
-                                <td class="dish-sales">$458.200</td>
-                                <td class="dish-sales">35</td>
-                            </tr>
-                            <tr>
-                                <td class="dish-rank">2</td>
-                                <td>Ceviche Clásico</td>
-                                <td class="dish-sales">$392.150</td>
-                                <td class="dish-sales">28</td>
-                            </tr>
-                            <tr>
-                                <td class="dish-rank">3</td>
-                                <td>Pollo a la Brasa</td>
-                                <td class="dish-sales">$315.800</td>
-                                <td class="dish-sales">22</td>
-                            </tr>
-                            <tr>
-                                <td class="dish-rank">4</td>
-                                <td>Suspiro Limeño</td>
-                                <td class="dish-sales">$187.600</td>
-                                <td class="dish-sales">45</td>
-                            </tr>
-                            <tr>
-                                <td class="dish-rank">5</td>
-                                <td>Arroz con Mariscos</td>
-                                <td class="dish-sales">$175.300</td>
-                                <td class="dish-sales">15</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <div class="export-buttons">
-                    <button class="btn-export btn-pdf" id="exportPdf">Exportar a PDF</button>
-                    <button class="btn-export" id="exportExcel">Exportar a Excel</button>
-                </div>
-            </div>
-            
-            <div class="success-message" id="exportSuccess">
-                Archivo descargado exitosamente
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Reportes de Ventas</h1>
+                <p>Analiza el desempeño de tu restaurante con datos en tiempo real</p>
             </div>
         </div>
+    </section>
 
-        <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Script para actualizar el header según el estado de sesión
-            const authButtons = document.querySelector('.auth-buttons');
+    <div class="report-container">
+        <h1>Reporte Mensual</h1>
+        
+        <div class="report-filters">
+            <div class="filter-group">
+                <span class="filter-label">Mes:</span>
+                <select id="monthSelect">
+                    <option value="1">Enero</option>
+                    <option value="2">Febrero</option>
+                    <option value="3">Marzo</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Mayo</option>
+                    <option value="6">Junio</option>
+                    <option value="7">Julio</option>
+                    <option value="8" selected>Agosto</option>
+                    <option value="9">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
+                </select>
+            </div>
             
-            // Verificar si el usuario está logueado
-            if (localStorage.getItem('userLoggedIn') === 'true') {
-                const userEmail = localStorage.getItem('userEmail');
-                
-                // Reemplazar botones de login/registro por información de usuario y botón de cierre
-                authButtons.innerHTML = `
-                    <span class="user-info">Hola, ${userEmail}</span>
-                    <button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>
-                `;
-                
-                // Agregar evento al botón de cierre de sesión
-                document.getElementById('logoutBtn').addEventListener('click', function() {
-                    localStorage.removeItem('userLoggedIn');
-                    localStorage.removeItem('userEmail');
-                    localStorage.removeItem('loginTime');
-                    window.location.reload();
-                });
-            } else {
-                // Mostrar botones de login/registro si no hay sesión activa
-                authButtons.innerHTML = `
-                    <a href="signin.html" class="btn btn-outline">Iniciar Sesión</a>
-                    <a href="registro.html" class="btn btn-primary">Registrarse</a>
-                `;
-            }
+            <div class="filter-group">
+                <span class="filter-label">Año:</span>
+                <select id="yearSelect">
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025" selected>2025</option>
+                </select>
+            </div>
+            
+            <button class="btn-report btn-report-primary" id="generateReport">Generar reporte</button>
+        </div>
+        
+        <div class="loading" id="loadingIndicator">
+            <div>Generando reporte...</div>
+        </div>
 
-            // Código original para los reportes
-            const generateReportBtn = document.getElementById('generateReport');
-            const exportExcelBtn = document.getElementById('exportExcel');
-            const exportPdfBtn = document.getElementById('exportPdf');
-            const loadingIndicator = document.getElementById('loadingIndicator');
-            const reportContent = document.getElementById('reportContent');
-            const reportPeriod = document.getElementById('reportPeriod');
-            const exportSuccess = document.getElementById('exportSuccess');
-            const monthSelect = document.getElementById('monthSelect');
-            const yearSelect = document.getElementById('yearSelect');
+        <div class="error-message" id="noDataMessage" style="display: none;">
+            No hay datos disponibles para este periodo
+        </div>
+
+        
+        <div id="reportContent" style="display: none;">
+            <div class="report-period" id="reportPeriod">Reporte para: Agosto 2025</div>
             
-            const months = [
-                'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-                'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-            ];
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Ventas Totales</div>
+                    <div class="metric-value" id="totalSales">$2.450.850</div>
+                    <div class="metric-label">+12% vs mes anterior</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-label">Ticket Promedio</div>
+                    <div class="metric-value" id="averageTicket">$24.580</div>
+                    <div class="metric-label">+5% vs mes anterior</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-label">Pedidos Totales</div>
+                    <div class="metric-value" id="totalOrders">98</div>
+                    <div class="metric-label">+8% vs mes anterior</div>
+                </div>
+            </div>
             
-            generateReportBtn.addEventListener('click', function() {
-                const month = parseInt(monthSelect.value);
-                const year = parseInt(yearSelect.value);
+            <div class="top-dishes">
+                <div class="section-title">Top 5 Platos Más Vendidos</div>
+                <table class="dishes-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Plato</th>
+                            <th>Ventas</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="dish-rank">1</td>
+                            <td>Lomo Saltado</td>
+                            <td class="dish-sales">$458.200</td>
+                            <td class="dish-sales">35</td>
+                        </tr>
+                        <tr>
+                            <td class="dish-rank">2</td>
+                            <td>Ceviche Clásico</td>
+                            <td class="dish-sales">$392.150</td>
+                            <td class="dish-sales">28</td>
+                        </tr>
+                        <tr>
+                            <td class="dish-rank">3</td>
+                            <td>Pollo a la Brasa</td>
+                            <td class="dish-sales">$315.800</td>
+                            <td class="dish-sales">22</td>
+                        </tr>
+                        <tr>
+                            <td class="dish-rank">4</td>
+                            <td>Suspiro Limeño</td>
+                            <td class="dish-sales">$187.600</td>
+                            <td class="dish-sales">45</td>
+                        </tr>
+                        <tr>
+                            <td class="dish-rank">5</td>
+                            <td>Arroz con Mariscos</td>
+                            <td class="dish-sales">$175.300</td>
+                            <td class="dish-sales">15</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="export-buttons">
+                <button class="btn-export btn-pdf" id="exportPdf">Exportar a PDF</button>
+                <button class="btn-export" id="exportExcel">Exportar a Excel</button>
+            </div>
+        </div>
+        
+        <div class="success-message" id="exportSuccess">
+            Archivo descargado exitosamente
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Script para actualizar el header según el estado de sesión
+        const authButtons = document.querySelector('.auth-buttons');
+        
+        // Verificar si el usuario está logueado
+        if (localStorage.getItem('userLoggedIn') === 'true') {
+            const userEmail = localStorage.getItem('userEmail');
+            
+            // Reemplazar botones de login/registro por información de usuario y botón de cierre
+            authButtons.innerHTML = `
+                <span class="user-info">Hola, ${userEmail}</span>
+                <button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>
+            `;
+            
+            // Agregar evento al botón de cierre de sesión
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                localStorage.removeItem('userLoggedIn');
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('loginTime');
+                window.location.reload();
+            });
+        } else {
+            // Mostrar botones de login/registro si no hay sesión activa
+            authButtons.innerHTML = `
+                <a href="signin.html" class="btn btn-outline">Iniciar Sesión</a>
+                <a href="registro.html" class="btn btn-primary">Registrarse</a>
+            `;
+        }
+
+        // --- LÓGICA DE REPORTES ACTUALIZADA ---
+
+        // Referencias a elementos del DOM
+        const generateReportBtn = document.getElementById('generateReport');
+        const exportExcelBtn = document.getElementById('exportExcel');
+        const exportPdfBtn = document.getElementById('exportPdf');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const reportContent = document.getElementById('reportContent');
+        const reportPeriod = document.getElementById('reportPeriod');
+        const exportSuccess = document.getElementById('exportSuccess');
+        const monthSelect = document.getElementById('monthSelect');
+        const yearSelect = document.getElementById('yearSelect');
+        
+        // --- NUEVA REFERENCIA ---
+        const noDataMessage = document.getElementById('noDataMessage'); // Mensaje de error
+        
+        const months = [
+            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+        ];
+        
+        // --- LÓGICA DEL BOTÓN "GENERAR REPORTE" ACTUALIZADA ---
+        generateReportBtn.addEventListener('click', function() {
+            const month = parseInt(monthSelect.value);
+            const year = parseInt(yearSelect.value);
+            const monthName = months[month - 1]; // Nombre del mes
+            
+            // 1. Ocultar todos los contenedores de resultados
+            loadingIndicator.style.display = 'block';
+            reportContent.style.display = 'none';
+            exportSuccess.style.display = 'none';
+            noDataMessage.style.display = 'none'; // Ocultar mensaje de error
+            
+            // 2. Simular tiempo de carga
+            setTimeout(function() {
+                loadingIndicator.style.display = 'none';
                 
-                loadingIndicator.style.display = 'block';
-                reportContent.style.display = 'none';
-                exportSuccess.style.display = 'none';
-                
-                setTimeout(function() {
-                    loadingIndicator.style.display = 'none';
+                // 3. Implementar lógica de escenarios
+                // Simulación para "Reporte sin datos disponibles"
+                // Gherkin: Dado que selecciono un período sin ventas registradas
+                if (month === 1 && year === 2023) { 
+                    // Gherkin: Entonces veo el mensaje "No hay datos disponibles para este periodo"
+                    noDataMessage.style.display = 'block';
+                } else {
+                    // Simulación para "Reporte mensual con métricas"
+                    // Gherkin: Dado que selecciono agosto 2025
+                    // Gherkin: Entonces veo ventas totales, ticket promedio y top 5 platos
                     reportContent.style.display = 'block';
-                    reportPeriod.textContent = `Reporte para: ${months[month-1]} ${year}`;
-                }, 1500);
-            });
-            
-            exportExcelBtn.addEventListener('click', function() {
-                exportSuccess.textContent = 'Archivo .xlsx descargado exitosamente';
-                exportSuccess.style.display = 'block';
-                setTimeout(function() {
-                    exportSuccess.style.display = 'none';
-                }, 3000);
-            });
-            
-            exportPdfBtn.addEventListener('click', function() {
-                exportSuccess.textContent = 'Archivo PDF descargado exitosamente';
-                exportSuccess.style.display = 'block';
-                setTimeout(function() {
-                    exportSuccess.style.display = 'none';
-                }, 3000);
-            });
-            
-            generateReportBtn.click();
+                    reportPeriod.textContent = `Reporte para: ${monthName} ${year}`;
+                    
+                    // Nota: Los datos de las tarjetas y la tabla son estáticos (hardcoded)
+                    // pero se muestran correctamente según el escenario.
+                }
+            }, 1500); // 1.5 segundos de carga simulada
         });
-        </script>
-    </body>
+        
+        // --- Lógica de botones de exportación (sin cambios) ---
+        
+        // Escenario: Exportación a Excel
+        exportExcelBtn.addEventListener('click', function() {
+            exportSuccess.textContent = 'Archivo .xlsx descargado exitosamente'; // Gherkin: Entonces descargo el archivo .xlsx
+            exportSuccess.style.display = 'block';
+            setTimeout(function() {
+                exportSuccess.style.display = 'none';
+            }, 3000);
+        });
+        
+        // Escenario: Exportación a PDF
+        exportPdfBtn.addEventListener('click', function() {
+            exportSuccess.textContent = 'Archivo .pdf descargado exitosamente'; // Gherkin: Entonces descargo el archivo .pdf
+            exportSuccess.style.display = 'block';
+            setTimeout(function() {
+                exportSuccess.style.display = 'none';
+            }, 3000);
+        });
+        
+        // Cargar el reporte por defecto (Agosto 2025) al iniciar la página
+        // Esto cumple el escenario "Reporte mensual con métricas" al cargar
+        generateReportBtn.click();
+    });
+    </script>
+</body>
 </html>
