@@ -20,7 +20,8 @@
         .nav-links { display: flex; gap: 2rem; list-style: none; margin:0; padding:0; }
         .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; }
         .nav-links a:hover { background-color: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
-        .auth-buttons { display: flex; gap: 1rem; }
+        .auth-buttons { display: flex; gap: 1rem; align-items: center; } /* Contenedor para botones de auth */
+        .user-info { color: white; margin-right: 15px; font-weight: 500; } /* Estilo para "Hola, usuario" */
         .btn { padding: 10px 20px; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; font-size: 14px; }
         .btn-outline { background: transparent; border: 2px solid white; color: white; }
         .btn-outline:hover { background: white; color: var(--azul-pacifico); }
@@ -56,15 +57,24 @@
     </style>
 </head>
 <body>
+    
     <header class="header">
-        <div class="container nav-container">
-            <div class="logo"><span>Sabor Limeño</span></div>
-            <ul class="nav-links">
-                <li><a href="index.html">Inicio</a></li><li><a href="catalogo.html">Menú</a></li><li><a href="pedido.html">Mis Pedidos</a></li>
-            </ul>
-            <div class="auth-buttons">
-                <a href="signin.html" class="btn btn-outline">Iniciar Sesión</a><a href="registro.html" class="btn btn-primary">Registrarse</a>
-            </div>
+        <div class="container">
+            <nav class="nav-container">
+                <div class="logo"><span>Sabor Limeño</span></div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="pedido.html">Mis Pedidos</a></li>
+                    <li>
+                        <a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">
+                            Carrito 🛒
+                        </a>
+                    </li>
+                </ul>
+                <div class="auth-buttons">
+                    </div>
+            </nav>
         </div>
     </header>
     <section class="hero">
@@ -111,6 +121,29 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function () {
+        
+        // --- INICIO: Script de Gestión de Sesión ---
+        const authButtonsContainer = document.querySelector('.header .auth-buttons');
+        if (authButtonsContainer) {
+            if (localStorage.getItem('userLoggedIn') === 'true') {
+                const userEmail = localStorage.getItem('userEmail');
+                authButtonsContainer.innerHTML = `<span class="user-info" style="color:white; margin-right: 15px; font-weight: 500;">Hola, ${userEmail}</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
+                
+                const logoutBtn = document.getElementById('logoutBtn');
+                if(logoutBtn) {
+                    logoutBtn.addEventListener('click', function() {
+                        localStorage.removeItem('userLoggedIn');
+                        localStorage.removeItem('userEmail');
+                        localStorage.removeItem('loginTime');
+                        window.location.href = "signin.html"; // Redirigir a signin al cerrar sesión
+                    });
+                }
+            } else {
+                authButtonsContainer.innerHTML = `<a href="signin.html" class="btn btn-outline">Iniciar Sesión</a><a href="registro.html" class="btn btn-primary">Registrarse</a>`;
+            }
+        }
+        // --- FIN: Script de Gestión de Sesión ---
+
         const allProducts = [
             { 
                 name: "Lomo Saltado", 

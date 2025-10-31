@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú - Sabor Limeño</title>
+    <title>Carrito - Sabor Limeño</title>
     <style>
         /* --- Paleta de Colores de Sabor Limeño --- */
         :root {
@@ -78,6 +78,14 @@
             background-color: rgba(255, 255, 255, 0.15);
             transform: translateY(-2px);
         }
+
+        .auth-buttons { display: flex; gap: 1rem; align-items: center; } /* Contenedor para botones de auth */
+        .user-info { color: white; margin-right: 15px; font-weight: 500; } /* Estilo para "Hola, usuario" */
+        .btn { padding: 10px 20px; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; font-size: 14px; }
+        .btn-outline { background: transparent; border: 2px solid white; color: white; }
+        .btn-outline:hover { background: white; color: var(--azul-pacifico); }
+        .btn-primary { background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; }
+        .btn-primary:hover { background: #FFB300; box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3); }
 
         /* --- Hero Section de Sabor Limeño (Adaptado) --- */
         .hero {
@@ -246,18 +254,22 @@
     <header class="header">
         <div class="container">
             <nav class="nav-container">
-                <div class="logo">
-                    <span>Sabor Limeño</span>
-                </div>
+                <div class="logo"><span>Sabor Limeño</span></div>
                 <ul class="nav-links">
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Menú</a></li>
-                    <li><a href="#">Mi Pedido</a></li>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="pedido.html">Mis Pedidos</a></li>
+                    <li>
+                        <a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">
+                            Carrito 🛒
+                        </a>
+                    </li>
                 </ul>
+                <div class="auth-buttons">
+                    </div>
             </nav>
         </div>
     </header>
-
     <section class="hero">
         <div class="container">
             <h1>Haz tu Pedido</h1>
@@ -296,6 +308,31 @@
     </div>
 
     <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // --- INICIO: Script de Gestión de Sesión ---
+        const authButtonsContainer = document.querySelector('.header .auth-buttons');
+        if (authButtonsContainer) {
+            if (localStorage.getItem('userLoggedIn') === 'true') {
+                const userEmail = localStorage.getItem('userEmail');
+                authButtonsContainer.innerHTML = `<span class="user-info" style="color:white; margin-right: 15px; font-weight: 500;">Hola, ${userEmail}</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
+                
+                const logoutBtn = document.getElementById('logoutBtn');
+                if(logoutBtn) {
+                    logoutBtn.addEventListener('click', function() {
+                        localStorage.removeItem('userLoggedIn');
+                        localStorage.removeItem('userEmail');
+                        localStorage.removeItem('loginTime');
+                        window.location.href = "signin.html"; // Redirigir a signin al cerrar sesión
+                    });
+                }
+            } else {
+                authButtonsContainer.innerHTML = `<a href="signin.html" class="btn btn-outline">Iniciar Sesión</a><a href="registro.html" class="btn btn-primary">Registrarse</a>`;
+            }
+        }
+        // --- FIN: Script de Gestión de Sesión ---
+
+        // --- Script original de la página ---
         const menu = document.getElementById('menu');
         const cartList = document.getElementById('cart-items');
         const messageArea = document.getElementById('message-area');
@@ -371,6 +408,7 @@
                 showMessage(`${itemName} eliminado del carrito`, 'success');
             }
         });
+    });
     </script>
 
 </body>

@@ -86,22 +86,26 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
+    
     <header class="header">
         <div class="container">
             <nav class="nav-container">
                 <div class="logo"><span>Sabor Limeño</span></div>
                 <ul class="nav-links">
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#acciones">Acciones Rápidas</a></li>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="pedido.html">Mis Pedidos</a></li>
+                    <li>
+                        <a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">
+                            Carrito 🛒
+                        </a>
+                    </li>
                 </ul>
-                <div class="auth-buttons"></div>
+                <div class="auth-buttons">
+                    </div>
             </nav>
         </div>
     </header>
-
-    <!-- Hero Section -->
     <section class="hero" id="inicio">
         <div class="container">
             <div class="hero-content">
@@ -112,9 +116,7 @@
         </div>
     </section>
 
-    <!-- Main Content -->
     <div class="container">
-        <!-- Cards Section -->
         <section class="cards-section" id="servicios">
             <h2 class="section-title">Nuestros Servicios</h2>
             <div class="cards-grid">
@@ -136,20 +138,18 @@
             </div>
         </section>
 
-        <!-- Quick Actions -->
         <section class="quick-actions" id="acciones">
             <h2 class="section-title">Acceso Rápido</h2>
             <div class="actions-grid">
                 <a href="catalogo.html" class="action-card"><div class="action-icon">🍽️</div><div class="action-title">Ver Menú</div><div class="action-desc">Descubre nuestra carta peruana</div></a>
                 <a href="pedido.html" class="action-card"><div class="action-icon">📋</div><div class="action-title">Mi Pedido</div><div class="action-desc">Gestiona tu pedido actual</div></a>
                 <a href="delivery.html" class="action-card"><div class="action-icon">🚗</div><div class="action-title">Seguimiento</div><div class="action-desc">Estado de tu delivery</div></a>
-                <a href="cancelar-pedido.html" class="action-card"><div class="action-icon">❌</div><div class="action-title">Cancelar Pedido</div><div class="action-desc">Anular pedido actual</div></a>
+                <a href="anularpedido.html" class="action-card"><div class="action-icon">❌</div><div class="action-title">Anular Pedido</div><div class="action-desc">Anular pedido actual</div></a>
                 <a href="boleta.html" class="action-card"><div class="action-icon">🧾</div><div class="action-title">Boleta Electrónica</div><div class="action-desc">Visualiza tu comprobante</div></a>
             </div>
         </section>
     </div>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -171,7 +171,7 @@
                         <li><a href="pedido.html">Gestión de Pedidos</a></li>
                         <li><a href="delivery.html">Seguimiento Delivery</a></li>
                         <li><a href="newpassword.html">Soporte Seguro</a></li>
-                        <li><a href="cancelar-pedido.html">Cancelar Pedido</a></li>
+                        <li><a href="anularpedido.html">Anular Pedido</a></li>
                         <li><a href="boleta.html">Boleta Electrónica</a></li>
                     </ul>
                 </div>
@@ -184,6 +184,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // --- INICIO: Script de Gestión de Sesión ---
             const authButtons = document.querySelector('.auth-buttons');
             if (localStorage.getItem('userLoggedIn') === 'true') {
                 const userEmail = localStorage.getItem('userEmail');
@@ -192,11 +193,12 @@
                     localStorage.removeItem('userLoggedIn');
                     localStorage.removeItem('userEmail');
                     localStorage.removeItem('loginTime');
-                    window.location.reload();
+                    window.location.href = "signin.html"; // Redirigir a signin
                 });
             } else {
                 authButtons.innerHTML = `<a href="signin.html" class="btn btn-outline">Iniciar Sesión</a><a href="registro.html" class="btn btn-primary">Registrarse</a>`;
             }
+            // --- FIN: Script de Gestión de Sesión ---
 
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
