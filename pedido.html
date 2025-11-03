@@ -745,27 +745,52 @@
         <script>
         document.addEventListener('DOMContentLoaded', function() {
             
-            // --- INICIO: Script de Gestión de Sesión ---
-            const authButtonsContainer = document.querySelector('.header .auth-buttons');
-            if (authButtonsContainer) {
-                if (localStorage.getItem('userLoggedIn') === 'true') {
-                    const userEmail = localStorage.getItem('userEmail');
-                    authButtonsContainer.innerHTML = `<span class="user-info" style="color:white; margin-right: 15px; font-weight: 500;">Hola, ${userEmail}</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
-                    
-                    const logoutBtn = document.getElementById('logoutBtn');
-                    if(logoutBtn) {
-                        logoutBtn.addEventListener('click', function() {
-                            localStorage.removeItem('userLoggedIn');
-                            localStorage.removeItem('userEmail');
-                            localStorage.removeItem('loginTime');
-                            window.location.href = "signin.html"; // Redirigir a signin al cerrar sesión
-                        });
+            // --- INICIO: NUEVO Script de Gestión de Sesión (con Token) ---
+            const authButtons = document.querySelector('.auth-buttons');
+            const token = localStorage.getItem('authToken');
+
+            if (token) {
+                // Hay un token, verificamos si es válido
+                fetch('http://localhost:3000/api/auth/me', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
                     }
-                } else {
-                    authButtonsContainer.innerHTML = `<a href="signin.html" class="btn btn-outline">Iniciar Sesión</a><a href="registro.html" class="btn btn-primary">Registrarse</a>`;
-                }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    // Si el token es inválido o expiró (error 403), borramos y mostramos login
+                    throw new Error('Token inválido');
+                })
+                .then(user => {
+                    // Usuario autenticado
+                    const userEmail = user.email; // Usamos el email de la respuesta segura
+                    authButtons.innerHTML = `<span class="user-info">Hola, ${userEmail}</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
+                    
+                    document.getElementById('logoutBtn').addEventListener('click', function() {
+                        localStorage.removeItem('authToken');
+                        localStorage.removeItem('userEmail'); // Limpiamos todo
+                        window.location.href = "signin.html";
+                    });
+                })
+                .catch(error => {
+                    // Error al validar, tratamos como si no estuviera logueado
+                    console.error('Error de autenticación:', error.message);
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('userEmail');
+                    mostrarBotonesLogin();
+                });
+
+            } else {
+                // No hay token, mostramos botones de login/registro
+                mostrarBotonesLogin();
             }
-            // --- FIN: Script de Gestión de Sesión ---
+            
+            function mostrarBotonesLogin() {
+                 authButtons.innerHTML = `<a href="signin.html" class="btn btn-outline">Iniciar Sesión</a><a href="registro.html" class="btn btn-primary">Registrarse</a>`;
+            }
+            // --- FIN: NUEVO Script de Gestión de Sesión ---
             
             const continueBtn = document.getElementById('continueBtn');
             const payBtn = document.getElementById('payBtn');

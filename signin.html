@@ -435,42 +435,55 @@
         </div>
 
         <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('loginForm');
-            const loginBtn = form.querySelector('button[type="submit"]');
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('loginForm');
+        const loginBtn = form.querySelector('button[type="submit"]');
+        
+        // Verificar si ya hay una sesión (token)
+        if (localStorage.getItem('authToken')) {
+            window.location.href = "index.html";
+        }
+        
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
             
-            // Verificar si ya hay una sesión activa
-            if (localStorage.getItem('userLoggedIn') === 'true') {
-                window.location.href = "index.html";
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Validando...';
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+
+                if (response.ok) {
+                    // ¡Éxito! Guardamos el Token y el email
+                    localStorage.setItem('authToken', data.token);
+                    localStorage.setItem('userEmail', data.user.email); // Guardamos el email para mostrarlo
+                    
+                    window.location.href = "index.html";
+                } else {
+                    alert(data.message); // Muestra "Credenciales incorrectas"
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'Iniciar Sesión';
+                }
+
+            } catch (error) {
+                console.error('Error de red:', error);
+                alert('Error de conexión con el servidor.');
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Iniciar Sesión';
             }
-            
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
-                
-                // Deshabilitar botón durante la validación
-                loginBtn.disabled = true;
-                loginBtn.textContent = 'Validando...';
-                
-                // Simulación de login con delay
-                setTimeout(function() {
-                    if(email === "test@test.com" && password === "1234") {
-                        // Guardar información de sesión
-                        localStorage.setItem('userLoggedIn', 'true');
-                        localStorage.setItem('userEmail', email);
-                        localStorage.setItem('loginTime', new Date().toISOString());
-                        
-                        window.location.href = "index.html";
-                    } else {
-                        alert("Credenciales incorrectas.");
-                        loginBtn.disabled = false;
-                        loginBtn.textContent = 'Iniciar Sesión';
-                    }
-                }, 1000);
-            });
         });
-        </script>
+    });
+    </script>
 
     </body>
 </html>

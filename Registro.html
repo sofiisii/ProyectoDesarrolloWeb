@@ -495,172 +495,89 @@
             const form = document.getElementById('registrationForm');
             const successMessage = document.getElementById('successMessage');
             const errorMessage = document.getElementById('errorMessage');
-            const nombreInput = document.getElementById('nombre');
-            const emailInput = document.getElementById('email'); 
-            const passwordInput = document.getElementById('password');
-            const confirmPasswordInput = document.getElementById('confirmPassword');
-          
-            const passwordStrength = document.getElementById('passwordStrength');
-            const passwordMatch = document.getElementById('passwordMatch');
-            const nombreError = document.getElementById('nombreError');
-            const emailError = document.getElementById('emailError'); 
-            const passwordReqError = document.getElementById('passwordReqError'); 
             const submitBtn = form.querySelector('button[type="submit"]');
 
-            // Correo de prueba para simular correo duplicado
-            const DUPLICATE_EMAIL = 'duplicado@test.com';
+            // Referencias a los campos de error
+            const nombreError = document.getElementById('nombreError');
+            const emailError = document.getElementById('emailError');
+            const passwordReqError = document.getElementById('passwordReqError');
             
-            // Función para mostrar error
-            function showError(message, elementId) {
-                errorMessage.classList.add('d-none'); 
-                
-                // Limpiar errores específicos antes de mostrar uno nuevo
-                nombreError.textContent = '';
-                emailError.textContent = '';
-                passwordReqError.textContent = '';
-
-                if (elementId === 'emailError') {
-                    emailError.textContent = message;
-                } else if (elementId === 'passwordReqError') {
-                    passwordReqError.textContent = message;
-                } else if (elementId === 'nombreError') {
-                    nombreError.textContent = message;
-                } else {
-                    // Mostrar mensaje genérico si no es un error específico
-                    errorMessage.textContent = message;
-                    errorMessage.classList.remove('d-none');
-                }
-            }
-
-            // Función para mostrar éxito
-            function showSuccess() {
-                // Limpiar errores
-                nombreError.textContent = '';
-                emailError.textContent = '';
-                passwordReqError.textContent = '';
-                errorMessage.classList.add('d-none');
-                // Mostrar éxito
-                successMessage.classList.remove('d-none');
-            }
-
-            // Función de limpieza de errores específicos
-            function clearSpecificErrors() {
-                nombreError.textContent = '';
-                emailError.textContent = '';
-                passwordReqError.textContent = '';
-            }
-
-            // Validación de fortaleza de contraseña en tiempo real
-            passwordInput.addEventListener('input', function() {
-                const password = this.value;
-                let strength = '';
-                let strengthClass = '';
-
-                if (password.length === 0) {
-                    strength = '';
-                } else if (password.length < 8) {
-                    strength = 'Débil';
-                    strengthClass = 'strength-weak';
-                } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) {
-                    strength = 'Media';
-                    strengthClass = 'strength-medium';
-                } else {
-                    strength = 'Fuerte';
-                    strengthClass = 'strength-strong';
-                }
-
-                passwordStrength.textContent = strength;
-                passwordStrength.className = 'password-strength ' + strengthClass;
-                passwordReqError.textContent = '';
-            });
-
-            // Validación de coincidencia de contraseñas en tiempo real
-            confirmPasswordInput.addEventListener('input', function() {
-                if (passwordInput.value && this.value) {
-                    if (passwordInput.value === this.value) {
-                        passwordMatch.textContent = '✓ Las contraseñas coinciden';
-                        passwordMatch.className = 'password-match match-success';
-                    } else {
-                        passwordMatch.textContent = '✗ Las contraseñas no coinciden';
-                        passwordMatch.className = 'password-match match-error';
-                    }
-                } else {
-                    passwordMatch.textContent = '';
-                    passwordMatch.className = 'password-match';
-                }
-            });
-
-            form.addEventListener('submit', function (event) {
+            form.addEventListener('submit', async function (event) {
                 event.preventDefault();
 
                 // Ocultar mensajes anteriores
                 successMessage.classList.add('d-none');
                 errorMessage.classList.add('d-none');
-                clearSpecificErrors();
+                nombreError.textContent = '';
+                emailError.textContent = '';
+                passwordReqError.textContent = '';
 
-                const nombre = nombreInput.value.trim();
-                const email = emailInput.value.trim();
-                const password = passwordInput.value;
-                const confirmPassword = confirmPasswordInput.value;
-                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+                const nombre = document.getElementById('nombre').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
 
-                // Deshabilitar botón durante validación
+                // Validaciones del frontend (rápidas)
+                if (password !== confirmPassword) {
+                    errorMessage.textContent = 'Las contraseñas no coinciden.';
+                    errorMessage.classList.remove('d-none');
+                    return;
+                }
+                
+                // Deshabilitar botón
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Registrando...';
 
-                // Validación de nombre
-                if (nombre.length < 2) {
-                    showError('El nombre es un campo obligatorio y debe tener al menos 2 caracteres.', 'nombreError');
+                try {
+                    const response = await fetch('http://localhost:3000/api/auth/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ nombre, email, password })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // ¡Éxito!
+                        successMessage.textContent = data.message + " Serás redirigido al login.";
+                        successMessage.classList.remove('d-none');
+                        form.reset();
+                        setTimeout(() => {
+                            window.location.href = 'signin.html';
+                        }, 2000);
+                    } else {
+                        // Manejar errores del backend
+                        if (response.status === 409) { // Correo duplicado
+                            emailError.textContent = data.message;
+                        } else {
+                            errorMessage.textContent = data.message;
+                            errorMessage.classList.remove('d-none');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error de red:', error);
+                    errorMessage.textContent = 'Error de conexión. Inténtalo de nuevo.';
+                    errorMessage.classList.remove('d-none');
+                } finally {
+                    // Volver a habilitar el botón
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Registrarse';
-                    return;
                 }
+            });
+            
+            // (Puedes mantener tus validadores de fortaleza de contraseña si quieres)
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const passwordStrength = document.getElementById('passwordStrength');
+            const passwordMatch = document.getElementById('passwordMatch');
 
-                // Validar formato de email
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(email)) {
-                    showError('Por favor, ingresa un correo electrónico válido.', 'emailError');
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Registrarse';
-                    return;
-                }
-
-                // SIMULACIÓN - Registro con correo duplicado
-                if (email === DUPLICATE_EMAIL) {
-                    setTimeout(() => {
-                        showError('Este correo ya está en uso', 'emailError');
-                        submitBtn.disabled = false;
-                        submitBtn.textContent = 'Registrarse';
-                    }, 1000);
-                    return;
-                }
-
-                // SIMULACIÓN - Contraseña no cumple requisitos
-                if (!passwordRegex.test(password)) {
-                    showError('La contraseña debe tener al menos 8 caracteres, una mayúscula y un número', 'passwordReqError');
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Registrarse';
-                    return;
-                }
-
-                // Validar coincidencia de contraseñas
-                if (password !== confirmPassword) {
-                    showError('Las contraseñas no coinciden.', 'general');
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Registrarse';
-                    return;
-                }
-
-                // SIMULACIÓN - Registro y validación exitosa
-                setTimeout(() => {
-                    showSuccess();
-                    form.reset();
-                    passwordStrength.textContent = '';
-                    passwordMatch.textContent = '';
-                    passwordMatch.className = 'password-match';
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Registrarse';
-                }, 1500);
+            passwordInput.addEventListener('input', function() {
+                // ... (tu código de fortaleza de contraseña) ...
+            });
+            confirmPasswordInput.addEventListener('input', function() {
+                // ... (tu código de match de contraseña) ...
             });
         });
     </script>
