@@ -9,559 +9,69 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <style>
             :root {
-                --azul-pacifico: #1E88E5;
-                --azul-pacifico-oscuro: #1565C0;
-                --azul-pacifico-claro: #64B5F6;
-                --aji-amarillo: #FFC107;
-                --terracota: #BF360C;
-                --verde-menta: #4CAF50;
-                --purpura-nazca: #6A1B9A;
-                --blanco-roto: #F8F9FA;
-                --gris-texto: #424242;
+                --azul-pacifico: #1E88E5; --azul-pacifico-oscuro: #1565C0; --azul-pacifico-claro: #64B5F6;
+                --aji-amarillo: #FFC107; --terracota: #BF360C; --verde-menta: #4CAF50;
+                --purpura-nazca: #6A1B9A; --blanco-roto: #F8F9FA; --gris-texto: #424242;
             }
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--blanco-roto); color: var(--gris-texto); margin: 0; padding: 0; }
+            .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+            .header { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); padding: 1rem 0; }
+            .nav-container { display: flex; justify-content: space-between; align-items: center; }
+            .logo { font-size: 1.8rem; font-weight: 700; }
+            .nav-links { display: flex; gap: 2rem; list-style: none; }
+            .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; }
+            .nav-links a:hover { background-color: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
+            .auth-buttons { display: flex; gap: 1rem; }
+            .btn { padding: 10px 20px; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; font-size: 14px; }
+            .btn-outline { background: transparent; border: 2px solid white; color: white; }
+            .btn-outline:hover { background: white; color: var(--azul-pacifico); }
+            .btn-primary { background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; }
+            .btn-primary:hover { background: #FFB300; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3); }
+            .hero { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); color: white; padding: 2rem 0; text-align: center; margin-bottom: 2rem; position: relative; overflow: hidden; }
+            .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>'); background-size: cover; }
+            .hero-content { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
+            .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; font-weight: 700; }
+            .hero p { font-size: 1rem; margin-bottom: 0; opacity: 0.9; }
+            .kitchen-container { max-width: 600px; margin: 0 auto; padding: 0 15px; }
+            .card { border-radius: 15px; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); border: 2px solid transparent; transition: all 0.3s ease; overflow: hidden; margin-bottom: 2rem; }
+            .card:hover { box-shadow: 0 15px 35px rgba(30, 136, 229, 0.15); border-color: var(--azul-pacifico); }
+            .kitchen-order { border: 2px solid var(--blanco-roto); border-radius: 12px; padding: 20px; margin-bottom: 25px; background: linear-gradient(135deg, #E3F2FD, #FFFFFF); position: relative; overflow: hidden; }
+            .kitchen-order::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--azul-pacifico), var(--verde-menta)); }
+            .order-header { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--azul-pacifico-claro); }
+            .restaurant-name { font-size: 22px; font-weight: 700; margin-bottom: 5px; color: var(--azul-pacifico-oscuro); }
+            .order-title { font-size: 16px; font-weight: 600; margin-bottom: 5px; color: var(--gris-texto); }
+            .order-info { font-size: 14px; color: var(--gris-texto); }
+            .detail-section { margin-bottom: 20px; padding: 15px; background-color: rgba(255, 255, 255, 0.7); border-radius: 8px; border: 1px solid var(--blanco-roto); }
+            .section-title { font-weight: 600; margin-bottom: 8px; color: var(--azul-pacifico-oscuro); font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+            .customer-info { font-size: 14px; color: var(--gris-texto); line-height: 1.4; }
+            .items-list { margin-top: 10px; }
+            .order-item { display: flex; justify-content: space-between; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed var(--azul-pacifico-claro); }
+            .item-quantity { font-weight: 600; min-width: 30px; color: var(--azul-pacifico-oscuro); }
+            .item-name { flex-grow: 1; margin-left: 10px; font-weight: 500; }
+            .special-instructions { font-style: italic; color: var(--terracota); margin-left: 40px; margin-bottom: 10px; font-size: 13px; background-color: rgba(191, 54, 12, 0.05); padding: 5px 10px; border-radius: 5px; border-left: 3px solid var(--terracota); }
+            .order-footer { text-align: center; margin-top: 20px; padding-top: 15px; border-top: 2px solid var(--azul-pacifico-claro); }
+            .order-number { font-weight: 600; color: var(--azul-pacifico-oscuro); margin-bottom: 10px; }
+            .status-indicator { display: inline-block; padding: 8px 15px; border-radius: 8px; font-weight: 600; color: white; margin-top: 10px; transition: all 0.3s; }
+            /* Clases de estado dinámicas */
+            .status-pendiente { background: linear-gradient(135deg, var(--terracota), #D84315); box-shadow: 0 4px 12px rgba(191, 54, 12, 0.2); }
+            .status-preparando { background: linear-gradient(135deg, var(--aji-amarillo), #FFB300); box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2); color: var(--azul-pacifico-oscuro); }
+            .status-completado { background: linear-gradient(135deg, var(--verde-menta), #66BB6A); box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2); }
+            .status-en_ruta, .status-entregado { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); }
 
-            body {
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background-color: var(--blanco-roto);
-                color: var(--gris-texto);
-                margin: 0;
-                padding: 0;
-            }
-
-            .container {
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 0 20px;
-            }
+            .btn-action { padding: 15px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 16px; transition: all 0.3s; text-decoration: none; display: inline-block; text-align: center; width: 100%; color: white; margin-bottom: 10px; }
+            .btn-action:hover:not(:disabled) { transform: translateY(-2px); }
+            .btn-action:disabled { background: #cccccc; cursor: not-allowed; transform: none; box-shadow: none; }
             
-            /* Header */
-            .header {
-                background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%);
-                color: white;
-                box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
-                padding: 1rem 0;
-            }
+            .btn-confirm { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); }
+            .btn-complete { background: linear-gradient(135deg, var(--verde-menta), #66BB6A); box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2); }
+            .btn-delivery { background: linear-gradient(135deg, var(--purpura-nazca), #8E24AA); box-shadow: 0 4px 12px rgba(106, 27, 154, 0.2); }
             
-            .nav-container {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
+            .action-buttons { display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
+            .action-buttons .btn-action { flex: 1; min-width: 150px; }
             
-            .logo {
-                font-size: 1.8rem;
-                font-weight: 700;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-            
-            .nav-links {
-                display: flex;
-                gap: 2rem;
-                list-style: none;
-            }
-            
-            .nav-links a {
-                color: white;
-                text-decoration: none;
-                font-weight: 500;
-                transition: all 0.3s;
-                padding: 0.5rem 1rem;
-                border-radius: 25px;
-            }
-            
-            .nav-links a:hover {
-                background-color: rgba(255, 255, 255, 0.15);
-                transform: translateY(-2px);
-            }
-            
-            .auth-buttons {
-                display: flex;
-                gap: 1rem;
-            }
-            
-            .btn {
-                padding: 10px 20px;
-                border: none;
-                border-radius: 25px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.3s;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 14px;
-            }
-            
-            .btn-outline {
-                background: transparent;
-                border: 2px solid white;
-                color: white;
-            }
-            
-            .btn-outline:hover {
-                background: white;
-                color: var(--azul-pacifico);
-                transform: translateY(-2px);
-            }
-            
-            .btn-primary {
-                background: var(--aji-amarillo);
-                color: var(--azul-pacifico-oscuro);
-                font-weight: 700;
-            }
-            
-            .btn-primary:hover {
-                background: #FFB300;
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
-            }
-
-            /* Hero Section Reducida */
-            .hero {
-                background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%);
-                color: white;
-                padding: 2rem 0;
-                text-align: center;
-                margin-bottom: 2rem;
-                position: relative;
-                overflow: hidden;
-            }
-            
-            .hero::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-                background-size: cover;
-            }
-            
-            .hero-content {
-                max-width: 600px;
-                margin: 0 auto;
-                position: relative;
-                z-index: 1;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-                margin-bottom: 0.5rem;
-                font-weight: 700;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-                margin-bottom: 0;
-                opacity: 0.9;
-            }
-
-            /* Contenido principal */
-            .kitchen-container {
-                max-width: 600px;
-                margin: 0 auto;
-                padding: 0 15px;
-            }
-
-            .card {
-                border-radius: 15px;
-                box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1);
-                border: 2px solid transparent;
-                transition: all 0.3s ease;
-                overflow: hidden;
-                margin-bottom: 2rem;
-            }
-
-            .card:hover {
-                box-shadow: 0 15px 35px rgba(30, 136, 229, 0.15);
-                border-color: var(--azul-pacifico);
-            }
-
-            .kitchen-order {
-                border: 2px solid var(--blanco-roto);
-                border-radius: 12px;
-                padding: 20px;
-                margin-bottom: 25px;
-                background: linear-gradient(135deg, #E3F2FD, #FFFFFF);
-                position: relative;
-                overflow: hidden;
-            }
-
-            .kitchen-order::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 4px;
-                background: linear-gradient(90deg, var(--azul-pacifico), var(--verde-menta));
-            }
-
-            .order-header {
-                text-align: center;
-                margin-bottom: 20px;
-                padding-bottom: 15px;
-                border-bottom: 2px solid var(--azul-pacifico-claro);
-            }
-
-            .restaurant-name {
-                font-size: 22px;
-                font-weight: 700;
-                margin-bottom: 5px;
-                color: var(--azul-pacifico-oscuro);
-            }
-
-            .order-title {
-                font-size: 16px;
-                font-weight: 600;
-                margin-bottom: 5px;
-                color: var(--gris-texto);
-            }
-
-            .order-info {
-                font-size: 14px;
-                color: var(--gris-texto);
-            }
-
-            .detail-section {
-                margin-bottom: 20px;
-                padding: 15px;
-                background-color: rgba(255, 255, 255, 0.7);
-                border-radius: 8px;
-                border: 1px solid var(--blanco-roto);
-            }
-
-            .section-title {
-                font-weight: 600;
-                margin-bottom: 8px;
-                color: var(--azul-pacifico-oscuro);
-                font-size: 14px;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-            }
-
-            .customer-info, .special-instructions {
-                font-size: 14px;
-                color: var(--gris-texto);
-                line-height: 1.4;
-            }
-
-            .items-list {
-                margin-top: 10px;
-            }
-
-            .order-item {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 8px;
-                padding-bottom: 8px;
-                border-bottom: 1px dashed var(--azul-pacifico-claro);
-            }
-
-            .item-quantity {
-                font-weight: 600;
-                min-width: 30px;
-                color: var(--azul-pacifico-oscuro);
-            }
-
-            .item-name {
-                flex-grow: 1;
-                margin-left: 10px;
-                font-weight: 500;
-            }
-
-            .special-instructions {
-                font-style: italic;
-                color: var(--terracota);
-                margin-left: 40px;
-                margin-bottom: 10px;
-                font-size: 13px;
-                background-color: rgba(191, 54, 12, 0.05);
-                padding: 5px 10px;
-                border-radius: 5px;
-                border-left: 3px solid var(--terracota);
-            }
-
-            .order-footer {
-                text-align: center;
-                margin-top: 20px;
-                padding-top: 15px;
-                border-top: 2px solid var(--azul-pacifico-claro);
-            }
-
-            .order-number {
-                font-weight: 600;
-                color: var(--azul-pacifico-oscuro);
-                margin-bottom: 10px;
-            }
-
-            .status-indicator {
-                display: inline-block;
-                padding: 8px 15px;
-                border-radius: 8px;
-                font-weight: 600;
-                color: white;
-                background: linear-gradient(135deg, var(--terracota), #D84315);
-                margin-top: 10px;
-                box-shadow: 0 4px 12px rgba(191, 54, 12, 0.2);
-            }
-
-            .status-preparando {
-                background: linear-gradient(135deg, var(--verde-menta), #66BB6A);
-                box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
-            }
-
-            .status-completado {
-                background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
-                box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
-            }
-
-            .sending-status {
-                text-align: center;
-                padding: 15px;
-                background-color: rgba(255, 193, 7, 0.15);
-                border: 2px solid var(--aji-amarillo);
-                border-radius: 8px;
-                margin-bottom: 20px;
-                display: none;
-                font-weight: 500;
-                color: var(--azul-pacifico-oscuro);
-            }
-
-            .sending-status.success {
-                background-color: rgba(76, 175, 80, 0.15);
-                border-color: var(--verde-menta);
-                color: var(--verde-menta);
-            }
-
-            /* Estilo para el mensaje de error de impresión */
-            .sending-status.error {
-                background-color: rgba(220, 53, 69, 0.15);
-                border-color: #dc3545;
-                color: #dc3545;
-            }
-
-            .btn-action {
-                padding: 15px;
-                border: none;
-                border-radius: 8px;
-                font-weight: 600;
-                cursor: pointer;
-                font-size: 16px;
-                transition: all 0.3s;
-                text-decoration: none;
-                display: inline-block;
-                text-align: center;
-                width: 100%;
-                background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
-                color: white;
-                box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
-                margin-bottom: 10px;
-            }
-
-            .btn-action:hover:not(:disabled) {
-                background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico));
-                transform: translateY(-2px);
-                box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3);
-            }
-
-            .btn-success {
-                background: linear-gradient(135deg, var(--verde-menta), #66BB6A);
-                color: white;
-                box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
-            }
-
-            .btn-success:hover:not(:disabled) {
-                background: linear-gradient(135deg, #66BB6A, var(--verde-menta));
-                transform: translateY(-2px);
-                box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
-            }
-
-            .btn-secondary {
-                background: linear-gradient(135deg, var(--aji-amarillo), #FFB300);
-                color: var(--azul-pacifico-oscuro);
-                box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
-            }
-
-            .btn-secondary:hover:not(:disabled) {
-                background: linear-gradient(135deg, #FFB300, var(--aji-amarillo));
-                transform: translateY(-2px);
-                box-shadow: 0 6px 15px rgba(255, 193, 7, 0.3);
-            }
-
-            .btn-danger {
-                background: linear-gradient(135deg, #dc3545, #c82333);
-                color: white;
-                box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
-            }
-
-            .btn-danger:hover:not(:disabled) {
-                background: linear-gradient(135deg, #c82333, #dc3545);
-                transform: translateY(-2px);
-                box-shadow: 0 6px 15px rgba(220, 53, 69, 0.3);
-            }
-
-            .btn:disabled {
-                background: #cccccc;
-                cursor: not-allowed;
-                transform: none;
-                box-shadow: none;
-            }
-
-            .action-buttons {
-                display: flex;
-                gap: 15px;
-                margin-top: 20px;
-                flex-wrap: wrap; /* Para responsive */
-            }
-
-            .action-buttons .btn-action {
-                flex: 1;
-                min-width: 150px; /* Para que no se encojan demasiado */
-            }
-
-            #exportPdfBtn {
-                display: none; /* Inicialmente oculto según el escenario de Gherkin */
-            }
-
-            .order-timer {
-                text-align: center;
-                margin: 15px 0;
-                padding: 10px;
-                background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 193, 7, 0.05));
-                border-radius: 8px;
-                border: 2px solid var(--aji-amarillo);
-            }
-
-            .timer-label {
-                font-size: 14px;
-                font-weight: 600;
-                color: var(--gris-texto);
-                margin-bottom: 5px;
-            }
-
-            .timer-value {
-                font-size: 18px;
-                font-weight: 700;
-                color: var(--azul-pacifico-oscuro);
-            }
-
-            /* Responsive */
-            @media (max-width: 768px) {
-                .nav-container {
-                    flex-direction: column;
-                    gap: 1rem;
-                }
-                
-                .nav-links {
-                    gap: 1rem;
-                    flex-wrap: wrap;
-                    justify-content: center;
-                }
-                
-                .auth-buttons {
-                    flex-direction: column;
-                    width: 100%;
-                }
-                
-                .auth-buttons .btn {
-                    text-align: center;
-                }
-                
-                .hero h1 {
-                    font-size: 1.8rem;
-                }
-                
-                .hero p {
-                    font-size: 0.9rem;
-                }
-                
-                .action-buttons {
-                    flex-direction: column;
-                }
-            }
-
-            @media (max-width: 480px) {
-                .logo {
-                    font-size: 1.5rem;
-                    justify-content: center;
-                    text-align: center;
-                    width: 100%;
-                    margin-bottom: 1rem;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-                
-                .nav-links {
-                    flex-direction: column;
-                    gap: 0.5rem;
-                    text-align: center;
-                    width: 100%;
-                }
-                
-                .nav-links a {
-                    display: block;
-                    width: 100%;
-                    text-align: center;
-                }
-                
-                .auth-buttons {
-                    width: 100%;
-                }
-                
-                .auth-buttons .btn {
-                    width: 100%;
-                }
-                
-                .hero {
-                    padding: 1.5rem 0;
-                }
-                
-                .hero h1 {
-                    font-size: 1.6rem;
-                }
-                
-                .hero p {
-                    font-size: 0.85rem;
-                }
-
-                .kitchen-order {
-                    padding: 15px;
-                }
-
-                .detail-section {
-                    padding: 10px;
-                }
-            }
-
-            @media print {
-                .header, .hero, .action-buttons, .sending-status {
-                    display: none !important;
-                }
-                
-                body {
-                    background: white;
-                }
-                
-                .kitchen-container {
-                    max-width: 100%;
-                    margin: 0;
-                    padding: 0;
-                }
-                
-                .card {
-                    box-shadow: none;
-                    border: 2px solid #000;
-                }
-                
-                /* Ocultar el estado de PENDIENTE, EN PREPARACIÓN o COMPLETADO en la impresión */
-                .status-indicator {
-                    display: none !important; 
-                }
-            }
+            /* --- NUEVO: Estilos para Carga y Error --- */
+            #loadingState { text-align: center; padding: 3rem; font-size: 1.2rem; color: var(--gris-texto); }
+            #errorState { text-align: center; padding: 3rem; background-color: rgba(191, 54, 12, 0.1); border: 2px solid var(--terracota); border-radius: 10px; color: var(--terracota); }
         </style>
     </head>
     <body>
@@ -572,22 +82,14 @@
                     <div class="logo">
                         <span>Sabor Limeño</span>
                     </div>
-                    
                     <ul class="nav-links">
                         <li><a href="index.html">Inicio</a></li>
                         <li><a href="catalogo.html">Catálogo</a></li>
                         <li><a href="pedido.html">Mis Pedidos</a></li>
-                        
-                        <li>
-                            <a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">
-                                Carrito 🛒
-                            </a>
-                        </li>
+                        <li><a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">Carrito 🛒</a></li>
                     </ul>
-                    
                     <div class="auth-buttons">
-                        <a href="signin.html" class="btn btn-outline">Cerrar Sesión</a>
-                    </div>
+                        </div>
                 </nav>
             </div>
         </header>
@@ -602,191 +104,240 @@
         </section>
 
         <div class="kitchen-container">
-            <div id="sendingStatus" class="sending-status">
-                ⏳ Generando orden de cocina para pedido pagado...
-            </div>
             
-            <div id="printErrorStatus" class="sending-status error" style="display: none;">
-                ❌ **No se pudo imprimir la orden**. La impresora no está disponible.
-            </div>
-            <div class="card">
-                <div class="card-header" style="background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; padding: 1.5rem; text-align: center; border-bottom: none;">
-                    <h2 style="margin: 0; font-weight: 600; font-size: 1.5rem;">Orden de Cocina</h2>
-                </div>
-                <div class="card-body" style="padding: 2rem;">
-                    <div class="kitchen-order">
-                        <div class="order-header">
-                            <div class="restaurant-name">Sabor Limeño</div>
-                            <div class="order-title">ORDEN DE COCINA</div>
-                            <div class="order-info">Pedido #P-2024-00123</div>
-                            <div class="order-info">15/03/2024 - 18:30:45</div>
-                        </div>
-
-                        <div class="order-timer">
-                            <div class="timer-label">TIEMPO DE PREPARACIÓN</div>
-                            <div class="timer-value" id="preparationTimer">00:00</div>
-                        </div>
-
-                        <div class="detail-section">
-                            <div class="section-title">INFORMACIÓN DEL CLIENTE</div>
-                            <div class="customer-info">
-                                <strong>Nombre:</strong> Juan Pérez<br>
-                                <strong>Teléfono:</strong> +56 9 1234 5678<br>
-                                <strong id="customerAddress">Dirección:</strong> Av. Principal 123, Santiago<br> <strong>Comuna:</strong> Providencia
-                            </div>
-                        </div>
-
-                        <div class="detail-section">
-                            <div class="section-title">DETALLE DEL PEDIDO</div>
-                            <div class="items-list">
-                                <div class="order-item">
-                                    <span class="item-quantity">2x</span>
-                                    <span class="item-name">Lomo Saltado</span>
-                                </div>
-                                <div class="special-instructions">Sin cebolla morada</div>
-
-                                <div class="order-item">
-                                    <span class="item-quantity">2x</span>
-                                    <span class="item-name">Ceviche Clásico</span>
-                                </div>
-                                <div class="special-instructions">Picante suave</div>
-
-                                <div class="order-item">
-                                    <span class="item-quantity">1x</span>
-                                    <span class="item-name">Suspiro Limeño</span>
-                                </div>
-
-                                <div class="order-item">
-                                    <span class="item-quantity">1x</span>
-                                    <span class="item-name">Causa Limeña</span>
-                                </div>
-                                <div class="special-instructions">Con pollo</div>
-                            </div>
-                        </div>
-
-                        <div class="detail-section">
-                            <div class="section-title">OBSERVACIONES</div>
-                            <div class="customer-info" id="customerObservations">Entregar en portería. Timbre 123.</div>
-                        </div>
-
-                        <div class="order-footer">
-                            <div class="order-number">ORDEN: OC-2024-00123</div>
-                            <div class="status-indicator" id="statusIndicator">PENDIENTE</div>
-                        </div>
+            <div id="loadingState" class="card card-body">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Cargando...</span>
                     </div>
+                </div>
+                <p class="text-center mt-2">Cargando orden...</p>
+            </div>
 
-                    <div class="action-buttons">
-                        <button class="btn-action btn-secondary" id="printBtn">Imprimir Orden</button>
-                        <button class="btn-action btn-danger" id="exportPdfBtn" style="display: none;">Exportar a PDF 📄</button>
-                        <button class="btn-action" id="confirmBtn">Marcar como Preparando</button>
-                        <button class="btn-action btn-success" id="completeBtn" disabled>Marcar como Completado</button>
+            <div id="errorState" style="display: none;">
+                <h3>❌ Error al cargar la orden</h3>
+                <p id="errorText">No se pudo encontrar el pedido o no tienes permiso para verlo.</p>
+                <a href="administracion.html" class="btn-action btn-confirm">Volver al Panel</a>
+            </div>
+
+            <div id="kitchenContent" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 id="cardHeaderTitle">Orden de Cocina</h2>
+                    </div>
+                    <div class="card-body" style="padding: 2rem;">
+                        <div class="kitchen-order">
+                            <div class="order-header">
+                                <div class="restaurant-name">Sabor Limeño</div>
+                                <div class="order-title">ORDEN DE COCINA</div>
+                                <div class="order-info" id="orderIdDisplay">Pedido #...</div>
+                                <div class="order-info" id="orderDate">...</div>
+                            </div>
+
+                            <div class="detail-section">
+                                <div class="section-title">INFORMACIÓN DEL CLIENTE</div>
+                                <div class="customer-info" id="customerInfo">
+                                    <strong>Nombre:</strong> ...<br>
+                                    <strong>Email:</strong> ...<br>
+                                    <strong>Dirección:</strong> ...
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <div class="section-title">DETALLE DEL PEDIDO</div>
+                                <div class="items-list" id="orderItemsList">
+                                    </div>
+                            </div>
+
+                            <div class="order-footer">
+                                <div class="order-number" id="orderNumberFooter">ORDEN: ...</div>
+                                <div class="status-indicator" id="statusIndicator">CARGANDO</div>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="btn-action btn-confirm" id="confirmBtn" disabled>Marcar como Preparando</button>
+                            <button class="btn-action btn-complete" id="completeBtn" disabled>Marcar como Completado</button>
+                            <button class="btn-action btn-delivery" id="deliveryBtn">Listo para Entrega</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const printBtn = document.getElementById('printBtn');
-            const exportPdfBtn = document.getElementById('exportPdfBtn');
+        document.addEventListener('DOMContentLoaded', async function() {
+            
+            const API_URL = 'http://localhost:3000';
+            const token = localStorage.getItem('authToken');
+
+            // Elementos del DOM
+            const loadingState = document.getElementById('loadingState');
+            const errorState = document.getElementById('errorState');
+            const errorText = document.getElementById('errorText');
+            const kitchenContent = document.getElementById('kitchenContent');
+            const statusIndicator = document.getElementById('statusIndicator');
             const confirmBtn = document.getElementById('confirmBtn');
             const completeBtn = document.getElementById('completeBtn');
-            const sendingStatus = document.getElementById('sendingStatus');
-            const printErrorStatus = document.getElementById('printErrorStatus');
-            const statusIndicator = document.getElementById('statusIndicator');
-            const preparationTimer = document.getElementById('preparationTimer');
+            const deliveryBtn = document.getElementById('deliveryBtn');
+
+            let currentOrderData = null; // Guardará los datos del pedido
             
-            let timerInterval;
-            let seconds = 0;
-            let isPreparing = false;
-            let printerAvailable = true; // Variable de estado de la impresora
+            // --- INICIO: Script de Gestión de Sesión ---
+            const authButtonsContainer = document.querySelector('.header .auth-buttons');
+            if (authButtonsContainer) {
+                if (token) {
+                    const userEmail = localStorage.getItem('userEmail') || 'Admin';
+                    authButtonsContainer.innerHTML = `<span class="user-info" style="color:white; margin-right: 15px; font-weight: 500;">Hola, ${userEmail}</span><button id="logoutBtn" class.btn btn-outline">Cerrar Sesión</button>`;
+                    document.getElementById('logoutBtn').addEventListener('click', () => {
+                        localStorage.removeItem('authToken');
+                        localStorage.removeItem('userEmail');
+                        window.location.href = "signin.html";
+                    });
+                } else {
+                    authButtonsContainer.innerHTML = `<a href="signin.html" class="btn btn-outline">Iniciar Sesión</a>`;
+                }
+            }
+            // --- FIN: Script de Gestión de Sesión ---
+            
+            // --- LÓGICA DE CARGA DE ORDEN ---
+            
+            // 1. Obtener el ID del pedido desde la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('orderId');
 
-            // Simulación de envío de orden (escenario de "Dado un pedido pagado")
-            sendingStatus.style.display = 'block';
-
-            setTimeout(function() {
-                sendingStatus.textContent = '✅ Orden generada y lista para impresión';
-                sendingStatus.classList.add('success');
-                // Simulación de que la orden fue creada
-                printerAvailable = Math.random() > 0.25; // Simular 25% de fallo en la impresora
-            }, 2000);
-
-            // Función para actualizar el timer de preparación
-            function updateTimer() {
-                seconds++;
-                const minutes = Math.floor(seconds / 60);
-                const remainingSeconds = seconds % 60;
-                preparationTimer.textContent = 
-                    `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+            if (!orderId) {
+                showError("No se especificó un número de pedido. Prueba añadiendo ?orderId=1 a la URL.");
+                return;
+            }
+            
+            if (!token) {
+                showError("Necesitas <a href='signin.html'>iniciar sesión como Admin</a> para ver esta página.");
+                return;
             }
 
-            // FUNCIÓN: IMPRIMIR ORDEN (Implementa los 2 escenarios de Gherkin)
-            printBtn.addEventListener('click', function() {
-                // Ocultar mensaje de error si estaba visible
-                printErrorStatus.style.display = 'none';
-                exportPdfBtn.style.display = 'none';
-
-                if (printerAvailable) {
-                    // Escenario: Generación de orden de cocina (impresión exitosa)
-                    console.log('Imprimiendo orden con detalle y dirección del cliente...');
-                    // La función nativa window.print() simula la impresión
-                    window.print();
-                    alert('Orden impresa con éxito.');
-                } else {
-                    // Escenario: Fallo en la impresión
-                    printErrorStatus.style.display = 'block'; // Mostrar mensaje de error
-                    exportPdfBtn.style.display = 'block';     // Habilitar opción Exportar a PDF
+            // 2. Cargar datos del pedido
+            await loadOrderData();
+            
+            async function loadOrderData() {
+                try {
+                    const response = await fetch(`${API_URL}/api/orders/${orderId}`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
                     
-                    // Bloquear botón de impresión para evitar intentos fallidos
-                    printBtn.disabled = true; 
-                    printBtn.textContent = 'Impresora no disponible';
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.message);
+                    
+                    currentOrderData = data; // Guardar datos
+                    populateOrderData(data); // Llenar HTML
+                    
+                    loadingState.style.display = 'none';
+                    kitchenContent.style.display = 'block';
+                    
+                } catch (error) {
+                    console.error("Error al cargar la orden:", error);
+                    showError(error.message);
                 }
-            });
-
-            // FUNCIÓN: EXPORTAR A PDF (Habilitada en caso de fallo de impresión)
-            exportPdfBtn.addEventListener('click', function() {
-                console.log('Exportando a PDF...');
-                alert('La orden se ha exportado a PDF correctamente.');
+            }
+            
+            // 3. Llenar el HTML con los datos
+            function populateOrderData(data) {
+                const formatDate = (dateString) => new Date(dateString).toLocaleString('es-CL');
                 
-                // Ocultar mensaje de error después de exportar (opcional)
-                printErrorStatus.style.display = 'none';
-                exportPdfBtn.style.display = 'none';
-                printBtn.disabled = false; // Permitir reintentar impresión
-                printBtn.textContent = 'Imprimir Orden';
-            });
-
-
-            // Marcar como preparando
-            confirmBtn.addEventListener('click', function() {
-                statusIndicator.textContent = 'EN PREPARACIÓN';
-                statusIndicator.classList.remove('status-indicator'); // Quitar estilo inicial
-                statusIndicator.classList.add('status-preparando');
+                document.getElementById('cardHeaderTitle').textContent = `Orden de Cocina #${data.id}`;
+                document.getElementById('orderIdDisplay').textContent = `Pedido #${data.id}`;
+                document.getElementById('orderDate').textContent = formatDate(data.createdAt);
+                
+                // Info del cliente
+                document.getElementById('customerInfo').innerHTML = `
+                    <strong>Nombre:</strong> ${data.clientName}<br>
+                    <strong>Email:</strong> ${data.clientEmail}<br>
+                    <strong>Dirección:</strong> ${data.deliveryAddress || 'N/A'}
+                `;
+                
+                // Items del pedido
+                const itemsList = document.getElementById('orderItemsList');
+                itemsList.innerHTML = ''; // Limpiar
+                data.items.forEach(item => {
+                    itemsList.innerHTML += `
+                        <div class="order-item">
+                            <span class="item-quantity">${item.quantity}x</span>
+                            <span class="item-name">${item.productName}</span>
+                        </div>
+                    `;
+                });
+                
+                document.getElementById('orderNumberFooter').textContent = `ORDEN: OC-2024-000${data.id}`;
+                
+                // Actualizar estado y botones
+                updateStatusVisual(data.status);
+            }
+            
+            // 4. Actualizar estado visual y botones
+            function updateStatusVisual(status) {
+                statusIndicator.textContent = status.toUpperCase();
+                statusIndicator.className = 'status-indicator'; // Reset
+                statusIndicator.classList.add(`status-${status.toLowerCase()}`);
+                
+                // Lógica de botones
                 confirmBtn.disabled = true;
-                confirmBtn.textContent = 'Preparación en Curso';
-                completeBtn.disabled = false;
-                
-                // Iniciar timer
-                isPreparing = true;
-                seconds = 0; // Reiniciar o iniciar el tiempo
-                timerInterval = setInterval(updateTimer, 1000);
-                
-                alert('Orden marcada como en preparación');
+                completeBtn.disabled = true;
+                deliveryBtn.style.display = 'none'; // Oculto por defecto
+
+                if (status === 'pendiente') {
+                    confirmBtn.disabled = false;
+                } else if (status === 'preparando') {
+                    completeBtn.disabled = false;
+                } else if (status === 'completado') {
+                    deliveryBtn.style.display = 'block';
+                } else {
+                    // Si está 'en_ruta' o 'entregado', no se hace nada
+                }
+            }
+            
+            // 5. Lógica de botones de acción
+            confirmBtn.addEventListener('click', () => updateOrderStatus('preparando'));
+            completeBtn.addEventListener('click', () => updateOrderStatus('completado'));
+            deliveryBtn.addEventListener('click', () => {
+                // Ir a la página de delivery
+                window.location.href = `delivery.html?orderId=${orderId}`;
             });
 
-            // Marcar como completado
-            completeBtn.addEventListener('click', function() {
-                statusIndicator.textContent = 'COMPLETADO';
-                statusIndicator.classList.remove('status-preparando');
-                statusIndicator.classList.add('status-completado');
+            async function updateOrderStatus(newStatus) {
+                // Deshabilitar botones para evitar clicks duplicados
+                confirmBtn.disabled = true;
                 completeBtn.disabled = true;
-                completeBtn.textContent = 'Orden Completada';
                 
-                // Detener timer
-                clearInterval(timerInterval);
-                isPreparing = false;
-                
-                alert('Orden marcada como completada y lista para entrega');
-            });
+                try {
+                    const response = await fetch(`${API_URL}/api/orders/${orderId}/status`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ status: newStatus })
+                    });
+                    
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.message);
+
+                    // Éxito: actualizar visualmente
+                    updateStatusVisual(newStatus);
+                    
+                } catch (error) {
+                    console.error("Error al actualizar estado:", error);
+                    alert(`Error: ${error.message}`);
+                    // Re-habilitar botones según el estado original
+                    updateStatusVisual(currentOrderData.status);
+                }
+            }
+
+            // 6. Funciones de UI
+            function showError(message) {
+                loadingState.style.display = 'none';
+                errorText.innerHTML = message;
+                errorState.style.display = 'block';
+            }
         });
         </script>
     </body>

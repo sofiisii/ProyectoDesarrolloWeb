@@ -9,558 +9,78 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <style>
             :root {
-                --azul-pacifico: #1E88E5;
-                --azul-pacifico-oscuro: #1565C0;
-                --azul-pacifico-claro: #64B5F6;
-                --aji-amarillo: #FFC107;
-                --terracota: #BF360C;
-                --verde-menta: #4CAF50;
-                --purpura-nazca: #6A1B9A;
-                --blanco-roto: #F8F9FA;
-                --gris-texto: #424242;
-                --rojo-alerta: #D32F2F; /* Nuevo color para alertas/problemas */
+                --azul-pacifico: #1E88E5; --azul-pacifico-oscuro: #1565C0; --azul-pacifico-claro: #64B5F6;
+                --aji-amarillo: #FFC107; --terracota: #BF360C; --verde-menta: #4CAF50;
+                --purpura-nazca: #6A1B9A; --blanco-roto: #F8F9FA; --gris-texto: #424242;
+                --rojo-alerta: #D32F2F;
             }
-
-            body {
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background-color: var(--blanco-roto);
-                color: var(--gris-texto);
-                margin: 0;
-                padding: 0;
-            }
-
-            .container {
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 0 20px;
-            }
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--blanco-roto); color: var(--gris-texto); margin: 0; padding: 0; }
+            .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+            .header { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); padding: 1rem 0; }
+            .nav-container { display: flex; justify-content: space-between; align-items: center; }
+            .logo { font-size: 1.8rem; font-weight: 700; }
+            .nav-links { display: flex; gap: 2rem; list-style: none; }
+            .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; }
+            .nav-links a:hover { background-color: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
+            .auth-buttons { display: flex; gap: 1rem; }
+            .btn { padding: 10px 20px; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; font-size: 14px; }
+            .btn-outline { background: transparent; border: 2px solid white; color: white; }
+            .btn-outline:hover { background: white; color: var(--azul-pacifico); }
+            .btn-primary { background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; }
+            .btn-primary:hover { background: #FFB300; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3); }
+            .hero { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); color: white; padding: 2rem 0; text-align: center; margin-bottom: 2rem; position: relative; overflow: hidden; }
+            .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>'); background-size: cover; }
+            .hero-content { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
+            .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; font-weight: 700; }
+            .hero p { font-size: 1rem; margin-bottom: 0; opacity: 0.9; }
+            .tracking-container { max-width: 800px; margin: 0 auto; padding: 0 15px; }
+            .card { border-radius: 15px; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); border: 2px solid transparent; overflow: hidden; margin-bottom: 2rem; }
+            .card-header { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; padding: 1.5rem; text-align: center; border-bottom: none; }
+            .card-header h2 { margin: 0; font-weight: 600; font-size: 1.5rem; }
+            .card-body { padding: 2rem; }
+            .order-info { text-align: center; margin-bottom: 30px; padding: 20px; background: linear-gradient(135deg, #E3F2FD, #FFFFFF); border-radius: 10px; border: 2px solid var(--blanco-roto); }
+            .order-number { font-size: 18px; font-weight: 600; color: var(--azul-pacifico-oscuro); margin-bottom: 5px; }
+            .delivery-man { font-size: 16px; color: var(--gris-texto); min-height: 20px; }
+            .current-status { text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(30, 136, 229, 0.1), rgba(30, 136, 229, 0.05)); border: 2px solid var(--azul-pacifico); border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.1); }
+            .status-label { font-size: 20px; font-weight: 700; color: var(--azul-pacifico-oscuro); margin-bottom: 10px; text-transform: capitalize; }
+            .status-time { color: var(--gris-texto); font-size: 14px; }
+            .status-timeline { margin-bottom: 30px; position: relative; }
+            .timeline-line { position: absolute; left: 30px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, var(--azul-pacifico-claro), var(--verde-menta)); z-index: 1; }
+            .status-step { display: flex; align-items: center; margin-bottom: 25px; position: relative; z-index: 2; }
+            .step-icon { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-right: 20px; border: 3px solid var(--azul-pacifico-claro); background-color: white; color: var(--azul-pacifico-claro); transition: all 0.3s ease; }
+            .step-content { flex: 1; }
+            .step-title { font-weight: 600; color: var(--gris-texto); margin-bottom: 5px; transition: all 0.3s ease; text-transform: capitalize;}
+            .step-description { color: var(--gris-texto); font-size: 14px; opacity: 0.8; }
+            .step-active .step-icon { border-color: var(--azul-pacifico); background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3); }
+            .step-active .step-title { color: var(--azul-pacifico-oscuro); font-weight: 700; }
+            .step-completed .step-icon { border-color: var(--verde-menta); background: linear-gradient(135deg, var(--verde-menta), #66BB6A); color: white; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3); }
+            .step-completed .step-title { color: var(--verde-menta); font-weight: 600; }
+            .action-buttons { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
+            .btn-action { padding: 15px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 16px; transition: all 0.3s; text-decoration: none; display: inline-block; text-align: center; flex: 1 1 calc(50% - 15px); min-width: 180px; background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); }
+            .btn-action:hover:not(:disabled) { background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico)); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3); }
+            .btn-secondary { background: linear-gradient(135deg, var(--aji-amarillo), #FFB300); color: var(--azul-pacifico-oscuro); box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2); }
+            .btn-secondary:hover:not(:disabled) { background: linear-gradient(135deg, #FFB300, var(--aji-amarillo)); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(255, 193, 7, 0.3); }
+            .btn-success { background: linear-gradient(135deg, var(--verde-menta), #66BB6A); color: white; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2); }
+            .btn-success:hover:not(:disabled) { background: linear-gradient(135deg, #66BB6A, var(--verde-menta)); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3); }
+            .btn:disabled { background: #cccccc; cursor: not-allowed; transform: none; box-shadow: none; color: #888888; }
+            .delivery-info { background: linear-gradient(135deg, #E3F2FD, #FFFFFF); padding: 20px; border-radius: 10px; margin-top: 20px; border: 2px solid var(--blanco-roto); }
+            .info-row { display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--azul-pacifico-claro); }
+            .info-label { font-weight: 500; color: var(--gris-texto); }
+            .info-value { font-weight: 600; color: var(--azul-pacifico-oscuro); text-align: right; }
+            .confirmation-message { display: none; text-align: center; padding: 15px; background-color: rgba(76, 175, 80, 0.15); color: var(--verde-menta); border-radius: 8px; margin-top: 15px; border: 2px solid var(--verde-menta); font-weight: 600; }
+            .alert-message { display: none; text-align: center; padding: 15px; background-color: rgba(211, 47, 47, 0.15); color: var(--rojo-alerta); border-radius: 8px; margin-top: 15px; border: 2px solid var(--rojo-alerta); font-weight: 600; }
+            .order-details { margin-bottom: 25px; }
+            .order-items { margin-bottom: 15px; }
+            .order-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--azul-pacifico-claro); }
+            .item-name { font-weight: 600; color: var(--azul-pacifico-oscuro); }
+            .item-quantity { color: var(--gris-texto); font-size: 14px; }
+            .item-price { font-weight: 600; color: var(--verde-menta); }
+            .order-total { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-top: 2px solid var(--azul-pacifico); font-weight: 700; font-size: 18px; color: var(--azul-pacifico-oscuro); }
             
-            /* Header */
-            .header {
-                background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%);
-                color: white;
-                box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
-                padding: 1rem 0;
-            }
-            
-            .nav-container {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-            
-            .logo {
-                font-size: 1.8rem;
-                font-weight: 700;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-            
-            .nav-links {
-                display: flex;
-                gap: 2rem;
-                list-style: none;
-            }
-            
-            .nav-links a {
-                color: white;
-                text-decoration: none;
-                font-weight: 500;
-                transition: all 0.3s;
-                padding: 0.5rem 1rem;
-                border-radius: 25px;
-            }
-            
-            .nav-links a:hover {
-                background-color: rgba(255, 255, 255, 0.15);
-                transform: translateY(-2px);
-            }
-            
-            .auth-buttons {
-                display: flex;
-                gap: 1rem;
-            }
-            
-            .btn {
-                padding: 10px 20px;
-                border: none;
-                border-radius: 25px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.3s;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 14px;
-            }
-            
-            .btn-outline {
-                background: transparent;
-                border: 2px solid white;
-                color: white;
-            }
-            
-            .btn-outline:hover {
-                background: white;
-                color: var(--azul-pacifico);
-                transform: translateY(-2px);
-            }
-            
-            .btn-primary {
-                background: var(--aji-amarillo);
-                color: var(--azul-pacifico-oscuro);
-                font-weight: 700;
-            }
-            
-            .btn-primary:hover {
-                background: #FFB300;
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
-            }
+            /* --- NUEVO: Estilos para Carga y Error --- */
+            #loadingState { text-align: center; padding: 3rem; font-size: 1.2rem; color: var(--gris-texto); }
+            #errorState { text-align: center; padding: 3rem; background-color: rgba(191, 54, 12, 0.1); border: 2px solid var(--terracota); border-radius: 10px; color: var(--terracota); }
 
-            /* Hero Section Reducida */
-            .hero {
-                background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%);
-                color: white;
-                padding: 2rem 0;
-                text-align: center;
-                margin-bottom: 2rem;
-                position: relative;
-                overflow: hidden;
-            }
-            
-            .hero::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-                background-size: cover;
-            }
-            
-            .hero-content {
-                max-width: 600px;
-                margin: 0 auto;
-                position: relative;
-                z-index: 1;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-                margin-bottom: 0.5rem;
-                font-weight: 700;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-                margin-bottom: 0;
-                opacity: 0.9;
-            }
-
-            /* Contenido principal */
-            .tracking-container {
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 0 15px;
-            }
-
-            .card {
-                border-radius: 15px;
-                box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1);
-                border: 2px solid transparent;
-                transition: all 0.3s ease;
-                overflow: hidden;
-                margin-bottom: 2rem;
-            }
-
-            .card:hover {
-                box-shadow: 0 15px 35px rgba(30, 136, 229, 0.15);
-                border-color: var(--azul-pacifico);
-            }
-
-            .card-header {
-                background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
-                color: white;
-                padding: 1.5rem;
-                text-align: center;
-                border-bottom: none;
-            }
-
-            .card-header h2 {
-                margin: 0;
-                font-weight: 600;
-                font-size: 1.5rem;
-            }
-
-            .card-body {
-                padding: 2rem;
-            }
-
-            /* Información del pedido */
-            .order-info {
-                text-align: center;
-                margin-bottom: 30px;
-                padding: 20px;
-                background: linear-gradient(135deg, #E3F2FD, #FFFFFF);
-                border-radius: 10px;
-                border: 2px solid var(--blanco-roto);
-            }
-
-            .order-number {
-                font-size: 18px;
-                font-weight: 600;
-                color: var(--azul-pacifico-oscuro);
-                margin-bottom: 5px;
-            }
-
-            .delivery-man {
-                font-size: 16px;
-                color: var(--gris-texto);
-                min-height: 20px; /* Asegura espacio para el nombre */
-            }
-
-            .current-status {
-                text-align: center;
-                padding: 20px;
-                background: linear-gradient(135deg, rgba(30, 136, 229, 0.1), rgba(30, 136, 229, 0.05));
-                border: 2px solid var(--azul-pacifico);
-                border-radius: 12px;
-                margin-bottom: 25px;
-                box-shadow: 0 4px 12px rgba(30, 136, 229, 0.1);
-            }
-
-            .status-label {
-                font-size: 20px;
-                font-weight: 700;
-                color: var(--azul-pacifico-oscuro);
-                margin-bottom: 10px;
-            }
-
-            .status-time {
-                color: var(--gris-texto);
-                font-size: 14px;
-            }
-
-            /* Línea de tiempo */
-            .status-timeline {
-                margin-bottom: 30px;
-                position: relative;
-            }
-
-            .timeline-line {
-                position: absolute;
-                left: 30px;
-                top: 0;
-                bottom: 0;
-                width: 3px;
-                background: linear-gradient(to bottom, var(--azul-pacifico-claro), var(--verde-menta));
-                z-index: 1;
-            }
-
-            .status-step {
-                display: flex;
-                align-items: center;
-                margin-bottom: 25px;
-                position: relative;
-                z-index: 2;
-            }
-
-            .step-icon {
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 20px;
-                margin-right: 20px;
-                border: 3px solid var(--azul-pacifico-claro);
-                background-color: white;
-                color: var(--azul-pacifico-claro); /* Icono por defecto inactivo */
-                transition: all 0.3s ease;
-            }
-
-            .step-content {
-                flex: 1;
-            }
-
-            .step-title {
-                font-weight: 600;
-                color: var(--gris-texto);
-                margin-bottom: 5px;
-                transition: all 0.3s ease;
-            }
-
-            .step-description {
-                color: var(--gris-texto);
-                font-size: 14px;
-                opacity: 0.8;
-            }
-
-            .step-active .step-icon {
-                border-color: var(--azul-pacifico);
-                background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
-                color: white;
-                box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3);
-            }
-
-            .step-active .step-title {
-                color: var(--azul-pacifico-oscuro);
-                font-weight: 700;
-            }
-
-            .step-completed .step-icon {
-                border-color: var(--verde-menta);
-                background: linear-gradient(135deg, var(--verde-menta), #66BB6A);
-                color: white;
-                box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
-            }
-
-            .step-completed .step-title {
-                color: var(--verde-menta);
-                font-weight: 600;
-            }
-
-            .step-reasigned .step-description {
-                color: var(--rojo-alerta);
-                font-weight: 600;
-            }
-
-            /* Botones de acción */
-            .action-buttons {
-                display: flex;
-                flex-wrap: wrap; /* Permite que los botones envuelvan */
-                gap: 15px;
-                margin-bottom: 20px;
-            }
-
-            .btn-action {
-                padding: 15px;
-                border: none;
-                border-radius: 8px;
-                font-weight: 600;
-                cursor: pointer;
-                font-size: 16px;
-                transition: all 0.3s;
-                text-decoration: none;
-                display: inline-block;
-                text-align: center;
-                flex: 1 1 calc(50% - 15px); /* Permite 2 botones por fila en escritorio */
-                min-width: 180px; /* Mínimo para que no se achiquen demasiado */
-                background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
-                color: white;
-                box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
-            }
-
-            .btn-action:hover:not(:disabled) {
-                background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico));
-                transform: translateY(-2px);
-                box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3);
-            }
-            
-            .btn-secondary {
-                background: linear-gradient(135deg, var(--aji-amarillo), #FFB300);
-                color: var(--azul-pacifico-oscuro);
-                box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
-            }
-
-            .btn-secondary:hover:not(:disabled) {
-                background: linear-gradient(135deg, #FFB300, var(--aji-amarillo));
-                transform: translateY(-2px);
-                box-shadow: 0 6px 15px rgba(255, 193, 7, 0.3);
-            }
-
-            .btn-success {
-                background: linear-gradient(135deg, var(--verde-menta), #66BB6A);
-                color: white;
-                box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
-            }
-
-            .btn-success:hover:not(:disabled) {
-                background: linear-gradient(135deg, #66BB6A, var(--verde-menta));
-                transform: translateY(-2px);
-                box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
-            }
-
-            .btn:disabled {
-                background: #cccccc;
-                cursor: not-allowed;
-                transform: none;
-                box-shadow: none;
-                color: #888888;
-            }
-
-            /* Información de entrega */
-            .delivery-info {
-                background: linear-gradient(135deg, #E3F2FD, #FFFFFF);
-                padding: 20px;
-                border-radius: 10px;
-                margin-top: 20px;
-                border: 2px solid var(--blanco-roto);
-            }
-
-            .info-row {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 12px;
-                padding-bottom: 8px;
-                border-bottom: 1px solid var(--azul-pacifico-claro);
-            }
-
-            .info-label {
-                font-weight: 500;
-                color: var(--gris-texto);
-            }
-
-            .info-value {
-                font-weight: 600;
-                color: var(--azul-pacifico-oscuro);
-                text-align: right; /* Asegura que los valores estén alineados a la derecha */
-            }
-
-            /* Mensajes de confirmación */
-            .confirmation-message {
-                display: none;
-                text-align: center;
-                padding: 15px;
-                background-color: rgba(76, 175, 80, 0.15);
-                color: var(--verde-menta);
-                border-radius: 8px;
-                margin-top: 15px;
-                border: 2px solid var(--verde-menta);
-                font-weight: 600;
-            }
-            
-            .alert-message {
-                display: none;
-                text-align: center;
-                padding: 15px;
-                background-color: rgba(211, 47, 47, 0.15);
-                color: var(--rojo-alerta);
-                border-radius: 8px;
-                margin-top: 15px;
-                border: 2px solid var(--rojo-alerta);
-                font-weight: 600;
-            }
-            
-            /* Historial de Despacho */
-            .dispatch-history-container {
-                margin-top: 30px;
-                padding: 15px;
-                background-color: #f1f8e9; /* Un color suave para el historial */
-                border-radius: 10px;
-                border: 1px solid var(--verde-menta);
-            }
-
-            .history-item {
-                border-bottom: 1px dashed #A5D6A7;
-                padding: 8px 0;
-                font-size: 14px;
-            }
-
-            .history-item:last-child {
-                border-bottom: none;
-            }
-
-            /* Detalles del pedido (mantenido) */
-            .order-details {
-                margin-bottom: 25px;
-            }
-
-            .order-items {
-                margin-bottom: 15px;
-            }
-
-            .order-item {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 12px 0;
-                border-bottom: 1px solid var(--azul-pacifico-claro);
-            }
-
-            .item-name {
-                font-weight: 600;
-                color: var(--azul-pacifico-oscuro);
-            }
-
-            .item-quantity {
-                color: var(--gris-texto);
-                font-size: 14px;
-            }
-
-            .item-price {
-                font-weight: 600;
-                color: var(--verde-menta);
-            }
-
-            .order-total {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 15px 0;
-                border-top: 2px solid var(--azul-pacifico);
-                font-weight: 700;
-                font-size: 18px;
-                color: var(--azul-pacifico-oscuro);
-            }
-
-            /* Responsive (mantenido y actualizado para botones) */
-            @media (max-width: 768px) {
-                .nav-container {
-                    flex-direction: column;
-                    gap: 1rem;
-                }
-                
-                .nav-links {
-                    gap: 1rem;
-                    flex-wrap: wrap;
-                    justify-content: center;
-                }
-                
-                .auth-buttons {
-                    flex-direction: column;
-                    width: 100%;
-                }
-                
-                .auth-buttons .btn {
-                    text-align: center;
-                }
-                
-                .hero h1 {
-                    font-size: 1.8rem;
-                }
-                
-                .hero p {
-                    font-size: 0.9rem;
-                }
-                
-                .card-body {
-                    padding: 1.5rem;
-                }
-
-                .action-buttons {
-                    flex-direction: column;
-                }
-
-                .btn-action {
-                    flex: 1 1 100%; /* Botones apilados en móvil */
-                    min-width: auto;
-                }
-
-                .step-icon {
-                    width: 50px;
-                    height: 50px;
-                    font-size: 18px;
-                    margin-right: 15px;
-                }
-            }
-
-            @media (max-width: 480px) {
-                /* ... estilos de media query para 480px ... */
-            }
         </style>
     </head>
     <body>
@@ -571,22 +91,14 @@
                     <div class="logo">
                         <span>Sabor Limeño 🚚</span>
                     </div>
-                    
                     <ul class="nav-links">
                         <li><a href="index.html">Inicio</a></li>
                         <li><a href="catalogo.html">Catálogo</a></li>
                         <li><a href="pedido.html">Mis Pedidos</a></li>
-                        
-                        <li>
-                            <a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">
-                                Carrito 🛒
-                            </a>
-                        </li>
+                        <li><a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">Carrito 🛒</a></li>
                     </ul>
-                    
                     <div class="auth-buttons">
-                        <a href="signin.html" class="btn btn-outline">Cerrar Sesión</a>
-                    </div>
+                        </div>
                 </nav>
             </div>
         </header>
@@ -594,26 +106,41 @@
         <section class="hero">
             <div class="container">
                 <div class="hero-content">
-                    <h1>Panel de Despacho US-10</h1>
+                    <h1>Panel de Despacho</h1>
                     <p>Asignación y seguimiento de pedidos - Vista Administrador</p>
                 </div>
             </div>
         </section>
 
         <div class="tracking-container">
-            <div class="card">
+            <div id="loadingState" class="card card-body">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                </div>
+                <p class="text-center mt-2">Cargando orden...</p>
+            </div>
+
+            <div id="errorState" style="display: none;">
+                <h3>❌ Error al cargar la orden</h3>
+                <p id="errorText">No se pudo encontrar el pedido o no tienes permiso para verlo.</p>
+                <a href="administracion.html" class="btn-action">Volver al Panel</a>
+            </div>
+            
+            <div id="deliveryContent" class="card" style="display: none;">
                 <div class="card-header">
-                    <h2>Pedido <span id="orderNumber">#4501</span></h2>
+                    <h2>Pedido <span id="orderNumber">#...</span></h2>
                 </div>
                 <div class="card-body">
                     <div class="order-info">
-                        <div class="order-number">Número de orden <span id="orderIdDisplay">#4501</span></div>
+                        <div class="order-number">Número de orden <span id="orderIdDisplay">#...</span></div>
                         <div class="delivery-man">Repartidor: <span id="deliveryManName">N/A</span></div>
                     </div>
                     
                     <div class="current-status">
-                        <div class="status-label" id="currentStatusLabel">Preparando</div>
-                        <div class="status-time" id="statusTime">Actualizado: 15/03/2024 19:00</div>
+                        <div class="status-label" id="currentStatusLabel">Cargando...</div>
+                        <div class="status-time" id="statusTime">Actualizado: --:--</div>
                     </div>
                     
                     <div class="action-buttons">
@@ -622,77 +149,42 @@
                         <button class="btn-action btn-success" id="deliverBtn" disabled>Marcar como Entregado</button>
                     </div>
                     
-                    <div id="reassignAlertMessage" class="alert-message">
-                        ⚠️ Pedido reasignado a Valentina. Se mantiene el estado "En ruta".
-                    </div>
-
-                    <div id="assignConfirmationMessage" class="confirmation-message">
-                        ✅ Pedido #4501 asignado a **Carlos** y estado actualizado a "**En ruta**".
-                    </div>
-
-                    <div id="deliveryConfirmationMessage" class="confirmation-message">
-                        📦 Pedido marcado como entregado con fecha y hora. ¡Misión cumplida!
-                    </div>
-
-                    
-                    <div class="order-details">
-                        <h3 style="color: var(--azul-pacifico-oscuro); margin-bottom: 15px;">Detalles del Pedido</h3>
-                        <div class="order-items">
-                            <div class="order-item">
-                                <div>
-                                    <div class="item-name">Lomo Saltado</div>
-                                    <div class="item-quantity">Cantidad: 2</div>
-                                </div>
-                                <div class="item-price">$25.980</div>
-                            </div>
-                            <div class="order-item">
-                                <div>
-                                    <div class="item-name">Ceviche Clásico</div>
-                                    <div class="item-quantity">Cantidad: 1</div>
-                                </div>
-                                <div class="item-price">$10.990</div>
-                            </div>
-                            <div class="order-item">
-                                <div>
-                                    <div class="item-name">Causa Limeña</div>
-                                    <div class="item-quantity">Cantidad: 1</div>
-                                </div>
-                                <div class="item-price">$8.990</div>
-                            </div>
+                    <div id="confirmationMessage" class="confirmation-message">
                         </div>
-                        <div class="order-total">
-                            <span>Total:</span>
-                            <span>$45.960</span>
+
+                    <div id="alertMessage" class="alert-message">
                         </div>
-                    </div>
                     
                     <div class="status-timeline">
                         <div class="timeline-line"></div>
-                        
-                        <div class="status-step step-completed" id="step-recibido">
+                        <div class="status-step" id="step-pendiente">
                              <div class="step-icon">🍽️</div>
                             <div class="step-content">
-                                <div class="step-title">Pedido Recibido</div>
-                                <div class="step-description">15/03/2024 18:30</div>
+                                <div class="step-title">Pendiente</div>
+                                <div class="step-description" id="pendienteTime">--:--</div>
                             </div>
                         </div>
-                        
-                        <div class="status-step step-active" id="step-preparando">
+                        <div class="status-step" id="step-preparando">
                             <div class="step-icon">👨‍🍳</div>
                             <div class="step-content">
                                 <div class="step-title">Preparando</div>
-                                <div class="step-description">15/03/2024 19:00</div>
+                                <div class="step-description" id="preparandoTime">--:--</div>
                             </div>
                         </div>
-                        
-                        <div class="status-step" id="step-enruta">
+                        <div class="status-step" id="step-completado">
+                            <div class="step-icon">📦</div>
+                            <div class="step-content">
+                                <div class="step-title">Completado (En espera)</div>
+                                <div class="step-description" id="completadoTime">--:--</div>
+                            </div>
+                        </div>
+                        <div class="status-step" id="step-en_ruta">
                             <div class="step-icon">🛵</div>
                             <div class="step-content">
                                 <div class="step-title">En Ruta</div>
                                 <div class="step-description" id="enRutaTime">--:--</div>
                             </div>
                         </div>
-                        
                         <div class="status-step" id="step-entregado">
                             <div class="step-icon">✅</div>
                             <div class="step-content">
@@ -702,38 +194,23 @@
                         </div>
                     </div>
                     
-                    <div class="dispatch-history-container">
-                        <h4 style="color: var(--azul-pacifico-oscuro); margin-bottom: 10px;">Historial de Despacho</h4>
-                        <div id="dispatchHistory">
-                            <div class="history-item">15/03/2024 19:00: Pedido listo. En espera de asignación.</div>
-                        </div>
-                    </div>
-                    
                     <div class="delivery-info">
                         <h3 style="color: var(--azul-pacifico-oscuro); margin-bottom: 15px;">Información de Entrega</h3>
                         <div class="info-row">
                             <span class="info-label">Cliente:</span>
-                            <span class="info-value">Juan Pérez</span>
+                            <span class="info-value" id="clientName">...</span>
                         </div>
                         <div class="info-row">
                             <span class="info-label">Dirección:</span>
-                            <span class="info-value">Av. Principal 123, Santiago</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Teléfono:</span>
-                            <span class="info-value">+56 9 1234 5678</span>
+                            <span class="info-value" id="clientAddress">...</span>
                         </div>
                          <div class="info-row" id="locationInfo" style="display: none;">
                             <span class="info-label">Ubicación Repartidor:</span>
                             <span class="info-value"><a href="#" target="_blank" style="color: var(--verde-menta); text-decoration: none;">Ver Mapa 📍</a></span>
                         </div>
-                        <div class="info-row" id="estimatedTimeInfo" style="display: none;">
-                            <span class="info-label">Tiempo Estimado (ETA):</span>
-                            <span class="info-value" id="estimatedTimeValue">25-35 minutos</span>
-                        </div>
                          <div class="info-row">
                             <span class="info-label">Método de pago:</span>
-                            <span class="info-value">Tarjeta de crédito</span>
+                            <span class="info-value" id="paymentMethod">...</span>
                         </div>
                     </div>
                 </div>
@@ -741,187 +218,238 @@
         </div>
 
         <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const orderId = '#4501';
-            const orderIdReassign = '#4502'; // Para el escenario de reasignación
+        document.addEventListener('DOMContentLoaded', async function() {
+            
+            const API_URL = 'http://localhost:3000';
+            const token = localStorage.getItem('authToken');
+            
+            // --- Elementos del DOM ---
+            const loadingState = document.getElementById('loadingState');
+            const errorState = document.getElementById('errorState');
+            const errorText = document.getElementById('errorText');
+            const deliveryContent = document.getElementById('deliveryContent');
+            
             const assignBtn = document.getElementById('assignBtn');
             const reassignBtn = document.getElementById('reassignBtn');
             const deliverBtn = document.getElementById('deliverBtn');
+            
             const currentStatusLabel = document.getElementById('currentStatusLabel');
             const statusTime = document.getElementById('statusTime');
             const deliveryManName = document.getElementById('deliveryManName');
-            const dispatchHistory = document.getElementById('dispatchHistory');
             const locationInfo = document.getElementById('locationInfo');
-            const estimatedTimeInfo = document.getElementById('estimatedTimeInfo');
-            const entregadoTime = document.getElementById('entregadoTime');
-            const enRutaTime = document.getElementById('enRutaTime');
             
-            const assignConfirmationMessage = document.getElementById('assignConfirmationMessage');
-            const deliveryConfirmationMessage = document.getElementById('deliveryConfirmationMessage');
-            const reassignAlertMessage = document.getElementById('reassignAlertMessage');
-
-            const stepRecibido = document.getElementById('step-recibido');
-            const stepPreparando = document.getElementById('step-preparando');
-            const stepEnRuta = document.getElementById('step-enruta');
-            const stepEntregado = document.getElementById('step-entregado');
-
-            let pedidoEstado = "preparando"; // Estado inicial para simular US
-
-            const REPARTIDORES = {
-                CARLOS: "Carlos R.",
-                VALENTINA: "Valentina M."
-            };
-
-            let repartidorActual = "N/A";
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const alertMessage = document.getElementById('alertMessage');
             
-            function getCurrentTime() {
-                const now = new Date();
-                return now.toLocaleDateString('es-CL') + ' ' + now.toLocaleTimeString('es-CL', {hour: '2-digit', minute:'2-digit'});
-            }
+            let currentOrderData = null; // Guardará el pedido
+            let orderId = null;
             
-            function addHistoryEntry(message) {
-                const newEntry = document.createElement('div');
-                newEntry.classList.add('history-item');
-                newEntry.textContent = `${getCurrentTime()}: ${message}`;
-                dispatchHistory.appendChild(newEntry);
-                // Desplazar al final
-                dispatchHistory.scrollTop = dispatchHistory.scrollHeight;
-            }
-
-            function updateTimeline(status) {
-                // Resetear todos los pasos activos y completados (excepto los pre-asignación)
-                stepEnRuta.classList.remove('step-active', 'step-completed', 'step-reasigned');
-                stepEntregado.classList.remove('step-active', 'step-completed', 'step-reasigned');
-                stepPreparando.classList.remove('step-active', 'step-completed');
-                
-                // Actualizar según el estado
-                switch (status) {
-                    case "preparando":
-                        stepPreparando.classList.add('step-active');
-                        locationInfo.style.display = 'none';
-                        estimatedTimeInfo.style.display = 'none';
-                        deliverBtn.disabled = true;
-                        reassignBtn.disabled = true;
-                        assignBtn.disabled = false;
-                        break;
-                    case "en_ruta":
-                        // Escenario: Asignación de pedido
-                        stepPreparando.classList.add('step-completed');
-                        stepEnRuta.classList.add('step-active');
-                        enRutaTime.textContent = getCurrentTime();
-                        locationInfo.style.display = 'flex';
-                        estimatedTimeInfo.style.display = 'flex';
-                        deliverBtn.disabled = false;
-                        reassignBtn.disabled = false;
-                        assignBtn.disabled = true;
-                        break;
-                    case "entregado":
-                        // Escenario: Confirmación de entrega
-                        stepPreparando.classList.add('step-completed');
-                        stepEnRuta.classList.add('step-completed');
-                        stepEnRuta.classList.remove('step-active');
-                        stepEntregado.classList.add('step-completed');
-                        entregadoTime.textContent = getCurrentTime();
-                        locationInfo.style.display = 'none';
-                        estimatedTimeInfo.style.display = 'none';
-                        deliverBtn.disabled = true;
-                        reassignBtn.disabled = true;
-                        assignBtn.disabled = true;
-                        break;
-                }
-            }
-
-            function updateInterface() {
-                assignConfirmationMessage.style.display = 'none';
-                deliveryConfirmationMessage.style.display = 'none';
-                reassignAlertMessage.style.display = 'none';
-                
-                deliveryManName.textContent = repartidorActual;
-                
-                if (pedidoEstado === "preparando") {
-                    currentStatusLabel.textContent = "Preparando";
-                    currentStatusLabel.style.color = "var(--azul-pacifico-oscuro)";
-                    statusTime.textContent = `Actualizado: ${getCurrentTime()}`;
-                } else if (pedidoEstado === "en_ruta") {
-                    currentStatusLabel.textContent = "En ruta";
-                    currentStatusLabel.style.color = "var(--azul-pacifico-oscuro)";
-                    statusTime.textContent = `Asignado: ${getCurrentTime()}`;
-                } else if (pedidoEstado === "entregado") {
-                    currentStatusLabel.textContent = "Entregado";
-                    currentStatusLabel.style.color = "var(--verde-menta)";
-                    statusTime.textContent = `Entregado: ${entregadoTime.textContent}`;
-                }
-                
-                updateTimeline(pedidoEstado);
-            }
-
-            // Simulación de Asignación de Pedido
-            assignBtn.addEventListener('click', function() {
-                if (pedidoEstado === "preparando") {
-                    assignBtn.disabled = true;
-                    assignBtn.textContent = 'Asignando...';
+            // --- INICIO: Script de Gestión de Sesión (Admin) ---
+            const authButtonsContainer = document.querySelector('.header .auth-buttons');
+            if (token) {
+                try {
+                    const response = await fetch(API_URL + '/api/auth/me', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    if (!response.ok) throw new Error('Token inválido');
+                    const user = await response.json();
                     
-                    setTimeout(() => {
-                        // Dado que la orden #4501 está lista
-                        repartidorActual = REPARTIDORES.CARLOS; // Cuando lo asigno al repartidor "Carlos"
-                        pedidoEstado = "en_ruta"; // Entonces el pedido cambia a estado "En ruta"
-                        
-                        addHistoryEntry(`Asignación inicial de orden ${orderId} a ${REPARTIDORES.CARLOS}. Estado: En ruta.`);
-                        
-                        updateInterface();
-                        assignBtn.textContent = 'Asignar Pedido';
-                        assignConfirmationMessage.style.display = 'block';
-                        setTimeout(() => assignConfirmationMessage.style.display = 'none', 5000);
-                    }, 1500);
+                    if (user.role !== 'admin') {
+                        throw new Error('Acceso denegado. Debes ser administrador.');
+                    }
+                    
+                    // Usuario es Admin, mostrar info de sesión
+                    authButtonsContainer.innerHTML = `<span class="user-info" style="color:white; margin-right: 15px; font-weight: 500;">Hola, ${user.email} (Admin)</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
+                    document.getElementById('logoutBtn').addEventListener('click', () => {
+                        localStorage.removeItem('authToken');
+                        localStorage.removeItem('userEmail');
+                        window.location.href = "signin.html";
+                    });
+                    
+                    // Iniciar carga de la página
+                    await initializePage();
+                    
+                } catch (error) {
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('userEmail');
+                    showError(`Error de autenticación: ${error.message}. <a href='signin.html'>Inicia sesión</a>.`);
+                }
+            } else {
+                showError("No estás autenticado. <a href='signin.html'>Inicia sesión como Admin</a> para ver esta página.");
+            }
+            // --- FIN: Script de Gestión de Sesión ---
+
+            
+            // --- LÓGICA DE LA PÁGINA ---
+            
+            async function initializePage() {
+                const urlParams = new URLSearchParams(window.location.search);
+                orderId = urlParams.get('orderId');
+
+                if (!orderId) {
+                    showError("No se especificó un número de pedido. Prueba añadiendo ?orderId=1 a la URL.");
+                    return;
+                }
+                
+                await loadOrderData();
+            }
+
+            async function loadOrderData() {
+                try {
+                    const data = await fetchAPI(`/api/orders/${orderId}`);
+                    currentOrderData = data;
+                    populateOrderData(data);
+                    
+                    loadingState.style.display = 'none';
+                    deliveryContent.style.display = 'block';
+                } catch (error) {
+                    console.error("Error al cargar la orden:", error);
+                    showError(error.message);
+                }
+            }
+            
+            function populateOrderData(data) {
+                const formatDate = (dateString) => dateString ? new Date(dateString).toLocaleString('es-CL') : '--:--';
+                
+                // Info superior
+                document.getElementById('orderNumber').textContent = `#${data.id}`;
+                document.getElementById('orderIdDisplay').textContent = `#${data.id}`;
+                document.getElementById('deliveryManName').textContent = data.repartidorNombre || 'N/A';
+                document.getElementById('statusTime').textContent = `Actualizado: ${formatDate(data.createdAt)}`; // (Idealmente sería 'updatedAt')
+                
+                // Info cliente
+                document.getElementById('clientName').textContent = data.clientName;
+                document.getElementById('clientAddress').textContent = data.deliveryAddress || 'N/A';
+                document.getElementById('paymentMethod').textContent = data.paymentMethod;
+
+                // Actualizar Timeline y Botones
+                updateVisuals(data.status, data.repartidorNombre);
+            }
+            
+            function updateVisuals(status, repartidor) {
+                // Actualizar Label de Estado
+                currentStatusLabel.textContent = status.replace('_', ' ');
+                
+                // Actualizar Timeline
+                const steps = ['pendiente', 'preparando', 'completado', 'en_ruta', 'entregado'];
+                let stepCompleted = true;
+                steps.forEach(step => {
+                    const stepEl = document.getElementById(`step-${step}`);
+                    if (stepEl) {
+                        stepEl.classList.remove('step-active', 'step-completed');
+                        if (step === status) {
+                            stepEl.classList.add('step-active');
+                            stepCompleted = false;
+                        } else if (stepCompleted) {
+                            stepEl.classList.add('step-completed');
+                        }
+                    }
+                });
+
+                // Actualizar Botones
+                assignBtn.disabled = true;
+                reassignBtn.disabled = true;
+                deliverBtn.disabled = true;
+                locationInfo.style.display = 'none';
+
+                if (status === 'completado') {
+                    assignBtn.disabled = false;
+                } else if (status === 'en_ruta') {
+                    reassignBtn.disabled = false;
+                    deliverBtn.disabled = false;
+                    locationInfo.style.display = 'flex'; // Mostrar mapa
+                }
+                
+                // Mostrar repartidor si existe
+                deliveryManName.textContent = repartidor || 'N/A';
+            }
+            
+            // --- Acciones de Botones ---
+            
+            // Asignar o Reasignar
+            async function assignDelivery() {
+                const driverName = prompt("Ingresa el nombre del repartidor:", "Carlos R.");
+                if (!driverName) return; // Si el usuario cancela
+                
+                assignBtn.disabled = true;
+                reassignBtn.disabled = true;
+                
+                try {
+                    await fetchAPI(`/api/orders/${orderId}/assign`, {
+                        method: 'PATCH',
+                        body: JSON.stringify({ repartidorNombre: driverName })
+                    });
+                    
+                    showConfirmation(`Pedido asignado a ${driverName} y marcado como 'En Ruta'.`);
+                    await loadOrderData(); // Recargar todo
+                    
+                } catch (error) {
+                    showAlert(`Error al asignar: ${error.message}`);
+                    updateVisuals(currentOrderData.status, currentOrderData.repartidorNombre); // Restaurar botones
+                }
+            }
+            
+            assignBtn.addEventListener('click', assignDelivery);
+            reassignBtn.addEventListener('click', assignDelivery); // Reasignar usa la misma lógica
+
+            // Marcar como Entregado
+            deliverBtn.addEventListener('click', async () => {
+                if (!confirm("¿Confirmas que este pedido ha sido entregado?")) return;
+                
+                deliverBtn.disabled = true;
+                
+                try {
+                    await fetchAPI(`/api/orders/${orderId}/status`, {
+                        method: 'PATCH',
+                        body: JSON.stringify({ status: 'entregado' })
+                    });
+                    
+                    showConfirmation(`¡Pedido #${orderId} marcado como 'Entregado'!`);
+                    await loadOrderData(); // Recargar todo
+                    
+                } catch (error) {
+                    showAlert(`Error al entregar: ${error.message}`);
+                    updateVisuals(currentOrderData.status, currentOrderData.repartidorNombre); // Restaurar botones
                 }
             });
 
-            // Simulación de Confirmación de Entrega
-            deliverBtn.addEventListener('click', function() {
-                if (pedidoEstado === "en_ruta") {
-                    deliverBtn.disabled = true;
-                    deliverBtn.textContent = 'Procesando...';
-                    
-                    setTimeout(() => {
-                        // Dado que el repartidor marca "Entregado"
-                        pedidoEstado = "entregado"; // Entonces el pedido queda "Entregado" con fecha y hora
-                        
-                        addHistoryEntry(`Confirmación de entrega de orden ${orderId} por ${repartidorActual}. Estado: Entregado.`);
-                        
-                        updateInterface();
-                        deliverBtn.textContent = 'Marcar como Entregado';
-                        deliveryConfirmationMessage.style.display = 'block';
-                        setTimeout(() => deliveryConfirmationMessage.style.display = 'none', 5000);
-                    }, 1500);
-                }
-            });
+            // --- Funciones Helper ---
             
-            // Simulación de Reasignación de Pedido
-            reassignBtn.addEventListener('click', function() {
-                if (pedidoEstado === "en_ruta") {
-                    reassignBtn.disabled = true;
-                    reassignBtn.textContent = 'Reasignando...';
-                    
-                    setTimeout(() => {
-                        // Dado que el repartidor original no está disponible
-                        repartidorActual = REPARTIDORES.VALENTINA; // Cuando reasigno la orden #4502 (simulada aquí con el mismo ID para la UI) a "Valentina"
-                        // El estado se mantiene en "en_ruta"
-                        
-                        // Y se actualiza el historial de despacho
-                        addHistoryEntry(`Reasignación de orden ${orderIdReassign} de ${REPARTIDORES.CARLOS} a ${REPARTIDORES.VALENTINA}. El estado **se mantiene En ruta**.`);
-                        
-                        // Actualizar UI
-                        updateInterface();
-                        reassignBtn.textContent = 'Reasignar Pedido';
-                        reassignBtn.disabled = false; // Permite otra reasignación si fuera necesario
-                        reassignAlertMessage.style.display = 'block';
-                        setTimeout(() => reassignAlertMessage.style.display = 'none', 5000);
-                    }, 1500);
+            async function fetchAPI(endpoint, options = {}) {
+                const defaultOptions = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                };
+                const config = { ...defaultOptions, ...options };
+                
+                const response = await fetch(API_URL + endpoint, config);
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || `Error ${response.status}`);
                 }
-            });
+                return data;
+            }
 
-            // Inicializar la interfaz con el estado inicial de "Preparando"
-            updateInterface();
+            function showError(message) {
+                loadingState.style.display = 'none';
+                errorText.innerHTML = message;
+                errorState.style.display = 'block';
+            }
+            
+            function showConfirmation(message) {
+                confirmationMessage.textContent = message;
+                confirmationMessage.style.display = 'block';
+                setTimeout(() => confirmationMessage.style.display = 'none', 4000);
+            }
+            
+            function showAlert(message) {
+                alertMessage.textContent = message;
+                alertMessage.style.display = 'block';
+                setTimeout(() => alertMessage.style.display = 'none', 4000);
+            }
         });
         </script>
     </body>

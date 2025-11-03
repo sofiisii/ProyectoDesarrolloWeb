@@ -9,251 +9,51 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet">
     <style>
         :root {
-            --azul-pacifico: #1E88E5;
-            --azul-pacifico-oscuro: #1565C0;
-            --azul-pacifico-claro: #64B5F6;
-            --aji-amarillo: #FFC107;
-            --terracota: #BF360C;
-            --verde-menta: #4CAF50;
-            --purpura-nazca: #6A1B9A;
-            --blanco-roto: #F8F9FA;
-            --gris-texto: #424242;
+            --azul-pacifico: #1E88E5; --azul-pacifico-oscuro: #1565C0; --azul-pacifico-claro: #64B5F6;
+            --aji-amarillo: #FFC107; --terracota: #BF360C; --verde-menta: #4CAF50;
+            --purpura-nazca: #6A1B9A; --blanco-roto: #F8F9FA; --gris-texto: #424242;
         }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--blanco-roto);
-            color: var(--gris-texto);
-            margin: 0;
-            padding: 0;
-        }
-        
-        /* Header Simplificado */
-        .header {
-            background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%);
-            color: white;
-            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
-            padding: 1rem 0;
-        }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        /* Hero Section con Botón de Volver */
-        .hero {
-            background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%);
-            color: white;
-            padding: 2.5rem 0;
-            text-align: center;
-            margin-bottom: 2rem;
-            position: relative;
-        }
-        
-        .btn-back {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            left: 2rem;
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        
-        .btn-back:hover {
-            background-color: rgba(255, 255, 255, 0.4);
-            transform: translateY(-50%) scale(1.05);
-        }
-
-        .hero h1 {
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-        
-        .hero p {
-            font-size: 1rem;
-            margin-bottom: 0;
-            opacity: 0.9;
-        }
-
-        /* Contenido principal */
-        .menu-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        .card {
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1);
-            border: none;
-            overflow: hidden;
-            margin-bottom: 2rem;
-        }
-
-        .card-header {
-            background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
-            color: white;
-            padding: 1.5rem;
-            text-align: center;
-            border-bottom: none;
-        }
-
-        .card-header h2 {
-            margin: 0;
-            font-weight: 600;
-            font-size: 1.5rem;
-        }
-
-        .card-body {
-            padding: 2rem;
-        }
-
-        .table {
-            margin-bottom: 20px;
-            width: 100%;
-        }
-
-        .table thead th {
-            background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
-            color: white;
-            border: none;
-            font-weight: 600;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .table tbody tr:hover {
-            background-color: rgba(30, 136, 229, 0.05);
-        }
-
-        .table tbody td {
-            padding: 15px;
-            vertical-align: middle;
-            border-top: 1px solid #dee2e6;
-            text-align: center;
-        }
-
-        .table tbody td:first-child {
-            font-weight: 600;
-            color: var(--azul-pacifico-oscuro);
-            text-align: left;
-        }
-
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 24px;
-        }
-
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--blanco-roto); color: var(--gris-texto); margin: 0; padding: 0; }
+        .header { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); padding: 1rem 0; }
+        .logo { font-size: 1.8rem; font-weight: 700; }
+        .hero { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); color: white; padding: 2.5rem 0; text-align: center; margin-bottom: 2rem; position: relative; }
+        .btn-back { position: absolute; top: 50%; transform: translateY(-50%); left: 2rem; background-color: rgba(255, 255, 255, 0.2); color: white; padding: 8px 15px; border-radius: 20px; font-size: 14px; text-decoration: none; transition: all 0.3s; }
+        .btn-back:hover { background-color: rgba(255, 255, 255, 0.4); transform: translateY(-50%) scale(1.05); }
+        .hero h1 { font-size: 2.2rem; margin-bottom: 0.5rem; font-weight: 700; }
+        .hero p { font-size: 1rem; margin-bottom: 0; opacity: 0.9; }
+        .menu-container { max-width: 1000px; margin: 0 auto; padding: 0 15px; }
+        .card { border-radius: 15px; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); border: none; overflow: hidden; margin-bottom: 2rem; }
+        .card-header { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; padding: 1.5rem; text-align: center; border-bottom: none; }
+        .card-header h2 { margin: 0; font-weight: 600; font-size: 1.5rem; }
+        .card-body { padding: 2rem; }
+        .table { margin-bottom: 20px; width: 100%; }
+        .table thead th { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; border: none; font-weight: 600; padding: 15px; text-align: center; }
+        .table tbody tr:hover { background-color: rgba(30, 136, 229, 0.05); }
+        .table tbody td { padding: 15px; vertical-align: middle; border-top: 1px solid #dee2e6; text-align: center; }
+        .table tbody td:first-child { font-weight: 600; color: var(--azul-pacifico-oscuro); text-align: left; }
+        .toggle-switch { position: relative; display: inline-block; width: 50px; height: 24px; }
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, #cccccc, #999999);
-            transition: .4s;
-            border-radius: 24px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px; width: 18px;
-            left: 3px; bottom: 3px;
-            background: linear-gradient(135deg, white, #f0f0f0);
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider {
-            background: linear-gradient(135deg, var(--verde-menta), #66BB6A);
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(26px);
-        }
-
-        .availability-status {
-            font-weight: 600;
-            font-size: 14px;
-            display: inline-block;
-            width: 120px;
-            text-align: left;
-            margin-left: 10px;
-        }
-
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, #cccccc, #999999); transition: .4s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background: linear-gradient(135deg, white, #f0f0f0); transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background: linear-gradient(135deg, var(--verde-menta), #66BB6A); }
+        input:checked + .slider:before { transform: translateX(26px); }
+        .availability-status { font-weight: 600; font-size: 14px; display: inline-block; width: 120px; text-align: left; margin-left: 10px; }
         .available { color: var(--verde-menta); }
         .unavailable { color: var(--terracota); }
-
-        .btn-action {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            width: 100%;
-        }
-        
-        .btn-action-primary {
-            background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
-            color: white;
-            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
-        }
-
-        .btn-action-primary:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3);
-        }
-
-        .btn-action-secondary {
-            background: linear-gradient(135deg, #6c757d, #5a6268);
-            color: white;
-        }
-        
-        .message {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            display: none;
-            border: 1px solid transparent;
-            font-weight: 500;
-        }
-
+        .btn-action { padding: 12px 25px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 16px; transition: all 0.3s; text-decoration: none; display: inline-block; text-align: center; width: 100%; }
+        .btn-action-primary { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); }
+        .btn-action-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3); }
+        .btn-action-secondary { background: linear-gradient(135deg, #6c757d, #5a6268); color: white; }
+        .message { margin-top: 15px; padding: 15px; border-radius: 8px; text-align: center; display: none; border: 1px solid transparent; font-weight: 500; }
         .success { background-color: #d1e7dd; color: #0f5132; border-color: #badbcc;}
         .error { background-color: #f8d7da; color: #842029; border-color: #f5c2c7; margin-bottom: 1rem; }
         .info { background-color: #cff4fc; color: #055160; border-color: #b6effb; }
-
         .form-group { margin-bottom: 1.5rem; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
         .form-control { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; }
-
         .action-buttons { display: flex; gap: 15px; margin-top: 20px; }
         .action-buttons .btn-action { flex: 1; }
-
-        .category-header {
-            background: linear-gradient(135deg, var(--purpura-nazca), #8E24AA);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin: 20px 0 10px 0;
-            font-weight: 600;
-        }
-
+        .category-header { background: linear-gradient(135deg, var(--purpura-nazca), #8E24AA); color: white; padding: 10px 15px; border-radius: 8px; margin: 20px 0 10px 0; font-weight: 600; }
         .stats-container { display: flex; justify-content: space-between; margin-bottom: 20px; gap: 15px; }
         .stat-card { flex: 1; background: white; border-radius: 10px; padding: 15px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .stat-number { font-size: 2rem; font-weight: 700; color: var(--azul-pacifico); }
@@ -286,17 +86,18 @@
     </section>
 
     <div class="menu-container">
+        
         <div class="stats-container">
             <div class="stat-card">
-                <div class="stat-number" id="total-platos"></div>
+                <div class="stat-number" id="total-platos">...</div>
                 <div class="stat-label">Total de Platos</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" id="disponibles"></div>
+                <div class="stat-number" id="disponibles">...</div>
                 <div class="stat-label">Disponibles</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" id="no-disponibles"></div>
+                <div class="stat-number" id="no-disponibles">...</div>
                 <div class="stat-label">No Disponibles</div>
             </div>
         </div>
@@ -310,11 +111,11 @@
                     <div id="errorMessage" class="message error"></div>
                     <div class="form-group">
                         <label for="new-dish-name">Nombre del Plato</label>
-                        <input type="text" id="new-dish-name" class="form-control" placeholder="Ej: Seco de Cordero">
+                        <input type="text" id="new-dish-name" class="form-control" placeholder="Ej: Seco de Cordero" required>
                     </div>
                     <div class="form-group">
                         <label for="new-dish-price">Precio</label>
-                        <input type="number" id="new-dish-price" class="form-control" placeholder="Ej: 13990" step="10">
+                        <input type="number" id="new-dish-price" class="form-control" placeholder="Ej: 13990" step="10" required>
                     </div>
                     <div class="form-group">
                         <label for="new-dish-category">Categoría</label>
@@ -336,6 +137,7 @@
             </div>
             <div class="card-body">
                 <div id="successMessage" class="message success"></div>
+                <div id="authErrorMessage" class="message error"></div>
                 <div id="unavailableMessage" class="message info"></div>
                 
                 <div class="category-header">Entradas y Ceviches</div>
@@ -350,150 +152,214 @@
                 <div class="category-header">Postres</div>
                 <table class="table table-hover"><tbody id="postres-tbody"></tbody></table>
                 
-                <div class="action-buttons">
-                    <button type="button" class="btn-action btn-action-secondary" id="cancelButton">Cancelar Cambios</button>
-                    <button type="button" class="btn-action btn-action-primary" id="saveButton">Guardar Disponibilidad</button>
                 </div>
-            </div>
         </div>
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const initialMenu = {
-            entradas: [
-                { id: 'ceviche-clasico', name: 'Ceviche Clásico', price: 10990, available: true },
-                { id: 'tiradito-pescado', name: 'Tiradito de Pescado', price: 11990, available: true },
-                { id: 'causa-limena', name: 'Causa Limeña', price: 8990, available: true }
-            ],
-            fondo: [
-                { id: 'lomo-saltado', name: 'Lomo Saltado', price: 12990, available: true },
-                { id: 'aji-gallina', name: 'Ají de Gallina', price: 11990, available: false },
-                { id: 'pachamanca', name: 'Pachamanca', price: 14990, available: false },
-                { id: 'arroz-pato', name: 'Arroz con Pato', price: 13990, available: true }
-            ],
-            especialidades: [
-                { id: 'anticuchos', name: 'Anticuchos', price: 9990, available: true },
-                { id: 'rocoto-relleno', name: 'Rocoto Relleno', price: 12990, available: false },
-                { id: 'cuy-chactado', name: 'Cuy Chactado', price: 18990, available: true }
-            ],
-            postres: [
-                { id: 'suspiro-limeno', name: 'Suspiro Limeño', price: 8990, available: true },
-                { id: 'mazamorra-morada', name: 'Mazamorra Morada', price: 7990, available: true },
-                { id: 'picarones', name: 'Picarones', price: 6990, available: true }
-            ]
-        };
+    document.addEventListener('DOMContentLoaded', async function() {
+        
+        const API_URL = 'http://localhost:3000';
+        const token = localStorage.getItem('authToken');
 
-        let currentMenu = JSON.parse(JSON.stringify(initialMenu));
-
+        // Referencias del DOM
         const successMessage = document.getElementById('successMessage');
         const errorMessage = document.getElementById('errorMessage');
+        const authErrorMessage = document.getElementById('authErrorMessage');
         const unavailableMessage = document.getElementById('unavailableMessage');
         const addDishForm = document.getElementById('add-dish-form');
 
-        function renderMenu() {
-            Object.keys(currentMenu).forEach(category => {
+        // Función para manejar la autenticación
+        if (!token) {
+            showAuthError("No estás autenticado. <a href='signin.html'>Inicia sesión</a> para gestionar el menú.");
+            return;
+        }
+
+        // Función para hacer peticiones Fetch con autenticación
+        async function fetchAPI(endpoint, options = {}) {
+            const defaultOptions = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            };
+            
+            const config = { ...defaultOptions, ...options };
+            
+            try {
+                const response = await fetch(API_URL + endpoint, config);
+                
+                if (response.status === 401 || response.status === 403) {
+                    // Token inválido o no es admin
+                    const errData = await response.json();
+                    throw new Error(errData.message || "No tienes permiso para ver esta página.");
+                }
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.message || `Error ${response.status}`);
+                }
+                
+                // Si la respuesta no tiene contenido (ej. PATCH, DELETE)
+                if (response.status === 204) {
+                    return null; 
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('Error en fetchAPI:', error);
+                throw error;
+            }
+        }
+
+        // Renderiza el menú completo desde los datos del servidor
+        function renderMenu(menuData) {
+            // Agrupar productos por categoría
+            const categories = {
+                entradas: menuData.filter(p => p.category === 'entradas'),
+                fondo: menuData.filter(p => p.category === 'fondo'),
+                especialidades: menuData.filter(p => p.category === 'especialidades'),
+                postres: menuData.filter(p => p.category === 'postres')
+            };
+
+            // Renderizar cada categoría
+            Object.keys(categories).forEach(category => {
                 const tableBody = document.getElementById(`${category}-tbody`);
-                tableBody.innerHTML = '';
-                currentMenu[category].forEach(dish => {
+                tableBody.innerHTML = ''; // Limpiar tabla
+                
+                categories[category].forEach(dish => {
                     const row = document.createElement('tr');
-                    const isChecked = dish.available ? 'checked' : '';
+                    // 'disponible' es 1 (true) o 0 (false) desde SQLite
+                    const isChecked = dish.disponible ? 'checked' : ''; 
+                    const isAvailable = dish.disponible ? true : false;
+                    
                     row.innerHTML = `
                         <td class="ps-4">${dish.name}</td>
                         <td>$${dish.price.toLocaleString('es-CL')}</td>
                         <td>
                             <label class="toggle-switch">
-                                <input type="checkbox" data-id="${dish.id}" data-category="${category}" ${isChecked}>
+                                <input type="checkbox" data-id="${dish.id}" ${isChecked}>
                                 <span class="slider"></span>
                             </label>
-                            <span class="availability-status ${dish.available ? 'available' : 'unavailable'}">
-                                ${dish.available ? 'DISPONIBLE' : 'NO DISPONIBLE'}
+                            <span class="availability-status ${isAvailable ? 'available' : 'unavailable'}">
+                                ${isAvailable ? 'DISPONIBLE' : 'NO DISPONIBLE'}
                             </span>
                         </td>
                     `;
                     tableBody.appendChild(row);
                 });
             });
-            updateStats();
+            
             addToggleListeners();
         }
 
-        function updateStats() {
-            let total = 0, available = 0;
-            Object.values(currentMenu).forEach(category => {
-                total += category.length;
-                available += category.filter(d => d.available).length;
-            });
-            document.getElementById('total-platos').textContent = total;
-            document.getElementById('disponibles').textContent = available;
-            document.getElementById('no-disponibles').textContent = total - available;
-            
-            const anyUnavailable = total - available > 0;
-            unavailableMessage.style.display = anyUnavailable ? 'block' : 'none';
-            unavailableMessage.innerHTML = `<strong>Nota:</strong> Los ${total - available} productos no disponibles no aparecerán en el catálogo público.`
+        // Actualiza las tarjetas de estadísticas
+        async function updateStats() {
+            try {
+                const stats = await fetchAPI('/api/products/stats');
+                document.getElementById('total-platos').textContent = stats.total;
+                document.getElementById('disponibles').textContent = stats.disponibles;
+                document.getElementById('no-disponibles').textContent = stats.no_disponibles;
+                
+                const anyUnavailable = stats.no_disponibles > 0;
+                unavailableMessage.style.display = anyUnavailable ? 'block' : 'none';
+                unavailableMessage.innerHTML = `<strong>Nota:</strong> Los ${stats.no_disponibles} productos no disponibles no aparecerán en el catálogo público.`;
+            } catch (error) {
+                console.error("Error cargando stats:", error);
+            }
         }
 
+        // Añade listeners a los toggles de disponibilidad
         function addToggleListeners() {
             document.querySelectorAll('.toggle-switch input').forEach(toggle => {
-                toggle.addEventListener('change', (e) => {
+                toggle.addEventListener('change', async (e) => {
                     const dishId = e.target.dataset.id;
-                    const category = e.target.dataset.category;
-                    const dish = currentMenu[category].find(d => d.id === dishId);
-                    dish.available = e.target.checked;
+                    const isChecked = e.target.checked;
                     
+                    // Actualizar el estado visual inmediatamente
                     const statusSpan = e.target.closest('td').querySelector('.availability-status');
-                    statusSpan.textContent = dish.available ? 'DISPONIBLE' : 'NO DISPONIBLE';
-                    statusSpan.className = `availability-status ${dish.available ? 'available' : 'unavailable'}`;
-                    updateStats();
+                    statusSpan.textContent = isChecked ? 'DISPONIBLE' : 'NO DISPONIBLE';
+                    statusSpan.className = `availability-status ${isChecked ? 'available' : 'unavailable'}`;
+                    
+                    try {
+                        // Enviar el cambio al backend
+                        await fetchAPI(`/api/products/${dishId}/availability`, {
+                            method: 'PATCH',
+                            body: JSON.stringify({ available: isChecked })
+                        });
+                        
+                        // Si el backend responde OK, actualizamos stats y mostramos mensaje
+                        showMessage(successMessage, `Disponibilidad de plato ID ${dishId} actualizada.`);
+                        updateStats(); // Recalcular stats
+                        
+                    } catch (error) {
+                        // Si falla, revertir el toggle y mostrar error
+                        e.target.checked = !isChecked; // Revertir
+                        statusSpan.textContent = !isChecked ? 'DISPONIBLE' : 'NO DISPONIBLE';
+                        statusSpan.className = `availability-status ${!isChecked ? 'available' : 'unavailable'}`;
+                        showAuthError(`Error al actualizar plato: ${error.message}`);
+                    }
                 });
             });
         }
 
-        function showMessage(element, text, duration = 4000) {
-            element.textContent = text;
-            element.style.display = 'block';
-            setTimeout(() => { element.style.display = 'none'; }, duration);
-        }
-
-        addDishForm.addEventListener('submit', function(event) {
+        // Formulario para añadir nuevo plato
+        addDishForm.addEventListener('submit', async function(event) {
             event.preventDefault();
             const dishNameInput = document.getElementById('new-dish-name');
             const dishPriceInput = document.getElementById('new-dish-price');
             const dishCategorySelect = document.getElementById('new-dish-category');
 
             const name = dishNameInput.value.trim();
-            if (!name) {
-                showMessage(errorMessage, 'El nombre del plato es obligatorio');
+            const price = parseInt(dishPriceInput.value);
+            const category = dishCategorySelect.value;
+
+            if (!name || !price) {
+                showMessage(errorMessage, 'El nombre y el precio son obligatorios');
                 return;
             }
 
-            const newDish = {
-                id: name.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now(),
-                name: name,
-                price: parseInt(dishPriceInput.value) || 0,
-                available: true
-            };
+            try {
+                const newDish = await fetchAPI('/api/products', {
+                    method: 'POST',
+                    body: JSON.stringify({ name, price, category })
+                });
 
-            const category = dishCategorySelect.value;
-            currentMenu[category].push(newDish);
-            renderMenu();
-            addDishForm.reset();
-            showMessage(successMessage, `Plato "${name}" agregado exitosamente.`);
-        });
-
-        document.getElementById('saveButton').addEventListener('click', function() {
-            initialMenu = JSON.parse(JSON.stringify(currentMenu));
-            showMessage(successMessage, '¡La disponibilidad ha sido guardada exitosamente!');
-        });
-
-        document.getElementById('cancelButton').addEventListener('click', function() {
-            if (confirm('¿Estás seguro? Los cambios no guardados se perderán.')) {
-                currentMenu = JSON.parse(JSON.stringify(initialMenu));
-                renderMenu();
+                // Si tiene éxito, recargamos todo el menú
+                showMessage(successMessage, `Plato "${name}" agregado exitosamente.`);
+                addDishForm.reset();
+                loadMenu(); // Recarga todo el menú y las stats
+                
+            } catch (error) {
+                showMessage(errorMessage, `Error al agregar plato: ${error.message}`);
             }
         });
 
-        renderMenu();
+        // --- Funciones de Utilidad ---
+
+        function showMessage(element, text, duration = 4000) {
+            element.textContent = text;
+            element.style.display = 'block';
+            setTimeout(() => { element.style.display = 'none'; }, duration);
+        }
+        
+        function showAuthError(text) {
+            authErrorMessage.innerHTML = text; // Usamos innerHTML para permitir el enlace
+            authErrorMessage.style.display = 'block';
+        }
+
+        // --- Función principal de carga ---
+        async function loadMenu() {
+            try {
+                const menuData = await fetchAPI('/api/products/admin');
+                renderMenu(menuData);
+                updateStats();
+            } catch (error) {
+                showAuthError(`Error al cargar el menú: ${error.message}. Asegúrate de haber iniciado sesión como admin (admin@saborlimeno.com).`);
+            }
+        }
+
+        // Carga inicial
+        loadMenu();
     });
     </script>
 </body>

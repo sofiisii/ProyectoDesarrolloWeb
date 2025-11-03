@@ -10,566 +10,87 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         :root {
-            --azul-pacifico: #1E88E5;
-            --azul-pacifico-oscuro: #1565C0;
-            --azul-pacifico-claro: #64B5F6;
-            --aji-amarillo: #FFC107;
-            --terracota: #BF360C;
-            --verde-menta: #4CAF50;
-            --purpura-nazca: #6A1B9A;
-            --blanco-roto: #F8F9FA;
-            --gris-texto: #424242;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--blanco-roto);
-            color: var(--gris-texto);
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%);
-            color: white;
-            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
-            padding: 1rem 0;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-        }
-
-        .nav-links a:hover {
-            background-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid white;
-            color: white;
-        }
-
-        .btn-outline:hover {
-            background: white;
-            color: var(--azul-pacifico);
-            transform: translateY(-2px);
-        }
-
-        .btn-primary {
-            background: var(--aji-amarillo);
-            color: var(--azul-pacifico-oscuro);
-            font-weight: 700;
-        }
-
-        .btn-primary:hover {
-            background: #FFB300;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
-        }
-
-        /* Hero Section Reducida */
-        .hero {
-            background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%);
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            margin-bottom: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-            background-size: cover;
-        }
-
-        .hero-content {
-            max-width: 600px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero h1 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 1rem;
-            margin-bottom: 0;
-            opacity: 0.9;
-        }
-
-        /* Contenido principal */
-        .cancellation-container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        .card {
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1);
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            overflow: hidden;
-            margin-bottom: 2rem;
-        }
-
-        .card:hover {
-            box-shadow: 0 15px 35px rgba(30, 136, 229, 0.15);
-            border-color: var(--azul-pacifico);
-        }
-
-        .card-header {
-            background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
-            color: white;
-            padding: 1.5rem;
-            text-align: center;
-            border-bottom: none;
-        }
-
-        .card-header h2 {
-            margin: 0;
-            font-weight: 600;
-            font-size: 1.5rem;
-        }
-
-        .card-body {
-            padding: 2rem;
-        }
-
-        .order-status {
-            text-align: center;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            font-weight: 600;
-            border: 2px solid transparent;
-        }
-
-        .status-preparando {
-            background-color: rgba(255, 193, 7, 0.15);
-            color: var(--azul-pacifico-oscuro);
-            border-color: var(--aji-amarillo);
-        }
-
-        .status-en-ruta {
-            background-color: rgba(191, 54, 12, 0.15);
-            color: var(--terracota);
-            border-color: var(--terracota);
-        }
-
-        .status-entregado {
-            background-color: rgba(76, 175, 80, 0.15);
-            color: var(--verde-menta);
-            border-color: var(--verde-menta);
-        }
-        
-        .status-anulado {
-            background-color: rgba(106, 27, 154, 0.15);
-            color: var(--purpura-nazca);
-            border-color: var(--purpura-nazca);
-        }
-
-        .order-details {
-            background: linear-gradient(135deg, #E3F2FD, #FFFFFF);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            border: 2px solid var(--blanco-roto);
-        }
-
-        .detail-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--azul-pacifico-claro);
-        }
-
-        .detail-label {
-            font-weight: 500;
-            color: var(--gris-texto);
-        }
-
-        .detail-value {
-            font-weight: 600;
-            color: var(--azul-pacifico-oscuro);
-        }
-
-        .cancellation-form {
-            margin-bottom: 25px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--gris-texto);
-            font-weight: 600;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid var(--azul-pacifico-claro);
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s;
-            background-color: white;
-            box-sizing: border-box; /* Añadido para consistencia */
-        }
-
-        .form-control:focus {
-            border-color: var(--azul-pacifico);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.2);
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .btn-action {
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            width: 100%;
-            background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
-            color: white;
-            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
-            margin-bottom: 10px;
-        }
-
-        .btn-action:hover:not(:disabled) {
-            background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico));
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3);
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, var(--terracota), #D84315);
-            color: white;
-            box-shadow: 0 4px 12px rgba(191, 54, 12, 0.2);
-        }
-
-        .btn-danger:hover:not(:disabled) {
-            background: linear-gradient(135deg, #D84315, var(--terracota));
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(191, 54, 12, 0.3);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, var(--aji-amarillo), #FFB300);
-            color: var(--azul-pacifico-oscuro);
-            box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
-        }
-
-        .btn-secondary:hover:not(:disabled) {
-            background: linear-gradient(135deg, #FFB300, var(--aji-amarillo));
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(255, 193, 7, 0.3);
-        }
-
-        .btn:disabled,
-        .btn-action:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-            color: #888;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .action-buttons .btn,
-        .action-buttons .btn-action {
-            flex: 1;
-        }
-
-        /* Mensajes */
-        .message {
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 20px;
-            display: none;
-            border: 2px solid transparent;
-            font-weight: 500;
-        }
-
-        .success {
-            background-color: rgba(76, 175, 80, 0.15);
-            color: var(--verde-menta);
-            border-color: var(--verde-menta);
-        }
-
-        .error {
-            background-color: rgba(191, 54, 12, 0.15);
-            color: var(--terracota);
-            border-color: var(--terracota);
-        }
-
-        .refund-info {
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05));
-            border: 2px solid var(--verde-menta);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-            display: none;
-        }
-
-        .refund-title {
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--verde-menta);
-            font-size: 18px;
-        }
-
-        .refund-details {
-            color: var(--gris-texto);
-            line-height: 1.6;
-        }
-
-        .refund-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            padding: 5px 0;
-        }
-
-        .refund-label {
-            font-weight: 500;
-            color: var(--gris-texto);
-        }
-
-        .refund-value {
-            font-weight: 600;
-            color: var(--azul-pacifico-oscuro);
-        }
-
-        .order-items {
-            margin: 20px 0;
-        }
-
-        .order-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--azul-pacifico-claro);
-        }
-
-        .item-name {
-            font-weight: 500;
-            color: var(--azul-pacifico-oscuro);
-        }
-
-        .item-quantity {
-            color: var(--gris-texto);
-            font-size: 14px;
-        }
-
-        .item-price {
-            font-weight: 600;
-            color: var(--verde-menta);
-        }
-        
-        /* --- NUEVO: Panel de Simulación --- */
-        .simulation-controls {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 2rem;
-            box-shadow: 0 8px 25px rgba(0,0,0, 0.05);
-            border: 2px solid var(--aji-amarillo);
-        }
-        .simulation-controls h3 {
-            text-align: center;
-            color: var(--azul-pacifico-oscuro);
-            margin-top: 0;
-            margin-bottom: 15px;
-        }
-        .simulation-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-        .sim-btn {
-            flex: 1;
-            padding: 10px 15px;
-            font-size: 14px;
-            border-radius: 8px;
-        }
-        /* --- Fin Panel de Simulación --- */
-
+            --azul-pacifico: #1E88E5; --azul-pacifico-oscuro: #1565C0; --azul-pacifico-claro: #64B5F6;
+            --aji-amarillo: #FFC107; --terracota: #BF360C; --verde-menta: #4CAF50;
+            --purpura-nazca: #6A1B9A; --blanco-roto: #F8F9FA; --gris-texto: #424242;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--blanco-roto); color: var(--gris-texto); margin: 0; padding: 0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .header { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); padding: 1rem 0; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; }
+        .nav-links a:hover { background-color: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
+        .auth-buttons { display: flex; gap: 1rem; }
+        .btn { padding: 10px 20px; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; font-size: 14px; }
+        .btn-outline { background: transparent; border: 2px solid white; color: white; }
+        .btn-outline:hover { background: white; color: var(--azul-pacifico); }
+        .btn-primary { background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; }
+        .btn-primary:hover { background: #FFB300; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3); }
+        .hero { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); color: white; padding: 2rem 0; text-align: center; margin-bottom: 2rem; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>'); background-size: cover; }
+        .hero-content { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
+        .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; font-weight: 700; }
+        .hero p { font-size: 1rem; margin-bottom: 0; opacity: 0.9; }
+        .cancellation-container { max-width: 600px; margin: 0 auto; padding: 0 15px; }
+        .card { border-radius: 15px; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); border: 2px solid transparent; overflow: hidden; margin-bottom: 2rem; }
+        .card-header { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; padding: 1.5rem; text-align: center; border-bottom: none; }
+        .card-header h2 { margin: 0; font-weight: 600; font-size: 1.5rem; }
+        .card-body { padding: 2rem; }
+        .order-status { text-align: center; padding: 15px; border-radius: 10px; margin-bottom: 25px; font-weight: 600; border: 2px solid transparent; text-transform: capitalize; }
+        .status-pendiente { background-color: rgba(255, 193, 7, 0.15); color: var(--azul-pacifico-oscuro); border-color: var(--aji-amarillo); }
+        .status-preparando { background-color: rgba(255, 193, 7, 0.15); color: var(--azul-pacifico-oscuro); border-color: var(--aji-amarillo); }
+        .status-en_ruta { background-color: rgba(191, 54, 12, 0.15); color: var(--terracota); border-color: var(--terracota); }
+        .status-entregado { background-color: rgba(76, 175, 80, 0.15); color: var(--verde-menta); border-color: var(--verde-menta); }
+        .status-completado { background-color: rgba(76, 175, 80, 0.15); color: var(--verde-menta); border-color: var(--verde-menta); }
+        .status-anulado { background-color: rgba(106, 27, 154, 0.15); color: var(--purpura-nazca); border-color: var(--purpura-nazca); }
+        .order-details { background: linear-gradient(135deg, #E3F2FD, #FFFFFF); padding: 20px; border-radius: 10px; margin-bottom: 25px; border: 2px solid var(--blanco-roto); }
+        .detail-row { display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--azul-pacifico-claro); }
+        .detail-label { font-weight: 500; color: var(--gris-texto); }
+        .detail-value { font-weight: 600; color: var(--azul-pacifico-oscuro); }
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; margin-bottom: 8px; color: var(--gris-texto); font-weight: 600; }
+        .form-control { width: 100%; padding: 12px 15px; border: 2px solid var(--azul-pacifico-claro); border-radius: 8px; font-size: 16px; transition: all 0.3s; background-color: white; box-sizing: border-box; }
+        .form-control:focus { border-color: var(--azul-pacifico); outline: none; box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.2); }
+        textarea.form-control { resize: vertical; min-height: 100px; }
+        .btn-action { padding: 15px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 16px; transition: all 0.3s; text-decoration: none; display: inline-block; text-align: center; width: 100%; background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); margin-bottom: 10px; }
+        .btn-action:hover:not(:disabled) { background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico)); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3); }
+        .btn-danger { background: linear-gradient(135deg, var(--terracota), #D84315); color: white; box-shadow: 0 4px 12px rgba(191, 54, 12, 0.2); }
+        .btn-danger:hover:not(:disabled) { background: linear-gradient(135deg, #D84315, var(--terracota)); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(191, 54, 12, 0.3); }
+        .btn-secondary { background: linear-gradient(135deg, var(--aji-amarillo), #FFB300); color: var(--azul-pacifico-oscuro); box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2); }
+        .btn-secondary:hover:not(:disabled) { background: linear-gradient(135deg, #FFB300, var(--aji-amarillo)); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(255, 193, 7, 0.3); }
+        .btn:disabled, .btn-action:disabled { background: #cccccc; cursor: not-allowed; transform: none; box-shadow: none; color: #888; }
+        .action-buttons { display: flex; gap: 15px; margin-top: 20px; }
+        .action-buttons .btn, .action-buttons .btn-action { flex: 1; }
+        .message { padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 20px; display: none; border: 2px solid transparent; font-weight: 500; }
+        .success { background-color: rgba(76, 175, 80, 0.15); color: var(--verde-menta); border-color: var(--verde-menta); }
+        .error { background-color: rgba(191, 54, 12, 0.15); color: var(--terracota); border-color: var(--terracota); }
+        .refund-info { background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05)); border: 2px solid var(--verde-menta); border-radius: 10px; padding: 20px; margin-top: 20px; display: none; }
+        .refund-title { font-weight: 600; margin-bottom: 15px; color: var(--verde-menta); font-size: 18px; }
+        .refund-details { color: var(--gris-texto); line-height: 1.6; }
+        .refund-item { display: flex; justify-content: space-between; margin-bottom: 8px; padding: 5px 0; }
+        .refund-label { font-weight: 500; color: var(--gris-texto); }
+        .refund-value { font-weight: 600; color: var(--azul-pacifico-oscuro); }
+        .order-items { margin: 20px 0; }
+        .order-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--azul-pacifico-claro); }
+        .item-name { font-weight: 500; color: var(--azul-pacifico-oscuro); }
+        .item-quantity { color: var(--gris-texto); font-size: 14px; }
+        .item-price { font-weight: 600; color: var(--verde-menta); }
+
+        /* --- NUEVO: Estilos para Carga y Error --- */
+        #loadingState { text-align: center; padding: 3rem; font-size: 1.2rem; color: var(--gris-texto); }
+        #errorState { text-align: center; padding: 3rem; background-color: rgba(191, 54, 12, 0.1); border: 2px solid var(--terracota); border-radius: 10px; color: var(--terracota); }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .nav-links {
-                gap: 1rem;
-                flex-wrap: wrap;
-                justify-content: center;
-                padding-left: 0; /* Reset padding */
-            }
-
-            .auth-buttons {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .auth-buttons .btn {
-                text-align: center;
-            }
-
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-
-            .hero p {
-                font-size: 0.9rem;
-            }
-
-            .card-body {
-                padding: 1.5rem;
-            }
-
-            .action-buttons {
-                flex-direction: column;
-            }
-            .simulation-buttons {
-                flex-direction: column;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo {
-                font-size: 1.5rem;
-                justify-content: center;
-                text-align: center;
-                width: 100%;
-                margin-bottom: 1rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .nav-links {
-                flex-direction: column;
-                gap: 0.5rem;
-                text-align: center;
-                width: 100%;
-            }
-
-            .nav-links a {
-                display: block;
-                width: 100%;
-                text-align: center;
-            }
-
-            .auth-buttons {
-                width: 100%;
-            }
-
-            .auth-buttons .btn {
-                width: 100%;
-            }
-
-            .hero {
-                padding: 1.5rem 0;
-            }
-
-            .hero h1 {
-                font-size: 1.6rem;
-            }
-
-            .hero p {
-                font-size: 0.85rem;
-            }
-
-            .order-details {
-                padding: 15px;
-            }
+            .nav-container { flex-direction: column; gap: 1rem; }
+            .nav-links { gap: 1rem; flex-wrap: wrap; justify-content: center; padding-left: 0; }
+            .auth-buttons { flex-direction: column; width: 100%; }
+            .auth-buttons .btn { text-align: center; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero p { font-size: 0.9rem; }
+            .card-body { padding: 1.5rem; }
+            .action-buttons { flex-direction: column; }
         }
     </style>
 </head>
@@ -582,22 +103,14 @@
                 <div class="logo">
                     <span>Sabor Limeño</span>
                 </div>
-
                 <ul class="nav-links">
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="catalogo.html">Catálogo</a></li>
                     <li><a href="pedido.html">Mis Pedidos</a></li>
-                    
-                    <li>
-                        <a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">
-                            Carrito 🛒
-                        </a>
-                    </li>
+                    <li><a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">Carrito 🛒</a></li>
                 </ul>
-
                 <div class="auth-buttons">
-                    <a href="signin.html" class="btn btn-outline">Cerrar Sesión</a>
-                </div>
+                    </div>
             </nav>
         </div>
     </header>
@@ -612,131 +125,119 @@
     </section>
 
     <div class="cancellation-container">
-    
-        <div class="simulation-controls">
-            <h3>Panel de Simulación (Pruebas)</h3>
-            <div class="simulation-buttons">
-                <button id="setPreparando" class="btn btn-primary sim-btn">Simular Pedido "Preparando"</button>
-                <button id="setEnRuta" class="btn btn-danger sim-btn">Simular Pedido "En Ruta"</button>
-                <button id="setEntregado" class="btn btn-success sim-btn">Simular Pedido "Entregado"</button>
-            </div>
-        </div>
+
         <div class="card">
             <div class="card-header">
                 <h2>Solicitud de Anulación</h2>
             </div>
             <div class="card-body">
-                <div id="orderStatus" class="order-status">
+            
+                <div id="loadingState">
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Cargando...</span>
+                        </div>
                     </div>
-
-                <div class="order-details">
-                    <div class="detail-row">
-                        <span class="detail-label">Número de pedido:</span>
-                        <span class="detail-value">#4501</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Fecha:</span>
-                        <span class="detail-value">15/03/2024 18:30</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Total:</span>
-                        <span class="detail-value">$47.960</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Método de pago:</span>
-                        <span class="detail-value">Tarjeta de crédito</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Repartidor:</span>
-                        <span class="detail-value">Carlos R.</span>
-                    </div>
+                    <p class="text-center mt-2">Cargando datos del pedido...</p>
                 </div>
 
-                <div class="order-items">
-                    <h3 style="color: var(--azul-pacifico-oscuro); margin-bottom: 15px;">Productos del Pedido</h3>
-                    <div class="order-item">
-                        <div>
-                            <div class="item-name">Lomo Saltado</div>
-                            <div class="item-quantity">Cantidad: 2</div>
-                        </div>
-                        <div class="item-price">$25.980</div>
-                    </div>
-                    <div class="order-item">
-                        <div>
-                            <div class="item-name">Ceviche Clásico</div>
-                            <div class="item-quantity">Cantidad: 2</div>
-                        </div>
-                        <div class="item-price">$21.980</div>
-                    </div>
+                <div id="errorState" style="display: none;">
+                    <h3>❌ Error al cargar</h3>
+                    <p id="errorText">No se pudo encontrar el pedido o no tienes permiso para verlo.</p>
+                    <a href="index.html" class="btn-action">Volver al Inicio</a>
                 </div>
 
-                <div id="cancellationBlocked" class="message error">
+                <div id="mainContent" style="display: none;">
+                
+                    <div id="orderStatus" class="order-status">
+                        </div>
+
+                    <div class="order-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Número de pedido:</span>
+                            <span class="detail-value" id="orderIdDisplay">#...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Fecha:</span>
+                            <span class="detail-value" id="orderDate">...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Total:</span>
+                            <span class="detail-value" id="orderTotal">...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Método de pago:</span>
+                            <span class="detail-value" id="orderPayment">...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Repartidor:</span>
+                            <span class="detail-value" id="orderDriver">N/A</span>
+                        </div>
                     </div>
 
-                <div id="cancellationForm" class="cancellation-form" style="display: none;">
-                    <div class="form-group">
-                        <label for="cancellationReason" class="form-label">Motivo de anulación:</label>
-                        <select id="cancellationReason" class="form-control">
-                            <option value="">Seleccione un motivo</option>
-                            <option value="cambio_direccion">Cambio de dirección</option>
-                            <option value="arrepentimiento">Arrepentimiento de compra</option>
-                            <option value="duplicado">Pedido duplicado</option>
-                            <option value="tiempo_espera">Tiempo de espera excesivo</option>
-                            <option value="problema_producto">Problema con el producto</option>
-                            <option value="otro">Otro motivo</option>
-                        </select>
+                    <div id="cancellationBlocked" class="message error" style="display: none;">
+                        </div>
+
+                    <div id="cancellationForm" class="cancellation-form" style="display: none;">
+                        <div class="form-group">
+                            <label for="cancellationReason" class="form-label">Motivo de anulación:</label>
+                            <select id="cancellationReason" class="form-control">
+                                <option value="">Seleccione un motivo</option>
+                                <option value="arrepentimiento">Arrepentimiento de compra</option>
+                                <option value="duplicado">Pedido duplicado</option>
+                                <option value="otro">Otro motivo</option>
+                            </select>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn-action btn-danger" id="confirmCancellation">Confirmar Anulación</button>
+                            <button class="btn-action btn-secondary" id="cancelButton">Volver</button>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="additionalComments" class="form-label">Comentarios adicionales:</label>
-                        <textarea id="additionalComments" class="form-control"
-                            placeholder="Describa el motivo de la anulación..."></textarea>
+                    <div id="successMessage" class="message success" style="display: none;">
+                        Anulación aprobada. Se ha procesado el reembolso y la venta queda revertida.
+                    </div>
+
+                    <div id="refundInfo" class="refund-info" style="display: none;">
+                        <div class="refund-title">Información de Reembolso</div>
+                        <div class="refund-details">
+                            <div class="refund-item">
+                                <span class="refund-label">Monto reembolsado:</span>
+                                <span class="refund-value" id="refundAmount">...</span>
+                            </div>
+                            <div class="refund-item">
+                                <span class="refund-label">Método:</span>
+                                <span class="refund-value" id="refundMethod">...</span>
+                            </div>
+                            <div class="refund-item">
+                                <span class="refund-label">Tiempo estimado:</span>
+                                <span class="refund-value">3-5 días hábiles</span>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="action-buttons">
-                        <button class="btn-action btn-danger" id="confirmCancellation">Confirmar Anulación</button>
-                        <button class="btn-action btn-secondary" id="cancelButton">Cancelar</button>
+                        <button class="btn-action btn-danger" id="requestCancellation">Solicitar Anulación</button>
+                        <button class="btn-action btn-secondary"
+                            onclick="window.location.href='index.html'">📋 Volver al Inicio</button>
                     </div>
-                </div>
-
-                <div id="successMessage" class="message success" style="display: none;">
-                    Anulación aprobada. Se ha procesado el reembolso y la venta queda revertida.
-                </div>
-
-                <div id="refundInfo" class="refund-info">
-                    <div class="refund-title">Información de Reembolso</div>
-                    <div class="refund-details">
-                        <div class="refund-item">
-                            <span class="refund-label">Monto reembolsado:</span>
-                            <span class="refund-value">$47.960</span>
-                        </div>
-                        <div class="refund-item">
-                            <span class="refund-label">Método:</span>
-                            <span class="refund-value">Tarjeta de crédito</span>
-                        </div>
-                        <div class="refund-item">
-                            <span class="refund-label">Tiempo estimado:</span>
-                            <span class="refund-value">3-5 días hábiles</span>
-                        </div>
-                        <div class="refund-item">
-                            <span class="refund-label">Número de transacción:</span>
-                            <span class="refund-value">REF-2024-00123</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="action-buttons">
-                    <button class="btn-action btn-danger" id="requestCancellation">Solicitar Anulación</button>
-                    <button class="btn-action btn-secondary"
-                        onclick="window.location.href='pedidos.html'">📋 Volver a Mis Pedidos</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // --- Elementos de la Interfaz ---
+        document.addEventListener('DOMContentLoaded', async function () {
+            
+            const API_URL = 'http://localhost:3000';
+            const token = localStorage.getItem('authToken');
+
+            // --- Elementos del DOM ---
+            const loadingState = document.getElementById('loadingState');
+            const errorState = document.getElementById('errorState');
+            const errorText = document.getElementById('errorText');
+            const mainContent = document.getElementById('mainContent');
+            
             const orderStatus = document.getElementById('orderStatus');
             const cancellationBlocked = document.getElementById('cancellationBlocked');
             const cancellationForm = document.getElementById('cancellationForm');
@@ -746,113 +247,187 @@
             const confirmCancellationBtn = document.getElementById('confirmCancellation');
             const cancelButton = document.getElementById('cancelButton');
             
-            // --- NUEVO: Botones de Simulación ---
-            const setPreparandoBtn = document.getElementById('setPreparando');
-            const setEnRutaBtn = document.getElementById('setEnRuta');
-            const setEntregadoBtn = document.getElementById('setEntregado');
+            let currentOrderData = null; // Guardará el pedido
+            let orderId = null;
 
-            let pedidoEstado; // El estado se definirá por los botones
+            // --- INICIO: Script de Gestión de Sesión (Cliente o Admin) ---
+            const authButtonsContainer = document.querySelector('.header .auth-buttons');
+            if (token) {
+                try {
+                    // Validar el token
+                    const response = await fetch(API_URL + '/api/auth/me', { headers: { 'Authorization': `Bearer ${token}` } });
+                    if (!response.ok) throw new Error('Token inválido');
+                    const user = await response.json();
+                    
+                    // Mostrar info de sesión
+                    authButtonsContainer.innerHTML = `<span class="user-info">Hola, ${user.email}</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
+                    document.getElementById('logoutBtn').addEventListener('click', () => {
+                        localStorage.removeItem('authToken');
+                        localStorage.removeItem('userEmail');
+                        window.location.href = "signin.html";
+                    });
+                    
+                    // Iniciar carga de la página
+                    await initializePage();
+                    
+                } catch (error) {
+                    showError(`Error de autenticación: ${error.message}. <a href='signin.html'>Inicia sesión</a>.`);
+                }
+            } else {
+                showError("No estás autenticado. <a href='signin.html'>Inicia sesión</a> para gestionar tus pedidos.");
+            }
+            // --- FIN: Script de Gestión de Sesión ---
 
-            // --- Función Principal para configurar la Interfaz ---
-            function configurarInterfaz(nuevoEstado) {
-                pedidoEstado = nuevoEstado;
+
+            // --- LÓGICA DE LA PÁGINA ---
+            
+            async function initializePage() {
+                const urlParams = new URLSearchParams(window.location.search);
+                orderId = urlParams.get('orderId');
+
+                if (!orderId) {
+                    showError("No se especificó un número de pedido. Prueba añadiendo ?orderId=1 a la URL.");
+                    return;
+                }
+                await loadOrderData();
+            }
+
+            async function loadOrderData() {
+                try {
+                    const response = await fetch(`${API_URL}/api/orders/${orderId}`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.message);
+                    
+                    currentOrderData = data;
+                    populateOrderDetails(data);
+                    updateUIBasedOnStatus(data.status);
+                    
+                    loadingState.style.display = 'none';
+                    mainContent.style.display = 'block';
+                    
+                } catch (error) {
+                    console.error("Error al cargar la orden:", error);
+                    showError(error.message);
+                }
+            }
+            
+            // Llena los detalles del pedido
+            function populateOrderDetails(data) {
+                const formatCurrency = (value) => `$${Math.round(value).toLocaleString('es-CL')}`;
+                const formatDate = (dateString) => new Date(dateString).toLocaleString('es-CL');
                 
-                // --- Reiniciar la interfaz a su estado base ---
+                document.getElementById('orderIdDisplay').textContent = `#${data.id}`;
+                document.getElementById('orderDate').textContent = formatDate(data.createdAt);
+                document.getElementById('orderTotal').textContent = formatCurrency(data.totalAmount);
+                document.getElementById('orderPayment').textContent = data.paymentMethod;
+                document.getElementById('orderDriver').textContent = data.repartidorNombre || 'N/A';
+            }
+
+            // Controla qué botones y mensajes se muestran
+            function updateUIBasedOnStatus(status) {
+                // Reset UI
+                orderStatus.textContent = `Estado del pedido: ${status.replace('_', ' ')}`;
+                orderStatus.className = `order-status status-${status}`;
                 cancellationBlocked.style.display = "none";
                 cancellationForm.style.display = "none";
                 successMessage.style.display = "none";
                 refundInfo.style.display = "none";
-                requestCancellationBtn.style.display = "block"; // Mostrar botón principal por defecto
-                requestCancellationBtn.disabled = false; // Habilitarlo por defecto
+                requestCancellationBtn.style.display = "block";
+                requestCancellationBtn.disabled = false;
 
-                // --- Aplicar lógica según el nuevo estado ---
-                if (pedidoEstado === "en_ruta") {
-                    // === Escenario: Anulación Rechazada ===
-                    orderStatus.className = "order-status status-en-ruta";
-                    orderStatus.textContent = "Estado del pedido: En ruta";
-                    
+                if (status === 'pendiente' || status === 'preparando' || status === 'completado') {
+                    // === Escenario: Anulación Aprobada (Permitida) ===
+                    requestCancellationBtn.textContent = "Solicitar Anulación";
+                } 
+                else if (status === 'en_ruta') {
+                    // === Escenario: Anulación Rechazada (En Ruta) ===
+                    cancellationBlocked.innerHTML = `❌ ${"No es posible anular con el pedido en ruta"}.`;
                     cancellationBlocked.style.display = "block";
-                    cancellationBlocked.innerHTML = `❌ ${"No es posible anular con el pedido en ruta"}.<br><br><strong>Contacta al repartidor:</strong> Carlos R. - +56 9 8765 4321`;
-                    
                     requestCancellationBtn.disabled = true;
                     requestCancellationBtn.textContent = "No se puede anular - Pedido en ruta";
-                    
-                } else if (pedidoEstado === "preparando") {
-                    // === Escenario: Anulación Aprobada (Posible) ===
-                    orderStatus.className = "order-status status-preparando";
-                    orderStatus.textContent = "Estado del pedido: Preparando";
-                    
-                    requestCancellationBtn.disabled = false;
-                    requestCancellationBtn.textContent = "Solicitar Anulación";
-                    
-                } else if (pedidoEstado === "entregado") {
-                    // --- Escenario Adicional ---
-                    orderStatus.className = "order-status status-entregado";
-                    orderStatus.textContent = "Estado del pedido: Entregado";
-                    
+                }
+                else if (status === 'entregado') {
+                    // === Escenario: Anulación Rechazada (Entregado) ===
+                    cancellationBlocked.innerHTML = "No es posible anular un pedido ya entregado.";
                     cancellationBlocked.style.display = "block";
-                    cancellationBlocked.innerHTML = "No es posible anular un pedido ya entregado.<br><br>Para reclamos o devoluciones, contacta a servicio al cliente.";
-                    
                     requestCancellationBtn.disabled = true;
                     requestCancellationBtn.textContent = "No se puede anular - Pedido entregado";
                 }
+                else if (status === 'anulado') {
+                    // === Escenario: Ya Anulado ===
+                    showSuccessAndRefund();
+                }
             }
 
-            // --- Event Listeners para Simulación ---
-            setPreparandoBtn.addEventListener('click', () => configurarInterfaz("preparando"));
-            setEnRutaBtn.addEventListener('click', () => configurarInterfaz("en_ruta"));
-            setEntregadoBtn.addEventListener('click', () => configurarInterfaz("entregado"));
-            
-            // --- Event Listeners de la Lógica de Anulación ---
-            
             // Botón "Solicitar Anulación"
-            requestCancellationBtn.addEventListener('click', function () {
-                if (pedidoEstado === "preparando") {
-                    cancellationForm.style.display = "block";
-                    requestCancellationBtn.style.display = "none";
-                }
+            requestCancellationBtn.addEventListener('click', () => {
+                cancellationForm.style.display = 'block';
+                requestCancellationBtn.style.display = 'none';
+            });
+            
+            // Botón "Volver" (en el formulario)
+            cancelButton.addEventListener('click', () => {
+                cancellationForm.style.display = 'none';
+                requestCancellationBtn.style.display = 'block';
             });
 
-            // Botón "Confirmar Anulación" (dentro del formulario)
-            confirmCancellationBtn.addEventListener('click', function () {
-                const motivo = document.getElementById('cancellationReason').value;
-                // const comentarios = document.getElementById('additionalComments').value; // Datos listos para enviar
-
-                if (!motivo) {
-                    alert("Por favor, seleccione un motivo de anulación");
+            // Botón "Confirmar Anulación"
+            confirmCancellationBtn.addEventListener('click', async () => {
+                const reason = document.getElementById('cancellationReason').value;
+                if (!reason) {
+                    alert("Por favor, seleccione un motivo.");
                     return;
                 }
 
                 confirmCancellationBtn.disabled = true;
                 confirmCancellationBtn.textContent = "Procesando...";
 
-                // Simular llamada a API
-                setTimeout(() => {
-                    // --- Esto cumple el "Entonces" del Gherkin "Anulación Aprobada" ---
-                    cancellationForm.style.display = "none";
-                    successMessage.style.display = "block";
-                    refundInfo.style.display = "block";
+                try {
+                    await fetch(`${API_URL}/api/orders/${orderId}/status`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ status: 'anulado' })
+                    });
+                    
+                    // Éxito: mostrar UI de éxito
+                    showSuccessAndRefund();
 
-                    orderStatus.className = "order-status status-anulado"; // Clase visual de éxito/anulado
-                    orderStatus.textContent = "Estado del pedido: Anulado (Venta Revertida)";
-                    
-                    requestCancellationBtn.style.display = "none"; // Ocultar botón principal
-                    
-                    // Restaurar botón del formulario (en caso de que el usuario vuelva a esta vista)
+                } catch (error) {
+                    alert(`Error al anular: ${error.message}`);
                     confirmCancellationBtn.disabled = false;
                     confirmCancellationBtn.textContent = "Confirmar Anulación";
-                }, 1500);
+                }
             });
-
-            // Botón "Cancelar" (dentro del formulario)
-            cancelButton.addEventListener('click', function () {
+            
+            // Muestra el mensaje de éxito y la (simulada) info de reembolso
+            function showSuccessAndRefund() {
                 cancellationForm.style.display = "none";
-                requestCancellationBtn.style.display = "block";
-            });
+                cancellationBlocked.style.display = "none";
+                requestCancellationBtn.style.display = "none";
+                
+                successMessage.style.display = "block";
+                refundInfo.style.display = "block";
+                
+                document.getElementById('refundAmount').textContent = formatCurrency(currentOrderData.totalAmount);
+                document.getElementById('refundMethod').textContent = currentOrderData.paymentMethod;
+                
+                orderStatus.textContent = "Estado del pedido: Anulado";
+                orderStatus.className = "order-status status-anulado";
+            }
 
-            // --- Configuración Inicial ---
-            // Cargar el estado "En Ruta" por defecto al cargar la página
-            configurarInterfaz("en_ruta");
+            function showError(message) {
+                loadingState.style.display = 'none';
+                errorText.innerHTML = message;
+                errorState.style.display = 'block';
+            }
+            
+            const formatCurrency = (value) => `$${Math.round(value).toLocaleString('es-CL')}`;
+
         });
     </script>
 </body>

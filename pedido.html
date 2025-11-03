@@ -9,597 +9,85 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <style>
             :root {
-                --azul-pacifico: #1E88E5;
-                --azul-pacifico-oscuro: #1565C0;
-                --azul-pacifico-claro: #64B5F6;
-                --aji-amarillo: #FFC107;
-                --terracota: #BF360C;
-                --verde-menta: #4CAF50;
-                --purpura-nazca: #6A1B9A;
-                --blanco-roto: #F8F9FA;
-                --gris-texto: #424242;
-                --rojo-error: #D32F2F; /* Nuevo color para errores */
-                --rojo-error-claro: #FFCDD2; /* Nuevo color para fondo de error */
-            }
-
-            body {
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background-color: var(--blanco-roto);
-                color: var(--gris-texto);
-                margin: 0;
-                padding: 0;
-            }
-
-            .container {
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 0 20px;
-            }
-            
-            /* Header */
-            .header {
-                background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%);
-                color: white;
-                box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
-                padding: 1rem 0;
-            }
-            
-            .nav-container {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-            
-            .logo {
-                font-size: 1.8rem;
-                font-weight: 700;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-            
-            .nav-links {
-                display: flex;
-                gap: 2rem;
-                list-style: none;
-            }
-            
-            .nav-links a {
-                color: white;
-                text-decoration: none;
-                font-weight: 500;
-                transition: all 0.3s;
-                padding: 0.5rem 1rem;
-                border-radius: 25px;
-            }
-            
-            .nav-links a:hover {
-                background-color: rgba(255, 255, 255, 0.15);
-                transform: translateY(-2px);
-            }
-            
-            .auth-buttons { display: flex; gap: 1rem; align-items: center; } /* Contenedor para botones de auth */
-            .user-info { color: white; margin-right: 15px; font-weight: 500; } /* Estilo para "Hola, usuario" */
-            
-            .btn {
-                padding: 10px 20px;
-                border: none;
-                border-radius: 25px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.3s;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 14px;
-            }
-            
-            .btn-outline {
-                background: transparent;
-                border: 2px solid white;
-                color: white;
-            }
-            
-            .btn-outline:hover {
-                background: white;
-                color: var(--azul-pacifico);
-                transform: translateY(-2px);
-            }
-            
-            .btn-primary {
-                background: var(--aji-amarillo);
-                color: var(--azul-pacifico-oscuro);
-                font-weight: 700;
-            }
-            
-            .btn-primary:hover {
-                background: #FFB300;
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
-            }
-
-            /* Hero Section Reducida */
-            .hero {
-                background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%);
-                color: white;
-                padding: 2rem 0;
-                text-align: center;
-                margin-bottom: 2rem;
-                position: relative;
-                overflow: hidden;
-            }
-            
-            .hero::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-                background-size: cover;
-            }
-            
-            .hero-content {
-                max-width: 600px;
-                margin: 0 auto;
-                position: relative;
-                z-index: 1;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-                margin-bottom: 0.5rem;
-                font-weight: 700;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-                margin-bottom: 0;
-                opacity: 0.9;
-            }
-
-            /* Contenido principal */
-            .order-container {
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 0 15px;
-            }
-
-            .card {
-                border-radius: 15px;
-                box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1);
-                border: 2px solid transparent;
-                transition: all 0.3s ease;
-                overflow: hidden;
-                margin-bottom: 2rem;
-            }
-
-            .card:hover {
-                box-shadow: 0 15px 35px rgba(30, 136, 229, 0.15);
-                border-color: var(--azul-pacifico);
-            }
-
-            .card-header {
-                background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
-                color: white;
-                padding: 1.5rem;
-                text-align: center;
-                border-bottom: none;
-            }
-
-            .card-header h2 {
-                margin: 0;
-                font-weight: 600;
-                font-size: 1.5rem;
-            }
-
-            .card-body {
-                padding: 2rem;
-            }
-
-            .order-items {
-                margin-bottom: 25px;
-            }
-
-            .order-item {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 20px 0;
-                border-bottom: 2px solid var(--azul-pacifico-claro);
-                transition: all 0.3s ease;
-            }
-
-            .order-item:hover {
-                background-color: rgba(30, 136, 229, 0.03);
-                padding-left: 10px;
-                padding-right: 10px;
-                border-radius: 8px;
-            }
-
-            .order-item:last-child {
-                border-bottom: none;
-            }
-
-            .item-name {
-                font-weight: 600;
-                color: var(--azul-pacifico-oscuro);
-                font-size: 16px;
-            }
-
-            .item-details {
-                color: var(--gris-texto);
-                font-size: 14px;
-                margin-top: 5px;
-                opacity: 0.8;
-            }
-
-            .item-price {
-                text-align: right;
-            }
-
-            .price-amount {
-                font-weight: 600;
-                color: var(--gris-texto);
-            }
-
-            .price-total {
-                color: var(--verde-menta);
-                font-weight: 700;
-                margin-top: 5px;
-                font-size: 16px;
-            }
-
-            .total-section {
-                background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
-                padding: 25px;
-                border-radius: 12px;
-                margin-bottom: 25px;
-                box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3);
-            }
-
-            .total-line {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .total-label {
-                font-weight: 600;
-                color: white;
-                font-size: 18px;
-            }
-
-            .total-amount {
-                font-size: 28px;
-                font-weight: 700;
-                color: white;
-                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            }
-
-            .btn-action {
-                padding: 15px;
-                border: none;
-                border-radius: 8px;
-                font-weight: 600;
-                cursor: pointer;
-                font-size: 16px;
-                transition: all 0.3s;
-                text-decoration: none;
-                display: inline-block;
-                text-align: center;
-                width: 100%;
-                background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
-                color: white;
-                box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
-            }
-
-            .btn-action:hover:not(:disabled) {
-                background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico));
-                transform: translateY(-2px);
-                box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3);
-            }
-
-            .btn-success {
-                background: linear-gradient(135deg, var(--verde-menta), #66BB6A);
-                color: white;
-                box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
-            }
-
-            .btn-success:hover:not(:disabled) {
-                background: linear-gradient(135deg, #66BB6A, var(--verde-menta));
-                transform: translateY(-2px);
-                box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
-            }
-
-            .btn-danger { /* Estilo para el botón de reintento/error */
-                background: linear-gradient(135deg, var(--rojo-error), #E53935);
-                color: white;
-                box-shadow: 0 4px 12px rgba(211, 47, 47, 0.2);
-            }
-
-            .btn-danger:hover:not(:disabled) {
-                background: linear-gradient(135deg, #E53935, var(--rojo-error));
-                transform: translateY(-2px);
-                box-shadow: 0 6px 15px rgba(211, 47, 47, 0.3);
-            }
-
-            .btn:disabled {
-                background: #cccccc;
-                cursor: not-allowed;
-                transform: none;
-                box-shadow: none;
-            }
-
-            .payment-section {
-                display: none;
-                margin-top: 25px;
-                padding: 25px;
-                background: linear-gradient(135deg, #E3F2FD, #FFFFFF);
-                border-radius: 12px;
-                border: 2px solid var(--blanco-roto);
-            }
-
-            .payment-title {
-                font-weight: 600;
-                color: var(--azul-pacifico-oscuro);
-                margin-bottom: 20px;
-                font-size: 18px;
-            }
-
-            .payment-options {
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-                margin-bottom: 25px;
-            }
-
-            .payment-option {
-                display: flex;
-                align-items: center;
-                padding: 15px;
-                border: 2px solid var(--azul-pacifico-claro);
-                border-radius: 8px;
-                transition: all 0.3s;
-                cursor: pointer;
-            }
-
-            .payment-option:hover {
-                border-color: var(--azul-pacifico);
-                background-color: rgba(30, 136, 229, 0.05);
-            }
-
-            .payment-option input {
-                width: 18px;
-                height: 18px;
-                margin-right: 12px;
-                accent-color: var(--azul-pacifico);
-            }
-
-            /* Estilos para el mensaje de ERROR */
-            .error-message {
-                display: none;
-                text-align: center;
-                padding: 20px;
-                background: linear-gradient(135deg, var(--rojo-error-claro), #FFFFFF);
-                border-radius: 15px;
-                border: 2px solid var(--rojo-error);
-                margin-bottom: 25px;
-            }
-
-            .error-title {
-                color: var(--rojo-error);
-                font-size: 20px;
-                font-weight: 700;
-                margin-bottom: 10px;
-            }
-
-            .error-text {
-                color: var(--gris-texto);
-                line-height: 1.5;
-                margin-bottom: 15px;
-            }
-
-            /* Estilos para el mensaje de CONFIRMACIÓN (Éxito) */
-            .confirmation-message {
-                display: none;
-                text-align: center;
-                padding: 40px;
-                background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05));
-                border-radius: 15px;
-                border: 2px solid var(--verde-menta);
-            }
-
-            .confirmation-icon {
-                font-size: 64px;
-                margin-bottom: 20px;
-                background: linear-gradient(135deg, var(--verde-menta), #66BB6A);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-            }
-
-            .confirmation-title {
-                color: var(--verde-menta);
-                font-size: 24px;
-                font-weight: 700;
-                margin-bottom: 15px;
-            }
-
-            .confirmation-text {
-                color: var(--gris-texto);
-                line-height: 1.6;
-                margin-bottom: 25px;
-                font-size: 16px;
-            }
-
-            .order-status {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 20px;
-                position: relative;
-            }
-
-            .status-step {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                flex: 1;
-                position: relative;
-            }
-
-            .status-step:not(:last-child)::after {
-                content: '';
-                position: absolute;
-                top: 15px;
-                right: -50%;
-                width: 100%;
-                height: 3px;
-                background-color: var(--azul-pacifico-claro);
-                z-index: 1;
-            }
-
-            .status-step.active:not(:last-child)::after {
-                background-color: var(--azul-pacifico);
-            }
-
-            .status-icon {
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
-                background-color: var(--azul-pacifico-claro);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: white;
-                font-weight: bold;
-                margin-bottom: 8px;
-                z-index: 2;
-                position: relative;
-            }
-
-            .status-step.active .status-icon {
-                background-color: var(--azul-pacifico);
-            }
-
-            .status-step.completed .status-icon {
-                background-color: var(--verde-menta);
-            }
-
-            .status-label {
-                font-size: 12px;
-                text-align: center;
-                color: var(--gris-texto);
-            }
-
-            .status-step.active .status-label {
-                color: var(--azul-pacifico);
-                font-weight: 600;
-            }
-
-            .status-step.completed .status-label {
-                color: var(--verde-menta);
-                font-weight: 600;
-            }
-
-            /* Responsive */
-            @media (max-width: 768px) {
-                .nav-container {
-                    flex-direction: column;
-                    gap: 1rem;
-                }
-                
-                .nav-links {
-                    gap: 1rem;
-                    flex-wrap: wrap;
-                    justify-content: center;
-                }
-                
-                .auth-buttons {
-                    flex-direction: column;
-                    width: 100%;
-                }
-                
-                .auth-buttons .btn {
-                    text-align: center;
-                }
-                
-                .hero h1 {
-                    font-size: 1.8rem;
-                }
-                
-                .hero p {
-                    font-size: 0.9rem;
-                }
-                
-                .card-body {
-                    padding: 1.5rem;
-                }
-
-                .order-item {
-                    flex-direction: column;
-                    align-items: flex-start;
-                }
-
-                .item-price {
-                    text-align: left;
-                    margin-top: 10px;
-                }
-
-                .status-step:not(:last-child)::after {
-                    right: -40%;
-                }
-            }
-
-            @media (max-width: 480px) {
-                .logo {
-                    font-size: 1.5rem;
-                    justify-content: center;
-                    text-align: center;
-                    width: 100%;
-                    margin-bottom: 1rem;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-                
-                .nav-links {
-                    flex-direction: column;
-                    gap: 0.5rem;
-                    text-align: center;
-                    width: 100%;
-                }
-                
-                .nav-links a {
-                    display: block;
-                    width: 100%;
-                    text-align: center;
-                }
-                
-                .auth-buttons {
-                    width: 100%;
-                }
-                
-                .auth-buttons .btn {
-                    width: 100%;
-                }
-                
-                .hero {
-                    padding: 1.5rem 0;
-                }
-                
-                .hero h1 {
-                    font-size: 1.6rem;
-                }
-                
-                .hero p {
-                    font-size: 0.85rem;
-                }
-
-                .status-step:not(:last-child)::after {
-                    right: -30%;
-                }
-            }
+                --azul-pacifico: #1E88E5; --azul-pacifico-oscuro: #1565C0; --azul-pacifico-claro: #64B5F6;
+                --aji-amarillo: #FFC107; --terracota: #BF360C; --verde-menta: #4CAF50;
+                --purpura-nazca: #6A1B9A; --blanco-roto: #F8F9FA; --gris-texto: #424242;
+                --rojo-error: #D32F2F; --rojo-error-claro: #FFCDD2;
+            }
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--blanco-roto); color: var(--gris-texto); margin: 0; padding: 0; }
+            .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+            .header { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); padding: 1rem 0; }
+            .nav-container { display: flex; justify-content: space-between; align-items: center; }
+            .logo { font-size: 1.8rem; font-weight: 700; }
+            .nav-links { display: flex; gap: 2rem; list-style: none; }
+            .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; }
+            .nav-links a:hover { background-color: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
+            .auth-buttons { display: flex; gap: 1rem; align-items: center; }
+            .user-info { color: white; margin-right: 15px; font-weight: 500; }
+            .btn { padding: 10px 20px; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; font-size: 14px; }
+            .btn-outline { background: transparent; border: 2px solid white; color: white; }
+            .btn-outline:hover { background: white; color: var(--azul-pacifico); }
+            .btn-primary { background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; }
+            .btn-primary:hover { background: #FFB300; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3); }
+            .hero { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); color: white; padding: 2rem 0; text-align: center; margin-bottom: 2rem; position: relative; overflow: hidden; }
+            .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>'); background-size: cover; }
+            .hero-content { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
+            .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; font-weight: 700; }
+            .hero p { font-size: 1rem; margin-bottom: 0; opacity: 0.9; }
+            .order-container { max-width: 800px; margin: 0 auto; padding: 0 15px; }
+            .card { border-radius: 15px; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); border: 2px solid transparent; transition: all 0.3s ease; overflow: hidden; margin-bottom: 2rem; }
+            .card:hover { box-shadow: 0 15px 35px rgba(30, 136, 229, 0.15); border-color: var(--azul-pacifico); }
+            .card-header { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; padding: 1.5rem; text-align: center; border-bottom: none; }
+            .card-header h2 { margin: 0; font-weight: 600; font-size: 1.5rem; }
+            .card-body { padding: 2rem; }
+            .order-items { margin-bottom: 25px; }
+            .order-item { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 2px solid var(--azul-pacifico-claro); }
+            .order-item:last-child { border-bottom: none; }
+            .item-name { font-weight: 600; color: var(--azul-pacifico-oscuro); font-size: 16px; }
+            .item-details { color: var(--gris-texto); font-size: 14px; margin-top: 5px; opacity: 0.8; }
+            .item-price { text-align: right; }
+            .price-amount { font-weight: 600; color: var(--gris-texto); }
+            .price-total { color: var(--verde-menta); font-weight: 700; margin-top: 5px; font-size: 16px; }
+            .total-section { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); padding: 25px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3); }
+            .total-line { display: flex; justify-content: space-between; align-items: center; }
+            .total-label { font-weight: 600; color: white; font-size: 18px; }
+            .total-amount { font-size: 28px; font-weight: 700; color: white; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); }
+            .btn-action { padding: 15px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 16px; transition: all 0.3s; text-decoration: none; display: inline-block; text-align: center; width: 100%; background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); }
+            .btn-action:hover:not(:disabled) { background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico)); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3); }
+            .btn-success { background: linear-gradient(135deg, var(--verde-menta), #66BB6A); color: white; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2); }
+            .btn-success:hover:not(:disabled) { background: linear-gradient(135deg, #66BB6A, var(--verde-menta)); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3); }
+            .btn-danger { background: linear-gradient(135deg, var(--rojo-error), #E53935); color: white; box-shadow: 0 4px 12px rgba(211, 47, 47, 0.2); }
+            .btn-danger:hover:not(:disabled) { background: linear-gradient(135deg, #E53935, var(--rojo-error)); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(211, 47, 47, 0.3); }
+            .btn:disabled { background: #cccccc; cursor: not-allowed; transform: none; box-shadow: none; }
+            .payment-section { display: none; margin-top: 25px; padding: 25px; background: linear-gradient(135deg, #E3F2FD, #FFFFFF); border-radius: 12px; border: 2px solid var(--blanco-roto); }
+            .payment-title { font-weight: 600; color: var(--azul-pacifico-oscuro); margin-bottom: 20px; font-size: 18px; }
+            .payment-options { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
+            .payment-option { display: flex; align-items: center; padding: 15px; border: 2px solid var(--azul-pacifico-claro); border-radius: 8px; transition: all 0.3s; cursor: pointer; }
+            .payment-option:hover { border-color: var(--azul-pacifico); background-color: rgba(30, 136, 229, 0.05); }
+            .payment-option input { width: 18px; height: 18px; margin-right: 12px; accent-color: var(--azul-pacifico); }
+            .error-message { display: none; text-align: center; padding: 20px; background: linear-gradient(135deg, var(--rojo-error-claro), #FFFFFF); border-radius: 15px; border: 2px solid var(--rojo-error); margin-bottom: 25px; }
+            .error-title { color: var(--rojo-error); font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+            .error-text { color: var(--gris-texto); line-height: 1.5; margin-bottom: 15px; }
+            .confirmation-message { display: none; text-align: center; padding: 40px; background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05)); border-radius: 15px; border: 2px solid var(--verde-menta); }
+            .confirmation-icon { font-size: 64px; margin-bottom: 20px; background: linear-gradient(135deg, var(--verde-menta), #66BB6A); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+            .confirmation-title { color: var(--verde-menta); font-size: 24px; font-weight: 700; margin-bottom: 15px; }
+            .confirmation-text { color: var(--gris-texto); line-height: 1.6; margin-bottom: 25px; font-size: 16px; }
+            .order-status { display: flex; justify-content: space-between; margin-bottom: 20px; position: relative; }
+            .status-step { display: flex; flex-direction: column; align-items: center; flex: 1; position: relative; }
+            .status-step:not(:last-child)::after { content: ''; position: absolute; top: 15px; right: -50%; width: 100%; height: 3px; background-color: var(--azul-pacifico-claro); z-index: 1; }
+            .status-step.active:not(:last-child)::after { background-color: var(--azul-pacifico); }
+            .status-icon { width: 30px; height: 30px; border-radius: 50%; background-color: var(--azul-pacifico-claro); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; margin-bottom: 8px; z-index: 2; position: relative; }
+            .status-step.active .status-icon { background-color: var(--azul-pacifico); }
+            .status-step.completed .status-icon { background-color: var(--verde-menta); }
+            .status-label { font-size: 12px; text-align: center; color: var(--gris-texto); }
+            .status-step.active .status-label { color: var(--azul-pacifico); font-weight: 600; }
+            .status-step.completed .status-label { color: var(--verde-menta); font-weight: 600; }
+            #loginPrompt, #emptyCartPrompt {
+                text-align: center; padding: 40px; background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 193, 7, 0.05));
+                border-radius: 15px; border: 2px solid var(--aji-amarillo); display: none;
+            }
+            .prompt-title { color: var(--azul-pacifico-oscuro); font-weight: 700; font-size: 1.5rem; margin-bottom: 1rem; }
+            .prompt-text { color: var(--gris-texto); margin-bottom: 1.5rem; }
         </style>
     </head>
     <body>
@@ -612,11 +100,7 @@
                         <li><a href="index.html">Inicio</a></li>
                         <li><a href="catalogo.html">Catálogo</a></li>
                         <li><a href="pedido.html">Mis Pedidos</a></li>
-                        <li>
-                            <a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">
-                                Carrito 🛒
-                            </a>
-                        </li>
+                        <li><a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">Carrito 🛒</a></li>
                     </ul>
                     <div class="auth-buttons">
                         </div>
@@ -633,266 +117,294 @@
         </section>
 
         <div class="order-container">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <div class="order-status">
-                        <div class="status-step active" id="step1">
-                            <div class="status-icon">1</div>
-                            <div class="status-label">Revisar Pedido</div>
-                        </div>
-                        <div class="status-step" id="step2">
-                            <div class="status-icon">2</div>
-                            <div class="status-label">Método de Pago</div>
-                        </div>
-                        <div class="status-step" id="step3">
-                            <div class="status-icon">3</div>
-                            <div class="status-label">Confirmación</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="orderSection">
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Tu Pedido</h2>
-                    </div>
+            <div id="checkoutContainer" style="display: none;">
+                <div class="card mb-4">
                     <div class="card-body">
-                        <div class="order-items">
-                            <div class="order-item">
-                                <div>
-                                    <div class="item-name">Lomo Saltado</div>
-                                    <div class="item-details">Trozos de filete de vacuno salteado con cebolla, tomate y papas fritas</div>
-                                </div>
-                                <div class="item-price">
-                                    <div class="price-amount">$12.990 x2</div>
-                                    <div class="price-total">$25.980</div>
-                                </div>
+                        <div class="order-status">
+                            <div class="status-step active" id="step1">
+                                <div class="status-icon">1</div>
+                                <div class="status-label">Revisar Pedido</div>
                             </div>
-                            <div class="order-item">
-                                <div>
-                                    <div class="item-name">Ceviche Clásico</div>
-                                    <div class="item-details">Pescado fresco marinado en limón con cebolla, ají y camote</div>
-                                </div>
-                                <div class="item-price">
-                                    <div class="price-amount">$10.990 x2</div>
-                                    <div class="price-total">$21.980</div>
-                                </div>
+                            <div class="status-step" id="step2">
+                                <div class="status-icon">2</div>
+                                <div class="status-label">Método de Pago</div>
                             </div>
-                            <div class="order-item">
-                                <div>
-                                    <div class="item-name">Causa Limeña</div>
-                                    <div class="item-details">Puré de papa amarilla relleno de pollo o atún</div>
-                                </div>
-                                <div class="item-price">
-                                    <div class="price-amount">$8.990 x1</div>
-                                    <div class="price-total">$8.990</div>
-                                </div>
+                            <div class="status-step" id="step3">
+                                <div class="status-icon">3</div>
+                                <div class="status-label">Confirmación</div>
                             </div>
-                        </div>
-
-                        <div class="total-section">
-                            <div class="total-line">
-                                <span class="total-label">Total:</span>
-                                <span class="total-amount">$56.950</span>
-                            </div>
-                        </div>
-
-                        <button class="btn-action" id="continueBtn">Continuar al pago</button>
-
-                        <div class="payment-section" id="paymentSection">
-                            <div class="error-message" id="paymentErrorSection">
-                                <div class="error-title">❌ No se pudo procesar el pago</div>
-                                <div class="error-text">La transacción ha fallado. Por favor, verifica tus datos o intenta con otro método.</div>
-                                <button class="btn-action btn-danger" id="retryBtn">Reintentar pago</button>
-                            </div>
-
-                            <div class="payment-title">Método de pago:</div>
-                            
-                            <div class="payment-options">
-                                <label class="payment-option">
-                                    <input type="radio" name="payment" value="card" checked>
-                                    Tarjeta de crédito/débito
-                                </label>
-                                <label class="payment-option">
-                                    <input type="radio" name="payment" value="paypal">
-                                    PayPal
-                                </label>
-                                <label class="payment-option">
-                                    <input type="radio" name="payment" value="transfer">
-                                    Transferencia bancaria
-                                </label>
-                            </div>
-
-                            <button class="btn-action btn-success" id="payBtn">Pagar ahora</button>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div id="confirmationSection" class="confirmation-message">
-                <div class="confirmation-icon">✔</div>
-                <div class="confirmation-title">¡Pedido Confirmado!</div>
-                <div class="confirmation-text">
-                    Tu pedido ha sido procesado exitosamente.<br>
-                    Hemos enviado un correo de confirmación a tu email.<br>
-                    **La orden se envía automáticamente a cocina.**
+                <div id="orderSection">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Tu Pedido</h2>
+                        </div>
+                        <div class="card-body">
+                            
+                            <div class="order-items" id="cart-items-list">
+                                </div>
+
+                            <div class="total-section">
+                                <div class="total-line">
+                                    <span class="total-label">Total:</span>
+                                    <span class="total-amount" id="total-amount-display">$0</span>
+                                </div>
+                            </div>
+
+                            <button class="btn-action" id="continueBtn">Continuar al pago</button>
+
+                            <div class="payment-section" id="paymentSection">
+                                <div class="error-message" id="paymentErrorSection">
+                                    <div class="error-title">❌ No se pudo procesar el pedido</div>
+                                    <div class="error-text" id="paymentErrorText">...</div>
+                                </div>
+                                <div class="payment-title">Método de pago:</div>
+                                <div class="payment-options">
+                                    <label class="payment-option">
+                                        <input type="radio" name="payment" value="Tarjeta de crédito/débito" checked>
+                                        Tarjeta de crédito/débito
+                                    </label>
+                                    <label class="payment-option">
+                                        <input type="radio" name="payment" value="PayPal">
+                                        PayPal
+                                    </label>
+                                </div>
+                                <button class="btn-action btn-success" id="payBtn">Pagar ahora</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <button class="btn-action" id="okBtn">Volver al Catálogo</button>
+
+                <div id="confirmationSection" class="confirmation-message">
+                    <div class="confirmation-icon">✔</div>
+                    <div class="confirmation-title">¡Pedido Confirmado!</div>
+                    <div class="confirmation-text">
+                        Tu pedido ha sido procesado exitosamente.<br>
+                        **La orden se envía automáticamente a cocina.**
+                    </div>
+                    <button class="btn-action" id="goToBoletaBtn">Ver Boleta del Pedido</button>
+                </div>
+            </div> <div id="loginPrompt" class="card">
+                <div class="card-body">
+                    <h2 class="prompt-title">¡Espera!</h2>
+                    <p class="prompt-text">Necesitas iniciar sesión para poder confirmar tu pedido.</p>
+                    <a href="signin.html" class="btn-action">Iniciar Sesión</a>
+                    <a href="Registro.html" class="btn-action btn-primary" style="margin-top: 1rem;">O regístrate aquí</a>
+                </div>
             </div>
+            
+            <div id="emptyCartPrompt" class="card">
+                <div class="card-body">
+                    <h2 class="prompt-title">Carrito Vacío</h2>
+                    <p class="prompt-text">No tienes ningún producto en tu carrito para pagar.</p>
+                    <a href="catalogo.html" class="btn-action">Ir al Catálogo</a>
+                </div>
+            </div>
+            
         </div>
 
         <script>
         document.addEventListener('DOMContentLoaded', function() {
             
-            // --- INICIO: NUEVO Script de Gestión de Sesión (con Token) ---
-            const authButtons = document.querySelector('.auth-buttons');
+            const API_URL = 'http://localhost:3000';
             const token = localStorage.getItem('authToken');
 
+            const checkoutContainer = document.getElementById('checkoutContainer');
+            const loginPrompt = document.getElementById('loginPrompt');
+            const emptyCartPrompt = document.getElementById('emptyCartPrompt');
+            
+            // --- DATOS GLOBALES DEL PEDIDO ---
+            let cartItems = [];
+            let cartTotal = 0;
+            const formatCurrency = (value) => `$${Math.round(value).toLocaleString('es-CL')}`;
+
+            // --- INICIO: Script de Gestión de Sesión (con Token) ---
+            const authButtons = document.querySelector('.auth-buttons');
+            
             if (token) {
-                // Hay un token, verificamos si es válido
-                fetch('http://localhost:3000/api/auth/me', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                })
+                fetch(API_URL + '/api/auth/me', { headers: { 'Authorization': `Bearer ${token}` } })
                 .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                    // Si el token es inválido o expiró (error 403), borramos y mostramos login
+                    if (response.ok) return response.json();
                     throw new Error('Token inválido');
                 })
                 .then(user => {
-                    // Usuario autenticado
-                    const userEmail = user.email; // Usamos el email de la respuesta segura
-                    authButtons.innerHTML = `<span class="user-info">Hola, ${userEmail}</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
-                    
-                    document.getElementById('logoutBtn').addEventListener('click', function() {
+                    // 1. Mostrar botones de sesión
+                    authButtons.innerHTML = `<span class="user-info">Hola, ${user.email}</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
+                    document.getElementById('logoutBtn').addEventListener('click', () => {
                         localStorage.removeItem('authToken');
-                        localStorage.removeItem('userEmail'); // Limpiamos todo
+                        localStorage.removeItem('userEmail');
                         window.location.href = "signin.html";
                     });
+                    
+                    // 2. Usuario logueado, ahora cargar carrito
+                    loadCartFromStorage();
+                    
                 })
                 .catch(error => {
-                    // Error al validar, tratamos como si no estuviera logueado
-                    console.error('Error de autenticación:', error.message);
+                    // Token inválido o expirado
                     localStorage.removeItem('authToken');
                     localStorage.removeItem('userEmail');
                     mostrarBotonesLogin();
+                    showLoginPrompt();
                 });
-
             } else {
-                // No hay token, mostramos botones de login/registro
+                // No hay token
                 mostrarBotonesLogin();
+                showLoginPrompt();
             }
             
             function mostrarBotonesLogin() {
                  authButtons.innerHTML = `<a href="signin.html" class="btn btn-outline">Iniciar Sesión</a><a href="registro.html" class="btn btn-primary">Registrarse</a>`;
             }
-            // --- FIN: NUEVO Script de Gestión de Sesión ---
+            
+            function showLoginPrompt() {
+                checkoutContainer.style.display = 'none';
+                emptyCartPrompt.style.display = 'none';
+                loginPrompt.style.display = 'block';
+            }
+            // --- FIN: Script de Gestión de Sesión ---
+
+
+            // --- LÓGICA DE CHECKOUT ---
             
             const continueBtn = document.getElementById('continueBtn');
             const payBtn = document.getElementById('payBtn');
-            const retryBtn = document.getElementById('retryBtn'); // Nuevo botón de reintento
-            const okBtn = document.getElementById('okBtn');
+            const goToBoletaBtn = document.getElementById('goToBoletaBtn');
             const paymentSection = document.getElementById('paymentSection');
             const orderSection = document.getElementById('orderSection');
             const confirmationSection = document.getElementById('confirmationSection');
-            const paymentErrorSection = document.getElementById('paymentErrorSection'); // Nueva sección de error
+            const paymentErrorSection = document.getElementById('paymentErrorSection');
+            const paymentErrorText = document.getElementById('paymentErrorText');
 
-            // Pasos del indicador de estado
             const step1 = document.getElementById('step1');
             const step2 = document.getElementById('step2');
             const step3 = document.getElementById('step3');
 
-            // Variable para simular los escenarios
-            let paymentAttempt = 0;
+            let newOrderId = null;
 
-            // Función para actualizar el estado a "Pedido confirmado"
+            // 1. Cargar Carrito desde localStorage
+            function loadCartFromStorage() {
+                cartItems = JSON.parse(localStorage.getItem('saborLimeoCart')) || [];
+                
+                if (cartItems.length === 0) {
+                    // Carrito vacío, mostrar mensaje
+                    checkoutContainer.style.display = 'none';
+                    loginPrompt.style.display = 'none';
+                    emptyCartPrompt.style.display = 'block';
+                    return;
+                }
+                
+                // Hay items, mostrar checkout
+                checkoutContainer.style.display = 'block';
+                loginPrompt.style.display = 'none';
+                emptyCartPrompt.style.display = 'none';
+                
+                // Renderizar items y total
+                const itemsContainer = document.getElementById('cart-items-list');
+                itemsContainer.innerHTML = ''; // Limpiar
+                cartTotal = 0;
+                
+                cartItems.forEach(item => {
+                    const itemSubtotal = item.price * item.quantity;
+                    cartTotal += itemSubtotal;
+                    
+                    itemsContainer.innerHTML += `
+                        <div class="order-item">
+                            <div>
+                                <div class="item-name">${item.name}</div>
+                                <div class="item-details">ID Producto: ${item.id}</div>
+                            </div>
+                            <div class="item-price">
+                                <div class="price-amount">${formatCurrency(item.price)} x ${item.quantity}</div>
+                                <div class="price-total">${formatCurrency(itemSubtotal)}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                document.getElementById('total-amount-display').textContent = formatCurrency(cartTotal);
+            }
+
+            // 2. Lógica para "Continuar al pago"
+            continueBtn.addEventListener('click', () => {
+                paymentSection.style.display = 'block';
+                continueBtn.style.display = 'none';
+                step1.classList.remove('active');
+                step1.classList.add('completed');
+                step2.classList.add('active');
+                paymentErrorSection.style.display = 'none';
+            });
+
+            // 3. Lógica para "Pagar ahora" (Conecta al Backend)
+            payBtn.addEventListener('click', async () => {
+                payBtn.disabled = true;
+                payBtn.textContent = 'Procesando pedido...';
+                paymentErrorSection.style.display = 'none';
+
+                // 1. Preparar datos para el backend
+                const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+                const itemsForBackend = cartItems.map(item => ({
+                    productId: item.id,
+                    quantity: item.quantity,
+                    price: item.price
+                }));
+
+                // 2. Enviar al backend
+                try {
+                    const response = await fetch(API_URL + '/api/orders', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({
+                            items: itemsForBackend,
+                            totalAmount: cartTotal,
+                            paymentMethod: paymentMethod,
+                            deliveryAddress: "Av. Siempre Viva 742" // Simulado
+                        })
+                    });
+
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.message);
+
+                    // ¡ÉXITO!
+                    newOrderId = data.orderId;
+                    localStorage.removeItem('saborLimeoCart'); // Limpiar carrito
+                    confirmOrder();
+
+                } catch (error) {
+                    console.error('Error al crear pedido:', error);
+                    paymentError(error.message);
+                }
+            });
+
             function confirmOrder() {
                 orderSection.style.display = 'none';
                 confirmationSection.style.display = 'block';
-                paymentErrorSection.style.display = 'none';
-
-                // Actualizar estado del progreso
                 step2.classList.remove('active');
                 step2.classList.add('completed');
                 step3.classList.add('active');
             }
 
-            // Función para actualizar el estado a "Error en el pago"
-            function paymentError() {
+            function paymentError(message) {
                 payBtn.disabled = false;
-                payBtn.textContent = 'Pagar ahora';
+                payBtn.textContent = 'Reintentar pago';
                 payBtn.classList.remove('btn-success');
-                payBtn.classList.add('btn-danger'); // Cambiar a rojo para indicar error
-
-                paymentErrorSection.style.display = 'block'; // Mostrar mensaje de error
-                payBtn.style.display = 'none'; // Ocultar botón de "Pagar ahora" original
-                
-                // Asegurarse de que el paso 2 sigue activo, no completado
+                payBtn.classList.add('btn-danger');
+                paymentErrorText.textContent = `Error: ${message}. Por favor, inténtalo de nuevo.`;
+                paymentErrorSection.style.display = 'block';
                 step2.classList.add('active');
                 step2.classList.remove('completed');
                 step3.classList.remove('active');
             }
-            
-            // Función para reestablecer el estado de pago para el reintento
-            function resetPaymentAttempt() {
-                paymentErrorSection.style.display = 'none';
-                payBtn.style.display = 'block';
-                payBtn.classList.remove('btn-danger');
-                payBtn.classList.add('btn-success');
-                payBtn.textContent = 'Pagar ahora';
-            }
 
-
-            // Lógica para el botón "Continuar al pago"
-            continueBtn.addEventListener('click', () => {
-                paymentSection.style.display = 'block';
-                continueBtn.style.display = 'none';
-                
-                // Actualizar estado
-                step1.classList.remove('active');
-                step1.classList.add('completed');
-                step2.classList.add('active');
-
-                // Asegurar que la sección de error no esté visible al iniciar el pago
-                resetPaymentAttempt();
-            });
-
-            // Lógica para el botón "Pagar ahora" (Simula los escenarios)
-            payBtn.addEventListener('click', () => {
-                payBtn.disabled = true;
-                payBtn.textContent = 'Procesando pago...';
-                paymentAttempt++; // Incrementar el contador de intentos
-
-                // Simulamos el tiempo de procesamiento
-                setTimeout(() => {
-                    if (paymentAttempt === 1) {
-                        // Escenario: Error en el pago (Falla el primer intento)
-                        paymentError();
-                    } else if (paymentAttempt === 2) {
-                        // Escenario: Reintento de pago exitoso
-                        confirmOrder();
-                    } else {
-                        // Escenario: Pedido confirmado (Para intentos posteriores, asumimos éxito)
-                        confirmOrder();
-                    }
-                }, 1500);
-            });
-
-            // Lógica para el botón "Reintentar pago" (Escenario: Reintento de pago)
-            retryBtn.addEventListener('click', () => {
-                // Prepara la interfaz para un nuevo intento de pago
-                resetPaymentAttempt();
-            });
-
-            // Lógica para el botón "Volver al Catálogo"
-            okBtn.addEventListener('click', () => {
-                alert('Redirigiendo al catálogo...');
-                // Nota: Redirigir a una página que maneje la lista de platos
-                window.location.href = 'catalogo.html'; 
+            // 4. Lógica para "Ver Boleta"
+            goToBoletaBtn.addEventListener('click', () => {
+                window.location.href = `boleta.html?orderId=${newOrderId}`;
             });
         });
         </script>

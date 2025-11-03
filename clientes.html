@@ -9,124 +9,36 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet">
     <style>
         :root {
-            --azul-pacifico: #1E88E5;
-            --azul-pacifico-oscuro: #1565C0;
-            --azul-pacifico-claro: #64B5F6;
-            --aji-amarillo: #FFC107;
-            --terracota: #BF360C;
-            --verde-menta: #4CAF50;
-            --purpura-nazca: #6A1B9A;
-            --blanco-roto: #F8F9FA;
-            --gris-texto: #424242;
+            --azul-pacifico: #1E88E5; --azul-pacifico-oscuro: #1565C0; --azul-pacifico-claro: #64B5F6;
+            --aji-amarillo: #FFC107; --terracota: #BF360C; --verde-menta: #4CAF50;
+            --purpura-nazca: #6A1B9A; --blanco-roto: #F8F9FA; --gris-texto: #424242;
         }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--blanco-roto); color: var(--gris-texto); }
+        .header { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); padding: 1rem 0; }
+        .logo { font-size: 1.8rem; font-weight: 700; }
+        .hero { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); color: white; padding: 2rem 0; text-align: center; margin-bottom: 2.5rem; position: relative; }
+        .btn-back { position: absolute; top: 1.5rem; left: 1.5rem; background-color: rgba(255, 255, 255, 0.2); color: white; padding: 8px 15px; border-radius: 20px; font-size: 14px; text-decoration: none; transition: all 0.3s; }
+        .btn-back:hover { background-color: rgba(255, 255, 255, 0.4); transform: translateY(-2px); }
+        .hero h1 { font-size: 2.2rem; font-weight: 700; }
+        .btn { padding: 10px 20px; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; font-size: 14px; }
+        .btn-outline-primary, .btn-outline-danger { transition: all 0.3s ease; }
+        .card { border-radius: 15px; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); border: none; overflow: hidden; }
+        table thead { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; }
+        table th, table td { vertical-align: middle; }
+        .badge { padding: 0.5em 1em; font-size: 0.8rem; font-weight: 600; border-radius: 50rem; text-transform: capitalize; }
+        .badge-nuevo { background-color: var(--azul-pacifico-claro); color: var(--gris-texto); }
+        .badge-frecuente { background-color: var(--verde-menta); color: white; }
+        .badge-vip { background: linear-gradient(135deg, var(--purpura-nazca), #8E24AA); color: white; }
+        .action-buttons .btn { margin: 0 4px; }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--blanco-roto);
-            color: var(--gris-texto);
+        /* --- NUEVO: Estilo para bloquear página --- */
+        #adminLock {
+            text-align: center; padding: 40px;
+            background: linear-gradient(135deg, rgba(191, 54, 12, 0.1), rgba(191, 54, 12, 0.05));
+            border-radius: 15px; border: 2px solid var(--terracota); display: none;
         }
-
-        .header {
-            background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%);
-            color: white;
-            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
-            padding: 1rem 0;
-        }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-        
-        .hero {
-            background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%);
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            margin-bottom: 2.5rem;
-            position: relative;
-        }
-        
-        .btn-back {
-            position: absolute;
-            top: 1.5rem;
-            left: 1.5rem;
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        
-        .btn-back:hover {
-            background-color: rgba(255, 255, 255, 0.4);
-            transform: translateY(-2px);
-        }
-        
-        .hero h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-        }
-
-        .btn-outline-primary, .btn-outline-danger {
-            transition: all 0.3s ease;
-        }
-        
-        .card {
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1);
-            border: none;
-            overflow: hidden;
-        }
-        
-        table thead {
-            background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
-            color: white;
-        }
-        
-        table th, table td {
-            vertical-align: middle;
-        }
-        
-        .badge {
-            padding: 0.5em 1em;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border-radius: 50rem;
-        }
-        
-        .badge-nuevo {
-            background-color: var(--azul-pacifico-claro);
-            color: var(--gris-texto);
-        }
-        
-        .badge-frecuente {
-            background-color: var(--verde-menta);
-            color: white;
-        }
-        
-        .badge-vip {
-            background: linear-gradient(135deg, var(--purpura-nazca), #8E24AA);
-            color: white;
-        }
-        
-        .action-buttons .btn {
-            margin: 0 4px;
-        }
+        .lock-title { color: var(--terracota); font-weight: 700; font-size: 1.5rem; margin-bottom: 1rem; }
+        .lock-text { color: var(--gris-texto); margin-bottom: 1.5rem; }
     </style>
 </head>
 <body>
@@ -150,7 +62,15 @@
     <main class="container">
          <div id="alertMessage" class="alert" style="display: none;"></div>
         
-        <div class="card mt-4">
+         <div id="adminLock" class="card">
+            <div class="card-body">
+                <h2 class="lock-title">Acceso Denegado</h2>
+                <p class="lock-text">Solo los administradores pueden ver esta página.</p>
+                <a href="index.html" class="btn btn-outline-primary" style="border-radius: 8px;">Volver al Inicio</a>
+            </div>
+        </div>
+         
+         <div class="card mt-4" id="mainContent" style="display: none;">
             <table class="table table-hover mb-0" id="clientsTable">
                 <thead>
                     <tr>
@@ -160,44 +80,8 @@
                         <th scope="col" class="text-center">Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr id="cliente-juan-perez">
-                        <td class="ps-4 fw-semibold client-name">Juan Pérez</td>
-                        <td class="client-email">juan.perez@example.com</td>
-                        <td class="text-center client-category" data-category="nuevo"><span class="badge badge-nuevo">Nuevo</span></td>
-                        <td class="text-center action-buttons">
-                            <button class="btn btn-sm btn-outline-primary edit-btn"><i class="fas fa-pencil-alt"></i></button>
-                            <button class="btn btn-sm btn-outline-danger delete-btn"><i class="fas fa-trash-alt"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="ps-4 fw-semibold client-name">María Flores</td>
-                        <td class="client-email">maria.f@example.com</td>
-                        <td class="text-center client-category" data-category="frecuente"><span class="badge badge-frecuente">Frecuente</span></td>
-                        <td class="text-center action-buttons">
-                            <button class="btn btn-sm btn-outline-primary edit-btn"><i class="fas fa-pencil-alt"></i></button>
-                            <button class="btn btn-sm btn-outline-danger delete-btn"><i class="fas fa-trash-alt"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="ps-4 fw-semibold client-name">Carlos Rojas</td>
-                        <td class="client-email">carlos.rojas@example.com</td>
-                        <td class="text-center client-category" data-category="nuevo"><span class="badge badge-nuevo">Nuevo</span></td>
-                        <td class="text-center action-buttons">
-                            <button class="btn btn-sm btn-outline-primary edit-btn"><i class="fas fa-pencil-alt"></i></button>
-                            <button class="btn btn-sm btn-outline-danger delete-btn"><i class="fas fa-trash-alt"></i></button>
-                        </td>
-                    </tr>
-                    <tr id="cliente-luis-gomez">
-                        <td class="ps-4 fw-semibold client-name">Luis Gómez</td>
-                        <td class="client-email">luis.gomez@example.com</td>
-                        <td class="text-center client-category" data-category="vip"><span class="badge badge-vip">VIP</span></td>
-                        <td class="text-center action-buttons">
-                            <button class="btn btn-sm btn-outline-primary edit-btn"><i class="fas fa-pencil-alt"></i></button>
-                            <button class="btn btn-sm btn-outline-danger delete-btn"><i class="fas fa-trash-alt"></i></button>
-                        </td>
-                    </tr>
-                </tbody>
+                <tbody id="clientsTableBody">
+                    </tbody>
             </table>
         </div>
     </main>
@@ -211,13 +95,14 @@
                 </div>
                 <div class="modal-body">
                     <form id="editForm">
+                         <input type="hidden" id="clientIdInput">
                          <div class="mb-3">
                             <label for="clientNameInput" class="form-label">Nombre Completo</label>
-                            <input type="text" class="form-control" id="clientNameInput">
+                            <input type="text" class="form-control" id="clientNameInput" required>
                         </div>
                         <div class="mb-3">
                             <label for="clientEmailInput" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="clientEmailInput">
+                            <input type="email" class="form-control" id="clientEmailInput" required>
                         </div>
                         <div class="mb-3">
                             <label for="clientCategorySelect" class="form-label">Categoría</label>
@@ -239,95 +124,232 @@
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const clientsTable = document.getElementById('clientsTable');
-            const alertMessage = document.getElementById('alertMessage');
-            const editModalElement = document.getElementById('editClientModal');
-            const editModal = new bootstrap.Modal(editModalElement);
+        document.addEventListener('DOMContentLoaded', async function() {
             
+            const API_URL = 'http://localhost:3000';
+            const token = localStorage.getItem('authToken');
+            
+            // --- Elementos del DOM ---
+            const adminLock = document.getElementById('adminLock');
+            const mainContent = document.getElementById('mainContent');
+            const clientsTableBody = document.getElementById('clientsTableBody');
+            const alertMessage = document.getElementById('alertMessage');
+            const editModal = new bootstrap.Modal(document.getElementById('editClientModal'));
+            
+            // --- Campos del Modal ---
+            const saveChangesBtn = document.getElementById('saveChangesBtn');
+            const clientIdInput = document.getElementById('clientIdInput');
             const clientNameInput = document.getElementById('clientNameInput');
             const clientEmailInput = document.getElementById('clientEmailInput');
             const clientCategorySelect = document.getElementById('clientCategorySelect');
-            const saveChangesBtn = document.getElementById('saveChangesBtn');
+            
+            let localClientsData = []; // Caché local de clientes
 
-            let currentRowBeingEdited = null;
-            let originalCategory = '';
+            // --- INICIO: Script de Gestión de Sesión (Admin) ---
+            if (token) {
+                try {
+                    const response = await fetch(API_URL + '/api/auth/me', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    if (!response.ok) throw new Error('Token inválido');
+                    const user = await response.json();
+                    
+                    if (user.role === 'admin') {
+                        mainContent.style.display = 'block';
+                        adminLock.style.display = 'none';
+                        await loadClients(); // Cargar datos
+                    } else {
+                        throw new Error('Acceso denegado. Debes ser administrador.');
+                    }
+                } catch (error) {
+                    showAdminLock(error.message);
+                }
+            } else {
+                showAdminLock("No estás autenticado. <a href='signin.html'>Inicia sesión como Admin</a>.");
+            }
+            
+            function showAdminLock(message) {
+                adminLock.style.display = 'block';
+                adminLock.querySelector('.lock-text').innerHTML = message;
+                mainContent.style.display = 'none';
+            }
+            // --- FIN: Script de Gestión de Sesión ---
+
+            
+            // --- Funciones API ---
+            async function fetchAPI(endpoint, options = {}) {
+                const defaultOptions = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                };
+                const config = { ...defaultOptions, ...options };
+                
+                const response = await fetch(API_URL + endpoint, config);
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || `Error ${response.status}`);
+                }
+                return data;
+            }
+
+            // --- Lógica de la Página ---
+
+            // 1. Cargar y renderizar clientes
+            async function loadClients() {
+                try {
+                    const clients = await fetchAPI('/api/clients');
+                    localClientsData = clients; // Guardar en caché
+                    renderTable(clients);
+                } catch (error) {
+                    showAlert(`Error al cargar clientes: ${error.message}`, 'danger');
+                }
+            }
+            
+            // 2. Renderizar la tabla
+            function renderTable(clients) {
+                clientsTableBody.innerHTML = ''; // Limpiar
+                if (clients.length === 0) {
+                    clientsTableBody.innerHTML = '<tr><td colspan="4" class="text-center p-4">No se han registrado clientes.</td></tr>';
+                    return;
+                }
+                
+                clients.forEach(client => {
+                    const row = document.createElement('tr');
+                    row.id = `client-row-${client.id}`; // ID único para la fila
+                    row.innerHTML = `
+                        <td class="ps-4 fw-semibold client-name">${client.nombre}</td>
+                        <td class="client-email">${client.email}</td>
+                        <td class="text-center client-category" data-category="${client.categoria}">
+                            <span class="badge ${getBadgeClass(client.categoria)}">${client.categoria}</span>
+                        </td>
+                        <td class="text-center action-buttons">
+                            <button class="btn btn-sm btn-outline-primary edit-btn" data-id="${client.id}"><i class="fas fa-pencil-alt"></i></button>
+                            <button class="btn btn-sm btn-outline-danger delete-btn" data-id="${client.id}"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    `;
+                    clientsTableBody.appendChild(row);
+                });
+            }
+
+            // 3. Listeners para botones de la tabla (Editar y Borrar)
+            clientsTableBody.addEventListener('click', function(event) {
+                const target = event.target.closest('button');
+                if (!target) return;
+                
+                const clientId = target.dataset.id;
+
+                if (target.classList.contains('edit-btn')) {
+                    handleEdit(clientId);
+                }
+                if (target.classList.contains('delete-btn')) {
+                    handleDelete(clientId);
+                }
+            });
+            
+            // 4. Lógica de Edición
+            function handleEdit(id) {
+                const client = localClientsData.find(c => c.id == id);
+                if (!client) return;
+                
+                // Llenar el modal
+                clientIdInput.value = client.id;
+                clientNameInput.value = client.nombre;
+                clientEmailInput.value = client.email;
+                clientCategorySelect.value = client.categoria;
+                
+                editModal.show();
+            }
+
+            // 5. Lógica de Guardar Cambios (en el modal)
+            saveChangesBtn.addEventListener('click', async () => {
+                const id = clientIdInput.value;
+                const updatedClient = {
+                    nombre: clientNameInput.value,
+                    email: clientEmailInput.value,
+                    categoria: clientCategorySelect.value
+                };
+
+                if (!updatedClient.nombre || !updatedClient.email) {
+                    showAlert('Nombre y Email son obligatorios.', 'danger');
+                    return;
+                }
+
+                saveChangesBtn.disabled = true;
+                saveChangesBtn.textContent = 'Guardando...';
+
+                try {
+                    await fetchAPI(`/api/clients/${id}`, {
+                        method: 'PUT',
+                        body: JSON.stringify(updatedClient)
+                    });
+                    
+                    // Actualizar la fila en la tabla
+                    const row = document.getElementById(`client-row-${id}`);
+                    row.querySelector('.client-name').textContent = updatedClient.nombre;
+                    row.querySelector('.client-email').textContent = updatedClient.email;
+                    const categoryCell = row.querySelector('.client-category');
+                    categoryCell.dataset.category = updatedClient.categoria;
+                    categoryCell.innerHTML = `<span class="badge ${getBadgeClass(updatedClient.categoria)}">${updatedClient.categoria}</span>`;
+
+                    // Actualizar caché local
+                    const index = localClientsData.findIndex(c => c.id == id);
+                    if (index !== -1) localClientsData[index] = { id: parseInt(id), ...updatedClient };
+                    
+                    editModal.hide();
+                    showAlert(`Cliente "${updatedClient.nombre}" actualizado.`, 'success');
+
+                } catch (error) {
+                    showAlert(`Error al guardar: ${error.message}`, 'danger');
+                } finally {
+                    saveChangesBtn.disabled = false;
+                    saveChangesBtn.textContent = 'Guardar Cambios';
+                }
+            });
+
+            // 6. Lógica de Borrado
+            async function handleDelete(id) {
+                const client = localClientsData.find(c => c.id == id);
+                if (!client) return;
+                
+                if (!confirm(`¿Estás seguro de que deseas eliminar a ${client.nombre}?`)) {
+                    return;
+                }
+
+                try {
+                    await fetchAPI(`/api/clients/${id}`, { method: 'DELETE' });
+                    
+                    // Eliminar la fila
+                    document.getElementById(`client-row-${id}`).remove();
+                    
+                    // Eliminar de caché
+                    localClientsData = localClientsData.filter(c => c.id != id);
+                    
+                    showAlert(`Cliente "${client.nombre}" eliminado.`, 'warning');
+                    
+                } catch (error) {
+                    showAlert(`Error al eliminar: ${error.message}`, 'danger');
+                }
+            }
+
+            // --- Funciones Helper ---
+            function getBadgeClass(category) {
+                if (category === 'frecuente') return 'badge-frecuente';
+                if (category === 'vip') return 'badge-vip';
+                return 'badge-nuevo';
+            }
 
             function showAlert(message, type = 'success') {
                 alertMessage.textContent = message;
                 alertMessage.className = `alert alert-${type}`;
                 alertMessage.style.display = 'block';
+                window.scrollTo(0, 0); // Scroll al inicio para ver la alerta
                 setTimeout(() => {
                     alertMessage.style.display = 'none';
                 }, 4000);
             }
-
-            function updateTableRow(row, newName, newCategory) {
-                row.querySelector('.client-name').textContent = newName;
-                const categoryCell = row.querySelector('.client-category');
-                categoryCell.dataset.category = newCategory;
-
-                const badge = categoryCell.querySelector('.badge');
-                badge.textContent = newCategory.charAt(0).toUpperCase() + newCategory.slice(1);
-                
-                badge.className = 'badge';
-                if (newCategory === 'nuevo') badge.classList.add('badge-nuevo');
-                if (newCategory === 'frecuente') badge.classList.add('badge-frecuente');
-                if (newCategory === 'vip') badge.classList.add('badge-vip');
-            }
-
-            clientsTable.addEventListener('click', function(event) {
-                const target = event.target.closest('button');
-                if (!target) return;
-                const row = target.closest('tr');
-
-                if (target.classList.contains('delete-btn')) {
-                    const clientName = row.querySelector('.client-name').textContent;
-                    if (confirm(`¿Estás seguro de que deseas eliminar a ${clientName}?`)) {
-                        row.remove();
-                        showAlert(`Cliente "${clientName}" eliminado exitosamente.`, 'warning');
-                    }
-                }
-
-                if (target.classList.contains('edit-btn')) {
-                    currentRowBeingEdited = row;
-                    originalCategory = row.querySelector('.client-category').dataset.category;
-                    const name = row.querySelector('.client-name').textContent;
-                    const email = row.querySelector('.client-email').textContent;
-                    clientNameInput.value = name;
-                    clientEmailInput.value = email;
-                    clientCategorySelect.value = originalCategory;
-                    editModal.show();
-                }
-            });
-
-            saveChangesBtn.addEventListener('click', function() {
-                const newName = clientNameInput.value;
-                const newCategory = clientCategorySelect.value;
-                
-                if (newCategory === originalCategory && (newCategory === 'frecuente' || newCategory === 'vip')) {
-                    showAlert('Este cliente ya tiene una promoción vigente.', 'info');
-                    editModal.hide();
-                    return;
-                }
-                
-                saveChangesBtn.disabled = true;
-                saveChangesBtn.textContent = 'Guardando...';
-
-                setTimeout(() => {
-                    updateTableRow(currentRowBeingEdited, newName, newCategory);
-
-                    if (originalCategory === 'nuevo' && (newCategory === 'frecuente' || newCategory === 'vip')) {
-                        showAlert(`¡Promoción asignada a ${newName}! Se envió un cupón de descuento.`, 'success');
-                    } else {
-                        showAlert(`Datos de "${newName}" actualizados correctamente.`, 'success');
-                    }
-
-                    saveChangesBtn.disabled = false;
-                    saveChangesBtn.textContent = 'Guardar Cambios';
-                    editModal.hide();
-                }, 1000);
-            });
         });
     </script>
 </body>
