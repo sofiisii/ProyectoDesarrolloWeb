@@ -18,7 +18,7 @@ def login(data: dict):
     if not user:
         return JSONResponse(status_code=401, content={"message": "Credenciales incorrectas"})
     token = database.create_session(user.id)
-    return {"token": token, "user": {"id": user.id, "nombre": user.nombre, "email": user.email}}
+    return {"token": token, "user": {"id": user.id, "nombre": user.nombre, "email": user.email, "role": user.role}}
 
 @router.get("/me")
 def me(Authorization: Optional[str] = Header(default=None)):
@@ -28,4 +28,4 @@ def me(Authorization: Optional[str] = Header(default=None)):
     user = database.get_user_by_token(token)
     if not user:
         return JSONResponse(status_code=403, content={"message": "Token expirado"})
-    return {"id": user.id, "nombre": user.nombre, "email": user.email}
+    return {"id": user.id, "nombre": user.nombre, "email": user.email, "role": user.role}

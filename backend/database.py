@@ -8,6 +8,7 @@ class User:
     nombre: str
     email: str
     password: str
+    role: str = "cliente"   # Nuevo campo
 
 @dataclass
 class Dish:
@@ -51,7 +52,11 @@ def create_user(nombre, email, password) -> Optional[User]:
     for u in users.values():
         if u.email == email:
             return None
-    user = User(_next_user_id, nombre, email, password)
+
+    # Asignar rol automático
+    role = "admin" if email.endswith("@admin.com") else "cliente"
+
+    user = User(_next_user_id, nombre, email, password, role)
     users[_next_user_id] = user
     _next_user_id += 1
     return user
