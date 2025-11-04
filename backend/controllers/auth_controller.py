@@ -24,8 +24,15 @@ def login(data: dict):
 def me(Authorization: Optional[str] = Header(default=None)):
     if not Authorization or not Authorization.startswith("Bearer "):
         return JSONResponse(status_code=401, content={"message": "Token inválido"})
+
     token = Authorization.split(" ")[1]
     user = database.get_user_by_token(token)
     if not user:
         return JSONResponse(status_code=403, content={"message": "Token expirado"})
-    return {"id": user.id, "nombre": user.nombre, "email": user.email, "role": user.role}
+
+    return {
+        "id": user.id,
+        "nombre": user.nombre,
+        "email": user.email,
+        "role": user.role
+    }
