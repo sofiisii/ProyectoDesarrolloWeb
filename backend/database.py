@@ -30,7 +30,7 @@ def get_next_sequence(sequence_name):
 def create_user(nombre, email, password) -> Optional[dict]:
     if users_collection.find_one({"email": email}):
         return None
-    role = "admin" if email.endswith("@admin.com") else "cliente"
+    role = "admin" if email.endswith("@saborlimeno.com") else "cliente"
     new_id = get_next_sequence("userid")
     user_doc = {
         "id": new_id, "nombre": nombre, "email": email, "password": password, "role": role
@@ -123,7 +123,7 @@ def seed_data():
     """Crea datos iniciales usando los datos REALES de tu catálogo"""
     if users_collection.count_documents({}) == 0:
         print("Seeding Admin User...")
-        create_user("Admin", "admin@sabor.admin.com", "1234")
+        create_user("Admin", "admin@saborlimeno.com", "1234")
     
     if dishes_collection.count_documents({}) == 0:
         print("Seeding Menu con datos reales...")
