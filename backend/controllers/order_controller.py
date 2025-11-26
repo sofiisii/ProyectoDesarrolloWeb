@@ -1,19 +1,18 @@
-from fastapi import APIRouter
-import database
-
-router = APIRouter(prefix="/api/orders", tags=["orders"])
-
 @router.post("/")
 def crear_pedido(data: dict):
-    global _next_order_id
-    user_id = data["user_id"]
-    items = data["items"]
-    total = sum(database.dishes[i].precio for i in items)
-    pedido = database.Order(database._next_order_id, user_id, items, total, "pendiente")
-    database.orders[database._next_order_id] = pedido
-    database._next_order_id += 1
-    return {"message": "Pedido creado", "pedido": pedido.__dict__}
+    user_id = data.get("user_id") # Ojo: Tu frontend envía user_id? A veces viene del token
+    items_ids = data["items"] # IDs de los platos
+    
+    # Calcular total buscando precios en la BD
+    total = 0
+    for item_id in items_ids:
+        dish = database.get_dish(item_id)
+        if dish:
+            total += dish["precio"]
+            
+    pedido = database.create_order(user_id, items_ids, total, "pendiente")
+    return {"message": "Pedido creado", "pedido": pedido}
 
 @router.get("/")
 def listar_pedidos():
-    return [o.__dict__ for o in database.orders.values()]
+    return database.get_all_orders()
