@@ -197,43 +197,48 @@
 
             // --- Lógica de la Página ---
 
+            // ... (Dentro de tu script en clientes.html) ...
+            
             // 1. Cargar y renderizar clientes
             async function loadClients() {
                 try {
-                    const clients = await fetchAPI('/api/clients');
-                    localClientsData = clients; // Guardar en caché
+                    // Ahora llamamos al endpoint real que acabamos de crear
+                    const clients = await fetchAPI('/api/auth/clients'); 
+                    localClientsData = clients; 
                     renderTable(clients);
                 } catch (error) {
                     showAlert(`Error al cargar clientes: ${error.message}`, 'danger');
                 }
             }
             
-            // 2. Renderizar la tabla
+            // 2. Renderizar la tabla (Ajustado a los campos de MongoDB)
             function renderTable(clients) {
-                clientsTableBody.innerHTML = ''; // Limpiar
+                clientsTableBody.innerHTML = ''; 
                 if (clients.length === 0) {
-                    clientsTableBody.innerHTML = '<tr><td colspan="4" class="text-center p-4">No se han registrado clientes.</td></tr>';
+                    clientsTableBody.innerHTML = '<tr><td colspan="4" class="text-center p-4">No se han registrado clientes aún.</td></tr>';
                     return;
                 }
                 
                 clients.forEach(client => {
+                    // En MongoDB guardamos "role", no "categoria". Mapeamos para que se vea bonito.
+                    let displayCategory = client.role === 'cliente' ? 'Nuevo' : client.role;
+                    let badgeClass = 'badge-nuevo'; // Puedes lógica para VIP si agregas ese campo después
+
                     const row = document.createElement('tr');
-                    row.id = `client-row-${client.id}`; // ID único para la fila
+                    row.id = `client-row-${client.id}`;
                     row.innerHTML = `
                         <td class="ps-4 fw-semibold client-name">${client.nombre}</td>
                         <td class="client-email">${client.email}</td>
-                        <td class="text-center client-category" data-category="${client.categoria}">
-                            <span class="badge ${getBadgeClass(client.categoria)}">${client.categoria}</span>
+                        <td class="text-center">
+                            <span class="badge ${badgeClass}">${displayCategory}</span>
                         </td>
                         <td class="text-center action-buttons">
-                            <button class="btn btn-sm btn-outline-primary edit-btn" data-id="${client.id}"><i class="fas fa-pencil-alt"></i></button>
                             <button class="btn btn-sm btn-outline-danger delete-btn" data-id="${client.id}"><i class="fas fa-trash-alt"></i></button>
                         </td>
                     `;
                     clientsTableBody.appendChild(row);
                 });
             }
-
             // 3. Listeners para botones de la tabla (Editar y Borrar)
             clientsTableBody.addEventListener('click', function(event) {
                 const target = event.target.closest('button');

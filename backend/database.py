@@ -84,13 +84,22 @@ def update_dish_availability(dish_id: int, available: bool):
     dishes_collection.update_one({"id": dish_id}, {"$set": {"disponible": available}})
 
 # --- Funciones de Pedidos ---
-def create_order(user_id: int, items: List[int], total: float, estado: str = "pendiente"):
+
+def create_order(user_id: int, items: List[dict], total: float, estado: str, payment_method: str, delivery_address: str):
     new_id = get_next_sequence("orderid")
     order = {
-        "id": new_id, "user_id": user_id, "items": items, "total": total, "estado": estado
+        "id": new_id,
+        "user_id": user_id,
+        "items": items, # Ahora es una lista de objetos completos
+        "total": total,
+        "estado": estado,
+        "payment_method": payment_method,
+        "delivery_address": delivery_address
     }
     orders_collection.insert_one(order)
+    order.pop("_id")
     return order
+
 
 def get_all_orders():
     return list(orders_collection.find({}, {"_id": 0}))
