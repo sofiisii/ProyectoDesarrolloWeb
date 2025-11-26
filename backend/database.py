@@ -124,7 +124,7 @@ def get_stats():
         "dailySales": total_sales,
         "activeOrders": orders_collection.count_documents({"estado": {"$in": ["pendiente", "preparando", "en_ruta"]}}),
         "newClients": users_collection.count_documents({"role": "cliente"}),
-        "recentActivity": [] # Se puede implementar historial luego
+        "recentActivity": [] 
     }
 
 # --- Inicialización (Seed Data) ---
