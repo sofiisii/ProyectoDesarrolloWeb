@@ -17,20 +17,30 @@ def get_dish(dish_id: int):
         raise HTTPException(status_code=404, detail="Plato no encontrado")
     return dish
 
-@router.post("/products") # Ojo: Ajusté la ruta para coincidir con tu frontend gestionmenu.html
+@router.post("/products") 
 def add_dish(data: dict):
-    # Tu frontend envía JSON, así que usamos data: dict
-    dish = database.create_dish(data["name"], data["price"], data["category"])
+    # Ahora guardamos también la descripción e ingredientes si vienen
+    dish = database.create_dish(
+        data.get("name"), 
+        data.get("price"), 
+        data.get("category"),
+        data.get("description", "Sin descripción"),
+        data.get("ingredients", "Ingredientes no especificados"),
+        data.get("gradient", "linear-gradient(135deg, #ccc, #999)")
+    )
     return {"message": "Plato agregado", "dish": dish}
 
-# Rutas de Admin
+@router.patch("/products/{dish_id}/availability")
+def update_availability(dish_id: int, data: dict):
+    # Endpoint para el toggle de disponibilidad
+    database.update_dish_availability(dish_id, data["available"])
+    return {"message": "Disponibilidad actualizada"}
+
 @router.get("/products/admin")
 def get_admin_products(Authorization: Optional[str] = Header(default=None)):
-    # ... (Mantén tu lógica de verificación de token aquí) ...
-    
-    # Cambia el acceso directo por la función
-    all_dishes = database.get_all_dishes()
-    
-    # Tu lógica de agrupación se mantiene igual, pero iterando sobre la lista
-    # Ojo: Asegúrate que las llaves coincidan con lo que guardaste en Mongo ("categoria" vs "category")
-    return all_dishes # O aplica tu agrupación aquí
+    # Validación simple de token para admin
+    if not Authorization or not Authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Token inválido")
+        
+    # Aquí podrías validar el usuario real con database.get_user_by_token
+    return database.get_all_dishes()
