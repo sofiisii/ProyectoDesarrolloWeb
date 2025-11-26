@@ -34,7 +34,7 @@ def create_user(nombre, email, password) -> Optional[dict]:
     if users_collection.find_one({"email": email}):
         return None
 
-    role = "admin" if email.endswith("@admin.com") else "cliente"
+    role = "admin" if email.endswith("@saborlimeno.com") else "cliente"
     new_id = get_next_sequence("userid")
     
     user_doc = {
