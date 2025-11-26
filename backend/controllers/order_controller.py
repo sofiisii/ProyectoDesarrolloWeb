@@ -1,3 +1,8 @@
+from fastapi import APIRouter
+import database
+
+router = APIRouter(prefix="/api/orders", tags=["orders"])
+
 @router.post("/")
 def crear_pedido(data: dict):
     user_id = data.get("user_id") # Ojo: Tu frontend envía user_id? A veces viene del token

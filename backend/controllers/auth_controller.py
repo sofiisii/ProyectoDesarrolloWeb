@@ -1,3 +1,17 @@
+from fastapi import APIRouter, Header
+from fastapi.responses import JSONResponse
+from typing import Optional
+import database
+
+router = APIRouter(prefix="/api/auth", tags=["auth"])
+
+@router.post("/register")
+def register(data: dict):
+    user = database.create_user(data["nombre"], data["email"], data["password"])
+    if not user:
+        return JSONResponse(status_code=409, content={"message": "Correo ya registrado"})
+    return {"message": "Registro exitoso"}
+
 # En login
 @router.post("/login")
 def login(data: dict):
