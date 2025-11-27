@@ -232,10 +232,10 @@
                 })
                 .then(user => {
                     // 1. Mostrar botones de sesión
-                    authButtons.innerHTML = `<span class="user-info">Hola, ${user.email}</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
+                    authButtons.innerHTML = `<span class="user-info">Hola, ${user.nombre}!</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
                     document.getElementById('logoutBtn').addEventListener('click', () => {
                         localStorage.removeItem('authToken');
-                        localStorage.removeItem('userEmail');
+                        localStorage.removeItem('userNombre');
                         window.location.href = "signin.html";
                     });
                     

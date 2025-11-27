@@ -208,14 +208,14 @@
             const authButtonsContainer = document.querySelector('.header .auth-buttons');
             if (authButtonsContainer) {
                 if (token) {
-                    const userEmail = localStorage.getItem('userEmail') || 'usuario'; // Usamos el guardado
-                    authButtonsContainer.innerHTML = `<span class="user-info" style="color:white; margin-right: 15px; font-weight: 500;">Hola, ${userEmail}</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
+                    const userNombre = localStorage.getItem('userNombre') || 'usuario'; // Usamos el guardado
+                    authButtonsContainer.innerHTML = `<span class="user-info" style="color:white; margin-right: 15px; font-weight: 500;">Hola, ${userNombre}!</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
                     
                     const logoutBtn = document.getElementById('logoutBtn');
                     if(logoutBtn) {
                         logoutBtn.addEventListener('click', function() {
                             localStorage.removeItem('authToken');
-                            localStorage.removeItem('userEmail');
+                            localStorage.removeItem('userNombre');
                             window.location.href = "signin.html";
                         });
                     }

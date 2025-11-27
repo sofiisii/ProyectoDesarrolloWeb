@@ -259,10 +259,10 @@
                     }
                     
                     // Usuario es Admin, mostrar info de sesión
-                    authButtonsContainer.innerHTML = `<span class="user-info" style="color:white; margin-right: 15px; font-weight: 500;">Hola, ${user.email} (Admin)</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
+                    authButtonsContainer.innerHTML = `<span class="user-info" style="color:white; margin-right: 15px; font-weight: 500;">Hola, ${user.nombre}! (Admin)</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
                     document.getElementById('logoutBtn').addEventListener('click', () => {
                         localStorage.removeItem('authToken');
-                        localStorage.removeItem('userEmail');
+                        localStorage.removeItem('userNombre');
                         window.location.href = "signin.html";
                     });
                     
@@ -271,7 +271,7 @@
                     
                 } catch (error) {
                     localStorage.removeItem('authToken');
-                    localStorage.removeItem('userEmail');
+                    localStorage.removeItem('userNombre');
                     showError(`Error de autenticación: ${error.message}. <a href='signin.html'>Inicia sesión</a>.`);
                 }
             } else {

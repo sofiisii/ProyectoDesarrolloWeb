@@ -205,12 +205,12 @@
                 })
                 .then(user => {
                     // Usuario autenticado
-                    const userEmail = user.email; // Usamos el email de la respuesta segura
-                    authButtons.innerHTML = `<span class="user-info">Hola, ${userEmail}</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
+                    const userNombre = user.nombre; // Usamos el email de la respuesta segura
+                    authButtons.innerHTML = `<span class="user-info">Hola, ${userNombre}!</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
                     
                     document.getElementById('logoutBtn').addEventListener('click', function() {
                         localStorage.removeItem('authToken');
-                        localStorage.removeItem('userEmail'); // Limpiamos todo
+                        localStorage.removeItem('userNombre'); // Limpiamos todo
                         window.location.href = "signin.html";
                     });
                 })
@@ -218,7 +218,7 @@
                     // Error al validar, tratamos como si no estuviera logueado
                     console.error('Error de autenticación:', error.message);
                     localStorage.removeItem('authToken');
-                    localStorage.removeItem('userEmail');
+                    localStorage.removeItem('userNombre');
                     mostrarBotonesLogin();
                 });
 

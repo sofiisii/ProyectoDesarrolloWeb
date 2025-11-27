@@ -137,9 +137,9 @@
                 fetch(API_URL + '/api/auth/me', { headers: { 'Authorization': `Bearer ${token}` } })
                 .then(response => { if (response.ok) return response.json(); throw new Error('Token inválido'); })
                 .then(user => {
-                    authButtons.innerHTML = `<span class="user-info">Hola, ${user.email}</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
+                    authButtons.innerHTML = `<span class="user-info">Hola, ${user.nombre}!</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
                     document.getElementById('logoutBtn').addEventListener('click', () => {
-                        localStorage.removeItem('authToken'); localStorage.removeItem('userEmail'); window.location.href = "signin.html";
+                        localStorage.removeItem('authToken'); localStorage.removeItem('userNombre'); window.location.href = "signin.html";
                     });
                 })
                 .catch(() => { localStorage.removeItem('authToken'); mostrarBotonesLogin(); });

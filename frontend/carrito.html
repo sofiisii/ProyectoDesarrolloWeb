@@ -114,17 +114,17 @@
                 throw new Error('Token inválido');
             })
             .then(user => {
-                const userEmail = user.email;
-                authButtonsContainer.innerHTML = `<span class="user-info" style="color:white; margin-right: 15px; font-weight: 500;">Hola, ${userEmail}</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
+                const userNombre = user.nombre;
+                authButtonsContainer.innerHTML = `<span class="user-info" style="color:white; margin-right: 15px; font-weight: 500;">Hola, ${userNombre}!</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
                 document.getElementById('logoutBtn').addEventListener('click', function() {
                     localStorage.removeItem('authToken');
-                    localStorage.removeItem('userEmail');
+                    localStorage.removeItem('userNombre');
                     window.location.href = "signin.html";
                 });
             })
             .catch(error => {
                 localStorage.removeItem('authToken');
-                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userNombre');
                 mostrarBotonesLogin();
             });
         } else {

@@ -246,10 +246,10 @@
                 const user = await response.json();
                 
                 // Mostrar info de sesión
-                authButtons.innerHTML = `<span class="user-info">Hola, ${user.email} (${user.role})</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
+                authButtons.innerHTML = `<span class="user-info">Hola, ${user.nombre}! (${user.role})</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
                 document.getElementById('logoutBtn').addEventListener('click', () => {
                     localStorage.removeItem('authToken');
-                    localStorage.removeItem('userEmail');
+                    localStorage.removeItem('userNombre');
                     window.location.href = "signin.html";
                 });
                 
