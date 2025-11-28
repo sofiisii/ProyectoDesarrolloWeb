@@ -1,4 +1,5 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Header
+from typing import Optional
 import database
 
 router = APIRouter(prefix="/api/orders", tags=["orders"])
@@ -31,38 +32,8 @@ def crear_pedido(data: dict):
     pedido = database.create_order(user_id, processed_items, total_amount, "pendiente", payment_method, delivery_address)
     return {"message": "Pedido creado", "orderId": pedido["id"], "pedido": pedido}
 
-@router.get("/{order_id}")
-def obtener_pedido(order_id: int):
-    # 1. Buscar la orden
-    order = database.get_order_by_id(order_id)
-    if not order:
-        raise HTTPException(status_code=404, detail="Pedido no encontrado")
-    
-    # 2. --- NUEVO: Intentar buscar la Boleta Oficial ---
-    receipt = database.get_receipt_by_order_id(order_id)
-    
-    if receipt:
-        # Si ya existe la boleta (se pagó), devolvemos los datos congelados de la boleta
-        return {
-            "id": receipt["id"], # ID de la boleta (ej. 1, 2...)
-            "orderId": order["id"],
-            "createdAt": str(receipt["date"]),
-            "totalAmount": receipt["total"],
-            "status": order["estado"], # El estado sigue viniendo de la orden
-            "clientName": receipt["clientName"],
-            "clientEmail": receipt["clientEmail"],
-            "deliveryAddress": receipt["clientAddress"],
-            "paymentMethod": receipt["paymentMethod"],
-            "items": [
-                {
-                    "productName": item["name"],
-                    "quantity": item["quantity"],
-                    "priceAtPurchase": item["price"]
-                } for item in receipt["products"]
-            ]
-        }
-    
-    # 3. Si NO hay boleta aún (no pagado), mostramos datos preliminares de la orden
+# --- FUNCIÓN AUXILIAR PARA FORMATEAR PEDIDOS ---
+def format_order_response(order):
     client_name = "Cliente Invitado"
     client_email = "N/A"
     if order.get("user_id"):
@@ -72,7 +43,7 @@ def obtener_pedido(order_id: int):
             client_email = user["email"]
             
     return {
-        "id": order["id"], # ID provisional (de la orden)
+        "id": order["id"],
         "createdAt": str(order.get("created_at", "Reciente")),
         "totalAmount": order["total"],
         "status": order["estado"],
@@ -89,6 +60,31 @@ def obtener_pedido(order_id: int):
         ],
         "repartidorNombre": order.get("repartidorNombre")
     }
+
+# --- NUEVO ENDPOINT: Obtener el pedido actual del usuario logueado ---
+@router.get("/current")
+def get_current_order(Authorization: Optional[str] = Header(default=None)):
+    if not Authorization or not Authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Token inválido")
+    
+    token = Authorization.split(" ")[1]
+    user = database.get_user_by_token(token)
+    if not user:
+        raise HTTPException(status_code=403, detail="Sesión expirada")
+        
+    # Buscar el último pedido de este usuario
+    order = database.get_latest_order_by_user(user["id"])
+    if not order:
+        raise HTTPException(status_code=404, detail="No tienes pedidos activos")
+        
+    return format_order_response(order)
+
+@router.get("/{order_id}")
+def obtener_pedido(order_id: int):
+    order = database.get_order_by_id(order_id)
+    if not order:
+        raise HTTPException(status_code=404, detail="Pedido no encontrado")
+    return format_order_response(order)
     
 @router.get("/")
 def listar_pedidos():

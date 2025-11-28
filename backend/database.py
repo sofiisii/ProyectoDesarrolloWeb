@@ -122,6 +122,15 @@ def create_receipt(order_id: int, client_data: dict, items: list, total: float, 
 def get_receipt_by_order_id(order_id: int):
     return receipts_collection.find_one({"order_id": order_id}, {"_id": 0})
 
+
+def get_latest_order_by_user(user_id: int):
+    # Busca el pedido más reciente (ordenado por ID descendente) de ese usuario
+    return orders_collection.find_one(
+        {"user_id": user_id}, 
+        sort=[("id", -1)], 
+        projection={"_id": 0}
+    )
+
 # --- Funciones de Reportes (Sin cambios) ---
 def get_stats():
     pipeline_sales = [{"$group": {"_id": None, "total": {"$sum": "$total"}}}]

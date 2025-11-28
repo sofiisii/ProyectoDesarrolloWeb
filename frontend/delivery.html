@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>US-10: Asignación y Seguimiento de Despacho</title>
+        <title>Seguimiento - Sabor Limeño</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -12,7 +12,6 @@
                 --azul-pacifico: #1E88E5; --azul-pacifico-oscuro: #1565C0; --azul-pacifico-claro: #64B5F6;
                 --aji-amarillo: #FFC107; --terracota: #BF360C; --verde-menta: #4CAF50;
                 --purpura-nazca: #6A1B9A; --blanco-roto: #F8F9FA; --gris-texto: #424242;
-                --rojo-alerta: #D32F2F;
             }
             body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--blanco-roto); color: var(--gris-texto); margin: 0; padding: 0; }
             .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
@@ -26,192 +25,99 @@
             .btn { padding: 10px 20px; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; font-size: 14px; }
             .btn-outline { background: transparent; border: 2px solid white; color: white; }
             .btn-outline:hover { background: white; color: var(--azul-pacifico); }
-            .btn-primary { background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; }
-            .btn-primary:hover { background: #FFB300; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3); }
-            .hero { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); color: white; padding: 2rem 0; text-align: center; margin-bottom: 2rem; position: relative; overflow: hidden; }
-            .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>'); background-size: cover; }
-            .hero-content { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
+            .hero { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); color: white; padding: 2rem 0; text-align: center; margin-bottom: 2rem; }
             .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; font-weight: 700; }
-            .hero p { font-size: 1rem; margin-bottom: 0; opacity: 0.9; }
-            .tracking-container { max-width: 800px; margin: 0 auto; padding: 0 15px; }
-            .card { border-radius: 15px; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); border: 2px solid transparent; overflow: hidden; margin-bottom: 2rem; }
-            .card-header { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; padding: 1.5rem; text-align: center; border-bottom: none; }
-            .card-header h2 { margin: 0; font-weight: 600; font-size: 1.5rem; }
+            .card { border-radius: 15px; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); border: 2px solid transparent; overflow: hidden; margin-bottom: 2rem; max-width: 800px; margin: 0 auto 2rem auto; }
+            .card-header { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; padding: 1.5rem; text-align: center; }
             .card-body { padding: 2rem; }
-            .order-info { text-align: center; margin-bottom: 30px; padding: 20px; background: linear-gradient(135deg, #E3F2FD, #FFFFFF); border-radius: 10px; border: 2px solid var(--blanco-roto); }
-            .order-number { font-size: 18px; font-weight: 600; color: var(--azul-pacifico-oscuro); margin-bottom: 5px; }
-            .delivery-man { font-size: 16px; color: var(--gris-texto); min-height: 20px; }
-            .current-status { text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(30, 136, 229, 0.1), rgba(30, 136, 229, 0.05)); border: 2px solid var(--azul-pacifico); border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.1); }
-            .status-label { font-size: 20px; font-weight: 700; color: var(--azul-pacifico-oscuro); margin-bottom: 10px; text-transform: capitalize; }
-            .status-time { color: var(--gris-texto); font-size: 14px; }
+            
+            /* Timeline */
             .status-timeline { margin-bottom: 30px; position: relative; }
             .timeline-line { position: absolute; left: 30px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, var(--azul-pacifico-claro), var(--verde-menta)); z-index: 1; }
             .status-step { display: flex; align-items: center; margin-bottom: 25px; position: relative; z-index: 2; }
-            .step-icon { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-right: 20px; border: 3px solid var(--azul-pacifico-claro); background-color: white; color: var(--azul-pacifico-claro); transition: all 0.3s ease; }
-            .step-content { flex: 1; }
-            .step-title { font-weight: 600; color: var(--gris-texto); margin-bottom: 5px; transition: all 0.3s ease; text-transform: capitalize;}
-            .step-description { color: var(--gris-texto); font-size: 14px; opacity: 0.8; }
-            .step-active .step-icon { border-color: var(--azul-pacifico); background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3); }
-            .step-active .step-title { color: var(--azul-pacifico-oscuro); font-weight: 700; }
-            .step-completed .step-icon { border-color: var(--verde-menta); background: linear-gradient(135deg, var(--verde-menta), #66BB6A); color: white; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3); }
-            .step-completed .step-title { color: var(--verde-menta); font-weight: 600; }
-            .action-buttons { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
-            .btn-action { padding: 15px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 16px; transition: all 0.3s; text-decoration: none; display: inline-block; text-align: center; flex: 1 1 calc(50% - 15px); min-width: 180px; background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); }
-            .btn-action:hover:not(:disabled) { background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico)); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3); }
-            .btn-secondary { background: linear-gradient(135deg, var(--aji-amarillo), #FFB300); color: var(--azul-pacifico-oscuro); box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2); }
-            .btn-secondary:hover:not(:disabled) { background: linear-gradient(135deg, #FFB300, var(--aji-amarillo)); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(255, 193, 7, 0.3); }
-            .btn-success { background: linear-gradient(135deg, var(--verde-menta), #66BB6A); color: white; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2); }
-            .btn-success:hover:not(:disabled) { background: linear-gradient(135deg, #66BB6A, var(--verde-menta)); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3); }
-            .btn:disabled { background: #cccccc; cursor: not-allowed; transform: none; box-shadow: none; color: #888888; }
-            .delivery-info { background: linear-gradient(135deg, #E3F2FD, #FFFFFF); padding: 20px; border-radius: 10px; margin-top: 20px; border: 2px solid var(--blanco-roto); }
-            .info-row { display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--azul-pacifico-claro); }
-            .info-label { font-weight: 500; color: var(--gris-texto); }
-            .info-value { font-weight: 600; color: var(--azul-pacifico-oscuro); text-align: right; }
-            .confirmation-message { display: none; text-align: center; padding: 15px; background-color: rgba(76, 175, 80, 0.15); color: var(--verde-menta); border-radius: 8px; margin-top: 15px; border: 2px solid var(--verde-menta); font-weight: 600; }
-            .alert-message { display: none; text-align: center; padding: 15px; background-color: rgba(211, 47, 47, 0.15); color: var(--rojo-alerta); border-radius: 8px; margin-top: 15px; border: 2px solid var(--rojo-alerta); font-weight: 600; }
-            .order-details { margin-bottom: 25px; }
-            .order-items { margin-bottom: 15px; }
-            .order-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--azul-pacifico-claro); }
-            .item-name { font-weight: 600; color: var(--azul-pacifico-oscuro); }
-            .item-quantity { color: var(--gris-texto); font-size: 14px; }
-            .item-price { font-weight: 600; color: var(--verde-menta); }
-            .order-total { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-top: 2px solid var(--azul-pacifico); font-weight: 700; font-size: 18px; color: var(--azul-pacifico-oscuro); }
+            .step-icon { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-right: 20px; border: 3px solid var(--azul-pacifico-claro); background-color: white; color: var(--azul-pacifico-claro); }
+            .step-active .step-icon { border-color: var(--azul-pacifico); background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; }
+            .step-completed .step-icon { border-color: var(--verde-menta); background: linear-gradient(135deg, var(--verde-menta), #66BB6A); color: white; }
             
-            /* --- NUEVO: Estilos para Carga y Error --- */
-            #loadingState { text-align: center; padding: 3rem; font-size: 1.2rem; color: var(--gris-texto); }
-            #errorState { text-align: center; padding: 3rem; background-color: rgba(191, 54, 12, 0.1); border: 2px solid var(--terracota); border-radius: 10px; color: var(--terracota); }
-
+            /* Estados */
+            #noOrderMessage, #loadingState { text-align: center; padding: 3rem; }
+            .btn-action { padding: 10px 20px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; background: var(--azul-pacifico); color: white; text-decoration: none; }
+            .action-buttons { margin-top: 20px; display: flex; gap: 10px; justify-content: center; }
         </style>
     </head>
     <body>
-
         <header class="header">
             <div class="container">
                 <nav class="nav-container">
-                    <div class="logo">
-                        <span>Sabor Limeño 🚚</span>
-                    </div>
+                    <div class="logo"><span>Sabor Limeño 🚚</span></div>
                     <ul class="nav-links">
                         <li><a href="index.html">Inicio</a></li>
                         <li><a href="catalogo.html">Catálogo</a></li>
                         <li><a href="pedido.html">Mis Pedidos</a></li>
-                        <li><a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">Carrito 🛒</a></li>
+                        <li><a href="carrito.html">Carrito 🛒</a></li>
                     </ul>
-                    <div class="auth-buttons">
-                        </div>
+                    <div class="auth-buttons"></div>
                 </nav>
             </div>
         </header>
 
         <section class="hero">
             <div class="container">
-                <div class="hero-content">
-                    <h1>Panel de Despacho</h1>
-                    <p>Asignación y seguimiento de pedidos - Vista Administrador</p>
-                </div>
+                <h1 id="pageTitle">Rastrea tu Pedido</h1>
+                <p id="pageSubtitle">Consulta el estado de tu entrega en tiempo real</p>
             </div>
         </section>
 
-        <div class="tracking-container">
-            <div id="loadingState" class="card card-body">
-                <div class="d-flex justify-content-center">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Cargando...</span>
-                    </div>
-                </div>
-                <p class="text-center mt-2">Cargando orden...</p>
+        <div class="container">
+            
+            <div id="loadingState">
+                <div class="spinner-border text-primary" role="status"></div>
+                <p class="mt-2">Buscando tu pedido...</p>
             </div>
 
-            <div id="errorState" style="display: none;">
-                <h3>❌ Error al cargar la orden</h3>
-                <p id="errorText">No se pudo encontrar el pedido o no tienes permiso para verlo.</p>
-                <a href="administracion.html" class="btn-action">Volver al Panel</a>
+            <div id="noOrderMessage" class="card card-body" style="display: none;">
+                <h3>📭 No tienes pedidos activos</h3>
+                <p>Parece que no has realizado ningún pedido recientemente.</p>
+                <a href="catalogo.html" class="btn-action">Ir al Catálogo</a>
             </div>
-            
+
             <div id="deliveryContent" class="card" style="display: none;">
                 <div class="card-header">
                     <h2>Pedido <span id="orderNumber">#...</span></h2>
                 </div>
                 <div class="card-body">
-                    <div class="order-info">
-                        <div class="order-number">Número de orden <span id="orderIdDisplay">#...</span></div>
-                        <div class="delivery-man">Repartidor: <span id="deliveryManName">N/A</span></div>
+                    <div class="text-center mb-4">
+                        <h4 id="currentStatusLabel" style="color: var(--azul-pacifico-oscuro); font-weight: 700;">...</h4>
+                        <p id="deliveryManInfo" class="text-muted">Repartidor: Por asignar</p>
                     </div>
-                    
-                    <div class="current-status">
-                        <div class="status-label" id="currentStatusLabel">Cargando...</div>
-                        <div class="status-time" id="statusTime">Actualizado: --:--</div>
-                    </div>
-                    
-                    <div class="action-buttons">
-                        <button class="btn-action btn-secondary" id="assignBtn">Asignar Pedido</button>
-                        <button class="btn-action btn-secondary" id="reassignBtn" disabled>Reasignar Pedido</button>
-                        <button class="btn-action btn-success" id="deliverBtn" disabled>Marcar como Entregado</button>
-                    </div>
-                    
-                    <div id="confirmationMessage" class="confirmation-message">
-                        </div>
 
-                    <div id="alertMessage" class="alert-message">
-                        </div>
-                    
                     <div class="status-timeline">
                         <div class="timeline-line"></div>
                         <div class="status-step" id="step-pendiente">
                              <div class="step-icon">🍽️</div>
-                            <div class="step-content">
-                                <div class="step-title">Pendiente</div>
-                                <div class="step-description" id="pendienteTime">--:--</div>
-                            </div>
+                            <div class="step-content"><strong>Pendiente</strong><br><small>Recibido</small></div>
                         </div>
                         <div class="status-step" id="step-preparando">
                             <div class="step-icon">👨‍🍳</div>
-                            <div class="step-content">
-                                <div class="step-title">Preparando</div>
-                                <div class="step-description" id="preparandoTime">--:--</div>
-                            </div>
+                            <div class="step-content"><strong>Preparando</strong><br><small>En cocina</small></div>
                         </div>
                         <div class="status-step" id="step-completado">
                             <div class="step-icon">📦</div>
-                            <div class="step-content">
-                                <div class="step-title">Completado (En espera)</div>
-                                <div class="step-description" id="completadoTime">--:--</div>
-                            </div>
+                            <div class="step-content"><strong>Listo</strong><br><small>Esperando retiro</small></div>
                         </div>
                         <div class="status-step" id="step-en_ruta">
                             <div class="step-icon">🛵</div>
-                            <div class="step-content">
-                                <div class="step-title">En Ruta</div>
-                                <div class="step-description" id="enRutaTime">--:--</div>
-                            </div>
+                            <div class="step-content"><strong>En Ruta</strong><br><small>Camino a tu dirección</small></div>
                         </div>
                         <div class="status-step" id="step-entregado">
                             <div class="step-icon">✅</div>
-                            <div class="step-content">
-                                <div class="step-title">Entregado</div>
-                                <div class="step-description" id="entregadoTime">--:--</div>
-                            </div>
+                            <div class="step-content"><strong>Entregado</strong><br><small>¡Buen provecho!</small></div>
                         </div>
                     </div>
-                    
-                    <div class="delivery-info">
-                        <h3 style="color: var(--azul-pacifico-oscuro); margin-bottom: 15px;">Información de Entrega</h3>
-                        <div class="info-row">
-                            <span class="info-label">Cliente:</span>
-                            <span class="info-value" id="clientName">...</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Dirección:</span>
-                            <span class="info-value" id="clientAddress">...</span>
-                        </div>
-                         <div class="info-row" id="locationInfo" style="display: none;">
-                            <span class="info-label">Ubicación Repartidor:</span>
-                            <span class="info-value"><a href="#" target="_blank" style="color: var(--verde-menta); text-decoration: none;">Ver Mapa 📍</a></span>
-                        </div>
-                         <div class="info-row">
-                            <span class="info-label">Método de pago:</span>
-                            <span class="info-value" id="paymentMethod">...</span>
-                        </div>
+
+                    <div class="action-buttons" id="adminActions" style="display: none;">
+                        <button class="btn-action" id="assignBtn" disabled>Asignar</button>
+                        <button class="btn-action" id="deliverBtn" disabled>Marcar Entregado</button>
                     </div>
                 </div>
             </div>
@@ -219,237 +125,131 @@
 
         <script>
         document.addEventListener('DOMContentLoaded', async function() {
-            
             const API_URL = 'http://localhost:8000';
             const token = localStorage.getItem('authToken');
             
-            // --- Elementos del DOM ---
+            // Elementos
             const loadingState = document.getElementById('loadingState');
-            const errorState = document.getElementById('errorState');
-            const errorText = document.getElementById('errorText');
+            const noOrderMessage = document.getElementById('noOrderMessage');
             const deliveryContent = document.getElementById('deliveryContent');
+            const adminActions = document.getElementById('adminActions');
             
+            // Botones Admin
             const assignBtn = document.getElementById('assignBtn');
-            const reassignBtn = document.getElementById('reassignBtn');
             const deliverBtn = document.getElementById('deliverBtn');
             
-            const currentStatusLabel = document.getElementById('currentStatusLabel');
-            const statusTime = document.getElementById('statusTime');
-            const deliveryManName = document.getElementById('deliveryManName');
-            const locationInfo = document.getElementById('locationInfo');
-            
-            const confirmationMessage = document.getElementById('confirmationMessage');
-            const alertMessage = document.getElementById('alertMessage');
-            
-            let currentOrderData = null; // Guardará el pedido
-            let orderId = null;
-            
-            // --- INICIO: Script de Gestión de Sesión (Admin) ---
+            let currentOrderId = null;
+            let currentUserRole = 'cliente';
+
+            // 1. Gestión de Sesión
             const authButtonsContainer = document.querySelector('.header .auth-buttons');
             if (token) {
                 try {
-                    const response = await fetch(API_URL + '/api/auth/me', {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
-                    if (!response.ok) throw new Error('Token inválido');
-                    const user = await response.json();
-                    
-                    if (user.role !== 'admin') {
-                        throw new Error('Acceso denegado. Debes ser administrador.');
-                    }
-                    
-                    // Usuario es Admin, mostrar info de sesión
-                    authButtonsContainer.innerHTML = `<span class="user-info" style="color:white; margin-right: 15px; font-weight: 500;">Hola, ${user.nombre}! (Admin)</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
-                    document.getElementById('logoutBtn').addEventListener('click', () => {
-                        localStorage.removeItem('authToken');
-                        localStorage.removeItem('userNombre');
-                        window.location.href = "signin.html";
-                    });
-                    
-                    // Iniciar carga de la página
-                    await initializePage();
-                    
-                } catch (error) {
-                    localStorage.removeItem('authToken');
-                    localStorage.removeItem('userNombre');
-                    showError(`Error de autenticación: ${error.message}. <a href='signin.html'>Inicia sesión</a>.`);
-                }
-            } else {
-                showError("No estás autenticado. <a href='signin.html'>Inicia sesión como Admin</a> para ver esta página.");
-            }
-            // --- FIN: Script de Gestión de Sesión ---
+                    const response = await fetch(API_URL + '/api/auth/me', { headers: { 'Authorization': `Bearer ${token}` } });
+                    if (response.ok) {
+                        const user = await response.json();
+                        currentUserRole = user.role;
+                        authButtonsContainer.innerHTML = `<span class="user-info" style="color:white; margin-right: 15px;">Hola, ${user.nombre}</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
+                        
+                        document.getElementById('logoutBtn').addEventListener('click', () => {
+                            localStorage.clear(); window.location.href = "signin.html";
+                        });
+                        
+                        initPage(user.role);
+                    } else { throw new Error('Token inválido'); }
+                } catch (e) { localStorage.clear(); window.location.href = "signin.html"; }
+            } else { window.location.href = "signin.html"; }
 
-            
-            // --- LÓGICA DE LA PÁGINA ---
-            
-            async function initializePage() {
+            // 2. Inicializar Página
+            async function initPage(role) {
                 const urlParams = new URLSearchParams(window.location.search);
-                orderId = urlParams.get('orderId');
+                const urlOrderId = urlParams.get('orderId');
 
-                if (!orderId) {
-                    showError("No se especificó un número de pedido. Prueba añadiendo ?orderId=1 a la URL.");
-                    return;
+                // Si hay ID en URL (Admin revisando pedido específico)
+                if (urlOrderId) {
+                    currentOrderId = urlOrderId;
+                    await fetchOrder(`/api/orders/${urlOrderId}`);
+                } 
+                // Si NO hay ID, buscamos el pedido activo del usuario (Cliente)
+                else {
+                    await fetchOrder(`/api/orders/current`);
                 }
-                
-                await loadOrderData();
             }
 
-            async function loadOrderData() {
+            // 3. Obtener Pedido
+            async function fetchOrder(endpoint) {
                 try {
-                    const data = await fetchAPI(`/api/orders/${orderId}`);
-                    currentOrderData = data;
-                    populateOrderData(data);
+                    const res = await fetch(API_URL + endpoint, { headers: { 'Authorization': `Bearer ${token}` } });
+                    
+                    if (res.status === 404) {
+                        loadingState.style.display = 'none';
+                        noOrderMessage.style.display = 'block';
+                        return;
+                    }
+
+                    const order = await res.json();
+                    currentOrderId = order.id;
+                    renderOrder(order);
                     
                     loadingState.style.display = 'none';
                     deliveryContent.style.display = 'block';
+
                 } catch (error) {
-                    console.error("Error al cargar la orden:", error);
-                    showError(error.message);
+                    console.error(error);
+                    loadingState.innerHTML = `<p class="text-danger">Error al cargar datos.</p>`;
                 }
             }
-            
-            function populateOrderData(data) {
-                const formatDate = (dateString) => dateString ? new Date(dateString).toLocaleString('es-CL') : '--:--';
-                
-                // Info superior
-                document.getElementById('orderNumber').textContent = `#${data.id}`;
-                document.getElementById('orderIdDisplay').textContent = `#${data.id}`;
-                document.getElementById('deliveryManName').textContent = data.repartidorNombre || 'N/A';
-                document.getElementById('statusTime').textContent = `Actualizado: ${formatDate(data.createdAt)}`; // (Idealmente sería 'updatedAt')
-                
-                // Info cliente
-                document.getElementById('clientName').textContent = data.clientName;
-                document.getElementById('clientAddress').textContent = data.deliveryAddress || 'N/A';
-                document.getElementById('paymentMethod').textContent = data.paymentMethod;
 
-                // Actualizar Timeline y Botones
-                updateVisuals(data.status, data.repartidorNombre);
-            }
-            
-            function updateVisuals(status, repartidor) {
-                // Actualizar Label de Estado
-                currentStatusLabel.textContent = status.replace('_', ' ');
+            // 4. Renderizar Datos
+            function renderOrder(order) {
+                document.getElementById('orderNumber').textContent = `#${order.id}`;
+                document.getElementById('currentStatusLabel').textContent = order.status.toUpperCase().replace('_', ' ');
+                document.getElementById('deliveryManInfo').textContent = `Repartidor: ${order.repartidorNombre || 'Por asignar'}`;
                 
-                // Actualizar Timeline
+                // Timeline
                 const steps = ['pendiente', 'preparando', 'completado', 'en_ruta', 'entregado'];
-                let stepCompleted = true;
+                let passed = true;
                 steps.forEach(step => {
-                    const stepEl = document.getElementById(`step-${step}`);
-                    if (stepEl) {
-                        stepEl.classList.remove('step-active', 'step-completed');
-                        if (step === status) {
-                            stepEl.classList.add('step-active');
-                            stepCompleted = false;
-                        } else if (stepCompleted) {
-                            stepEl.classList.add('step-completed');
-                        }
+                    const el = document.getElementById(`step-${step}`);
+                    el.classList.remove('step-active', 'step-completed');
+                    
+                    if (step === order.status) {
+                        el.classList.add('step-active');
+                        passed = false;
+                    } else if (passed) {
+                        el.classList.add('step-completed');
                     }
                 });
 
-                // Actualizar Botones
-                assignBtn.disabled = true;
-                reassignBtn.disabled = true;
-                deliverBtn.disabled = true;
-                locationInfo.style.display = 'none';
-
-                if (status === 'completado') {
-                    assignBtn.disabled = false;
-                } else if (status === 'en_ruta') {
-                    reassignBtn.disabled = false;
-                    deliverBtn.disabled = false;
-                    locationInfo.style.display = 'flex'; // Mostrar mapa
-                }
-                
-                // Mostrar repartidor si existe
-                deliveryManName.textContent = repartidor || 'N/A';
-            }
-            
-            // --- Acciones de Botones ---
-            
-            // Asignar o Reasignar
-            async function assignDelivery() {
-                const driverName = prompt("Ingresa el nombre del repartidor:", "Carlos R.");
-                if (!driverName) return; // Si el usuario cancela
-                
-                assignBtn.disabled = true;
-                reassignBtn.disabled = true;
-                
-                try {
-                    await fetchAPI(`/api/orders/${orderId}/assign`, {
-                        method: 'PATCH',
-                        body: JSON.stringify({ repartidorNombre: driverName })
-                    });
-                    
-                    showConfirmation(`Pedido asignado a ${driverName} y marcado como 'En Ruta'.`);
-                    await loadOrderData(); // Recargar todo
-                    
-                } catch (error) {
-                    showAlert(`Error al asignar: ${error.message}`);
-                    updateVisuals(currentOrderData.status, currentOrderData.repartidorNombre); // Restaurar botones
+                // Controles Admin
+                if (currentUserRole === 'admin') {
+                    adminActions.style.display = 'flex';
+                    assignBtn.disabled = (order.status !== 'completado');
+                    deliverBtn.disabled = (order.status !== 'en_ruta');
                 }
             }
             
-            assignBtn.addEventListener('click', assignDelivery);
-            reassignBtn.addEventListener('click', assignDelivery); // Reasignar usa la misma lógica
-
-            // Marcar como Entregado
-            deliverBtn.addEventListener('click', async () => {
-                if (!confirm("¿Confirmas que este pedido ha sido entregado?")) return;
-                
-                deliverBtn.disabled = true;
-                
-                try {
-                    await fetchAPI(`/api/orders/${orderId}/status`, {
-                        method: 'PATCH',
-                        body: JSON.stringify({ status: 'entregado' })
-                    });
-                    
-                    showConfirmation(`¡Pedido #${orderId} marcado como 'Entregado'!`);
-                    await loadOrderData(); // Recargar todo
-                    
-                } catch (error) {
-                    showAlert(`Error al entregar: ${error.message}`);
-                    updateVisuals(currentOrderData.status, currentOrderData.repartidorNombre); // Restaurar botones
-                }
+            // 5. Eventos Admin
+            assignBtn.addEventListener('click', async () => {
+                const name = prompt("Nombre del repartidor:");
+                if(!name) return;
+                await fetch(API_URL + `/api/orders/${currentOrderId}/assign`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ repartidorNombre: name })
+                });
+                location.reload();
             });
 
-            // --- Funciones Helper ---
-            
-            async function fetchAPI(endpoint, options = {}) {
-                const defaultOptions = {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    }
-                };
-                const config = { ...defaultOptions, ...options };
-                
-                const response = await fetch(API_URL + endpoint, config);
-                const data = await response.json();
-                
-                if (!response.ok) {
-                    throw new Error(data.message || `Error ${response.status}`);
-                }
-                return data;
-            }
-
-            function showError(message) {
-                loadingState.style.display = 'none';
-                errorText.innerHTML = message;
-                errorState.style.display = 'block';
-            }
-            
-            function showConfirmation(message) {
-                confirmationMessage.textContent = message;
-                confirmationMessage.style.display = 'block';
-                setTimeout(() => confirmationMessage.style.display = 'none', 4000);
-            }
-            
-            function showAlert(message) {
-                alertMessage.textContent = message;
-                alertMessage.style.display = 'block';
-                setTimeout(() => alertMessage.style.display = 'none', 4000);
-            }
+            deliverBtn.addEventListener('click', async () => {
+                if(!confirm("¿Confirmar entrega?")) return;
+                await fetch(API_URL + `/api/orders/${currentOrderId}/status`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status: 'entregado' })
+                });
+                location.reload();
+            });
         });
         </script>
     </body>
