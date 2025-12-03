@@ -3,357 +3,389 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clientes - Sabor Limeño</title>
+    <title>Gestión de Clientes - Sabor Limeño</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet">
     <style>
         :root {
-            --azul-pacifico: #1E88E5; --azul-pacifico-oscuro: #1565C0; --azul-pacifico-claro: #64B5F6;
-            --aji-amarillo: #FFC107; --terracota: #BF360C; --verde-menta: #4CAF50;
-            --purpura-nazca: #6A1B9A; --blanco-roto: #F8F9FA; --gris-texto: #424242;
+            /* PALETA OFICIAL SABOR LIMEÑO */
+            --azul-pacifico: #1E88E5;
+            --azul-pacifico-oscuro: #1565C0;
+            --azul-pacifico-claro: #64B5F6;
+            --aji-amarillo: #FFC107;
+            --terracota: #BF360C;
+            --verde-menta: #4CAF50;
+            --blanco-roto: #F8F9FA;
+            --gris-texto: #424242;
         }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--blanco-roto); color: var(--gris-texto); }
-        .header { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); padding: 1rem 0; }
-        .logo { font-size: 1.8rem; font-weight: 700; }
-        .hero { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); color: white; padding: 2rem 0; text-align: center; margin-bottom: 2.5rem; position: relative; }
-        .btn-back { position: absolute; top: 1.5rem; left: 1.5rem; background-color: rgba(255, 255, 255, 0.2); color: white; padding: 8px 15px; border-radius: 20px; font-size: 14px; text-decoration: none; transition: all 0.3s; }
-        .btn-back:hover { background-color: rgba(255, 255, 255, 0.4); transform: translateY(-2px); }
-        .hero h1 { font-size: 2.2rem; font-weight: 700; }
-        .btn { padding: 10px 20px; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; font-size: 14px; }
-        .btn-outline-primary, .btn-outline-danger { transition: all 0.3s ease; }
-        .card { border-radius: 15px; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); border: none; overflow: hidden; }
-        table thead { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; }
-        table th, table td { vertical-align: middle; }
-        .badge { padding: 0.5em 1em; font-size: 0.8rem; font-weight: 600; border-radius: 50rem; text-transform: capitalize; }
-        .badge-nuevo { background-color: var(--azul-pacifico-claro); color: var(--gris-texto); }
-        .badge-frecuente { background-color: var(--verde-menta); color: white; }
-        .badge-vip { background: linear-gradient(135deg, var(--purpura-nazca), #8E24AA); color: white; }
-        .action-buttons .btn { margin: 0 4px; }
 
-        /* --- NUEVO: Estilo para bloquear página --- */
-        #adminLock {
-            text-align: center; padding: 40px;
-            background: linear-gradient(135deg, rgba(191, 54, 12, 0.1), rgba(191, 54, 12, 0.05));
-            border-radius: 15px; border: 2px solid var(--terracota); display: none;
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: var(--blanco-roto); 
+            color: var(--gris-texto);
+            margin: 0; padding: 0;
+            min-height: 100vh;
+            display: flex; flex-direction: column;
         }
-        .lock-title { color: var(--terracota); font-weight: 700; font-size: 1.5rem; margin-bottom: 1rem; }
-        .lock-text { color: var(--gris-texto); margin-bottom: 1.5rem; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- HEADER (Sin margen inferior) --- */
+        .header { 
+            background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); 
+            color: white; 
+            padding: 1rem 0; 
+            margin-bottom: 0; /* Pegado al Hero */
+            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); 
+            position: relative; z-index: 10;
+        }
+        
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; }
+        .nav-links { list-style: none; display: flex; gap: 2rem; margin: 0; padding: 0; }
+        
+        .nav-links a { 
+            color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; 
+        }
+        .nav-links a:hover { background-color: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
+
+        /* Auth Buttons */
+        .auth-buttons { display: flex; gap: 1rem; align-items: center; }
+        .user-greeting { font-weight: 600; color: white; margin-right: 10px; }
+        .btn-custom { padding: 8px 20px; border-radius: 25px; font-weight: 600; text-decoration: none; transition: all 0.3s; font-size: 14px; border: none; cursor: pointer; }
+        .btn-outline-white { background: transparent; border: 2px solid white; color: white; }
+        .btn-outline-white:hover { background: white; color: var(--azul-pacifico); }
+
+        /* --- HERO SECTION (Azul Corporativo) --- */
+        .hero { 
+            background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); 
+            color: white; 
+            padding: 3rem 0; 
+            text-align: center; 
+            margin-bottom: 4rem; 
+            position: relative; overflow: hidden; 
+        }
+        .hero::before { 
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>'); 
+            background-size: cover; 
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto;}
+        .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .hero p { font-size: 1.1rem; margin-bottom: 0; opacity: 0.95; font-weight: 500; }
+        
+        /* BOTÓN VOLVER AL PANEL (POSICIONADO A LA IZQUIERDA) */
+        .btn-back {
+            position: absolute; /* Flota sobre el contenido */
+            top: 2rem;
+            left: 2rem;
+            color: rgba(255,255,255,0.9); 
+            text-decoration: none; 
+            font-weight: 600; 
+            border: 1px solid rgba(255,255,255,0.4); 
+            padding: 8px 20px; 
+            border-radius: 20px; 
+            transition: all 0.3s;
+            z-index: 10;
+            background: rgba(255,255,255,0.1);
+        }
+        .btn-back:hover { 
+            background: rgba(255,255,255,0.3); 
+            color: white; 
+            transform: translateX(-3px);
+        }
+
+        /* --- TARJETA PRINCIPAL --- */
+        .main-card {
+            background: white; 
+            border: 1px solid #e0e0e0; 
+            border-radius: 20px; 
+            padding: 40px;
+            min-height: 400px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08); 
+            max-width: 1000px; 
+            margin: 0 auto 80px auto;
+        }
+
+        /* Tabla */
+        .table thead th { 
+            background-color: var(--azul-pacifico-oscuro); color: white; border: none; padding: 15px; font-weight: 600; 
+        }
+        .table tbody td { padding: 15px; vertical-align: middle; border-bottom: 1px solid #eee; }
+        .table tbody tr:hover { background-color: #f8f9fa; }
+
+        /* Badges */
+        .badge-nuevo { background-color: #E3F2FD; color: var(--azul-pacifico-oscuro); padding: 8px 12px; border-radius: 20px; }
+        .badge-frecuente { background-color: #E8F5E9; color: var(--verde-menta); border: 1px solid var(--verde-menta); padding: 8px 12px; border-radius: 20px; }
+        .badge-vip { background: linear-gradient(135deg, #FFC107, #FFB300); color: #5D4037; padding: 8px 12px; border-radius: 20px; }
+
+        /* Botones de Acción */
+        .btn-icon { width: 35px; height: 35px; border-radius: 50%; border: none; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s; margin: 0 3px; cursor: pointer; }
+        .btn-edit { background-color: var(--azul-pacifico); color: white; }
+        .btn-edit:hover { background-color: var(--azul-pacifico-oscuro); transform: translateY(-2px); }
+        .btn-delete { background-color: #ffebee; color: #d32f2f; }
+        .btn-delete:hover { background-color: #ffcdd2; transform: translateY(-2px); }
+
+        /* Modal */
+        .modal-header { background: var(--azul-pacifico); color: white; }
+        .btn-save { background: var(--azul-pacifico); border: none; color: white; font-weight: 600; }
+        .btn-save:hover { background: var(--azul-pacifico-oscuro); }
+        
+        /* Utilidades */
+        .d-none { display: none !important; }
+        
+        @media (max-width: 768px) {
+            .hero { padding-top: 5rem; } /* Espacio extra en móvil para que el botón no tape el título */
+            .btn-back { top: 1rem; left: 1rem; font-size: 0.9rem; padding: 6px 15px; }
+        }
     </style>
 </head>
 <body>
-    
+
     <header class="header">
         <div class="container">
-            <div class="logo">
-                <span>Sabor Limeño</span>
-            </div>
+            <nav class="nav-container">
+                <div class="logo">Sabor Limeño</div>
+                <div class="auth-buttons" id="authButtons">
+                    </div>
+            </nav>
         </div>
     </header>
-    
+
     <section class="hero">
-        <a href="administracion.html" class="btn-back">
-            <i class="fas fa-arrow-left me-2"></i>Volver al Panel de Administración
-        </a>
-        <h1>Administración de Clientes</h1>
-        <p>Gestiona, categoriza y asigna promociones a tus clientes.</p>
+        <a href="administracion.html" class="btn-back">← Volver al Panel</a>
+        
+        <div class="container hero-content">
+            <h1>Gestión de Clientes</h1>
+            <p>Administra usuarios y asigna promociones especiales</p>
+        </div>
     </section>
 
     <main class="container">
-         <div id="alertMessage" class="alert" style="display: none;"></div>
         
-         <div id="adminLock" class="card">
-            <div class="card-body">
-                <h2 class="lock-title">Acceso Denegado</h2>
-                <p class="lock-text">Solo los administradores pueden ver esta página.</p>
-                <a href="index.html" class="btn btn-outline-primary" style="border-radius: 8px;">Volver al Inicio</a>
-            </div>
+        <div id="alertMessage" class="alert d-none" role="alert"></div>
+        
+        <div id="adminLock" class="main-card d-none" style="text-align: center; padding-top: 100px;">
+            <h2 style="color: #D32F2F;">Acceso Denegado</h2>
+            <p class="text-muted">Solo los administradores pueden ver esta página.</p>
+            <a href="index.html" class="btn btn-primary mt-3">Volver al Inicio</a>
         </div>
-         
-         <div class="card mt-4" id="mainContent" style="display: none;">
-            <table class="table table-hover mb-0" id="clientsTable">
-                <thead>
-                    <tr>
-                        <th scope="col" class="ps-4">Nombre Completo</th>
-                        <th scope="col">Correo Electrónico</th>
-                        <th scope="col" class="text-center">Categoría</th>
-                        <th scope="col" class="text-center">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="clientsTableBody">
+
+        <div id="mainContent" class="main-card d-none">
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">Nombre Completo</th>
+                            <th>Correo Electrónico</th>
+                            <th class="text-center">Categoría / Promoción</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clientsTableBody">
+                        <tr><td colspan="4" class="text-center p-5"><div class="spinner-border text-primary"></div></td></tr>
                     </tbody>
-            </table>
+                </table>
+            </div>
         </div>
     </main>
 
     <div class="modal fade" id="editClientModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
                 <div class="modal-header">
                     <h5 class="modal-title">Editar Cliente</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body p-4">
                     <form id="editForm">
                          <input type="hidden" id="clientIdInput">
                          <div class="mb-3">
-                            <label for="clientNameInput" class="form-label">Nombre Completo</label>
+                            <label class="form-label fw-bold">Nombre Completo</label>
                             <input type="text" class="form-control" id="clientNameInput" required>
                         </div>
                         <div class="mb-3">
-                            <label for="clientEmailInput" class="form-label">Correo Electrónico</label>
+                            <label class="form-label fw-bold">Correo Electrónico</label>
                             <input type="email" class="form-control" id="clientEmailInput" required>
                         </div>
                         <div class="mb-3">
-                            <label for="clientCategorySelect" class="form-label">Categoría</label>
+                            <label class="form-label fw-bold">Categoría (Promoción)</label>
                             <select class="form-select" id="clientCategorySelect">
-                                <option value="nuevo">Nuevo</option>
-                                <option value="frecuente">Frecuente</option>
-                                <option value="vip">VIP</option>
+                                <option value="nuevo">Nuevo (Estándar)</option>
+                                <option value="frecuente">Frecuente (Cupón 10%)</option>
+                                <option value="vip">VIP (Envío Gratis)</option>
                             </select>
+                            <div class="form-text text-success mt-2" id="promoText" style="display:none;">
+                                <i class="fas fa-gift"></i> Se asignará cupón automáticamente.
+                            </div>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer border-0 pb-4 pe-4">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="saveChangesBtn" style="background: var(--azul-pacifico); color: white;">Guardar Cambios</button>
+                    <button type="button" class="btn btn-save" id="saveChangesBtn">Guardar Cambios</button>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
-            
             const API_URL = 'http://localhost:8000';
             const token = localStorage.getItem('authToken');
             
-            // --- Elementos del DOM ---
             const adminLock = document.getElementById('adminLock');
             const mainContent = document.getElementById('mainContent');
-            const clientsTableBody = document.getElementById('clientsTableBody');
-            const alertMessage = document.getElementById('alertMessage');
+            const tableBody = document.getElementById('clientsTableBody');
+            const alertBox = document.getElementById('alertMessage');
+            
+            // Modal
             const editModal = new bootstrap.Modal(document.getElementById('editClientModal'));
+            const saveBtn = document.getElementById('saveChangesBtn');
             
-            // --- Campos del Modal ---
-            const saveChangesBtn = document.getElementById('saveChangesBtn');
-            const clientIdInput = document.getElementById('clientIdInput');
-            const clientNameInput = document.getElementById('clientNameInput');
-            const clientEmailInput = document.getElementById('clientEmailInput');
-            const clientCategorySelect = document.getElementById('clientCategorySelect');
-            
-            let localClientsData = []; // Caché local de clientes
+            let clientsData = [];
 
-            // --- INICIO: Script de Gestión de Sesión (Admin) ---
+            // 1. Validar Sesión
             if (token) {
+                const userName = localStorage.getItem('userNombre') || 'Admin';
+                document.getElementById('authButtons').innerHTML = `
+                    <span class="user-greeting">Hola, ${userName}</span>
+                    <button onclick="logout()" class="btn-custom btn-outline-white">Cerrar Sesión</button>
+                `;
+                
                 try {
-                    const response = await fetch(API_URL + '/api/auth/me', {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
-                    if (!response.ok) throw new Error('Token inválido');
-                    const user = await response.json();
-                    
-                    if (user.role === 'admin') {
-                        mainContent.style.display = 'block';
-                        adminLock.style.display = 'none';
-                        await loadClients(); // Cargar datos
-                    } else {
-                        throw new Error('Acceso denegado. Debes ser administrador.');
-                    }
-                } catch (error) {
-                    showAdminLock(error.message);
-                }
+                    // Verificar rol en backend
+                    const res = await fetch(`${API_URL}/api/auth/me`, { headers: { 'Authorization': `Bearer ${token}` } });
+                    if(res.ok) {
+                        const user = await res.json();
+                        if(user.role === 'admin') {
+                            mainContent.classList.remove('d-none');
+                            loadClients();
+                        } else {
+                            adminLock.classList.remove('d-none');
+                        }
+                    } else { throw new Error(); }
+                } catch(e) { adminLock.classList.remove('d-none'); }
+
             } else {
-                showAdminLock("No estás autenticado. <a href='signin.html'>Inicia sesión como Admin</a>.");
+                window.location.href = 'signin.html';
             }
-            
-            function showAdminLock(message) {
-                adminLock.style.display = 'block';
-                adminLock.querySelector('.lock-text').innerHTML = message;
-                mainContent.style.display = 'none';
-            }
-            // --- FIN: Script de Gestión de Sesión ---
+            window.logout = () => { localStorage.clear(); window.location.href = 'signin.html'; };
 
-            
-            // --- Funciones API ---
-            async function fetchAPI(endpoint, options = {}) {
-                const defaultOptions = {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    }
-                };
-                const config = { ...defaultOptions, ...options };
-                
-                const response = await fetch(API_URL + endpoint, config);
-                const data = await response.json();
-                
-                if (!response.ok) {
-                    throw new Error(data.message || `Error ${response.status}`);
-                }
-                return data;
-            }
-
-            // --- Lógica de la Página ---
-
-            // ... (Dentro de tu script en clientes.html) ...
-            
-            // 1. Cargar y renderizar clientes
+            // 2. Cargar Clientes
             async function loadClients() {
                 try {
-                    // Ahora llamamos al endpoint real que acabamos de crear
-                    const clients = await fetchAPI('/api/auth/clients'); 
-                    localClientsData = clients; 
-                    renderTable(clients);
-                } catch (error) {
-                    showAlert(`Error al cargar clientes: ${error.message}`, 'danger');
+                    const res = await fetch(`${API_URL}/api/auth/clients`, { headers: { 'Authorization': `Bearer ${token}` } });
+                    if(res.ok) {
+                        clientsData = await res.json();
+                        renderTable(clientsData);
+                    } else {
+                        tableBody.innerHTML = '<tr><td colspan="4" class="text-center p-4 text-danger">Error al cargar datos</td></tr>';
+                    }
+                } catch(e) {
+                    tableBody.innerHTML = '<tr><td colspan="4" class="text-center p-4 text-danger">Error de conexión</td></tr>';
                 }
             }
-            
-            // 2. Renderizar la tabla (Ajustado a los campos de MongoDB)
+
+            // 3. Renderizar Tabla
             function renderTable(clients) {
-                clientsTableBody.innerHTML = ''; 
-                if (clients.length === 0) {
-                    clientsTableBody.innerHTML = '<tr><td colspan="4" class="text-center p-4">No se han registrado clientes aún.</td></tr>';
+                tableBody.innerHTML = '';
+                if(clients.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="4" class="text-center p-4 text-muted">No hay clientes registrados</td></tr>';
                     return;
                 }
-                
-                clients.forEach(client => {
-                    // En MongoDB guardamos "role", no "categoria". Mapeamos para que se vea bonito.
-                    let displayCategory = client.role === 'cliente' ? 'Nuevo' : client.role;
-                    let badgeClass = 'badge-nuevo'; // Puedes lógica para VIP si agregas ese campo después
+
+                clients.forEach(c => {
+                    const cat = c.categoria || 'nuevo';
+                    let badge = '<span class="badge-nuevo">Nuevo</span>';
+                    if(cat === 'frecuente') badge = '<span class="badge-frecuente">Frecuente ⭐</span>';
+                    if(cat === 'vip') badge = '<span class="badge-vip">VIP 👑</span>';
 
                     const row = document.createElement('tr');
-                    row.id = `client-row-${client.id}`;
                     row.innerHTML = `
-                        <td class="ps-4 fw-semibold client-name">${client.nombre}</td>
-                        <td class="client-email">${client.email}</td>
+                        <td class="ps-4 fw-bold text-secondary">${c.nombre}</td>
+                        <td>${c.email}</td>
+                        <td class="text-center">${badge}</td>
                         <td class="text-center">
-                            <span class="badge ${badgeClass}">${displayCategory}</span>
-                        </td>
-                        <td class="text-center action-buttons">
-                            <button class="btn btn-sm btn-outline-danger delete-btn" data-id="${client.id}"><i class="fas fa-trash-alt"></i></button>
+                            <button class="btn-icon btn-edit" onclick="editClient(${c.id})"><i class="fas fa-pencil-alt"></i></button>
+                            <button class="btn-icon btn-delete" onclick="deleteClient(${c.id})"><i class="fas fa-trash-alt"></i></button>
                         </td>
                     `;
-                    clientsTableBody.appendChild(row);
+                    tableBody.appendChild(row);
                 });
             }
-            // 3. Listeners para botones de la tabla (Editar y Borrar)
-            clientsTableBody.addEventListener('click', function(event) {
-                const target = event.target.closest('button');
-                if (!target) return;
-                
-                const clientId = target.dataset.id;
 
-                if (target.classList.contains('edit-btn')) {
-                    handleEdit(clientId);
-                }
-                if (target.classList.contains('delete-btn')) {
-                    handleDelete(clientId);
-                }
-            });
-            
-            // 4. Lógica de Edición
-            function handleEdit(id) {
-                const client = localClientsData.find(c => c.id == id);
-                if (!client) return;
+            // 4. Editar Cliente
+            window.editClient = (id) => {
+                const client = clientsData.find(c => c.id === id);
+                if(!client) return;
                 
-                // Llenar el modal
-                clientIdInput.value = client.id;
-                clientNameInput.value = client.nombre;
-                clientEmailInput.value = client.email;
-                clientCategorySelect.value = client.categoria;
+                document.getElementById('clientIdInput').value = client.id;
+                document.getElementById('clientNameInput').value = client.nombre;
+                document.getElementById('clientEmailInput').value = client.email;
+                document.getElementById('clientCategorySelect').value = client.categoria || 'nuevo';
                 
+                checkPromoVisibility();
                 editModal.show();
+            };
+
+            document.getElementById('clientCategorySelect').addEventListener('change', checkPromoVisibility);
+            function checkPromoVisibility() {
+                const val = document.getElementById('clientCategorySelect').value;
+                document.getElementById('promoText').style.display = (val === 'frecuente' || val === 'vip') ? 'block' : 'none';
             }
 
-            // 5. Lógica de Guardar Cambios (en el modal)
-            saveChangesBtn.addEventListener('click', async () => {
-                const id = clientIdInput.value;
-                const updatedClient = {
-                    nombre: clientNameInput.value,
-                    email: clientEmailInput.value,
-                    categoria: clientCategorySelect.value
+            // 5. Guardar Cambios
+            saveBtn.onclick = async () => {
+                const id = document.getElementById('clientIdInput').value;
+                const body = {
+                    nombre: document.getElementById('clientNameInput').value,
+                    email: document.getElementById('clientEmailInput').value,
+                    categoria: document.getElementById('clientCategorySelect').value
                 };
 
-                if (!updatedClient.nombre || !updatedClient.email) {
-                    showAlert('Nombre y Email son obligatorios.', 'danger');
-                    return;
-                }
-
-                saveChangesBtn.disabled = true;
-                saveChangesBtn.textContent = 'Guardando...';
+                saveBtn.disabled = true;
+                saveBtn.textContent = "Guardando...";
 
                 try {
-                    await fetchAPI(`/api/clients/${id}`, {
+                    const res = await fetch(`${API_URL}/api/auth/clients/${id}`, {
                         method: 'PUT',
-                        body: JSON.stringify(updatedClient)
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                        body: JSON.stringify(body)
                     });
-                    
-                    // Actualizar la fila en la tabla
-                    const row = document.getElementById(`client-row-${id}`);
-                    row.querySelector('.client-name').textContent = updatedClient.nombre;
-                    row.querySelector('.client-email').textContent = updatedClient.email;
-                    const categoryCell = row.querySelector('.client-category');
-                    categoryCell.dataset.category = updatedClient.categoria;
-                    categoryCell.innerHTML = `<span class="badge ${getBadgeClass(updatedClient.categoria)}">${updatedClient.categoria}</span>`;
-
-                    // Actualizar caché local
-                    const index = localClientsData.findIndex(c => c.id == id);
-                    if (index !== -1) localClientsData[index] = { id: parseInt(id), ...updatedClient };
-                    
-                    editModal.hide();
-                    showAlert(`Cliente "${updatedClient.nombre}" actualizado.`, 'success');
-
-                } catch (error) {
-                    showAlert(`Error al guardar: ${error.message}`, 'danger');
-                } finally {
-                    saveChangesBtn.disabled = false;
-                    saveChangesBtn.textContent = 'Guardar Cambios';
-                }
-            });
-
-            // 6. Lógica de Borrado
-            async function handleDelete(id) {
-                const client = localClientsData.find(c => c.id == id);
-                if (!client) return;
+                    if(res.ok) {
+                        showAlert("Cliente actualizado correctamente", "success");
+                        editModal.hide();
+                        loadClients();
+                    } else { showAlert("Error al actualizar", "danger"); }
+                } catch(e) { showAlert("Error de conexión", "danger"); }
                 
-                if (!confirm(`¿Estás seguro de que deseas eliminar a ${client.nombre}?`)) {
-                    return;
-                }
+                saveBtn.disabled = false;
+                saveBtn.textContent = "Guardar Cambios";
+            };
 
+            // 6. Eliminar
+            window.deleteClient = async (id) => {
+                if(!confirm("¿Seguro que deseas eliminar este cliente?")) return;
                 try {
-                    await fetchAPI(`/api/clients/${id}`, { method: 'DELETE' });
-                    
-                    // Eliminar la fila
-                    document.getElementById(`client-row-${id}`).remove();
-                    
-                    // Eliminar de caché
-                    localClientsData = localClientsData.filter(c => c.id != id);
-                    
-                    showAlert(`Cliente "${client.nombre}" eliminado.`, 'warning');
-                    
-                } catch (error) {
-                    showAlert(`Error al eliminar: ${error.message}`, 'danger');
-                }
-            }
+                    const res = await fetch(`${API_URL}/api/auth/clients/${id}`, {
+                        method: 'DELETE',
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    if(res.ok) {
+                        showAlert("Cliente eliminado", "warning");
+                        loadClients();
+                    } else { showAlert("Error al eliminar", "danger"); }
+                } catch(e) { showAlert("Error de conexión", "danger"); }
+            };
 
-            // --- Funciones Helper ---
-            function getBadgeClass(category) {
-                if (category === 'frecuente') return 'badge-frecuente';
-                if (category === 'vip') return 'badge-vip';
-                return 'badge-nuevo';
-            }
-
-            function showAlert(message, type = 'success') {
-                alertMessage.textContent = message;
-                alertMessage.className = `alert alert-${type}`;
-                alertMessage.style.display = 'block';
-                window.scrollTo(0, 0); // Scroll al inicio para ver la alerta
-                setTimeout(() => {
-                    alertMessage.style.display = 'none';
-                }, 4000);
+            function showAlert(msg, type) {
+                alertBox.className = `alert alert-${type}`;
+                alertBox.textContent = msg;
+                alertBox.classList.remove('d-none');
+                setTimeout(() => alertBox.classList.add('d-none'), 3000);
             }
         });
     </script>

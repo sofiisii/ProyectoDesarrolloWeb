@@ -151,6 +151,20 @@ def get_stats():
         "recentActivity": [] 
     }
 
+
+def update_user_details(user_id: int, data: dict):
+    """Actualiza nombre, email y categoría/rol de un cliente"""
+    # Filtramos para que solo actualice campos permitidos
+    update_data = {}
+    if "nombre" in data: update_data["nombre"] = data["nombre"]
+    if "email" in data: update_data["email"] = data["email"]
+    # Aquí mapeamos la categoría para guardar en BD (ej: 'frecuente' se guarda como role o un campo nuevo)
+    # Para este ejemplo usaremos un campo nuevo 'categoria' para no romper el login
+    if "categoria" in data: update_data["categoria"] = data["categoria"]
+    
+    users_collection.update_one({"id": user_id}, {"$set": update_data})
+    return True
+
 # --- Inicialización (Seed Data) ---
 def seed_data():
     if users_collection.count_documents({}) == 0:
