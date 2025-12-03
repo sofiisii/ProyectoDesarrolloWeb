@@ -17,14 +17,14 @@ def get_dish(dish_id: int):
 
 @router.post("/products") 
 def add_dish(data: dict):
-    # RECIBIMOS LA IMAGEN
+    # Recibe el campo 'image'
     dish = database.create_dish(
         data.get("name"), 
         data.get("price"), 
         data.get("category"),
         data.get("description", "Sin descripción"),
         data.get("ingredients", "Ingredientes no especificados"),
-        data.get("image", "") # <--- IMPORTANTE
+        data.get("image", "") # <--- IMPORTANTE: Recibir imagen
     )
     return {"message": "Plato agregado", "dish": dish}
 

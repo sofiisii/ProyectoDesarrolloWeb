@@ -51,9 +51,7 @@ def get_user_by_token(token: str) -> Optional[dict]:
     session = sessions_collection.find_one({"token": token})
     if session:
         user = users_collection.find_one({"id": session["user_id"]})
-        if user: 
-            user.pop("_id")
-            return user
+        if user: user.pop("_id"); return user
     return None
 
 def update_user_details(user_id: int, data: dict):
@@ -75,16 +73,18 @@ def get_all_dishes():
 def get_dish(dish_id: int):
     return dishes_collection.find_one({"id": dish_id}, {"_id": 0})
 
-# Acepta parámetro 'image'
+# CAMBIO: Acepta 'image' y tiene un valor por defecto
 def create_dish(nombre: str, precio: float, categoria: str, description: str = "", ingredients: str = "", image: str = ""):
     new_id = get_next_sequence("dishid")
+    
+    # Si no se pasa imagen, usamos un placeholder
     if not image:
-        image = "https://placehold.co/600x400?text=Sabor+Lime%C3%B1o"
+        image = "https://placehold.co/600x400?text=Sin+Imagen"
         
     dish = {
         "id": new_id, "nombre": nombre, "precio": precio, "categoria": categoria,
         "description": description, "ingredients": ingredients, 
-        "image": image, # Guardamos la URL
+        "image": image, # Guardamos la ruta de la imagen
         "disponible": True
     }
     dishes_collection.insert_one(dish)
@@ -154,20 +154,24 @@ def get_stats():
         "recentActivity": [] 
     }
 
-# --- SEED DATA (CON FOTOS) ---
+# --- SEED DATA (ACTUALIZADO CON TUS FOTOS) ---
 def seed_data():
+    # Creamos usuario admin si no existe
     if users_collection.count_documents({}) == 0:
         print("Seeding Admin User...")
         create_user("Admin", "admin@saborlimeno.com", "1234")
     
+    # Creamos platos si no existen
     if dishes_collection.count_documents({}) == 0:
-        print("Seeding Menu con Fotos...")
-        create_dish("Lomo Saltado", 12990, "fondo", "Trozos de filete...", "Carne|Cebolla|Tomate", "https://i.imgur.com/au9D5pM.jpeg")
-        create_dish("Ceviche Clásico", 10990, "entradas", "Fresco pescado...", "Pescado|Limón|Cebolla", "https://i.imgur.com/Vw2XjqZ.jpeg")
-        create_dish("Ají de Gallina", 11990, "fondo", "Pechuga deshilachada...", "Pollo|Ají|Nueces", "https://i.imgur.com/P9t9yKz.jpeg")
-        create_dish("Causa Limeña", 8990, "entradas", "Suave puré...", "Papa|Pollo|Mayonesa", "https://i.imgur.com/2q3j4kL.jpeg")
-        create_dish("Suspiro a la Limeña", 6500, "postres", "Manjar blanco...", "Leche|Huevo|Oporto", "https://i.imgur.com/7Y5zX9W.jpeg")
-        create_dish("Inca Kola 500ml", 1500, "postres", "Bebida gaseosa...", "Soda", "https://i.imgur.com/9Z0xX1A.jpeg")
-        create_dish("Arroz con Pato", 13990, "fondo", "Arroz verde...", "Pato|Arroz|Cilantro", "https://i.imgur.com/L8y2x3z.jpeg")
+        print("Seeding Menu con Fotos Locales...")
+        
+        # Rutas exactas basadas en los archivos que subiste
+        create_dish("Lomo Saltado", 12990, "fondo", "Trozos de filete...", "Carne|Cebolla|Tomate", "imagenes/lomo saltado desarrollo web.jpg")
+        create_dish("Ceviche Clásico", 10990, "entradas", "Fresco pescado...", "Pescado|Limón|Cebolla", "imagenes/ceviche clasico peruano desarrollo web.jpg")
+        create_dish("Ají de Gallina", 11990, "fondo", "Pechuga deshilachada...", "Pollo|Ají|Nueces", "imagenes/aji de gallina desarrollo web.jpg")
+        create_dish("Causa Limeña", 8990, "entradas", "Suave puré...", "Papa|Pollo|Mayonesa", "imagenes/causa limeña desarrollo web.jpg")
+        create_dish("Suspiro a la Limeña", 6500, "postres", "Manjar blanco...", "Leche|Huevo|Oporto", "imagenes/suspiro limeño desarrollo web.jpg")
+        create_dish("Inca Kola 500ml", 1500, "postres", "Bebida gaseosa...", "Soda", "imagenes/inca kola desarrollo web.jpg")
+        create_dish("Arroz con Pato", 13990, "fondo", "Arroz verde...", "Pato|Arroz|Cilantro", "imagenes/arroz con pato desarrollo web.jpg")
 
 seed_data()
