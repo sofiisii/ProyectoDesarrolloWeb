@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet">
     <style>
+        /* ... (Copia los estilos de tu versión anterior) ... */
         :root {
             --azul-pacifico: #1E88E5; --azul-pacifico-oscuro: #1565C0; --azul-pacifico-claro: #64B5F6;
             --aji-amarillo: #FFC107; --terracota: #BF360C; --verde-menta: #4CAF50;
@@ -43,7 +44,6 @@
         .btn-action { padding: 12px 25px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 16px; transition: all 0.3s; text-decoration: none; display: inline-block; text-align: center; width: 100%; }
         .btn-action-primary { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); }
         .btn-action-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3); }
-        .btn-action-secondary { background: linear-gradient(135deg, #6c757d, #5a6268); color: white; }
         .message { margin-top: 15px; padding: 15px; border-radius: 8px; text-align: center; display: none; border: 1px solid transparent; font-weight: 500; }
         .success { background-color: #d1e7dd; color: #0f5132; border-color: #badbcc;}
         .error { background-color: #f8d7da; color: #842029; border-color: #f5c2c7; margin-bottom: 1rem; }
@@ -51,20 +51,11 @@
         .form-group { margin-bottom: 1.5rem; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
         .form-control { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; }
-        .action-buttons { display: flex; gap: 15px; margin-top: 20px; }
-        .action-buttons .btn-action { flex: 1; }
         .category-header { background: linear-gradient(135deg, var(--purpura-nazca), #8E24AA); color: white; padding: 10px 15px; border-radius: 8px; margin: 20px 0 10px 0; font-weight: 600; }
         .stats-container { display: flex; justify-content: space-between; margin-bottom: 20px; gap: 15px; }
         .stat-card { flex: 1; background: white; border-radius: 10px; padding: 15px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .stat-number { font-size: 2rem; font-weight: 700; color: var(--azul-pacifico); }
         .stat-label { font-size: 0.9rem; color: var(--gris-texto); }
-        
-        @media (max-width: 768px) {
-            .hero { padding: 4rem 0 2rem 0; text-align: center; }
-            .btn-back { top: 1rem; left: 1rem; transform: none; }
-            .hero h1 { font-size: 1.8rem; }
-            .stats-container, .action-buttons { flex-direction: column; }
-        }
     </style>
 </head>
 <body>
@@ -88,18 +79,9 @@
     <div class="menu-container">
         
         <div class="stats-container">
-            <div class="stat-card">
-                <div class="stat-number" id="total-platos">...</div>
-                <div class="stat-label">Total de Platos</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="disponibles">...</div>
-                <div class="stat-label">Disponibles</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="no-disponibles">...</div>
-                <div class="stat-label">No Disponibles</div>
-            </div>
+            <div class="stat-card"><div class="stat-number" id="total-platos">...</div><div class="stat-label">Total de Platos</div></div>
+            <div class="stat-card"><div class="stat-number" id="disponibles">...</div><div class="stat-label">Disponibles</div></div>
+            <div class="stat-card"><div class="stat-number" id="no-disponibles">...</div><div class="stat-label">No Disponibles</div></div>
         </div>
 
         <div class="card">
@@ -116,6 +98,10 @@
                     <div class="form-group">
                         <label for="new-dish-price">Precio</label>
                         <input type="number" id="new-dish-price" class="form-control" placeholder="Ej: 13990" step="10" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-dish-image">URL de la Imagen</label>
+                        <input type="url" id="new-dish-image" class="form-control" placeholder="https://... o img/foto.jpg" required>
                     </div>
                     <div class="form-group">
                         <label for="new-dish-category">Categoría</label>
@@ -161,53 +147,31 @@
             
             const API_URL = 'http://localhost:8000';
             const token = localStorage.getItem('authToken');
-
-            // Referencias del DOM
             const successMessage = document.getElementById('successMessage');
             const errorMessage = document.getElementById('errorMessage');
             const authErrorMessage = document.getElementById('authErrorMessage');
             const unavailableMessage = document.getElementById('unavailableMessage');
             const addDishForm = document.getElementById('add-dish-form');
 
-            // Función para manejar la autenticación
             if (!token) {
-                showAuthError("No estás autenticado. <a href='signin.html'>Inicia sesión</a> para gestionar el menú.");
+                showAuthError("No estás autenticado. Inicia sesión para gestionar el menú.");
                 return;
             }
 
-            // Función para hacer peticiones Fetch con autenticación
             async function fetchAPI(endpoint, options = {}) {
                 const defaultOptions = {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    }
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
                 };
                 const config = { ...defaultOptions, ...options };
-                
                 try {
                     const response = await fetch(API_URL + endpoint, config);
-                    if (response.status === 401 || response.status === 403) {
-                        const errData = await response.json();
-                        throw new Error(errData.message || "No tienes permiso para ver esta página.");
-                    }
-                    if (!response.ok) {
-                        const errData = await response.json();
-                        throw new Error(errData.message || `Error ${response.status}`);
-                    }
-                    if (response.status === 204) return null; 
+                    if (response.status === 401 || response.status === 403) { throw new Error("No tienes permiso."); }
+                    if (!response.ok) throw new Error(`Error ${response.status}`);
                     return await response.json();
-                } catch (error) {
-                    console.error('Error en fetchAPI:', error);
-                    throw error;
-                }
+                } catch (error) { console.error(error); throw error; }
             }
 
-            // --- CORRECCIÓN CLAVE: Renderiza usando las claves en ESPAÑOL de MongoDB ---
             function renderMenu(menuData) {
-                // Normalizamos las categorías para que coincidan con los IDs de las tablas
-                // BD: "entradas", "fondo", "especialidades", "postres"
-                
                 const categories = {
                     entradas: menuData.filter(p => p.categoria === 'entradas'),
                     fondo: menuData.filter(p => p.categoria === 'fondo'),
@@ -218,17 +182,18 @@
                 Object.keys(categories).forEach(category => {
                     const tableBody = document.getElementById(`${category}-tbody`);
                     if(tableBody) {
-                        tableBody.innerHTML = ''; // Limpiar tabla
-                        
+                        tableBody.innerHTML = '';
                         categories[category].forEach(dish => {
                             const row = document.createElement('tr');
-                            // En MongoDB es 'disponible' (booleano), no 1/0
                             const isChecked = dish.disponible ? 'checked' : ''; 
                             const isAvailable = dish.disponible;
                             
-                            // Usamos dish.nombre y dish.precio (claves de BD)
+                            // Mostramos la miniatura en la tabla
                             row.innerHTML = `
-                                <td class="ps-4 fw-500">${dish.nombre}</td>
+                                <td class="ps-4 fw-500">
+                                    <img src="${dish.image}" style="width:50px; height:40px; object-fit:cover; border-radius:5px; margin-right:10px;">
+                                    ${dish.nombre}
+                                </td>
                                 <td>$${dish.precio.toLocaleString('es-CL')}</td>
                                 <td>
                                     <label class="toggle-switch">
@@ -244,27 +209,20 @@
                         });
                     }
                 });
-                
                 addToggleListeners();
             }
 
-            // Actualiza las tarjetas de estadísticas
             async function updateStats() {
                 try {
                     const stats = await fetchAPI('/api/products/stats');
                     document.getElementById('total-platos').textContent = stats.total;
                     document.getElementById('disponibles').textContent = stats.disponibles;
                     document.getElementById('no-disponibles').textContent = stats.no_disponibles;
-                    
-                    const anyUnavailable = stats.no_disponibles > 0;
-                    unavailableMessage.style.display = anyUnavailable ? 'block' : 'none';
-                    unavailableMessage.innerHTML = `<strong>Nota:</strong> Hay ${stats.no_disponibles} productos ocultos en el catálogo público.`;
-                } catch (error) {
-                    console.error("Error cargando stats:", error);
-                }
+                    unavailableMessage.style.display = stats.no_disponibles > 0 ? 'block' : 'none';
+                    unavailableMessage.innerHTML = `<strong>Nota:</strong> Hay ${stats.no_disponibles} productos ocultos.`;
+                } catch (error) { }
             }
 
-            // Añade listeners a los toggles de disponibilidad
             function addToggleListeners() {
                 document.querySelectorAll('.toggle-switch input').forEach(toggle => {
                     toggle.addEventListener('change', async (e) => {
@@ -272,7 +230,6 @@
                         const isChecked = e.target.checked;
                         const statusSpan = e.target.closest('td').querySelector('.availability-status');
                         
-                        // Feedback visual inmediato
                         statusSpan.textContent = isChecked ? 'DISPONIBLE' : 'NO DISPONIBLE';
                         statusSpan.className = `availability-status ${isChecked ? 'available' : 'unavailable'}`;
                         
@@ -284,40 +241,36 @@
                             showMessage(successMessage, `Disponibilidad actualizada.`);
                             updateStats(); 
                         } catch (error) {
-                            // Revertir si falla
                             e.target.checked = !isChecked; 
-                            statusSpan.textContent = !isChecked ? 'DISPONIBLE' : 'NO DISPONIBLE';
-                            statusSpan.className = `availability-status ${!isChecked ? 'available' : 'unavailable'}`;
-                            showAuthError(`Error al actualizar: ${error.message}`);
+                            showAuthError(`Error al actualizar`);
                         }
                     });
                 });
             }
 
-            // Formulario para añadir nuevo plato
             addDishForm.addEventListener('submit', async function(event) {
                 event.preventDefault();
                 const name = document.getElementById('new-dish-name').value.trim();
                 const price = parseInt(document.getElementById('new-dish-price').value);
+                const image = document.getElementById('new-dish-image').value.trim();
                 const category = document.getElementById('new-dish-category').value;
 
-                if (!name || !price) {
-                    showMessage(errorMessage, 'El nombre y el precio son obligatorios');
+                if (!name || !price || !image) {
+                    showMessage(errorMessage, 'Todos los campos son obligatorios');
                     return;
                 }
 
                 try {
-                    // Enviamos las claves que espera el backend
                     await fetchAPI('/api/products', {
                         method: 'POST',
-                        body: JSON.stringify({ name, price, category })
+                        body: JSON.stringify({ name, price, category, image })
                     });
 
-                    showMessage(successMessage, `Plato "${name}" agregado exitosamente.`);
+                    showMessage(successMessage, `Plato "${name}" agregado.`);
                     addDishForm.reset();
                     loadMenu(); 
                 } catch (error) {
-                    showMessage(errorMessage, `Error al agregar plato: ${error.message}`);
+                    showMessage(errorMessage, `Error al agregar plato`);
                 }
             });
 

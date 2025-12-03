@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        /* ... (Estilos base iguales) ... */
         :root {
             --azul-pacifico: #1E88E5; --azul-pacifico-oscuro: #1565C0; --azul-pacifico-claro: #64B5F6;
             --aji-amarillo: #FFC107; --terracota: #BF360C; --verde-menta: #4CAF50;
@@ -28,37 +29,52 @@
         .btn-primary { background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; }
         .btn-primary:hover { background: #FFB300; box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3); }
         .hero { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); color: white; padding: 3rem 0; text-align: center; margin-bottom: 3rem; position: relative; overflow: hidden; }
-        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>'); background-size: cover; }
-        .hero-content { position: relative; z-index: 1; }
         .hero h1 { font-weight: 700; }
-        .product-card { border-radius: 15px; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); border: 2px solid transparent; transition: all 0.3s ease; overflow: hidden; cursor: pointer; background-color: white; }
-        .product-card:hover { box-shadow: 0 15px 35px rgba(30, 136, 229, 0.15); border-color: var(--azul-pacifico); transform: translateY(-5px); }
-        .product-card-header { padding: 1.5rem; text-align: center; }
-        .product-card-header h3 { margin: 0; font-weight: 600; font-size: 1.25rem; color: var(--azul-pacifico-oscuro); }
-        .product-card-body { padding: 0 1.5rem 1.5rem 1.5rem; text-align: center; }
-        .product-card-placeholder { height: 120px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: center; align-items: center; color: white; font-weight: 600; font-size: 1.2rem; padding: 1rem; }
-        .product-card-price { font-weight: 700; color: var(--verde-menta); font-size: 1.5rem; }
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2.5rem; }
-        .modal-content { border-radius: 15px; border: none; }
+        
+        .product-card { border-radius: 15px; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); border: 2px solid transparent; transition: all 0.3s ease; overflow: hidden; cursor: pointer; background-color: white; display: flex; flex-direction: column; }
+        .product-card:hover { box-shadow: 0 15px 35px rgba(30, 136, 229, 0.15); border-color: var(--azul-pacifico); transform: translateY(-5px); }
+        
+        /* ESTILOS DE IMAGEN */
+        .product-image-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background-color: #eee;
+        }
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-card-header { padding: 1rem; text-align: center; padding-bottom: 0; }
+        .product-card-header h3 { margin: 0; font-weight: 700; font-size: 1.2rem; color: var(--azul-pacifico-oscuro); }
+        .product-card-body { padding: 1rem; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-end; }
+        .product-card-price { font-weight: 700; color: var(--verde-menta); font-size: 1.4rem; margin-bottom: 0; }
+        
+        .modal-content { border-radius: 15px; border: none; overflow: hidden; }
         .modal-header { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; border-bottom: none; }
-        .modal-header .modal-title { font-weight: 600; font-size: 1.5rem; }
         .modal-body { padding: 0; }
-        .modal-placeholder { height: 100px; color: white; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; font-weight: 700; }
+        
+        /* Imagen en Modal */
+        .modal-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
         .modal-product-content { padding: 2rem; }
         .modal-product-title { font-weight: 600; font-size: 2rem; color: var(--azul-pacifico-oscuro); }
         .modal-product-category { display: inline-block; padding: 5px 12px; background: linear-gradient(135deg, var(--purpura-nazca), #8E24AA); color: white; border-radius: 20px; font-size: 12px; font-weight: 600; margin: 0.5rem 0 1rem 0; }
-        .modal-ingredients-list { list-style-type: disc; padding-left: 20px; margin-top: 1rem; }
-        .modal-ingredients-list li { padding-left: 5px; margin-bottom: 5px; }
-        .modal-product-price { font-weight: 700; font-size: 2.25rem; color: var(--verde-menta); text-shadow: 0 2px 4px rgba(76, 175, 80, 0.2); }
-        .btn-add-cart { padding: 15px; border-radius: 8px; font-size: 16px; width: 100%; background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); }
-        .btn-add-cart:hover { background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico)); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3); }
+        .btn-add-cart { padding: 15px; border-radius: 8px; font-size: 16px; width: 100%; background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); color: white; border: none; font-weight: 700; }
+        .btn-add-cart:hover { background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico)); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3); color: white;}
         .controls-container { background: white; padding: 1.5rem; border-radius: 15px; margin-bottom: 2.5rem; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); }
         .btn-filter.active { background-color: var(--azul-pacifico-oscuro); color: white; }
-        /* Estilos de gradiente por categoría */
-        .gradient-fondo { background: linear-gradient(135deg, var(--terracota), #D84315); }
-        .gradient-entradas { background: linear-gradient(135deg, var(--azul-pacifico), #1976D2); }
-        .gradient-especialidades { background: linear-gradient(135deg, var(--aji-amarillo), #FFB300); }
-        .gradient-postres { background: linear-gradient(135deg, var(--purpura-nazca), #8E24AA); }
     </style>
 </head>
 <body>
@@ -72,14 +88,12 @@
                     <li><a href="catalogo.html">Catálogo</a></li>
                     <li><a href="pedido.html">Mis Pedidos</a></li>
                     <li>
-                        <a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700; display: flex; align-items: center;">
-                            Carrito 🛒 
-                            <span id="cart-count" class="badge bg-danger rounded-pill ms-2" style="display: none; font-size: 0.75rem;">0</span>
+                        <a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">
+                            Carrito 🛒 <span id="cart-count" class="badge bg-danger rounded-pill ms-1" style="display:none; font-size:0.7rem;">0</span>
                         </a>
                     </li>
                 </ul>
-                <div class="auth-buttons">
-                    </div>
+                <div class="auth-buttons"></div>
             </nav>
         </div>
     </header>
@@ -105,12 +119,13 @@
         <div id="products-grid" class="products-grid"></div>
         <div id="no-results" class="text-center h4 d-none">No se encontraron platos que coincidan con tu búsqueda.</div>
     </div>
+
     <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header"><h5 class="modal-title" id="modal-header-title"></h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
                 <div class="modal-body">
-                    <div id="modal-placeholder" class="modal-placeholder"></div>
+                    <img id="modal-image" src="" alt="Plato" class="modal-image">
                     <div class="modal-product-content">
                         <h2 id="modal-title" class="modal-product-title"></h2>
                         <div id="modal-category" class="modal-product-category"></div>
@@ -124,13 +139,11 @@
             </div>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            
-            const API_URL = 'http://localhost:8000'; 
-            
-            // --- GESTIÓN DE SESIÓN ---
+            const API_URL = 'http://localhost:8000';
             const authButtons = document.querySelector('.auth-buttons');
             const token = localStorage.getItem('authToken');
 
@@ -143,31 +156,19 @@
                         localStorage.removeItem('authToken'); localStorage.removeItem('userNombre'); window.location.href = "signin.html";
                     });
                 })
-                .catch(() => { localStorage.removeItem('authToken'); mostrarBotonesLogin(); });
-            } else { mostrarBotonesLogin(); }
+                .catch(() => { localStorage.removeItem('authToken'); showLogin(); });
+            } else { showLogin(); }
             
-            function mostrarBotonesLogin() {
-                authButtons.innerHTML = `<a href="signin.html" class="btn btn-outline">Iniciar Sesión</a><a href="registro.html" class="btn btn-primary">Registrarse</a>`;
-            }
+            function showLogin() { authButtons.innerHTML = `<a href="signin.html" class="btn btn-outline">Iniciar Sesión</a><a href="registro.html" class="btn btn-primary">Registrarse</a>`; }
 
-            // --- LÓGICA DEL CONTADOR DEL CARRITO ---
             function updateCartCount() {
                 const cart = JSON.parse(localStorage.getItem('saborLimeoCart')) || [];
-                // Sumamos la cantidad de cada producto (ej: 2 Lomo Saltado + 1 Inca Kola = 3)
-                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-                
+                const total = cart.reduce((sum, item) => sum + item.quantity, 0);
                 const badge = document.getElementById('cart-count');
-                if (badge) {
-                    badge.textContent = totalItems;
-                    // Mostrar solo si hay items
-                    badge.style.display = totalItems > 0 ? 'inline-block' : 'none';
-                }
+                if(badge) { badge.textContent = total; badge.style.display = total > 0 ? 'inline-block' : 'none'; }
             }
-            
-            // Ejecutar al cargar la página
             updateCartCount();
 
-            // --- CARGA DE PRODUCTOS ---
             const grid = document.getElementById('products-grid');
             const searchInput = document.getElementById('searchInput');
             const categoryFilters = document.getElementById('categoryFilters');
@@ -186,7 +187,7 @@
             async function fetchProducts() {
                 try {
                     const response = await fetch(API_URL + '/api/menu');
-                    if (!response.ok) throw new Error('Error cargando el menú');
+                    if (!response.ok) throw new Error('Error cargando menú');
                     const data = await response.json();
                     
                     allProducts = data.map(item => ({
@@ -196,36 +197,28 @@
                         category: normalizeCategory(item.categoria),
                         description: item.description || "Delicioso plato peruano.",
                         ingredients: item.ingredients || "Ingredientes frescos.",
-                        gradient: item.gradient || "linear-gradient(135deg, #ccc, #999)",
+                        image: item.image || "https://placehold.co/600x400?text=Sin+Imagen", 
                         disponible: item.disponible
                     }));
 
                     renderProducts();
                 } catch (error) {
                     console.error(error);
-                    grid.innerHTML = '<p class="text-center">Error al cargar productos desde la base de datos.</p>';
+                    grid.innerHTML = '<p class="text-center">Error al cargar productos.</p>';
                 }
             }
 
             function renderProducts() {
                 grid.innerHTML = '';
                 const searchTerm = searchInput.value.toLowerCase();
-                
                 const availableProducts = allProducts.filter(p => p.disponible); 
                 let filteredProducts = availableProducts;
 
-                if (currentCategory !== 'Todos') {
-                    filteredProducts = filteredProducts.filter(p => p.category === currentCategory);
-                }
-                if (searchTerm) {
-                    filteredProducts = filteredProducts.filter(p => p.name.toLowerCase().includes(searchTerm));
-                }
+                if (currentCategory !== 'Todos') { filteredProducts = filteredProducts.filter(p => p.category === currentCategory); }
+                if (searchTerm) { filteredProducts = filteredProducts.filter(p => p.name.toLowerCase().includes(searchTerm)); }
 
-                if (filteredProducts.length === 0) {
-                    noResultsMessage.classList.remove('d-none');
-                } else {
-                    noResultsMessage.classList.add('d-none');
-                }
+                if (filteredProducts.length === 0) { noResultsMessage.classList.remove('d-none'); } 
+                else { noResultsMessage.classList.add('d-none'); }
 
                 filteredProducts.forEach(product => {
                     const card = document.createElement('div');
@@ -239,13 +232,15 @@
                     card.dataset.category = product.category;
                     card.dataset.description = product.description;
                     card.dataset.ingredients = product.ingredients;
-                    card.dataset.gradient = product.gradient;
+                    card.dataset.image = product.image; 
                     
                     card.innerHTML = `
+                        <div class="product-image-container">
+                            <img src="${product.image}" alt="${product.name}" class="product-image">
+                        </div>
                         <div class="product-card-header"><h3>${product.name}</h3></div>
                         <div class="product-card-body">
-                            <div class="product-card-placeholder" style="background: ${product.gradient};">${product.name}</div>
-                            <p class="product-card-price mt-3">$${product.price.toLocaleString('es-CL')}</p>
+                            <p class="product-card-price">$${product.price.toLocaleString('es-CL')}</p>
                         </div>
                     `;
                     grid.appendChild(card);
@@ -253,7 +248,6 @@
             }
 
             searchInput.addEventListener('input', renderProducts);
-
             categoryFilters.addEventListener('click', function(e) {
                 if (e.target.matches('.btn-filter')) {
                     categoryFilters.querySelector('.active').classList.remove('active');
@@ -263,7 +257,6 @@
                 }
             });
 
-            // --- MODAL Y AGREGAR AL CARRITO ---
             const productModal = document.getElementById('productModal');
             const addToCartBtn = productModal.querySelector('.btn-add-cart');
             let currentProductInModal = {};
@@ -272,11 +265,7 @@
                 const card = event.relatedTarget;
                 const product = card.dataset;
                 
-                currentProductInModal = {
-                    id: parseInt(product.id),
-                    name: product.name,
-                    price: parseFloat(product.price)
-                };
+                currentProductInModal = { id: parseInt(product.id), name: product.name, price: parseFloat(product.price) };
                 
                 productModal.querySelector('#modal-header-title').textContent = product.name;
                 productModal.querySelector('#modal-title').textContent = product.name;
@@ -284,9 +273,8 @@
                 productModal.querySelector('#modal-description').textContent = product.description;
                 productModal.querySelector('#modal-price').textContent = `$${parseInt(product.price).toLocaleString('es-CL')}`;
                 
-                const modalPlaceholder = productModal.querySelector('#modal-placeholder');
-                modalPlaceholder.style.background = product.gradient;
-                modalPlaceholder.textContent = product.name;
+                const modalImg = productModal.querySelector('#modal-image');
+                modalImg.src = product.image;
                 
                 const ingredientsList = productModal.querySelector('#modal-ingredients-list');
                 ingredientsList.innerHTML = '';
@@ -300,24 +288,14 @@
             });
 
             addToCartBtn.addEventListener('click', () => {
-                const product = currentProductInModal;
                 let cart = JSON.parse(localStorage.getItem('saborLimeoCart')) || [];
-                const existingItem = cart.find(item => item.id === product.id);
-                
-                if (existingItem) {
-                    existingItem.quantity += 1;
-                } else {
-                    product.quantity = 1;
-                    cart.push(product);
-                }
+                const existingItem = cart.find(item => item.id === currentProductInModal.id);
+                if (existingItem) { existingItem.quantity += 1; } 
+                else { currentProductInModal.quantity = 1; cart.push(currentProductInModal); }
                 localStorage.setItem('saborLimeoCart', JSON.stringify(cart));
-                
-                // ACTUALIZAR CONTADOR VISUAL
                 updateCartCount();
-                
-                const modalInstance = bootstrap.Modal.getInstance(productModal);
-                modalInstance.hide();
-                alert(`${product.name} ha sido agregado al carrito!`);
+                bootstrap.Modal.getInstance(productModal).hide();
+                alert(`${currentProductInModal.name} agregado al carrito!`);
             });
 
             fetchProducts();
