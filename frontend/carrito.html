@@ -3,52 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito - Sabor Limeño</title>
+    <title>Tu Carrito - Sabor Limeño</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --azul-pacifico: #1E88E5; --azul-pacifico-oscuro: #1565C0; --azul-pacifico-claro: #64B5F6;
-            --aji-amarillo: #FFC107; --terracota: #BF360C; --verde-menta: #4CAF50;
-            --verde-menta-oscuro: #388E3C; --purpura-nazca: #6A1B9A; --blanco-roto: #F8F9FA; --gris-texto: #424242;
+            /* PALETA OFICIAL */
+            --azul-pacifico: #1E88E5;
+            --azul-pacifico-oscuro: #1565C0;
+            --azul-pacifico-claro: #64B5F6;
+            --aji-amarillo: #FFC107;
+            --aji-hover: #FFB300;
+            --terracota: #BF360C;
+            --blanco-roto: #F8F9FA;
+            --gris-texto: #424242;
+            --gris-borde: #E0E0E0;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--blanco-roto); margin: 0; padding: 0; color: var(--gris-texto); }
+
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--blanco-roto); color: var(--gris-texto); }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .header { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); padding: 1rem 0; }
+
+        /* HEADER IDENTICO */
+        .header { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; padding: 1rem 0; }
         .nav-container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.8rem; font-weight: 700; }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .logo { font-size: 1.8rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .nav-links { list-style: none; display: flex; gap: 2rem; margin: 0; padding: 0; }
         .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; }
         .nav-links a:hover { background-color: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
+
+        /* Auth Buttons */
         .auth-buttons { display: flex; gap: 1rem; align-items: center; }
-        .user-info { color: white; margin-right: 15px; font-weight: 500; }
-        .btn { padding: 10px 20px; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; font-size: 14px; }
-        .btn-outline { background: transparent; border: 2px solid white; color: white; }
-        .btn-outline:hover { background: white; color: var(--azul-pacifico); }
-        .btn-primary { background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; }
-        .btn-primary:hover { background: #FFB300; box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3); }
-        .hero { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); color: white; padding: 2rem 0; text-align: center; margin-bottom: 2rem; }
-        .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; font-weight: 700; color: white; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); }
-        .hero p { font-size: 1rem; opacity: 0.9; color: white; }
-        .cart-layout { display: flex; justify-content: center; gap: 30px; max-width: 1200px; margin: 20px auto; padding: 0 20px; }
-        .cart-column { background-color: white; border-radius: 15px; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); width: 100%; max-width: 800px; padding: 30px; border: 2px solid transparent; }
-        .cart-column h2 { font-size: 20px; font-weight: 600; color: var(--azul-pacifico-oscuro); margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--azul-pacifico-claro); }
-        #cart-items { list-style: none; padding: 0; }
-        #cart-items li { display: flex; justify-content: space-between; align-items: center; padding: 15px 5px; border-bottom: 1px solid var(--blanco-roto); font-weight: 500; }
-        .item-info { display: flex; flex-direction: column; }
-        .item-name { font-size: 1.1rem; color: var(--azul-pacifico-oscuro); }
-        .item-price { font-size: 0.9rem; color: var(--gris-texto); }
-        .item-controls { display: flex; align-items: center; gap: 10px; }
-        .item-quantity { font-weight: 700; font-size: 1.1rem; min-width: 20px; text-align: center; }
-        .btn-cart { padding: 10px 18px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-size: 14px; color: white; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
-        .btn-cart:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); }
-        .remove-btn { background: linear-gradient(135deg, var(--terracota), #D84315); font-size: 12px; padding: 8px 12px; }
-        .remove-btn:hover { background: linear-gradient(135deg, #D84315, var(--terracota)); }
-        .btn-qty { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); font-size: 12px; padding: 5px 10px; }
-        #cart-summary { margin-top: 25px; }
-        .total-row { display: flex; justify-content: space-between; font-size: 1.5rem; font-weight: 700; color: var(--azul-pacifico-oscuro); padding: 1.5rem 0; border-top: 2px solid var(--azul-pacifico); }
-        .btn-checkout { padding: 15px; border-radius: 8px; font-size: 16px; width: 100%; background: linear-gradient(135deg, var(--verde-menta), var(--verde-menta-oscuro)); color: white; text-decoration: none; text-align: center; display: block; }
-        .btn-checkout:hover { background: linear-gradient(135deg, var(--verde-menta-oscuro), var(--verde-menta)); transform: translateY(-2px); }
-        #empty-cart-message { text-align: center; padding: 2rem; color: var(--gris-texto); font-weight: 500; }
+        .btn-custom { padding: 8px 20px; border-radius: 25px; font-weight: 600; text-decoration: none; transition: all 0.3s; font-size: 14px; border: none; cursor: pointer; }
+        .btn-outline-white { background: transparent; border: 2px solid white; color: white; }
+        .btn-outline-white:hover { background: white; color: var(--azul-pacifico); }
+        .btn-yellow { background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; }
+        .btn-yellow:hover { background: #FFB300; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3); }
+
+        /* HERO SECTION (Nuevo) */
+        .hero { 
+            background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); 
+            color: white; padding: 3rem 0; text-align: center; margin-bottom: 3rem; position: relative; overflow: hidden; 
+        }
+        .hero::before { 
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>'); 
+            background-size: cover; 
+        }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 700; position: relative; z-index: 1; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .hero p { font-size: 1.1rem; opacity: 0.95; font-weight: 500; position: relative; z-index: 1; margin: 0; }
+
+        /* CARRITO */
+        .cart-layout { display: flex; gap: 30px; flex-wrap: wrap; align-items: flex-start; }
+        .cart-card { background: white; border-radius: 15px; padding: 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.05); border: 1px solid #e0e0e0; }
+        .cart-products { flex: 2; }
+        .cart-checkout { flex: 1; min-width: 300px; position: sticky; top: 20px; }
+        
+        .card-title-custom { font-size: 1.2rem; font-weight: 700; color: var(--azul-pacifico); border-bottom: 2px solid var(--blanco-roto); padding-bottom: 15px; margin-bottom: 20px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #f0f0f0; }
+        .item-info h5 { margin: 0; font-weight: 700; color: #333; font-size: 1.1rem; }
+        .btn-trash { color: #ccc; background: none; border: none; font-size: 1.2rem; cursor: pointer; transition: color 0.3s; }
+        .btn-trash:hover { color: var(--terracota); }
+
+        .btn-pay-action { width: 100%; padding: 15px; background-color: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); border: none; border-radius: 50px; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; margin-top: 25px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2); }
+        .btn-pay-action:hover { background-color: #FFB300; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4); }
+
+        /* Estado Vacío */
+        .empty-container { text-align: center; padding: 80px 20px; background: white; border-radius: 15px; border: 1px solid #e0e0e0; display: none; }
+        .empty-icon { font-size: 5rem; color: var(--azul-pacifico-claro); margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -56,177 +77,116 @@
     <header class="header">
         <div class="container">
             <nav class="nav-container">
-                <div class="logo"><span>Sabor Limeño</span></div>
+                <div class="logo">Sabor Limeño</div>
                 <ul class="nav-links">
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="catalogo.html">Catálogo</a></li>
                     <li><a href="pedido.html">Mis Pedidos</a></li>
-                    <li>
-                        <a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">
-                            Carrito 🛒
-                        </a>
-                    </li>
                 </ul>
-                <div class="auth-buttons">
-                    </div>
+                <div class="auth-buttons" id="authContainer">
+                    <a href="signin.html" class="btn-custom btn-outline-white">Iniciar Sesión</a>
+                    <a href="registro.html" class="btn-custom btn-yellow">Registrarse</a>
+                </div>
             </nav>
         </div>
     </header>
+
     <section class="hero">
         <div class="container">
-            <h1>Haz tu Pedido</h1>
-            <p>Agrega o quita platos de tu carrito con flexibilidad</p>
+            <h1>Tu Carrito</h1>
+            <p>Revisa y confirma tu selección de platos peruanos</p>
         </div>
     </section>
 
-    <div class="cart-layout">
-        <div class="cart-column">
-            <h2>Mi Carrito</h2>
-            <ul id="cart-items">
-                </ul>
-            <div id="empty-cart-message" style="display: none;">
-                Tu carrito está vacío. <a href="catalogo.html">¡Ve al catálogo!</a>
+    <div class="container">
+        <div id="empty-cart-msg" class="empty-container">
+            <div class="empty-icon"><i class="fas fa-shopping-basket"></i></div>
+            <h2 style="font-weight: 700; color: #333;">Tu carrito está vacío</h2>
+            <a href="catalogo.html" class="btn-pay-action" style="display: inline-block; width: auto; padding: 12px 40px; text-decoration: none;">Explorar Menú</a>
+        </div>
+
+        <div class="cart-layout" id="cart-content">
+            <div class="cart-card cart-products">
+                <div class="card-title-custom">Resumen de Productos</div>
+                <div id="cart-list"></div>
+                <a href="catalogo.html" style="color: var(--azul-pacifico); text-decoration: none; font-weight: 600; display: block; margin-top: 20px;">← Seguir comprando</a>
             </div>
-            
-            <div id="cart-summary" style="display: none;">
-                <div class="total-row">
-                    <span>Total:</span>
-                    <span id="cart-total">$0</span>
+
+            <div class="cart-card cart-checkout">
+                <div class="card-title-custom">Pago</div>
+                
+                <label style="font-weight: 700; display: block; margin-bottom: 5px;">Dirección</label>
+                <input type="text" id="addressInput" class="form-control" style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 5px;" value="Av. Siempre Viva 742">
+
+                <label style="font-weight: 700; display: block; margin-bottom: 5px;">Método de Pago</label>
+                <div style="margin-bottom: 10px;"><input type="radio" name="payment" value="Tarjeta" checked> Tarjeta</div>
+                <div style="margin-bottom: 20px;"><input type="radio" name="payment" value="Efectivo"> Efectivo</div>
+
+                <div style="display: flex; justify-content: space-between; border-top: 2px dashed #eee; padding-top: 20px;">
+                    <span style="font-size: 1.1rem; font-weight: 600;">Total</span>
+                    <span style="font-size: 1.5rem; font-weight: 800; color: var(--azul-pacifico-oscuro);" id="cart-total">$0</span>
                 </div>
-                <a href="pedido.html" class="btn-checkout">Continuar al Pago</a>
+
+                <button id="payBtn" class="btn-pay-action">Confirmar Pedido</button>
+                <div id="error-msg" style="color: var(--terracota); font-weight: 600; text-align: center; margin-top: 15px; display: none;"></div>
             </div>
         </div>
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        
-        const API_URL = 'http://localhost:8000';
-        
-        // --- INICIO: Script de Gestión de Sesión ---
-        const authButtonsContainer = document.querySelector('.header .auth-buttons');
-        const token = localStorage.getItem('authToken');
-        
-        if (token) {
-            fetch(API_URL + '/api/auth/me', { headers: { 'Authorization': `Bearer ${token}` } })
-            .then(response => {
-                if (response.ok) return response.json();
-                throw new Error('Token inválido');
-            })
-            .then(user => {
-                const userNombre = user.nombre;
-                authButtonsContainer.innerHTML = `<span class="user-info" style="color:white; margin-right: 15px; font-weight: 500;">Hola, ${userNombre}!</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
-                document.getElementById('logoutBtn').addEventListener('click', function() {
-                    localStorage.removeItem('authToken');
-                    localStorage.removeItem('userNombre');
-                    window.location.href = "signin.html";
+        // ... (Script idéntico al de la respuesta anterior) ...
+        document.addEventListener('DOMContentLoaded', function() {
+            const API_URL = 'http://localhost:8000';
+            const cartList = document.getElementById('cart-list');
+            const cartTotalEl = document.getElementById('cart-total');
+            const payBtn = document.getElementById('payBtn');
+            const emptyMsg = document.getElementById('empty-cart-msg');
+            const cartContent = document.getElementById('cart-content');
+            const authContainer = document.getElementById('authContainer');
+            
+            const token = localStorage.getItem('authToken');
+            if (token) {
+                const userName = localStorage.getItem('userNombre') || 'Cliente';
+                authContainer.innerHTML = `<span style="color: white; font-weight: 600; margin-right: 15px;">Hola, ${userName}</span><button id="logoutBtn" class="btn-custom btn-outline-white">Cerrar Sesión</button>`;
+                document.getElementById('logoutBtn').addEventListener('click', () => { localStorage.clear(); window.location.href = 'signin.html'; });
+            }
+
+            let cart = JSON.parse(localStorage.getItem('saborLimeoCart')) || [];
+
+            function renderCart() {
+                if (cart.length === 0) { cartContent.style.display = 'none'; emptyMsg.style.display = 'block'; return; }
+                cartContent.style.display = 'flex'; emptyMsg.style.display = 'none';
+                cartList.innerHTML = ''; let total = 0;
+                cart.forEach((item, index) => {
+                    const subtotal = item.price * item.quantity; total += subtotal;
+                    cartList.innerHTML += `<div class="cart-item"><div class="item-info"><h5>${item.name}</h5><div style="color:#888">Cant: ${item.quantity} x $${item.price}</div></div><div class="item-actions"><span style="font-weight:700; color:#1565C0">$${subtotal.toLocaleString('es-CL')}</span><button class="btn-trash" onclick="removeItem(${index})"><i class="fas fa-trash-alt"></i></button></div></div>`;
                 });
-            })
-            .catch(error => {
-                localStorage.removeItem('authToken');
-                localStorage.removeItem('userNombre');
-                mostrarBotonesLogin();
-            });
-        } else {
-            mostrarBotonesLogin();
-        }
-        
-        function mostrarBotonesLogin() {
-             authButtonsContainer.innerHTML = `<a href="signin.html" class="btn btn-outline">Iniciar Sesión</a><a href="registro.html" class="btn btn-primary">Registrarse</a>`;
-        }
-        // --- FIN: Script de Gestión de Sesión ---
-
-        // --- LÓGICA DEL CARRITO ---
-        const cartList = document.getElementById('cart-items');
-        const cartSummary = document.getElementById('cart-summary');
-        const emptyCartMessage = document.getElementById('empty-cart-message');
-        const cartTotal = document.getElementById('cart-total');
-        
-        const formatCurrency = (value) => `$${Math.round(value).toLocaleString('es-CL')}`;
-        
-        function getCart() {
-            return JSON.parse(localStorage.getItem('saborLimeoCart')) || [];
-        }
-        
-        function saveCart(cart) {
-            localStorage.setItem('saborLimeoCart', JSON.stringify(cart));
-            renderCart(); // Volver a renderizar cada vez que se guarda
-        }
-
-        function renderCart() {
-            const cart = getCart();
-            cartList.innerHTML = ''; // Limpiar lista
-            
-            if (cart.length === 0) {
-                cartSummary.style.display = 'none';
-                emptyCartMessage.style.display = 'block';
-                return;
+                cartTotalEl.textContent = `$${total.toLocaleString('es-CL')}`;
             }
-            
-            cartSummary.style.display = 'block';
-            emptyCartMessage.style.display = 'none';
-            
-            let total = 0;
-            
-            cart.forEach(item => {
-                const li = document.createElement('li');
-                li.dataset.id = item.id;
+
+            window.removeItem = function(index) { if(confirm('¿Eliminar?')) { cart.splice(index, 1); localStorage.setItem('saborLimeoCart', JSON.stringify(cart)); renderCart(); } };
+
+            payBtn.addEventListener('click', async () => {
+                if (!token) { alert('Inicia sesión para comprar.'); window.location.href = 'signin.html'; return; }
+                const address = document.getElementById('addressInput').value;
+                payBtn.disabled = true; payBtn.textContent = 'Procesando...';
                 
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
-                
-                li.innerHTML = `
-                    <div class="item-info">
-                        <span class="item-name">${item.name}</span>
-                        <span class="item-price">${formatCurrency(item.price)} c/u</span>
-                    </div>
-                    <div class="item-controls">
-                        <button class="btn-cart btn-qty decrease-qty" data-id="${item.id}">-</button>
-                        <span class="item-quantity">${item.quantity}</span>
-                        <button class="btn-cart btn-qty increase-qty" data-id="${item.id}">+</button>
-                        <button class="btn-cart remove-btn" data-id="${item.id}">Eliminar</button>
-                    </div>
-                `;
-                cartList.appendChild(li);
+                const itemsBackend = cart.map(i => ({ productId: i.id, quantity: i.quantity }));
+                const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+
+                try {
+                    const res = await fetch(`${API_URL}/api/orders`, {
+                        method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                        body: JSON.stringify({ items: itemsBackend, paymentMethod: paymentMethod, deliveryAddress: address })
+                    });
+                    const data = await res.json();
+                    if (res.ok) { localStorage.removeItem('saborLimeoCart'); window.location.href = `boleta.html?orderId=${data.orderId}`; }
+                    else { throw new Error(data.detail); }
+                } catch (error) { document.getElementById('error-msg').textContent = error.message; document.getElementById('error-msg').style.display = 'block'; payBtn.disabled = false; payBtn.textContent = 'Confirmar Pedido'; }
             });
-            
-            cartTotal.textContent = formatCurrency(total);
-        }
 
-        // --- Manejadores de eventos para los botones del carrito ---
-        cartList.addEventListener('click', function(e) {
-            const target = e.target;
-            const id = parseInt(target.dataset.id);
-            if (!id) return;
-
-            let cart = getCart();
-            const itemIndex = cart.findIndex(item => item.id === id);
-            if (itemIndex === -1) return;
-
-            if (target.classList.contains('remove-btn')) {
-                cart.splice(itemIndex, 1); // Eliminar el item
-            }
-            
-            if (target.classList.contains('increase-qty')) {
-                cart[itemIndex].quantity += 1;
-            }
-            
-            if (target.classList.contains('decrease-qty')) {
-                if (cart[itemIndex].quantity > 1) {
-                    cart[itemIndex].quantity -= 1;
-                } else {
-                    // Si la cantidad es 1, eliminarlo (opcional, o dejar en 1)
-                    cart.splice(itemIndex, 1);
-                }
-            }
-            
-            saveCart(cart); // Guardar cambios y re-renderizar
+            renderCart();
         });
-        
-        // Carga inicial
-        renderCart();
-    });
     </script>
-
 </body>
 </html>
