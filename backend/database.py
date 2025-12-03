@@ -100,6 +100,13 @@ def update_order_status(order_id: int, status: str):
 def assign_order(order_id: int, repartidor_nombre: str):
     orders_collection.update_one({"id": order_id}, {"$set": {"repartidorNombre": repartidor_nombre, "estado": "en_ruta"}})
 
+def get_orders_by_user(user_id: int):
+    """Devuelve la lista completa de pedidos de un usuario, ordenados por fecha."""
+    return list(orders_collection.find(
+        {"user_id": user_id}, 
+        {"_id": 0}
+    ).sort("id", -1))
+
 # --- NUEVO: Funciones de Boleta (SalesReceipt) ---
 def create_receipt(order_id: int, client_data: dict, items: list, total: float, payment_method: str):
     new_id = get_next_sequence("receiptid")

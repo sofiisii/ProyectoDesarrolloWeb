@@ -6,6 +6,7 @@
     <title>Mis Pedidos - Sabor Limeño</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             /* PALETA OFICIAL SABOR LIMEÑO */
@@ -23,11 +24,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             background-color: var(--blanco-roto); 
             color: var(--gris-texto);
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column;
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
@@ -35,42 +32,22 @@
         /* HEADER */
         .header { 
             background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); 
-            color: white; 
-            /* Sombra sutil sobre el hero */
-            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); 
-            padding: 1rem 0; 
-            /* SE ELIMINÓ EL MARGEN INFERIOR PARA PEGARLO AL HERO */
-            margin-bottom: 0; 
-            position: relative;
-            z-index: 10; /* Asegura que la sombra quede sobre el banner */
+            color: white; padding: 1rem 0; margin-bottom: 0; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); position: relative; z-index: 10;
         }
-        
         .nav-container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.8rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
         .nav-links { list-style: none; display: flex; gap: 2rem; margin: 0; padding: 0; }
-        
-        .nav-links a { 
-            color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; 
-        }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; }
         .nav-links a:hover { background-color: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
-
-        /* Auth Buttons */
         .auth-buttons { display: flex; gap: 1rem; align-items: center; }
         .btn-custom { padding: 8px 20px; border-radius: 25px; font-weight: 600; text-decoration: none; transition: all 0.3s; font-size: 14px; border: none; cursor: pointer; }
         .btn-outline-white { background: transparent; border: 2px solid white; color: white; }
-        .btn-outline-white:hover { background: white; color: var(--azul-pacifico); }
         .btn-yellow { background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; }
-        .btn-yellow:hover { background: #FFB300; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3); }
 
-        /* HERO SECTION */
+        /* HERO */
         .hero { 
             background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); 
-            color: white; 
-            padding: 4rem 0; /* Un poco más de padding para compensar */
-            text-align: center; 
-            margin-bottom: 4rem;
-            position: relative; 
-            overflow: hidden; 
+            color: white; padding: 4rem 0; text-align: center; margin-bottom: 4rem; position: relative; overflow: hidden; 
         }
         .hero::before { 
             content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
@@ -94,36 +71,41 @@
 
         /* TARJETA PRINCIPAL */
         .main-card {
-            background: white; 
-            border: 1px solid #e0e0e0; 
-            border-radius: 20px;
-            padding: 80px 40px;
-            text-align: center; 
-            min-height: 450px; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-            max-width: 850px;
-            margin: 0 auto 80px auto;
+            background: white; border: 1px solid #e0e0e0; border-radius: 20px; padding: 60px 40px;
+            text-align: center; min-height: 450px; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08); max-width: 850px; margin: 0 auto 80px auto;
         }
 
-        /* Estado Vacío */
+        /* Utilidades */
+        .d-none { display: none !important; }
+        .status-pill { background-color: rgba(30, 136, 229, 0.1); color: var(--azul-pacifico); padding: 6px 15px; border-radius: 20px; font-weight: 700; font-size: 0.9rem; }
+        
+        /* Estilos del Historial */
+        .history-item {
+            width: 100%; border: 1px solid #f0f0f0; border-radius: 12px; padding: 20px; margin-bottom: 15px;
+            display: flex; justify-content: space-between; align-items: center; transition: all 0.3s;
+            text-align: left;
+        }
+        .history-item:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-color: var(--azul-pacifico-claro); }
+        
+        .history-info h4 { margin: 0 0 5px 0; color: var(--azul-pacifico-oscuro); font-size: 1.1rem; }
+        .history-meta { font-size: 0.9rem; color: #777; }
+        
+        .btn-outline-blue {
+            border: 2px solid var(--azul-pacifico); color: var(--azul-pacifico); background: white;
+            padding: 8px 20px; border-radius: 25px; font-weight: 700; text-decoration: none; font-size: 0.9rem; transition: all 0.3s;
+        }
+        .btn-outline-blue:hover { background: var(--azul-pacifico); color: white; }
+
+        /* Botón Grande */
+        .btn-action-large { background-color: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); padding: 14px 50px; border-radius: 50px; font-weight: 800; text-transform: uppercase; text-decoration: none; display: inline-block; transition: all 0.3s; border: none; font-size: 15px; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2); }
+        .btn-action-large:hover { background-color: #FFB300; transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255, 193, 7, 0.4); }
+        
+        /* Empty State */
         .empty-icon svg { width: 110px; height: 110px; stroke: var(--azul-pacifico); stroke-width: 1.5; margin-bottom: 30px; fill: none; }
         .empty-title { font-size: 26px; font-weight: 800; color: #333; margin-bottom: 15px; text-transform: uppercase; letter-spacing: -0.5px; }
         .empty-description { color: #666; font-size: 17px; max-width: 550px; margin: 0 auto 35px auto; line-height: 1.6; }
 
-        .btn-action-large { 
-            background-color: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); padding: 14px 50px; border-radius: 50px; 
-            font-weight: 800; text-transform: uppercase; text-decoration: none; display: inline-block; transition: all 0.3s; 
-            border: none; font-size: 15px; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2);
-        }
-        .btn-action-large:hover { background-color: #FFB300; transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255, 193, 7, 0.4); }
-
-        /* Activo */
-        .status-pill { background-color: rgba(30, 136, 229, 0.1); color: var(--azul-pacifico); padding: 6px 15px; border-radius: 20px; font-weight: 700; font-size: 0.9rem; }
-        .d-none { display: none !important; }
     </style>
 </head>
 <body>
@@ -138,8 +120,7 @@
                     <li><a href="pedido.html" style="background-color: rgba(255,255,255,0.2);">Mis Pedidos</a></li>
                     <li><a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">Carrito 🛒</a></li>
                 </ul>
-                <div class="auth-buttons" id="authContainer">
-                    </div>
+                <div class="auth-buttons" id="authContainer"></div>
             </nav>
         </div>
     </header>
@@ -159,7 +140,7 @@
 
         <div class="main-card">
             
-            <div id="section-actual" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+            <div id="section-actual" style="width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1;">
                 
                 <div id="empty-state" class="d-none">
                     <div class="empty-icon">
@@ -168,7 +149,7 @@
                         </svg>
                     </div>
                     <h2 class="empty-title">No tienes pedidos activos</h2>
-                    <p class="empty-description">Selecciona tus favoritos del menú, agrégalos al carrito y procede al pago para completar tu compra.</p>
+                    <p class="empty-description">Selecciona tus favoritos del menú, agrégalos al carrito y procede al pago.</p>
                     <a href="catalogo.html" class="btn-action-large">Ir al Menú</a>
                 </div>
 
@@ -200,18 +181,29 @@
                 </div>
             </div>
 
-            <div id="section-historial" class="d-none">
-                <h3 style="color: #ccc;">Historial Vacío</h3>
+            <div id="section-historial" class="d-none" style="width: 100%; padding: 0 20px;">
+                <div id="history-loading" style="text-align:center; padding: 20px;">
+                    <div class="spinner-border text-secondary" role="status"></div>
+                </div>
+                
+                <div id="history-list" style="width: 100%;">
+                    </div>
+
+                <div id="history-empty" class="d-none" style="text-align: center;">
+                    <h3 style="color: #ccc;">Aún no tienes historial</h3>
+                    <p class="text-muted">Tus pedidos completados aparecerán aquí.</p>
+                </div>
             </div>
+
         </div>
     </div>
 
     <script>
-        // ... (El script sigue siendo el mismo) ...
         const API_URL = 'http://localhost:8000';
         const token = localStorage.getItem('authToken');
         const authContainer = document.getElementById('authContainer');
 
+        // 1. Auth Buttons
         function renderAuthButtons() {
             if (token) {
                 const userName = localStorage.getItem('userNombre') || 'Cliente';
@@ -222,6 +214,7 @@
             }
         }
 
+        // 2. Tabs Logic
         window.switchTab = function(tabName) {
             document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
             document.getElementById('section-actual').classList.add('d-none');
@@ -229,36 +222,90 @@
 
             if(tabName === 'actual') {
                 document.querySelector('.tab-item:first-child').classList.add('active');
-                document.getElementById('section-actual').style.display = 'flex';
                 document.getElementById('section-actual').classList.remove('d-none');
             } else {
                 document.querySelector('.tab-item:last-child').classList.add('active');
                 document.getElementById('section-historial').classList.remove('d-none');
+                loadHistory(); // Cargar historial al cambiar
             }
         }
 
+        // 3. Load Active Order
         async function loadOrderData() {
-            const loadingState = document.getElementById('loading-state');
-            const emptyState = document.getElementById('empty-state');
-            const activeState = document.getElementById('active-state');
+            const loading = document.getElementById('loading-state');
+            const empty = document.getElementById('empty-state');
+            const active = document.getElementById('active-state');
 
-            if (!token) { loadingState.classList.add('d-none'); emptyState.classList.remove('d-none'); return; }
+            if (!token) { loading.classList.add('d-none'); empty.classList.remove('d-none'); return; }
 
             try {
                 const res = await fetch(`${API_URL}/api/orders/current`, { headers: { 'Authorization': `Bearer ${token}` } });
-                loadingState.classList.add('d-none');
+                loading.classList.add('d-none');
 
                 if (res.ok) {
                     const order = await res.json();
                     if (order.status !== 'entregado' && order.status !== 'anulado') {
-                        activeState.classList.remove('d-none');
+                        active.classList.remove('d-none');
                         document.getElementById('activeId').textContent = order.id;
                         document.getElementById('activeTotal').textContent = `$${order.totalAmount.toLocaleString('es-CL')}`;
                         document.getElementById('activeStatus').textContent = order.status.toUpperCase();
                         document.getElementById('activeDate').textContent = order.createdAt.split(' ')[0];
-                    } else { emptyState.classList.remove('d-none'); }
-                } else { emptyState.classList.remove('d-none'); }
-            } catch (error) { loadingState.classList.add('d-none'); emptyState.classList.remove('d-none'); }
+                    } else { empty.classList.remove('d-none'); }
+                } else { empty.classList.remove('d-none'); }
+            } catch (error) { loading.classList.add('d-none'); empty.classList.remove('d-none'); }
+        }
+
+        // 4. Load History (NUEVO)
+        async function loadHistory() {
+            const container = document.getElementById('history-list');
+            const loading = document.getElementById('history-loading');
+            const empty = document.getElementById('history-empty');
+            
+            container.innerHTML = '';
+            loading.classList.remove('d-none');
+            empty.classList.add('d-none');
+
+            try {
+                const res = await fetch(`${API_URL}/api/orders/history`, { headers: { 'Authorization': `Bearer ${token}` } });
+                loading.classList.add('d-none');
+
+                if (res.ok) {
+                    const orders = await res.json();
+                    if (orders.length === 0) {
+                        empty.classList.remove('d-none');
+                        return;
+                    }
+
+                    orders.forEach(order => {
+                        // Crear tarjeta de historial
+                        const item = document.createElement('div');
+                        item.className = 'history-item';
+                        item.innerHTML = `
+                            <div class="history-info">
+                                <h4>Pedido #${order.id}</h4>
+                                <div class="history-meta">
+                                    <span style="margin-right: 15px;"><i class="far fa-calendar-alt"></i> ${order.createdAt}</span>
+                                    <span style="font-weight: 700; color: #4CAF50;">$${order.totalAmount.toLocaleString('es-CL')}</span>
+                                </div>
+                                <div style="margin-top: 5px; font-size: 0.85rem; color: #888;">
+                                    Estado: <strong style="text-transform: uppercase;">${order.status}</strong>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="boleta.html?orderId=${order.id}" class="btn-outline-blue">
+                                    <i class="fas fa-file-invoice"></i> Ver Boleta
+                                </a>
+                            </div>
+                        `;
+                        container.appendChild(item);
+                    });
+                } else {
+                    empty.classList.remove('d-none');
+                }
+            } catch (e) {
+                loading.classList.add('d-none');
+                empty.classList.remove('d-none');
+            }
         }
 
         document.addEventListener('DOMContentLoaded', () => { renderAuthButtons(); loadOrderData(); });
