@@ -8,32 +8,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* ... (Tus estilos CSS de pedido.html se mantienen igual, los abrevio para ahorrar espacio pero el HEADER cambia) ... */
         :root {
-            /* PALETA OFICIAL SABOR LIMEÑO */
-            --azul-pacifico: #1E88E5;
-            --azul-pacifico-oscuro: #1565C0;
-            --azul-pacifico-claro: #64B5F6;
-            --aji-amarillo: #FFC107;
-            --terracota: #BF360C;
-            --verde-menta: #4CAF50;
-            --blanco-roto: #F8F9FA;
-            --gris-texto: #424242;
+            --azul-pacifico: #1E88E5; --azul-pacifico-oscuro: #1565C0; --azul-pacifico-claro: #64B5F6;
+            --aji-amarillo: #FFC107; --terracota: #BF360C; --verde-menta: #4CAF50;
+            --blanco-roto: #F8F9FA; --gris-texto: #424242;
         }
-
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: var(--blanco-roto); 
-            color: var(--gris-texto);
-            margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column;
-        }
-
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--blanco-roto); color: var(--gris-texto); margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-
+        
         /* HEADER */
-        .header { 
-            background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); 
-            color: white; padding: 1rem 0; margin-bottom: 0; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); position: relative; z-index: 10;
-        }
+        .header { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); padding: 1rem 0; margin-bottom: 0; position: relative; z-index: 10; }
         .nav-container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.8rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
         .nav-links { list-style: none; display: flex; gap: 2rem; margin: 0; padding: 0; }
@@ -42,74 +27,43 @@
         .auth-buttons { display: flex; gap: 1rem; align-items: center; }
         .btn-custom { padding: 8px 20px; border-radius: 25px; font-weight: 600; text-decoration: none; transition: all 0.3s; font-size: 14px; border: none; cursor: pointer; }
         .btn-outline-white { background: transparent; border: 2px solid white; color: white; }
+        .btn-outline-white:hover { background: white; color: var(--azul-pacifico); }
         .btn-yellow { background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; }
-
+        
         /* HERO */
-        .hero { 
-            background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); 
-            color: white; padding: 4rem 0; text-align: center; margin-bottom: 4rem; position: relative; overflow: hidden; 
-        }
-        .hero::before { 
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>'); 
-            background-size: cover; 
-        }
+        .hero { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); color: white; padding: 4rem 0; text-align: center; margin-bottom: 4rem; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>'); background-size: cover; }
         .hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto;}
         .hero h1 { font-size: 2.8rem; margin-bottom: 0.5rem; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .hero p { font-size: 1.2rem; margin-bottom: 0; opacity: 0.95; font-weight: 500; }
-
-        /* TABS */
-        .tabs-container {
-            background-color: #E0E0E0; border-radius: 50px; padding: 5px; display: flex; 
-            margin-bottom: 30px; max-width: 850px; margin-left: auto; margin-right: auto;
-        }
-        .tab-item {
-            flex: 1; text-align: center; padding: 12px 0; border-radius: 50px; cursor: pointer;
-            font-weight: 700; font-size: 14px; text-transform: uppercase; color: #757575; transition: all 0.3s;
-        }
+        
+        /* TABS y CARDS */
+        .tabs-container { background-color: #E0E0E0; border-radius: 50px; padding: 5px; display: flex; margin-bottom: 30px; max-width: 850px; margin-left: auto; margin-right: auto; }
+        .tab-item { flex: 1; text-align: center; padding: 12px 0; border-radius: 50px; cursor: pointer; font-weight: 700; font-size: 14px; text-transform: uppercase; color: #757575; transition: all 0.3s; }
         .tab-item.active { background-color: white; color: var(--azul-pacifico-oscuro); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-
-        /* TARJETA PRINCIPAL */
-        .main-card {
-            background: white; border: 1px solid #e0e0e0; border-radius: 20px; padding: 60px 40px;
-            text-align: center; min-height: 450px; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08); max-width: 850px; margin: 0 auto 80px auto;
-        }
-
-        /* Utilidades */
+        
+        .main-card { background: white; border: 1px solid #e0e0e0; border-radius: 20px; padding: 60px 40px; text-align: center; min-height: 450px; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; box-shadow: 0 10px 40px rgba(0,0,0,0.08); max-width: 850px; margin: 0 auto 80px auto; }
+        
         .d-none { display: none !important; }
         .status-pill { background-color: rgba(30, 136, 229, 0.1); color: var(--azul-pacifico); padding: 6px 15px; border-radius: 20px; font-weight: 700; font-size: 0.9rem; }
         
-        /* Estilos del Historial */
-        .history-item {
-            width: 100%; border: 1px solid #f0f0f0; border-radius: 12px; padding: 20px; margin-bottom: 15px;
-            display: flex; justify-content: space-between; align-items: center; transition: all 0.3s;
-            text-align: left;
-        }
+        .history-item { width: 100%; border: 1px solid #f0f0f0; border-radius: 12px; padding: 20px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s; text-align: left; }
         .history-item:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-color: var(--azul-pacifico-claro); }
-        
         .history-info h4 { margin: 0 0 5px 0; color: var(--azul-pacifico-oscuro); font-size: 1.1rem; }
         .history-meta { font-size: 0.9rem; color: #777; }
         
-        .btn-outline-blue {
-            border: 2px solid var(--azul-pacifico); color: var(--azul-pacifico); background: white;
-            padding: 8px 20px; border-radius: 25px; font-weight: 700; text-decoration: none; font-size: 0.9rem; transition: all 0.3s;
-        }
+        .btn-outline-blue { border: 2px solid var(--azul-pacifico); color: var(--azul-pacifico); background: white; padding: 8px 20px; border-radius: 25px; font-weight: 700; text-decoration: none; font-size: 0.9rem; transition: all 0.3s; }
         .btn-outline-blue:hover { background: var(--azul-pacifico); color: white; }
-
-        /* Botón Grande */
+        
         .btn-action-large { background-color: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); padding: 14px 50px; border-radius: 50px; font-weight: 800; text-transform: uppercase; text-decoration: none; display: inline-block; transition: all 0.3s; border: none; font-size: 15px; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2); }
         .btn-action-large:hover { background-color: #FFB300; transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255, 193, 7, 0.4); }
         
-        /* Empty State */
         .empty-icon svg { width: 110px; height: 110px; stroke: var(--azul-pacifico); stroke-width: 1.5; margin-bottom: 30px; fill: none; }
         .empty-title { font-size: 26px; font-weight: 800; color: #333; margin-bottom: 15px; text-transform: uppercase; letter-spacing: -0.5px; }
         .empty-description { color: #666; font-size: 17px; max-width: 550px; margin: 0 auto 35px auto; line-height: 1.6; }
-
     </style>
 </head>
 <body>
-
     <header class="header">
         <div class="container">
             <nav class="nav-container">
@@ -118,7 +72,12 @@
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="catalogo.html">Catálogo</a></li>
                     <li><a href="pedido.html" style="background-color: rgba(255,255,255,0.2);">Mis Pedidos</a></li>
-                    <li><a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">Carrito 🛒</a></li>
+                    <li>
+                        <a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700; display: flex; align-items: center;">
+                            Carrito 🛒
+                            <span id="cart-count" class="badge bg-danger rounded-pill ms-2" style="display: none; font-size: 0.75rem;">0</span>
+                        </a>
+                    </li>
                 </ul>
                 <div class="auth-buttons" id="authContainer"></div>
             </nav>
@@ -139,62 +98,34 @@
         </div>
 
         <div class="main-card">
-            
             <div id="section-actual" style="width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1;">
-                
                 <div id="empty-state" class="d-none">
-                    <div class="empty-icon">
-                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 3L2 8L12 13L22 8L12 3Z"/><path d="M2 17L12 22L22 17"/><path d="M2 12L12 17L22 12"/><rect x="8" y="10" width="8" height="6" rx="1" style="stroke:var(--azul-pacifico); fill:none;"/>
-                        </svg>
-                    </div>
+                    <div class="empty-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L2 8L12 13L22 8L12 3Z"/><path d="M2 17L12 22L22 17"/><path d="M2 12L12 17L22 12"/><rect x="8" y="10" width="8" height="6" rx="1" style="stroke:var(--azul-pacifico); fill:none;"/></svg></div>
                     <h2 class="empty-title">No tienes pedidos activos</h2>
                     <p class="empty-description">Selecciona tus favoritos del menú, agrégalos al carrito y procede al pago.</p>
                     <a href="catalogo.html" class="btn-action-large">Ir al Menú</a>
                 </div>
-
                 <div id="active-state" class="d-none" style="width: 100%; max-width: 600px; text-align: left;">
                     <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 20px;">
                         <h3 style="color: var(--azul-pacifico-oscuro); margin:0;">Pedido #<span id="activeId">...</span></h3>
                         <span class="status-pill" id="activeStatus">PENDIENTE</span>
                     </div>
                     <div class="row mb-4">
-                        <div class="col-6">
-                            <small class="text-muted d-block fw-bold">TOTAL</small>
-                            <span class="fs-4 fw-bold text-dark" id="activeTotal">...</span>
-                        </div>
-                        <div class="col-6 text-end">
-                            <small class="text-muted d-block fw-bold">FECHA</small>
-                            <span class="fw-bold text-dark" id="activeDate">...</span>
-                        </div>
+                        <div class="col-6"><small class="text-muted d-block fw-bold">TOTAL</small><span class="fs-4 fw-bold text-dark" id="activeTotal">...</span></div>
+                        <div class="col-6 text-end"><small class="text-muted d-block fw-bold">FECHA</small><span class="fw-bold text-dark" id="activeDate">...</span></div>
                     </div>
                     <div style="text-align: center; margin-top: 40px;">
-                        <a href="delivery.html" class="btn-custom" style="background: var(--azul-pacifico); color: white; padding: 12px 30px; font-size: 1rem;">
-                            Ver Seguimiento en Mapa 🛵
-                        </a>
+                        <a href="delivery.html" class="btn-custom" style="background: var(--azul-pacifico); color: white; padding: 12px 30px; font-size: 1rem;">Ver Seguimiento en Mapa 🛵</a>
                     </div>
                 </div>
-
-                <div id="loading-state">
-                    <div class="spinner-border text-primary" role="status"></div>
-                    <p class="mt-3 text-muted fw-bold">Verificando pedidos...</p>
-                </div>
+                <div id="loading-state"><div class="spinner-border text-primary" role="status"></div><p class="mt-3 text-muted fw-bold">Verificando pedidos...</p></div>
             </div>
 
             <div id="section-historial" class="d-none" style="width: 100%; padding: 0 20px;">
-                <div id="history-loading" style="text-align:center; padding: 20px;">
-                    <div class="spinner-border text-secondary" role="status"></div>
-                </div>
-                
-                <div id="history-list" style="width: 100%;">
-                    </div>
-
-                <div id="history-empty" class="d-none" style="text-align: center;">
-                    <h3 style="color: #ccc;">Aún no tienes historial</h3>
-                    <p class="text-muted">Tus pedidos completados aparecerán aquí.</p>
-                </div>
+                <div id="history-loading" style="text-align:center; padding: 20px;"><div class="spinner-border text-secondary" role="status"></div></div>
+                <div id="history-list" style="width: 100%;"></div>
+                <div id="history-empty" class="d-none" style="text-align: center;"><h3 style="color: #ccc;">Aún no tienes historial</h3><p class="text-muted">Tus pedidos completados aparecerán aquí.</p></div>
             </div>
-
         </div>
     </div>
 
@@ -203,7 +134,6 @@
         const token = localStorage.getItem('authToken');
         const authContainer = document.getElementById('authContainer');
 
-        // 1. Auth Buttons
         function renderAuthButtons() {
             if (token) {
                 const userName = localStorage.getItem('userNombre') || 'Cliente';
@@ -214,7 +144,18 @@
             }
         }
 
-        // 2. Tabs Logic
+        // --- FUNCIÓN DEL CONTADOR DEL CARRITO ---
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('saborLimeoCart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const badge = document.getElementById('cart-count');
+            if(badge) {
+                badge.textContent = totalItems;
+                badge.style.display = totalItems > 0 ? 'inline-block' : 'none';
+            }
+        }
+
+        // (Resto de la lógica de pestañas y carga de pedidos se mantiene igual)
         window.switchTab = function(tabName) {
             document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
             document.getElementById('section-actual').classList.add('d-none');
@@ -223,14 +164,14 @@
             if(tabName === 'actual') {
                 document.querySelector('.tab-item:first-child').classList.add('active');
                 document.getElementById('section-actual').classList.remove('d-none');
+                document.getElementById('section-actual').style.display = 'flex';
             } else {
                 document.querySelector('.tab-item:last-child').classList.add('active');
                 document.getElementById('section-historial').classList.remove('d-none');
-                loadHistory(); // Cargar historial al cambiar
+                loadHistory(); 
             }
         }
 
-        // 3. Load Active Order
         async function loadOrderData() {
             const loading = document.getElementById('loading-state');
             const empty = document.getElementById('empty-state');
@@ -255,60 +196,28 @@
             } catch (error) { loading.classList.add('d-none'); empty.classList.remove('d-none'); }
         }
 
-        // 4. Load History (NUEVO)
         async function loadHistory() {
             const container = document.getElementById('history-list');
             const loading = document.getElementById('history-loading');
             const empty = document.getElementById('history-empty');
-            
-            container.innerHTML = '';
-            loading.classList.remove('d-none');
-            empty.classList.add('d-none');
-
+            container.innerHTML = ''; loading.classList.remove('d-none'); empty.classList.add('d-none');
             try {
                 const res = await fetch(`${API_URL}/api/orders/history`, { headers: { 'Authorization': `Bearer ${token}` } });
                 loading.classList.add('d-none');
-
                 if (res.ok) {
                     const orders = await res.json();
-                    if (orders.length === 0) {
-                        empty.classList.remove('d-none');
-                        return;
-                    }
-
+                    if (orders.length === 0) { empty.classList.remove('d-none'); return; }
                     orders.forEach(order => {
-                        // Crear tarjeta de historial
                         const item = document.createElement('div');
                         item.className = 'history-item';
-                        item.innerHTML = `
-                            <div class="history-info">
-                                <h4>Pedido #${order.id}</h4>
-                                <div class="history-meta">
-                                    <span style="margin-right: 15px;"><i class="far fa-calendar-alt"></i> ${order.createdAt}</span>
-                                    <span style="font-weight: 700; color: #4CAF50;">$${order.totalAmount.toLocaleString('es-CL')}</span>
-                                </div>
-                                <div style="margin-top: 5px; font-size: 0.85rem; color: #888;">
-                                    Estado: <strong style="text-transform: uppercase;">${order.status}</strong>
-                                </div>
-                            </div>
-                            <div>
-                                <a href="boleta.html?orderId=${order.id}" class="btn-outline-blue">
-                                    <i class="fas fa-file-invoice"></i> Ver Boleta
-                                </a>
-                            </div>
-                        `;
+                        item.innerHTML = `<div class="history-info"><h4>Pedido #${order.id}</h4><div class="history-meta"><span style="margin-right:15px;"><i class="far fa-calendar-alt"></i> ${order.createdAt}</span><span style="font-weight:700; color:#4CAF50;">$${order.totalAmount.toLocaleString('es-CL')}</span></div><div style="margin-top:5px; font-size:0.85rem; color:#888;">Estado: <strong style="text-transform:uppercase;">${order.status}</strong></div></div><div><a href="boleta.html?orderId=${order.id}" class="btn-outline-blue"><i class="fas fa-file-invoice"></i> Ver Boleta</a></div>`;
                         container.appendChild(item);
                     });
-                } else {
-                    empty.classList.remove('d-none');
-                }
-            } catch (e) {
-                loading.classList.add('d-none');
-                empty.classList.remove('d-none');
-            }
+                } else { empty.classList.remove('d-none'); }
+            } catch (e) { loading.classList.add('d-none'); empty.classList.remove('d-none'); }
         }
 
-        document.addEventListener('DOMContentLoaded', () => { renderAuthButtons(); loadOrderData(); });
+        document.addEventListener('DOMContentLoaded', () => { renderAuthButtons(); updateCartCount(); loadOrderData(); });
     </script>
 </body>
 </html>

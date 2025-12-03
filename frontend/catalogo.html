@@ -72,8 +72,9 @@
                     <li><a href="catalogo.html">Catálogo</a></li>
                     <li><a href="pedido.html">Mis Pedidos</a></li>
                     <li>
-                        <a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">
-                            Carrito 🛒
+                        <a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700; display: flex; align-items: center;">
+                            Carrito 🛒 
+                            <span id="cart-count" class="badge bg-danger rounded-pill ms-2" style="display: none; font-size: 0.75rem;">0</span>
                         </a>
                     </li>
                 </ul>
@@ -127,9 +128,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             
-            const API_URL = 'http://localhost:8000'; // Asegúrate que sea el puerto 8000
+            const API_URL = 'http://localhost:8000'; 
             
-            // --- GESTIÓN DE SESIÓN (Igual que antes) ---
+            // --- GESTIÓN DE SESIÓN ---
             const authButtons = document.querySelector('.auth-buttons');
             const token = localStorage.getItem('authToken');
 
@@ -149,16 +150,32 @@
                 authButtons.innerHTML = `<a href="signin.html" class="btn btn-outline">Iniciar Sesión</a><a href="registro.html" class="btn btn-primary">Registrarse</a>`;
             }
 
-            // --- CARGA DE PRODUCTOS DESDE MONGODB ---
+            // --- LÓGICA DEL CONTADOR DEL CARRITO ---
+            function updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('saborLimeoCart')) || [];
+                // Sumamos la cantidad de cada producto (ej: 2 Lomo Saltado + 1 Inca Kola = 3)
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                
+                const badge = document.getElementById('cart-count');
+                if (badge) {
+                    badge.textContent = totalItems;
+                    // Mostrar solo si hay items
+                    badge.style.display = totalItems > 0 ? 'inline-block' : 'none';
+                }
+            }
+            
+            // Ejecutar al cargar la página
+            updateCartCount();
+
+            // --- CARGA DE PRODUCTOS ---
             const grid = document.getElementById('products-grid');
             const searchInput = document.getElementById('searchInput');
             const categoryFilters = document.getElementById('categoryFilters');
             const noResultsMessage = document.getElementById('no-results');
             
-            let allProducts = []; // Ahora se llenará desde la API
+            let allProducts = [];
             let currentCategory = 'Todos';
 
-            // Mapeo de categorías del Backend (español BD) a los Filtros del Frontend
             function normalizeCategory(cat) {
                 if (cat === 'fondo' || cat === 'Plato de Fondo') return 'Plato de Fondo';
                 if (cat === 'entradas' || cat === 'Entrada') return 'Entrada';
@@ -172,12 +189,11 @@
                     if (!response.ok) throw new Error('Error cargando el menú');
                     const data = await response.json();
                     
-                    // Adaptamos los datos de la BD (nombre, precio) al formato que usa el HTML (name, price)
                     allProducts = data.map(item => ({
                         id: item.id,
-                        name: item.nombre, // MongoDB tiene "nombre"
-                        price: item.precio, // MongoDB tiene "precio"
-                        category: normalizeCategory(item.categoria), // MongoDB tiene "categoria"
+                        name: item.nombre,
+                        price: item.precio,
+                        category: normalizeCategory(item.categoria),
                         description: item.description || "Delicioso plato peruano.",
                         ingredients: item.ingredients || "Ingredientes frescos.",
                         gradient: item.gradient || "linear-gradient(135deg, #ccc, #999)",
@@ -195,7 +211,6 @@
                 grid.innerHTML = '';
                 const searchTerm = searchInput.value.toLowerCase();
                 
-                // Filtramos solo los disponibles y por búsqueda/categoría
                 const availableProducts = allProducts.filter(p => p.disponible); 
                 let filteredProducts = availableProducts;
 
@@ -218,7 +233,6 @@
                     card.setAttribute('data-bs-toggle', 'modal');
                     card.setAttribute('data-bs-target', '#productModal');
                     
-                    // Pasamos los datos al modal
                     card.dataset.id = product.id;
                     card.dataset.name = product.name;
                     card.dataset.price = product.price;
@@ -249,7 +263,7 @@
                 }
             });
 
-            // --- MODAL Y CARRITO ---
+            // --- MODAL Y AGREGAR AL CARRITO ---
             const productModal = document.getElementById('productModal');
             const addToCartBtn = productModal.querySelector('.btn-add-cart');
             let currentProductInModal = {};
@@ -298,12 +312,14 @@
                 }
                 localStorage.setItem('saborLimeoCart', JSON.stringify(cart));
                 
+                // ACTUALIZAR CONTADOR VISUAL
+                updateCartCount();
+                
                 const modalInstance = bootstrap.Modal.getInstance(productModal);
                 modalInstance.hide();
                 alert(`${product.name} ha sido agregado al carrito!`);
             });
 
-            // Carga inicial desde la API
             fetchProducts();
         });
     </script>

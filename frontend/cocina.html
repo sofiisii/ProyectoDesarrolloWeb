@@ -1,344 +1,222 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Orden de Cocina - Sabor Limeño</title>
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        <style>
-            :root {
-                --azul-pacifico: #1E88E5; --azul-pacifico-oscuro: #1565C0; --azul-pacifico-claro: #64B5F6;
-                --aji-amarillo: #FFC107; --terracota: #BF360C; --verde-menta: #4CAF50;
-                --purpura-nazca: #6A1B9A; --blanco-roto: #F8F9FA; --gris-texto: #424242;
-            }
-            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--blanco-roto); color: var(--gris-texto); margin: 0; padding: 0; }
-            .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-            .header { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); padding: 1rem 0; }
-            .nav-container { display: flex; justify-content: space-between; align-items: center; }
-            .logo { font-size: 1.8rem; font-weight: 700; }
-            .nav-links { display: flex; gap: 2rem; list-style: none; }
-            .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; }
-            .nav-links a:hover { background-color: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
-            .auth-buttons { display: flex; gap: 1rem; }
-            .btn { padding: 10px 20px; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; font-size: 14px; }
-            .btn-outline { background: transparent; border: 2px solid white; color: white; }
-            .btn-outline:hover { background: white; color: var(--azul-pacifico); }
-            .btn-primary { background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; }
-            .btn-primary:hover { background: #FFB300; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3); }
-            .hero { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); color: white; padding: 2rem 0; text-align: center; margin-bottom: 2rem; position: relative; overflow: hidden; }
-            .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>'); background-size: cover; }
-            .hero-content { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
-            .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; font-weight: 700; }
-            .hero p { font-size: 1rem; margin-bottom: 0; opacity: 0.9; }
-            .kitchen-container { max-width: 600px; margin: 0 auto; padding: 0 15px; }
-            .card { border-radius: 15px; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); border: 2px solid transparent; transition: all 0.3s ease; overflow: hidden; margin-bottom: 2rem; }
-            .card:hover { box-shadow: 0 15px 35px rgba(30, 136, 229, 0.15); border-color: var(--azul-pacifico); }
-            .kitchen-order { border: 2px solid var(--blanco-roto); border-radius: 12px; padding: 20px; margin-bottom: 25px; background: linear-gradient(135deg, #E3F2FD, #FFFFFF); position: relative; overflow: hidden; }
-            .kitchen-order::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--azul-pacifico), var(--verde-menta)); }
-            .order-header { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--azul-pacifico-claro); }
-            .restaurant-name { font-size: 22px; font-weight: 700; margin-bottom: 5px; color: var(--azul-pacifico-oscuro); }
-            .order-title { font-size: 16px; font-weight: 600; margin-bottom: 5px; color: var(--gris-texto); }
-            .order-info { font-size: 14px; color: var(--gris-texto); }
-            .detail-section { margin-bottom: 20px; padding: 15px; background-color: rgba(255, 255, 255, 0.7); border-radius: 8px; border: 1px solid var(--blanco-roto); }
-            .section-title { font-weight: 600; margin-bottom: 8px; color: var(--azul-pacifico-oscuro); font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
-            .customer-info { font-size: 14px; color: var(--gris-texto); line-height: 1.4; }
-            .items-list { margin-top: 10px; }
-            .order-item { display: flex; justify-content: space-between; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed var(--azul-pacifico-claro); }
-            .item-quantity { font-weight: 600; min-width: 30px; color: var(--azul-pacifico-oscuro); }
-            .item-name { flex-grow: 1; margin-left: 10px; font-weight: 500; }
-            .special-instructions { font-style: italic; color: var(--terracota); margin-left: 40px; margin-bottom: 10px; font-size: 13px; background-color: rgba(191, 54, 12, 0.05); padding: 5px 10px; border-radius: 5px; border-left: 3px solid var(--terracota); }
-            .order-footer { text-align: center; margin-top: 20px; padding-top: 15px; border-top: 2px solid var(--azul-pacifico-claro); }
-            .order-number { font-weight: 600; color: var(--azul-pacifico-oscuro); margin-bottom: 10px; }
-            .status-indicator { display: inline-block; padding: 8px 15px; border-radius: 8px; font-weight: 600; color: white; margin-top: 10px; transition: all 0.3s; }
-            /* Clases de estado dinámicas */
-            .status-pendiente { background: linear-gradient(135deg, var(--terracota), #D84315); box-shadow: 0 4px 12px rgba(191, 54, 12, 0.2); }
-            .status-preparando { background: linear-gradient(135deg, var(--aji-amarillo), #FFB300); box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2); color: var(--azul-pacifico-oscuro); }
-            .status-completado { background: linear-gradient(135deg, var(--verde-menta), #66BB6A); box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2); }
-            .status-en_ruta, .status-entregado { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor de Cocina - Sabor Limeño</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* ... Estilos idénticos a la respuesta anterior ... */
+        :root {
+            --azul-pacifico: #1E88E5; --azul-pacifico-oscuro: #1565C0; --azul-pacifico-claro: #64B5F6;
+            --aji-amarillo: #FFC107; --terracota: #BF360C; --verde-menta: #4CAF50;
+            --blanco-roto: #F8F9FA; --gris-texto: #424242; --gris-tabs: #EAEAEA;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--blanco-roto); color: var(--gris-texto); margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .header { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; padding: 1rem 0; margin-bottom: 0; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); position: relative; z-index: 10; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; }
+        .auth-buttons { display: flex; gap: 15px; align-items: center; }
+        .user-greeting { font-weight: 600; color: white; }
+        .btn-logout { border: 2px solid white; color: white; background: transparent; padding: 6px 20px; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .btn-logout:hover { background: white; color: var(--azul-pacifico); }
+        .hero { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); color: white; padding: 3rem 0; text-align: center; margin-bottom: 3rem; position: relative; overflow: hidden; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 700; }
+        .hero p { font-size: 1.1rem; margin-bottom: 0; opacity: 0.95; font-weight: 500; }
+        .btn-back { position: absolute; top: 2rem; left: 2rem; color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 600; border: 1px solid rgba(255,255,255,0.4); padding: 6px 20px; border-radius: 20px; transition: all 0.3s; z-index: 10; background: rgba(255,255,255,0.1); }
+        .btn-back:hover { background: rgba(255,255,255,0.3); color: white; transform: translateX(-3px); }
+        .tabs-container { background-color: var(--gris-tabs); border-radius: 50px; padding: 5px; display: flex; margin-bottom: 20px; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .tab-item { flex: 1; text-align: center; padding: 10px 0; border-radius: 50px; cursor: pointer; font-weight: 800; font-size: 13px; text-transform: uppercase; color: #888; transition: all 0.3s; letter-spacing: 0.5px; }
+        .tab-item.active { background-color: white; color: var(--azul-pacifico-oscuro); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .kitchen-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; padding-bottom: 40px; }
+        .order-card { background: white; border-radius: 12px; border: 1px solid #e0e0e0; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.2s; }
+        .order-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .card-header-status { padding: 15px; color: white; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+        .bg-pendiente { background: linear-gradient(135deg, #FF5722, #E64A19); } 
+        .bg-preparando { background: linear-gradient(135deg, #FFC107, #FFB300); color: #3E2723; }
+        .card-body { padding: 20px; }
+        .order-items { list-style: none; padding: 0; margin: 0 0 15px 0; }
+        .order-item { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 1rem; }
+        .item-qty { font-weight: 700; color: var(--azul-pacifico-oscuro); margin-right: 10px; }
+        .card-footer { padding: 15px; background: #f9f9f9; text-align: center; border-top: 1px solid #eee; }
+        .btn-action { width: 100%; padding: 10px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: background 0.3s; color: white; }
+        .btn-start { background-color: var(--azul-pacifico); }
+        .btn-start:hover { background-color: var(--azul-pacifico-oscuro); }
+        .btn-finish { background-color: var(--verde-menta); }
+        .btn-finish:hover { background-color: #388E3C; }
+        .history-table { width: 100%; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-collapse: collapse; }
+        .history-table th { background-color: var(--azul-pacifico-oscuro); color: white; padding: 15px; text-align: left; }
+        .history-table td { padding: 15px; border-bottom: 1px solid #eee; }
+        .badge-status { padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
+        .status-entregado { background-color: #E8F5E9; color: #2E7D32; }
+        .status-en_ruta { background-color: #E3F2FD; color: #1565C0; }
+        .status-anulado { background-color: #FFEBEE; color: #C62828; }
+        .status-completado { background-color: #FFF3E0; color: #EF6C00; }
+        .d-none { display: none !important; }
+        .empty-state { text-align: center; padding: 60px; color: #aaa; width: 100%; grid-column: 1 / -1; }
+    </style>
+</head>
+<body>
 
-            .btn-action { padding: 15px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 16px; transition: all 0.3s; text-decoration: none; display: inline-block; text-align: center; width: 100%; color: white; margin-bottom: 10px; }
-            .btn-action:hover:not(:disabled) { transform: translateY(-2px); }
-            .btn-action:disabled { background: #cccccc; cursor: not-allowed; transform: none; box-shadow: none; }
-            
-            .btn-confirm { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); }
-            .btn-complete { background: linear-gradient(135deg, var(--verde-menta), #66BB6A); box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2); }
-            .btn-delivery { background: linear-gradient(135deg, var(--purpura-nazca), #8E24AA); box-shadow: 0 4px 12px rgba(106, 27, 154, 0.2); }
-            
-            .action-buttons { display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
-            .action-buttons .btn-action { flex: 1; min-width: 150px; }
-            
-            /* --- NUEVO: Estilos para Carga y Error --- */
-            #loadingState { text-align: center; padding: 3rem; font-size: 1.2rem; color: var(--gris-texto); }
-            #errorState { text-align: center; padding: 3rem; background-color: rgba(191, 54, 12, 0.1); border: 2px solid var(--terracota); border-radius: 10px; color: var(--terracota); }
-        </style>
-    </head>
-    <body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav-container">
+                <div class="logo">Sabor Limeño</div>
+                <div class="auth-buttons" id="authButtons"></div>
+            </nav>
+        </div>
+    </header>
 
-        <header class="header">
-            <div class="container">
-                <nav class="nav-container">
-                    <div class="logo">
-                        <span>Sabor Limeño</span>
-                    </div>
-                    <ul class="nav-links">
-                        <li><a href="index.html">Inicio</a></li>
-                        <li><a href="catalogo.html">Catálogo</a></li>
-                        <li><a href="pedido.html">Mis Pedidos</a></li>
-                        <li><a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">Carrito 🛒</a></li>
-                    </ul>
-                    <div class="auth-buttons">
-                        </div>
-                </nav>
-            </div>
-        </header>
+    <section class="hero">
+        <a href="administracion.html" class="btn-back">← Volver al Panel</a>
+        <div class="container hero-content">
+            <h1>Monitor de Cocina</h1>
+            <p>Gestiona la preparación de pedidos en tiempo real</p>
+        </div>
+    </section>
 
-        <section class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1>Orden de Cocina</h1>
-                    <p>Gestión de preparación de pedidos</p>
-                </div>
-            </div>
-        </section>
+    <div class="container">
+        <div class="tabs-container">
+            <div class="tab-item active" onclick="switchTab('activas')">Comandas Activas</div>
+            <div class="tab-item" onclick="switchTab('historial')">Historial Cocina</div>
+        </div>
 
-        <div class="kitchen-container">
-            
-            <div id="loadingState" class="card card-body">
-                <div class="d-flex justify-content-center">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Cargando...</span>
-                    </div>
-                </div>
-                <p class="text-center mt-2">Cargando orden...</p>
-            </div>
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 15px;">
+            <button class="btn-logout" style="color: #666; border-color: #ccc;" onclick="loadOrders()">
+                <i class="fas fa-sync-alt"></i> Actualizar
+            </button>
+        </div>
 
-            <div id="errorState" style="display: none;">
-                <h3>❌ Error al cargar la orden</h3>
-                <p id="errorText">No se pudo encontrar el pedido o no tienes permiso para verlo.</p>
-                <a href="administracion.html" class="btn-action btn-confirm">Volver al Panel</a>
-            </div>
-
-            <div id="kitchenContent" style="display: none;">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 id="cardHeaderTitle">Orden de Cocina</h2>
-                    </div>
-                    <div class="card-body" style="padding: 2rem;">
-                        <div class="kitchen-order">
-                            <div class="order-header">
-                                <div class="restaurant-name">Sabor Limeño</div>
-                                <div class="order-title">ORDEN DE COCINA</div>
-                                <div class="order-info" id="orderIdDisplay">Pedido #...</div>
-                                <div class="order-info" id="orderDate">...</div>
-                            </div>
-
-                            <div class="detail-section">
-                                <div class="section-title">INFORMACIÓN DEL CLIENTE</div>
-                                <div class="customer-info" id="customerInfo">
-                                    <strong>Nombre:</strong> ...<br>
-                                    <strong>Email:</strong> ...<br>
-                                    <strong>Dirección:</strong> ...
-                                </div>
-                            </div>
-
-                            <div class="detail-section">
-                                <div class="section-title">DETALLE DEL PEDIDO</div>
-                                <div class="items-list" id="orderItemsList">
-                                    </div>
-                            </div>
-
-                            <div class="order-footer">
-                                <div class="order-number" id="orderNumberFooter">ORDEN: ...</div>
-                                <div class="status-indicator" id="statusIndicator">CARGANDO</div>
-                            </div>
-                        </div>
-
-                        <div class="action-buttons">
-                            <button class="btn-action btn-confirm" id="confirmBtn" disabled>Marcar como Preparando</button>
-                            <button class="btn-action btn-complete" id="completeBtn" disabled>Marcar como Completado</button>
-                            <button class="btn-action btn-delivery" id="deliveryBtn">Listo para Entrega</button>
-                        </div>
-                    </div>
-                </div>
+        <div id="section-activas">
+            <div id="kitchen-grid" class="kitchen-grid">
+                <div class="empty-state">Cargando pedidos...</div>
             </div>
         </div>
 
-        <script>
-        document.addEventListener('DOMContentLoaded', async function() {
-            
-            const API_URL = 'http://localhost:8000';
-            const token = localStorage.getItem('authToken');
+        <div id="section-historial" class="d-none">
+            <div class="card" style="border:none; border-radius:15px; overflow:hidden;">
+                <div class="table-responsive">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Cliente</th>
+                                <th>Hora</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            // Elementos del DOM
-            const loadingState = document.getElementById('loadingState');
-            const errorState = document.getElementById('errorState');
-            const errorText = document.getElementById('errorText');
-            const kitchenContent = document.getElementById('kitchenContent');
-            const statusIndicator = document.getElementById('statusIndicator');
-            const confirmBtn = document.getElementById('confirmBtn');
-            const completeBtn = document.getElementById('completeBtn');
-            const deliveryBtn = document.getElementById('deliveryBtn');
+    <script>
+        const API_URL = 'http://localhost:8000';
+        const token = localStorage.getItem('authToken');
 
-            let currentOrderData = null; // Guardará los datos del pedido
-            
-            // --- INICIO: Script de Gestión de Sesión ---
-            const authButtonsContainer = document.querySelector('.header .auth-buttons');
-            if (authButtonsContainer) {
-                if (token) {
-                    const userNombre = localStorage.getItem('userNombre') || 'Admin';
-                    authButtonsContainer.innerHTML = `<span class="user-info" style="color:white; margin-right: 15px; font-weight: 500;">Hola, ${userNombre}!S</span><button id="logoutBtn" class.btn btn-outline">Cerrar Sesión</button>`;
-                    document.getElementById('logoutBtn').addEventListener('click', () => {
-                        localStorage.removeItem('authToken');
-                        localStorage.removeItem('userNombre');
-                        window.location.href = "signin.html";
+        if (token) {
+            const userName = localStorage.getItem('userNombre') || 'Admin';
+            document.getElementById('authButtons').innerHTML = `
+                <span class="user-greeting">Hola, ${userName}</span>
+                <button onclick="logout()" class="btn-logout">Cerrar Sesión</button>
+            `;
+        } else {
+            window.location.href = 'signin.html';
+        }
+        function logout() { localStorage.clear(); window.location.href = 'signin.html'; }
+
+        window.switchTab = function(tabName) {
+            document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+            document.getElementById('section-activas').classList.add('d-none');
+            document.getElementById('section-historial').classList.add('d-none');
+
+            if(tabName === 'activas') {
+                document.querySelector('.tab-item:first-child').classList.add('active');
+                document.getElementById('section-activas').classList.remove('d-none');
+            } else {
+                document.querySelector('.tab-item:last-child').classList.add('active');
+                document.getElementById('section-historial').classList.remove('d-none');
+            }
+        }
+
+        async function loadOrders() {
+            try {
+                const res = await fetch(`${API_URL}/api/orders`, { headers: { 'Authorization': `Bearer ${token}` } });
+                if (!res.ok) throw new Error('Error al cargar');
+                const orders = await res.json();
+                renderKitchen(orders);
+            } catch (error) { console.error(error); }
+        }
+
+        function renderKitchen(orders) {
+            const grid = document.getElementById('kitchen-grid');
+            const historyBody = document.getElementById('history-table-body');
+            grid.innerHTML = ''; historyBody.innerHTML = '';
+
+            const activeOrders = orders.filter(o => o.status === 'pendiente' || o.status === 'preparando');
+            const historyOrders = orders.filter(o => ['completado', 'en_ruta', 'entregado', 'anulado'].includes(o.status));
+
+            if (activeOrders.length === 0) {
+                grid.innerHTML = '<div class="empty-state"><h3>👨‍🍳 Todo listo</h3><p>No hay pedidos pendientes en cocina.</p></div>';
+            } else {
+                activeOrders.forEach(order => {
+                    const isPending = order.status === 'pendiente';
+                    const headerClass = isPending ? 'bg-pendiente' : 'bg-preparando';
+                    const btnText = isPending ? 'Empezar a Preparar' : 'Marcar como Listo';
+                    const btnClass = isPending ? 'btn-start' : 'btn-finish';
+                    const nextStatus = isPending ? 'preparando' : 'completado';
+                    const icon = isPending ? 'fa-bell' : 'fa-fire';
+                    let itemsHtml = '';
+                    order.items.forEach(item => {
+                        itemsHtml += `<li class="order-item"><span class="item-qty">${item.quantity}x</span> ${item.productName}</li>`;
                     });
-                } else {
-                    authButtonsContainer.innerHTML = `<a href="signin.html" class="btn btn-outline">Iniciar Sesión</a>`;
-                }
-            }
-            // --- FIN: Script de Gestión de Sesión ---
-            
-            // --- LÓGICA DE CARGA DE ORDEN ---
-            
-            // 1. Obtener el ID del pedido desde la URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const orderId = urlParams.get('orderId');
 
-            if (!orderId) {
-                showError("No se especificó un número de pedido. Prueba añadiendo ?orderId=1 a la URL.");
-                return;
-            }
-            
-            if (!token) {
-                showError("Necesitas <a href='signin.html'>iniciar sesión como Admin</a> para ver esta página.");
-                return;
-            }
-
-            // 2. Cargar datos del pedido
-            await loadOrderData();
-            
-            async function loadOrderData() {
-                try {
-                    const response = await fetch(`${API_URL}/api/orders/${orderId}`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
-                    
-                    const data = await response.json();
-                    if (!response.ok) throw new Error(data.message);
-                    
-                    currentOrderData = data; // Guardar datos
-                    populateOrderData(data); // Llenar HTML
-                    
-                    loadingState.style.display = 'none';
-                    kitchenContent.style.display = 'block';
-                    
-                } catch (error) {
-                    console.error("Error al cargar la orden:", error);
-                    showError(error.message);
-                }
-            }
-            
-            // 3. Llenar el HTML con los datos
-            function populateOrderData(data) {
-                const formatDate = (dateString) => new Date(dateString).toLocaleString('es-CL');
-                
-                document.getElementById('cardHeaderTitle').textContent = `Orden de Cocina #${data.id}`;
-                document.getElementById('orderIdDisplay').textContent = `Pedido #${data.id}`;
-                document.getElementById('orderDate').textContent = formatDate(data.createdAt);
-                
-                // Info del cliente
-                document.getElementById('customerInfo').innerHTML = `
-                    <strong>Nombre:</strong> ${data.clientName}<br>
-                    <strong>Email:</strong> ${data.clientEmail}<br>
-                    <strong>Dirección:</strong> ${data.deliveryAddress || 'N/A'}
-                `;
-                
-                // Items del pedido
-                const itemsList = document.getElementById('orderItemsList');
-                itemsList.innerHTML = ''; // Limpiar
-                data.items.forEach(item => {
-                    itemsList.innerHTML += `
-                        <div class="order-item">
-                            <span class="item-quantity">${item.quantity}x</span>
-                            <span class="item-name">${item.productName}</span>
+                    const card = document.createElement('div');
+                    card.className = 'order-card';
+                    card.innerHTML = `
+                        <div class="card-header-status ${headerClass}">
+                            <span>Pedido #${order.id}</span>
+                            <span><i class="fas ${icon}"></i> ${order.status.toUpperCase()}</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="order-meta"><strong>Cliente:</strong> ${order.clientName}<br><small class="text-muted"><i class="far fa-clock"></i> ${order.createdAt.split(' ')[1]}</small></div>
+                            <ul class="order-items">${itemsHtml}</ul>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn-action ${btnClass}" onclick="updateStatus(${order.id}, '${nextStatus}')">${btnText}</button>
                         </div>
                     `;
+                    grid.appendChild(card);
                 });
-                
-                document.getElementById('orderNumberFooter').textContent = `ORDEN: OC-2024-000${data.id}`;
-                
-                // Actualizar estado y botones
-                updateStatusVisual(data.status);
             }
-            
-            // 4. Actualizar estado visual y botones
-            function updateStatusVisual(status) {
-                statusIndicator.textContent = status.toUpperCase();
-                statusIndicator.className = 'status-indicator'; // Reset
-                statusIndicator.classList.add(`status-${status.toLowerCase()}`);
-                
-                // Lógica de botones
-                confirmBtn.disabled = true;
-                completeBtn.disabled = true;
-                deliveryBtn.style.display = 'none'; // Oculto por defecto
 
-                if (status === 'pendiente') {
-                    confirmBtn.disabled = false;
-                } else if (status === 'preparando') {
-                    completeBtn.disabled = false;
-                } else if (status === 'completado') {
-                    deliveryBtn.style.display = 'block';
-                } else {
-                    // Si está 'en_ruta' o 'entregado', no se hace nada
-                }
-            }
-            
-            // 5. Lógica de botones de acción
-            confirmBtn.addEventListener('click', () => updateOrderStatus('preparando'));
-            completeBtn.addEventListener('click', () => updateOrderStatus('completado'));
-            deliveryBtn.addEventListener('click', () => {
-                // Ir a la página de delivery
-                window.location.href = `delivery.html?orderId=${orderId}`;
+            historyOrders.sort((a, b) => b.id - a.id);
+            historyOrders.forEach(order => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td>#${order.id}</td><td>${order.clientName}</td><td>${order.createdAt.split(' ')[1]}</td><td>$${order.totalAmount.toLocaleString('es-CL')}</td><td><span class="badge-status status-${order.status}">${order.status.replace('_', ' ')}</span></td>`;
+                historyBody.appendChild(row);
             });
+        }
 
-            async function updateOrderStatus(newStatus) {
-                // Deshabilitar botones para evitar clicks duplicados
-                confirmBtn.disabled = true;
-                completeBtn.disabled = true;
-                
-                try {
-                    const response = await fetch(`${API_URL}/api/orders/${orderId}/status`, {
-                        method: 'PATCH',
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ status: newStatus })
-                    });
-                    
-                    const data = await response.json();
-                    if (!response.ok) throw new Error(data.message);
+        window.updateStatus = async function(id, status) {
+            try {
+                const res = await fetch(`${API_URL}/api/orders/${id}/status`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ status: status })
+                });
+                if(res.ok) { loadOrders(); } else { alert('Error al actualizar'); }
+            } catch (e) { alert('Error de conexión'); }
+        }
 
-                    // Éxito: actualizar visualmente
-                    updateStatusVisual(newStatus);
-                    
-                } catch (error) {
-                    console.error("Error al actualizar estado:", error);
-                    alert(`Error: ${error.message}`);
-                    // Re-habilitar botones según el estado original
-                    updateStatusVisual(currentOrderData.status);
-                }
-            }
-
-            // 6. Funciones de UI
-            function showError(message) {
-                loadingState.style.display = 'none';
-                errorText.innerHTML = message;
-                errorState.style.display = 'block';
-            }
-        });
-        </script>
-    </body>
+        setInterval(loadOrders, 5000);
+        loadOrders(); 
+    </script>
+</body>
 </html>

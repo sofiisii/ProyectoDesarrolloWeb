@@ -6,6 +6,7 @@
     <title>Administración - Sabor Limeño</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         :root {
@@ -15,6 +16,8 @@
         }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--blanco-roto); color: var(--gris-texto); margin: 0; padding: 0; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Header */
         .header { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); padding: 1rem 0; }
         .nav-container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.8rem; font-weight: 700; }
@@ -25,29 +28,54 @@
         .btn { padding: 10px 20px; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; font-size: 14px; }
         .btn-outline { background: transparent; border: 2px solid white; color: white; }
         .btn-outline:hover { background: white; color: var(--azul-pacifico); }
-        .btn-primary { background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; }
-        .btn-primary:hover { background: #FFB300; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3); }
+
+        /* Hero */
         .hero { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); color: white; padding: 2rem 0; text-align: center; margin-bottom: 2rem; position: relative; overflow: hidden; }
         .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>'); background-size: cover; }
         .hero-content { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
         .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; font-weight: 700; }
         .hero p { font-size: 1rem; margin-bottom: 0; opacity: 0.9; }
+
         .admin-container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
-        .admin-nav { display: flex; gap: 20px; margin-bottom: 40px; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); border: 2px solid var(--blanco-roto); justify-content: center; flex-wrap: wrap; }
-        .nav-card { flex: 1; min-width: 300px; max-width: 350px; background: linear-gradient(135deg, #E3F2FD, #FFFFFF); border-radius: 12px; padding: 30px; text-align: center; border: 2px solid var(--azul-pacifico-claro); transition: all 0.3s ease; cursor: pointer; text-decoration: none; color: inherit; }
+        
+        /* Tarjetas de Navegación (AJUSTADO PARA QUE QUEPAN 4) */
+        .admin-nav { 
+            display: flex; gap: 20px; margin-bottom: 40px; background: white; padding: 25px; 
+            border-radius: 15px; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); 
+            border: 2px solid var(--blanco-roto); justify-content: center; flex-wrap: wrap; 
+        }
+        .nav-card { 
+            flex: 1; 
+            min-width: 240px; /* REDUCIDO DE 300px PARA QUE QUEPAN 4 */
+            max-width: 300px; 
+            background: linear-gradient(135deg, #E3F2FD, #FFFFFF); 
+            border-radius: 12px; padding: 25px; text-align: center; 
+            border: 2px solid var(--azul-pacifico-claro); transition: all 0.3s ease; 
+            cursor: pointer; text-decoration: none; color: inherit; 
+            display: flex; flex-direction: column; justify-content: space-between; 
+        }
         .nav-card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(30, 136, 229, 0.2); border-color: var(--azul-pacifico); }
-        .nav-title { font-size: 1.4rem; font-weight: 700; color: var(--azul-pacifico-oscuro); margin-bottom: 10px; }
-        .nav-description { color: var(--gris-texto); line-height: 1.5; margin-bottom: 20px; }
-        .nav-btn { display: inline-block; padding: 12px 25px; background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; border-radius: 8px; font-weight: 600; text-decoration: none; transition: all 0.3s; }
+        .nav-title { font-size: 1.2rem; font-weight: 700; color: var(--azul-pacifico-oscuro); margin-bottom: 10px; }
+        .nav-description { color: var(--gris-texto); line-height: 1.5; margin-bottom: 20px; font-size: 0.9rem; }
+        .nav-btn { display: inline-block; padding: 8px 15px; background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; border-radius: 8px; font-weight: 600; text-decoration: none; transition: all 0.3s; font-size: 0.9rem; }
         .nav-btn:hover { background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico)); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3); }
-        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 40px; }
-        .dashboard-card { background: white; border-radius: 15px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 2px solid var(--blanco-roto); }
-        .card-header { display: flex; align-items: center; margin-bottom: 15px; }
-        .card-title { font-weight: 600; color: var(--azul-pacifico-oscuro); font-size: 1.1rem; }
-        .card-value { font-size: 2rem; font-weight: 700; color: var(--azul-pacifico); margin-bottom: 5px; }
-        .card-label { color: var(--gris-texto); font-size: 0.9rem; }
+
+        /* KPIs (AJUSTADO PARA QUE NO QUEDEN HUECOS) */
+        .dashboard-grid { 
+            display: grid; 
+            /* Ajustado minmax a 220px para que quepan 4 en desktop */
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+            gap: 20px; margin-bottom: 40px; 
+        }
+        .dashboard-card { background: white; border-radius: 15px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 2px solid var(--blanco-roto); }
+        .card-header { display: flex; align-items: center; margin-bottom: 10px; }
+        .card-title { font-weight: 600; color: var(--azul-pacifico-oscuro); font-size: 1rem; }
+        .card-value { font-size: 1.8rem; font-weight: 700; color: var(--azul-pacifico); margin-bottom: 5px; }
+        .card-label { color: var(--gris-texto); font-size: 0.85rem; }
+
+        /* Listas */
         .activity-section { background: white; border-radius: 15px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 2px solid var(--blanco-roto); margin-bottom: 40px; }
-        .section-title { font-weight: 600; color: var(--azul-pacifico-oscuro); margin-bottom: 20px; font-size: 1.3rem; }
+        .section-title { font-weight: 600; color: var(--azul-pacifico-oscuro); margin-bottom: 20px; font-size: 1.3rem; display: flex; justify-content: space-between; align-items: center; }
         .activity-list { list-style: none; padding: 0; }
         .activity-item { display: flex; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--azul-pacifico-claro); }
         .activity-item:last-child { border-bottom: none; }
@@ -59,13 +87,10 @@
         .badge-warning { background: rgba(255, 193, 7, 0.15); color: var(--azul-pacifico-oscuro); }
         .badge-danger { background: rgba(191, 54, 12, 0.15); color: var(--terracota); }
         .badge-info { background: rgba(30, 136, 229, 0.15); color: var(--azul-pacifico); }
-        .quick-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
-        .quick-action { background: linear-gradient(135deg, #E3F2FD, #FFFFFF); border-radius: 10px; padding: 20px; text-align: center; border: 2px solid var(--azul-pacifico-claro); transition: all 0.3s; cursor: pointer; text-decoration: none; color: inherit; }
-        .quick-action:hover { transform: translateY(-3px); border-color: var(--azul-pacifico); }
-        .action-icon { font-size: 2rem; margin-bottom: 10px; color: var(--azul-pacifico); }
-        .action-text { font-weight: 600; color: var(--azul-pacifico-oscuro); }
         
-        /* --- NUEVO: Estilo para bloquear página --- */
+        .btn-cocina { background-color: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); border: none; padding: 5px 15px; border-radius: 15px; font-weight: 700; font-size: 0.8rem; text-decoration: none; transition: all 0.2s; }
+        .btn-cocina:hover { background-color: #FFB300; transform: scale(1.05); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+
         #adminLock {
             text-align: center; padding: 40px;
             background: linear-gradient(135deg, rgba(191, 54, 12, 0.1), rgba(191, 54, 12, 0.05));
@@ -143,8 +168,13 @@
                 </a>
                 <a href="clientes.html" class="nav-card">
                     <div class="nav-title">Gestión de Clientes</div>
-                    <div class="nav-description">Administra información de clientes, categorías VIP y programas de fidelización.</div>
+                    <div class="nav-description">Administra usuarios, categorías VIP y fidelización.</div>
                     <div class="nav-btn">Gestionar Clientes</div>
+                </a>
+                <a href="cocina.html" class="nav-card">
+                    <div class="nav-title">Monitor de Cocina</div>
+                    <div class="nav-description">Gestiona la preparación de pedidos en tiempo real.</div>
+                    <div class="nav-btn">Ir a Cocina 👨‍🍳</div>
                 </a>
             </div>
 
@@ -188,31 +218,19 @@
             </div>
 
             <div class="activity-section">
-                <div class="section-title">Actividad Reciente</div>
-                <ul class="activity-list" id="activity-list">
-                    </ul>
+                <div class="section-title">
+                    <span>🔥 Pedidos en Cocina (Pendientes / Preparando)</span>
+                    <button class="btn btn-sm btn-outline-secondary" onclick="location.reload()"><i class="fas fa-sync-alt"></i></button>
+                </div>
+                <ul class="activity-list" id="kitchen-list">
+                    <li class="activity-item text-center text-muted">Cargando pedidos...</li>
+                </ul>
             </div>
 
             <div class="activity-section">
-                <div class="section-title">⚡ Acciones Rápidas</div>
-                <div class="quick-actions">
-                    <a href="gestionmenu.html" class="quick-action">
-                        <div class="action-icon">➕</div>
-                        <div class="action-text">Agregar Producto</div>
-                    </a>
-                    <a href="clientes.html" class="quick-action">
-                        <div class="action-icon">👤</div>
-                        <div class="action-text">Ver Clientes</div>
-                    </a>
-                    <a href="reporte.html" class="quick-action">
-                        <div class="action-icon">📈</div>
-                        <div class="action-text">Ver Reportes</div>
-                    </a>
-                    <a href="#" class="quick-action" onclick="alert('Página de pedidos por implementar')">
-                        <div class="action-icon">📦</div>
-                        <div class="action-text">Gestionar Pedidos</div>
-                    </a>
-                </div>
+                <div class="section-title">Actividad Reciente</div>
+                <ul class="activity-list" id="activity-list">
+                    </ul>
             </div>
         </div>
     </div>
@@ -223,20 +241,19 @@
         const API_URL = 'http://localhost:8000';
         const token = localStorage.getItem('authToken');
 
-        // --- Elementos del DOM ---
         const authButtons = document.querySelector('.auth-buttons');
         const adminLock = document.getElementById('adminLock');
         const mainContent = document.getElementById('mainContent');
         
-        // KPIs
         const kpiDailySales = document.getElementById('kpi-daily-sales');
         const kpiActiveOrders = document.getElementById('kpi-active-orders');
         const kpiNewClients = document.getElementById('kpi-new-clients');
+        
+        const kitchenList = document.getElementById('kitchen-list');
         const activityList = document.getElementById('activity-list');
         
         const formatCurrency = (value) => `$${Math.round(value).toLocaleString('es-CL')}`;
 
-        // --- INICIO: Script de Gestión de Sesión (Admin) ---
         if (token) {
             try {
                 const response = await fetch(API_URL + '/api/auth/me', {
@@ -245,7 +262,6 @@
                 if (!response.ok) throw new Error('Token inválido');
                 const user = await response.json();
                 
-                // Mostrar info de sesión
                 authButtons.innerHTML = `<span class="user-info">Hola, ${user.nombre}! (${user.role})</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
                 document.getElementById('logoutBtn').addEventListener('click', () => {
                     localStorage.removeItem('authToken');
@@ -253,11 +269,11 @@
                     window.location.href = "signin.html";
                 });
                 
-                // Verificar si es Admin
                 if (user.role === 'admin') {
                     mainContent.style.display = 'block';
                     adminLock.style.display = 'none';
-                    await loadDashboardData(); // Cargar datos
+                    await loadDashboardData(); 
+                    await loadActiveKitchenOrders();
                 } else {
                     throw new Error('Acceso denegado. Debes ser administrador.');
                 }
@@ -276,11 +292,7 @@
             adminLock.querySelector('.lock-text').innerHTML = message;
             mainContent.style.display = 'none';
         }
-        // --- FIN: Script de Gestión de Sesión ---
-        
 
-        // --- LÓGICA DEL DASHBOARD ---
-        
         async function loadDashboardData() {
             try {
                 const response = await fetch(API_URL + '/api/admin/dashboard', {
@@ -289,31 +301,66 @@
                 const data = await response.json();
                 if (!response.ok) throw new Error(data.message);
                 
-                // 1. Poblar KPIs
                 kpiDailySales.textContent = formatCurrency(data.dailySales);
                 kpiActiveOrders.textContent = data.activeOrders;
                 kpiNewClients.textContent = data.newClients;
                 
-                // 2. Poblar Actividad Reciente
                 renderActivityList(data.recentActivity);
                 
             } catch (error) {
                 console.error("Error cargando dashboard:", error);
-                alert("Error al cargar datos del dashboard: " + error.message);
             }
         }
         
+        async function loadActiveKitchenOrders() {
+            try {
+                const response = await fetch(API_URL + '/api/orders', { headers: { 'Authorization': `Bearer ${token}` } });
+                const allOrders = await response.json();
+                
+                const kitchenOrders = allOrders.filter(o => o.status === 'pendiente' || o.status === 'preparando');
+                
+                kitchenList.innerHTML = '';
+                if (kitchenOrders.length === 0) {
+                    kitchenList.innerHTML = '<li class="activity-item text-muted">No hay pedidos pendientes en cocina.</li>';
+                    return;
+                }
+                
+                kitchenOrders.forEach(order => {
+                    const badgeClass = order.status === 'pendiente' ? 'badge-danger' : 'badge-warning';
+                    const icon = order.status === 'pendiente' ? '🔔' : '👨‍🍳';
+                    
+                    const li = document.createElement('li');
+                    li.className = 'activity-item';
+                    li.innerHTML = `
+                        <div style="font-size: 1.5rem; margin-right: 15px;">${icon}</div>
+                        <div class="activity-content">
+                            <div class="activity-text">Pedido #${order.id} - ${order.clientName}</div>
+                            <div class="activity-time">${order.createdAt} • ${order.items.length} productos</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span class="activity-badge ${badgeClass}" style="margin-right: 10px;">${order.status.toUpperCase()}</span>
+                            <a href="cocina.html?orderId=${order.id}" class="btn-cocina">
+                                Ver en Cocina <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    `;
+                    kitchenList.appendChild(li);
+                });
+
+            } catch (error) {
+                console.error("Error cargando pedidos de cocina:", error);
+                kitchenList.innerHTML = '<li class="activity-item text-danger">Error de conexión con cocina.</li>';
+            }
+        }
+
         function renderActivityList(activities) {
-            activityList.innerHTML = ''; // Limpiar
-            
+            activityList.innerHTML = ''; 
             if (!activities || activities.length === 0) {
                 activityList.innerHTML = '<li class="activity-item">No hay actividad reciente.</li>';
                 return;
             }
-            
             activities.forEach(activity => {
                 const { badgeClass, icon } = getActivityVisuals(activity.status);
-                
                 const li = document.createElement('li');
                 li.className = 'activity-item';
                 li.innerHTML = `

@@ -76,13 +76,22 @@ def create_dish(nombre: str, precio: float, categoria: str, description: str = "
 def update_dish_availability(dish_id: int, available: bool):
     dishes_collection.update_one({"id": dish_id}, {"$set": {"disponible": available}})
 
-# --- Funciones de Pedidos (Sin cambios) ---
-def create_order(user_id: int, items: List[dict], total: float, estado: str, payment_method: str, delivery_address: str):
+# --- EN backend/database.py ---
+
+def create_order(user_id: int, items: List[dict], total: float, estado: str, payment_method: str, delivery_address: str, discount: float = 0, promo_name: str = ""):
     new_id = get_next_sequence("orderid")
     order = {
-        "id": new_id, "user_id": user_id, "items": items, "total": total, "estado": estado,
-        "payment_method": payment_method, "delivery_address": delivery_address,
-        "created_at": datetime.now() # Agregamos fecha para orden
+        "id": new_id, 
+        "user_id": user_id, 
+        "items": items, 
+        "total": total, # Este será el total FINAL a pagar
+        "original_total": total + discount, # Guardamos el precio original
+        "discount": discount, # Guardamos cuánto se descontó
+        "promo_name": promo_name, # Nombre de la promo (ej: "VIP")
+        "estado": estado,
+        "payment_method": payment_method, 
+        "delivery_address": delivery_address,
+        "created_at": datetime.now()
     }
     orders_collection.insert_one(order)
     order.pop("_id")
@@ -164,6 +173,15 @@ def update_user_details(user_id: int, data: dict):
     
     users_collection.update_one({"id": user_id}, {"$set": update_data})
     return True
+
+
+def update_password(email: str, new_password: str):
+    """Actualiza la contraseña de un usuario dado su email"""
+    result = users_collection.update_one(
+        {"email": email},
+        {"$set": {"password": new_password}}
+    )
+    return result.modified_count > 0
 
 # --- Inicialización (Seed Data) ---
 def seed_data():
