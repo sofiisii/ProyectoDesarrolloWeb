@@ -151,15 +151,45 @@
             </div>
         </div>
     </div>
-
+    <footer class="footer" style="background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; padding: 3rem 0 1rem; margin-top: 3rem;">
+        <div class="container">
+            <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                <div class="footer-section">
+                    <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Sabor Limeño</h3>
+                    <p>Auténtica cocina peruana con sabores que cuentan historias. Tradición e innovación en cada plato.</p>
+                </div>
+                <div class="footer-section">
+                    <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Sistema Integral</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="signin.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Inicio de Sesión</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="catalogo.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Catálogo Digital</a></li>
+                        <li id="link-admin-panel-footer" class="d-none" style="margin-bottom: 0.5rem;"><a href="administracion.html" style="color: var(--aji-amarillo); text-decoration: none;">★ Panel Admin</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Gestión Operativa</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="pedido.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Gestión de Pedidos</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="delivery.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Seguimiento Delivery</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="anularpedido.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Anular Pedido</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="boleta.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Boleta Electrónica</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom" style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.2); color: rgba(255, 255, 255, 0.7);">
+                <p>&copy; 2025 Sabor Limeño. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
             const API_URL = 'http://localhost:8000';
-            const cartList = document.getElementById('cart-list');
+            const cartList = document.getElementById('cart-items');
             const payBtn = document.getElementById('payBtn');
             const emptyMsg = document.getElementById('empty-cart-msg');
             const cartContent = document.getElementById('cart-content');
             const authContainer = document.getElementById('authContainer');
+            const adminFooterLink = document.getElementById('link-admin-panel-footer');
             
             // Elementos de Totales
             const elSubtotal = document.getElementById('summary-subtotal');
@@ -168,21 +198,23 @@
             const elDiscountAmount = document.getElementById('discount-amount');
             const elTotal = document.getElementById('cart-total');
 
-            // Estado
             let userCategory = 'nuevo'; 
             let cart = JSON.parse(localStorage.getItem('saborLimeoCart')) || [];
             const token = localStorage.getItem('authToken');
 
-            // 1. Auth & Obtener Categoría
+            // 1. Auth & Obtener Categoría (y activar footer Admin)
             if (token) {
                 try {
                     const res = await fetch(`${API_URL}/api/auth/me`, { headers: { 'Authorization': `Bearer ${token}` } });
                     if (res.ok) {
-                        const user = await res.json();
-                        userCategory = user.categoria || 'nuevo'; // Guardamos categoría
+                        const user = await response.json();
+                        userCategory = user.categoria || 'nuevo'; 
                         
                         authContainer.innerHTML = `<span class="user-greeting">Hola, ${user.nombre}</span><button id="logoutBtn" class="btn-custom btn-outline-white">Cerrar Sesión</button>`;
                         document.getElementById('logoutBtn').addEventListener('click', () => { localStorage.clear(); window.location.href = 'signin.html'; });
+
+                        // Activar enlace admin footer
+                        if(user.role === 'admin' && adminFooterLink) adminFooterLink.classList.remove('d-none');
                     } else { throw new Error(); }
                 } catch(e) { setupGuest(); }
             } else { setupGuest(); }
@@ -191,31 +223,21 @@
                 authContainer.innerHTML = `<a href="signin.html" class="btn-custom btn-outline-white">Iniciar Sesión</a><a href="registro.html" class="btn-custom btn-yellow">Registrarse</a>`;
             }
 
-            // 2. Renderizar Carrito con Descuentos
+            // 2. Renderizar Carrito
             function renderCart() {
                 if (cart.length === 0) { 
-                    cartContent.classList.add('d-none'); 
-                    emptyMsg.style.display = 'block'; 
-                    updateCartCount();
-                    return; 
+                    cartContent.classList.add('d-none'); emptyMsg.style.display = 'block'; updateCartCount(); return; 
                 }
                 
-                cartContent.classList.remove('d-none'); 
-                emptyMsg.style.display = 'none';
+                cartContent.classList.remove('d-none'); emptyMsg.style.display = 'none';
                 cartList.innerHTML = ''; 
                 
                 let subtotal = 0;
-
-                // Listar items
                 cart.forEach((item, index) => {
-                    const itemTotal = item.price * item.quantity; 
-                    subtotal += itemTotal;
+                    const itemTotal = item.price * item.quantity; subtotal += itemTotal;
                     cartList.innerHTML += `
                         <div class="cart-item">
-                            <div class="item-info">
-                                <h5>${item.name}</h5>
-                                <div style="color:#888">Cant: ${item.quantity} x $${item.price.toLocaleString('es-CL')}</div>
-                            </div>
+                            <div class="item-info"><h5>${item.name}</h5><div style="color:#888">Cant: ${item.quantity} x $${item.price.toLocaleString('es-CL')}</div></div>
                             <div class="item-actions" style="display: flex; gap: 15px; align-items: center;">
                                 <span style="font-weight:700; color:#1565C0">$${itemTotal.toLocaleString('es-CL')}</span>
                                 <button class="btn-trash" onclick="removeItem(${index})"><i class="fas fa-trash-alt"></i></button>
@@ -223,21 +245,13 @@
                         </div>`;
                 });
 
-                // Calcular Descuentos
+                // Descuentos
                 let discount = 0;
                 let discountText = "";
-
-                if (userCategory === 'frecuente') {
-                    discount = subtotal * 0.10;
-                    discountText = "Descuento Frecuente (10%)";
-                } else if (userCategory === 'vip') {
-                    discount = subtotal * 0.20;
-                    discountText = "Descuento VIP (20%)";
-                }
+                if (userCategory === 'frecuente') { discount = subtotal * 0.10; discountText = "Descuento Frecuente (10%)"; } 
+                else if (userCategory === 'vip') { discount = subtotal * 0.20; discountText = "Descuento VIP (20%)"; }
 
                 const finalTotal = subtotal - discount;
-
-                // Actualizar HTML
                 elSubtotal.textContent = `$${subtotal.toLocaleString('es-CL')}`;
                 elTotal.textContent = `$${finalTotal.toLocaleString('es-CL')}`;
 
@@ -245,34 +259,24 @@
                     elDiscountRow.classList.remove('d-none');
                     elDiscountLabel.textContent = discountText;
                     elDiscountAmount.textContent = `-$${discount.toLocaleString('es-CL')}`;
-                } else {
-                    elDiscountRow.classList.add('d-none');
-                }
+                } else { elDiscountRow.classList.add('d-none'); }
 
                 updateCartCount();
             }
 
             function updateCartCount() {
-                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                const total = cart.reduce((sum, item) => sum + item.quantity, 0);
                 const badge = document.getElementById('cart-count');
-                if(badge) {
-                    badge.textContent = totalItems;
-                    badge.style.display = totalItems > 0 ? 'inline-block' : 'none';
-                }
+                if(badge) { badge.textContent = total; badge.style.display = total > 0 ? 'inline-block' : 'none'; }
             }
 
             window.removeItem = function(index) { 
-                if(confirm('¿Eliminar producto?')) { 
-                    cart.splice(index, 1); 
-                    localStorage.setItem('saborLimeoCart', JSON.stringify(cart)); 
-                    renderCart(); 
-                } 
+                if(confirm('¿Eliminar producto?')) { cart.splice(index, 1); localStorage.setItem('saborLimeoCart', JSON.stringify(cart)); renderCart(); } 
             };
 
             // 3. Pagar
             payBtn.addEventListener('click', async () => {
                 if (!token) { alert('Inicia sesión para confirmar tu pedido.'); window.location.href = 'signin.html'; return; }
-                
                 const address = document.getElementById('addressInput').value;
                 payBtn.disabled = true; payBtn.textContent = 'Procesando...';
                 
@@ -285,10 +289,8 @@
                         body: JSON.stringify({ items: itemsBackend, paymentMethod: paymentMethod, deliveryAddress: address })
                     });
                     const data = await res.json();
-                    if (res.ok) { 
-                        localStorage.removeItem('saborLimeoCart'); 
-                        window.location.href = `boleta.html?orderId=${data.orderId}`; 
-                    } else { throw new Error(data.detail); }
+                    if (res.ok) { localStorage.removeItem('saborLimeoCart'); window.location.href = `boleta.html?orderId=${data.orderId}`; } 
+                    else { throw new Error(data.detail); }
                 } catch (error) { 
                     document.getElementById('error-msg').textContent = error.message; 
                     document.getElementById('error-msg').style.display = 'block'; 

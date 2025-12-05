@@ -223,28 +223,60 @@
 
         </div>
     </div>
-
+    <footer class="footer" style="background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; padding: 3rem 0 1rem; margin-top: 3rem;">
+        <div class="container">
+            <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                <div class="footer-section">
+                    <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Sabor Limeño</h3>
+                    <p>Auténtica cocina peruana con sabores que cuentan historias. Tradición e innovación en cada plato.</p>
+                </div>
+                <div class="footer-section">
+                    <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Sistema Integral</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="signin.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Inicio de Sesión</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="catalogo.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Catálogo Digital</a></li>
+                        <li id="link-admin-panel-footer" class="d-none" style="margin-bottom: 0.5rem;"><a href="administracion.html" style="color: var(--aji-amarillo); text-decoration: none;">★ Panel Admin</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Gestión Operativa</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="pedido.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Gestión de Pedidos</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="delivery.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Seguimiento Delivery</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="anularpedido.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Anular Pedido</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="boleta.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Boleta Electrónica</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom" style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.2); color: rgba(255, 255, 255, 0.7);">
+                <p>&copy; 2025 Sabor Limeño. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
             const API_URL = 'http://localhost:8000';
             const token = localStorage.getItem('authToken');
+            const adminFooterLink = document.getElementById('link-admin-panel-footer');
             
-            // --- MOSTRAR NOMBRE Y CERRAR SESIÓN ---
+            // 1. Auth y Footer
             if (token) {
-                const userName = localStorage.getItem('userNombre') || 'Cliente';
-                document.getElementById('authButtons').innerHTML = `
-                    <span class="user-greeting">Hola, ${userName}</span>
-                    <button onclick="logout()" class="btn-custom btn-outline-white">Cerrar Sesión</button>
-                `;
+                // Fetch para validar rol
+                fetch(API_URL + '/api/auth/me', { headers: { 'Authorization': `Bearer ${token}` } })
+                .then(res => res.json())
+                .then(user => {
+                    const userName = user.nombre || 'Cliente';
+                    document.getElementById('authButtons').innerHTML = `<span class="user-greeting">Hola, ${userName}</span><button onclick="logout()" class="btn-custom btn-outline-white">Cerrar Sesión</button>`;
+                    if(user.role === 'admin' && adminFooterLink) adminFooterLink.classList.remove('d-none');
+                });
             } else {
                 window.location.href = 'signin.html';
             }
             window.logout = () => { localStorage.clear(); window.location.href = 'signin.html'; };
 
-            // Lógica principal
+            // (Resto de la lógica de anulación se mantiene igual)
             const urlParams = new URLSearchParams(window.location.search);
             const orderId = urlParams.get('orderId'); 
-
             const loading = document.getElementById('loading');
             const content = document.getElementById('order-content');
             const noOrder = document.getElementById('no-order');
@@ -260,7 +292,6 @@
                     if(res.ok) { renderOrder(await res.json()); } else { loading.classList.add('d-none'); noOrder.classList.remove('d-none'); }
                 } catch(e) { console.error(e); }
             }
-
             async function fetchOrder(id) {
                 try {
                     const res = await fetch(`${API_URL}/api/orders/${id}`, { headers: { 'Authorization': `Bearer ${token}` }});
@@ -271,20 +302,17 @@
             function renderOrder(order) {
                 loading.classList.add('d-none');
                 content.classList.remove('d-none');
-
                 document.getElementById('orderId').textContent = order.id;
                 document.getElementById('orderStatus').textContent = order.status.toUpperCase().replace('_', ' ');
                 document.getElementById('orderTotal').textContent = `$${order.totalAmount.toLocaleString('es-CL')}`;
                 document.getElementById('orderDate').textContent = order.createdAt;
 
-                // Regla de Negocio
                 if (['en_ruta', 'entregado', 'anulado'].includes(order.status)) {
                     btnCancel.disabled = true;
                     if(order.status === 'anulado') {
                         msgSuccess.style.display = 'block';
                         document.getElementById('cancellation-form').style.display = 'none';
                         document.getElementById('orderStatus').style.color = '#BF360C';
-                        document.getElementById('orderStatus').style.backgroundColor = '#FBE9E7';
                     } else {
                         msgError.innerHTML = `<i class="fas fa-exclamation-triangle"></i> No es posible anular: El pedido está <strong>${order.status.toUpperCase().replace('_', ' ')}</strong>.`;
                         msgError.style.display = 'block';
@@ -294,31 +322,22 @@
                 btnCancel.onclick = async () => {
                     const reason = document.getElementById('reasonSelect').value;
                     if(!reason) { alert("Por favor seleccione un motivo"); return; }
-
-                    btnCancel.disabled = true;
-                    btnCancel.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
-
+                    btnCancel.disabled = true; btnCancel.innerHTML = 'Procesando...';
                     try {
                         const res = await fetch(`${API_URL}/api/orders/${order.id}/cancel`, {
-                            method: 'POST',
-                            headers: { 'Authorization': `Bearer ${token}` }
+                            method: 'POST', headers: { 'Authorization': `Bearer ${token}` }
                         });
                         const result = await res.json();
-
                         if (res.ok) {
-                            msgSuccess.style.display = 'block';
-                            msgError.style.display = 'none';
+                            msgSuccess.style.display = 'block'; msgError.style.display = 'none';
                             document.getElementById('cancellation-form').style.display = 'none';
                             document.getElementById('orderStatus').textContent = "ANULADO";
                             document.getElementById('orderStatus').style.color = '#BF360C';
-                            document.getElementById('orderStatus').style.backgroundColor = '#FBE9E7';
                         } else {
-                            msgError.innerHTML = `<i class="fas fa-times-circle"></i> ${result.detail}`;
-                            msgError.style.display = 'block';
-                            btnCancel.disabled = true;
-                            btnCancel.innerHTML = "Anulación Rechazada";
+                            msgError.innerHTML = `${result.detail}`; msgError.style.display = 'block';
+                            btnCancel.disabled = true; btnCancel.innerHTML = "Anulación Rechazada";
                         }
-                    } catch (error) { alert("Error de conexión"); btnCancel.disabled = false; btnCancel.innerHTML = "Confirmar Anulación"; }
+                    } catch (error) { alert("Error de conexión"); btnCancel.disabled = false; }
                 };
             }
         });

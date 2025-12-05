@@ -128,34 +128,68 @@
             </div>
         </div>
     </div>
-
+    <footer class="footer" style="background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; padding: 3rem 0 1rem; margin-top: 3rem;">
+        <div class="container">
+            <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                <div class="footer-section">
+                    <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Sabor Limeño</h3>
+                    <p>Auténtica cocina peruana con sabores que cuentan historias. Tradición e innovación en cada plato.</p>
+                </div>
+                <div class="footer-section">
+                    <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Sistema Integral</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="signin.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Inicio de Sesión</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="catalogo.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Catálogo Digital</a></li>
+                        <li id="link-admin-panel-footer" class="d-none" style="margin-bottom: 0.5rem;"><a href="administracion.html" style="color: var(--aji-amarillo); text-decoration: none;">★ Panel Admin</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Gestión Operativa</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="pedido.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Gestión de Pedidos</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="delivery.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Seguimiento Delivery</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="anularpedido.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Anular Pedido</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="boleta.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Boleta Electrónica</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom" style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.2); color: rgba(255, 255, 255, 0.7);">
+                <p>&copy; 2025 Sabor Limeño. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
     <script>
         const API_URL = 'http://localhost:8000';
         const token = localStorage.getItem('authToken');
         const authContainer = document.getElementById('authContainer');
+        const adminFooterLink = document.getElementById('link-admin-panel-footer');
 
         function renderAuthButtons() {
             if (token) {
-                const userName = localStorage.getItem('userNombre') || 'Cliente';
-                authContainer.innerHTML = `<span style="color: white; font-weight: 600; margin-right: 15px;">Hola, ${userName}</span><button id="logoutBtn" class="btn-custom btn-outline-white">Cerrar Sesión</button>`;
-                document.getElementById('logoutBtn').addEventListener('click', () => { localStorage.clear(); window.location.href = 'signin.html'; });
+                // Fetch para obtener datos y validar rol (Footer Admin)
+                fetch(API_URL + '/api/auth/me', { headers: { 'Authorization': `Bearer ${token}` } })
+                .then(res => res.ok ? res.json() : null)
+                .then(user => {
+                    if(user) {
+                        authContainer.innerHTML = `<span class="user-info">Hola, ${user.nombre}!</span><button id="logoutBtn" class="btn-custom btn-outline-white">Cerrar Sesión</button>`;
+                        document.getElementById('logoutBtn').addEventListener('click', () => { localStorage.clear(); window.location.href = 'signin.html'; });
+                        
+                        // Mostrar link admin en footer
+                        if(user.role === 'admin' && adminFooterLink) adminFooterLink.classList.remove('d-none');
+                    }
+                });
             } else {
                 authContainer.innerHTML = `<a href="signin.html" class="btn-custom btn-outline-white">Iniciar Sesión</a><a href="registro.html" class="btn-custom btn-yellow">Registrarse</a>`;
             }
         }
 
-        // --- FUNCIÓN DEL CONTADOR DEL CARRITO ---
         function updateCartCount() {
             const cart = JSON.parse(localStorage.getItem('saborLimeoCart')) || [];
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const total = cart.reduce((sum, item) => sum + item.quantity, 0);
             const badge = document.getElementById('cart-count');
-            if(badge) {
-                badge.textContent = totalItems;
-                badge.style.display = totalItems > 0 ? 'inline-block' : 'none';
-            }
+            if(badge) { badge.textContent = total; badge.style.display = total > 0 ? 'inline-block' : 'none'; }
         }
 
-        // (Resto de la lógica de pestañas y carga de pedidos se mantiene igual)
         window.switchTab = function(tabName) {
             document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
             document.getElementById('section-actual').classList.add('d-none');

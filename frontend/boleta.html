@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Boleta Electrónica - Sabor Limeño</title>
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <style>
@@ -191,147 +191,104 @@
                 </div>
             </div>
         </div>
-
+        <footer class="footer" style="background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; padding: 3rem 0 1rem; margin-top: 3rem;">
+            <div class="container">
+                <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                    <div class="footer-section">
+                        <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Sabor Limeño</h3>
+                        <p>Auténtica cocina peruana con sabores que cuentan historias. Tradición e innovación en cada plato.</p>
+                    </div>
+                    <div class="footer-section">
+                        <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Sistema Integral</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem;"><a href="signin.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Inicio de Sesión</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="catalogo.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Catálogo Digital</a></li>
+                            <li id="link-admin-panel-footer" class="d-none" style="margin-bottom: 0.5rem;"><a href="administracion.html" style="color: var(--aji-amarillo); text-decoration: none;">★ Panel Admin</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Gestión Operativa</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem;"><a href="pedido.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Gestión de Pedidos</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="delivery.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Seguimiento Delivery</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="anularpedido.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Anular Pedido</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="boleta.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Boleta Electrónica</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom" style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.2); color: rgba(255, 255, 255, 0.7);">
+                    <p>&copy; 2025 Sabor Limeño. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </footer>
         <script>
         document.addEventListener('DOMContentLoaded', async function() {
-            
             const API_URL = 'http://localhost:8000';
             const token = localStorage.getItem('authToken');
-
-            // Elementos del DOM
             const loadingState = document.getElementById('loadingState');
             const errorState = document.getElementById('errorState');
             const errorText = document.getElementById('errorText');
             const boletaContent = document.getElementById('boletaContent');
-            
-            // --- INICIO: Script de Gestión de Sesión ---
+            const adminFooterLink = document.getElementById('link-admin-panel-footer');
+
+            // --- Auth y Footer ---
             const authButtonsContainer = document.querySelector('.header .auth-buttons');
-            if (authButtonsContainer) {
-                if (token) {
-                    const userNombre = localStorage.getItem('userNombre') || 'usuario'; // Usamos el guardado
-                    authButtonsContainer.innerHTML = `<span class="user-info" style="color:white; margin-right: 15px; font-weight: 500;">Hola, ${userNombre}!</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
-                    
-                    const logoutBtn = document.getElementById('logoutBtn');
-                    if(logoutBtn) {
-                        logoutBtn.addEventListener('click', function() {
-                            localStorage.removeItem('authToken');
-                            localStorage.removeItem('userNombre');
-                            window.location.href = "signin.html";
-                        });
-                    }
-                } else {
-                    authButtonsContainer.innerHTML = `<a href="signin.html" class="btn btn-outline">Iniciar Sesión</a><a href="registro.html" class="btn btn-primary">Registrarse</a>`;
-                }
+            if (token) {
+                fetch(API_URL + '/api/auth/me', { headers: { 'Authorization': `Bearer ${token}` } })
+                .then(res => res.json())
+                .then(user => {
+                    authButtonsContainer.innerHTML = `<span class="user-info" style="color:white; margin-right: 15px;">Hola, ${user.nombre}!</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
+                    document.getElementById('logoutBtn').addEventListener('click', () => { localStorage.clear(); window.location.href = "signin.html"; });
+                    if(user.role === 'admin' && adminFooterLink) adminFooterLink.classList.remove('d-none');
+                });
+            } else {
+                authButtonsContainer.innerHTML = `<a href="signin.html" class="btn btn-outline">Iniciar Sesión</a>`;
             }
-            // --- FIN: Script de Gestión de Sesión ---
 
-            // --- LÓGICA DE CARGA DE BOLETA ---
-
-            // 1. Obtener el ID del pedido desde la URL
+            // --- Carga de Boleta ---
             const urlParams = new URLSearchParams(window.location.search);
             const orderId = urlParams.get('orderId');
 
-            if (!orderId) {
-                showError("No se especificó un número de pedido.");
-                return;
-            }
-            
-            if (!token) {
-                showError("Necesitas <a href='signin.html?redirect=boleta.html?orderId=" + orderId + "'>iniciar sesión</a> para ver esta boleta.");
-                return;
-            }
+            if (!orderId) { showError("No se especificó un número de pedido."); return; }
+            if (!token) { showError("Necesitas <a href='signin.html'>iniciar sesión</a>."); return; }
 
-            // 2. Buscar los datos del pedido en el backend
             try {
-                const response = await fetch(`${API_URL}/api/orders/${orderId}`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-                
+                const response = await fetch(`${API_URL}/api/orders/${orderId}`, { headers: { 'Authorization': `Bearer ${token}` } });
                 const data = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(data.message || "Error al cargar el pedido.");
-                }
-                
-                // 3. Poblar la boleta con los datos
+                if (!response.ok) throw new Error(data.message || "Error al cargar.");
                 populateBoleta(data);
-                
-                // 4. Mostrar el contenido
-                loadingState.style.display = 'none';
-                boletaContent.style.display = 'block';
-
-            } catch (error) {
-                console.error("Error al cargar la boleta:", error);
-                showError(error.message);
-            }
-
-            // --- Funciones de la página ---
+                loadingState.style.display = 'none'; boletaContent.style.display = 'block';
+            } catch (error) { showError(error.message); }
 
             function populateBoleta(orderData) {
-                // Formatear moneda
-                const formatCurrency = (value) => `$${Math.round(value).toLocaleString('es-CL')}`;
-                
-                // Formatear fecha
-                const formatDate = (dateString) => {
-                    const date = new Date(dateString);
-                    return date.toLocaleString('es-CL');
-                }
+                const formatCurrency = (v) => `$${Math.round(v).toLocaleString('es-CL')}`;
+                const formatDate = (d) => new Date(d).toLocaleString('es-CL');
 
-                // Encabezado
                 document.getElementById('boletaNumero').textContent = `Boleta Electrónica N° B-2024-000${orderData.id}`;
                 document.getElementById('boletaFecha').textContent = `Fecha: ${formatDate(orderData.createdAt)}`;
-                
-                // Cliente
                 document.getElementById('clientName').textContent = orderData.clientName;
                 document.getElementById('clientEmail').textContent = orderData.clientEmail;
                 document.getElementById('clientAddress').textContent = orderData.deliveryAddress || 'Sin dirección';
+                document.getElementById('boletaTotal').textContent = formatCurrency(orderData.totalAmount);
 
-                // Items
                 const itemsTbody = document.getElementById('boletaItems');
-                itemsTbody.innerHTML = ''; // Limpiar
+                itemsTbody.innerHTML = ''; 
                 orderData.items.forEach(item => {
                     const itemTotal = item.quantity * item.priceAtPurchase;
-                    const row = `
-                        <tr>
-                            <td class="item-name">${item.productName}</td>
-                            <td class="item-qty">${item.quantity}</td>
-                            <td class="item-price">${formatCurrency(item.priceAtPurchase)}</td>
-                            <td class="item-total">${formatCurrency(itemTotal)}</td>
-                        </tr>
-                    `;
-                    itemsTbody.innerHTML += row;
+                    itemsTbody.innerHTML += `<tr><td class="item-name">${item.productName}</td><td class="item-qty">${item.quantity}</td><td class="item-price">${formatCurrency(item.priceAtPurchase)}</td><td class="item-total">${formatCurrency(itemTotal)}</td></tr>`;
                 });
-                
-                // Total
-                document.getElementById('boletaTotal').textContent = formatCurrency(orderData.totalAmount);
             }
             
             function showError(message) {
-                loadingState.style.display = 'none';
-                errorText.innerHTML = message; // Usamos innerHTML para el enlace
-                errorState.style.display = 'block';
+                loadingState.style.display = 'none'; errorText.innerHTML = message; errorState.style.display = 'block';
             }
 
-            // (El resto de botones mantiene su funcionalidad de simulación)
-            const okBtn = document.getElementById('okBtn');
-            const printBtn = document.getElementById('printBtn');
-            const downloadBtn = document.getElementById('downloadBtn');
-            const reenviarBtn = document.getElementById('reenviarBtn');
-            
-            okBtn.addEventListener('click', () => window.location.href = 'index.html');
-            printBtn.addEventListener('click', () => window.print());
-            
-            downloadBtn.addEventListener('click', () => {
-                alert('Simulación: Boleta descargada en formato PDF exitosamente');
-            });
-            
-            reenviarBtn.addEventListener('click', () => {
-                const email = document.getElementById('clientEmail').textContent;
-                alert(`Simulación: Boleta reenviada exitosamente al correo: ${email}`);
-            });
+            // Botones (Simulados)
+            document.getElementById('okBtn').addEventListener('click', () => window.location.href = 'index.html');
+            document.getElementById('printBtn').addEventListener('click', () => window.print());
+            document.getElementById('downloadBtn').addEventListener('click', () => alert('Boleta descargada (Simulación)'));
+            document.getElementById('reenviarBtn').addEventListener('click', () => alert('Boleta reenviada al correo (Simulación)'));
         });
-        </script>
+    </script>
     </body>
 </html>
