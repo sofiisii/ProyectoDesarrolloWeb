@@ -1,140 +1,94 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anular Pedido - Sabor Limeño</title>
+    <title>Anulación de Pedido - Sabor Limeño</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         :root {
-            /* PALETA OFICIAL SABOR LIMEÑO */
-            --azul-pacifico: #1E88E5;
-            --azul-pacifico-oscuro: #1565C0;
-            --azul-pacifico-claro: #64B5F6;
-            --aji-amarillo: #FFC107;
-            --terracota: #BF360C; /* Color de acción negativa/anular */
-            --verde-menta: #4CAF50;
-            --blanco-roto: #F8F9FA;
-            --gris-texto: #424242;
+            --azul-pacifico: #1E88E5; --azul-pacifico-oscuro: #1565C0; --azul-pacifico-claro: #64B5F6;
+            --aji-amarillo: #FFC107; --terracota: #BF360C; --verde-menta: #4CAF50;
+            --purpura-nazca: #6A1B9A; --blanco-roto: #F8F9FA; --gris-texto: #424242;
         }
-
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: var(--blanco-roto); 
-            color: var(--gris-texto);
-            margin: 0; padding: 0;
-            min-height: 100vh;
-            display: flex; flex-direction: column;
-        }
-
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--blanco-roto); color: var(--gris-texto); margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-
+        
         /* HEADER */
-        .header { 
-            background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); 
-            color: white; 
-            padding: 1rem 0; 
-            margin-bottom: 0; /* Pegado al Hero */
-            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); 
-            position: relative; z-index: 10;
-        }
-        
+        .header { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); padding: 1rem 0; }
         .nav-container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.8rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
-        .nav-links { list-style: none; display: flex; gap: 2rem; margin: 0; padding: 0; }
-        
-        .nav-links a { 
-            color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; 
-        }
+        .logo { font-size: 1.8rem; font-weight: 700; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; }
         .nav-links a:hover { background-color: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
-
-        /* Auth Buttons & User Info */
         .auth-buttons { display: flex; gap: 1rem; align-items: center; }
-        .user-greeting { font-weight: 600; color: white; margin-right: 10px; }
-        
+        .user-info { color: white; margin-right: 15px; font-weight: 500; }
         .btn-custom { padding: 8px 20px; border-radius: 25px; font-weight: 600; text-decoration: none; transition: all 0.3s; font-size: 14px; border: none; cursor: pointer; }
         .btn-outline-white { background: transparent; border: 2px solid white; color: white; }
         .btn-outline-white:hover { background: white; color: var(--azul-pacifico); }
+        .btn-yellow { background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; }
+        .btn-yellow:hover { background: #FFB300; transform: translateY(-2px); }
 
-        /* HERO SECTION */
-        .hero { 
-            background: linear-gradient(135deg, var(--terracota) 0%, #D84315 100%); 
-            color: white; 
-            padding: 3rem 0; 
-            text-align: center; 
-            margin-bottom: 4rem; 
-            position: relative; overflow: hidden; 
-        }
-        .hero::before { 
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>'); 
-            background-size: cover; 
-        }
-        .hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto;}
-        .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .hero p { font-size: 1.1rem; margin-bottom: 0; opacity: 0.95; font-weight: 500; }
+        /* HERO */
+        .hero { background: linear-gradient(135deg, var(--terracota) 0%, #D84315 100%); color: white; padding: 3rem 0; text-align: center; margin-bottom: 3rem; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>'); background-size: cover; }
+        .hero-content { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
+        .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; font-weight: 700; }
+        .hero p { font-size: 1rem; margin-bottom: 0; opacity: 0.9; }
 
-        /* TARJETA PRINCIPAL */
-        .main-card {
-            background: white; 
-            border: 1px solid #e0e0e0; 
-            border-radius: 20px; 
-            padding: 60px 40px;
-            text-align: center; 
-            min-height: 400px; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08); 
-            max-width: 800px; 
-            margin: 0 auto 80px auto;
-        }
-
-        /* Estilos específicos de Anulación */
-        .order-info-box {
-            background-color: #f8f9fa; border-radius: 15px; padding: 25px; width: 100%; max-width: 600px;
-            text-align: left; margin-bottom: 30px; border: 1px solid #eee;
-        }
+        /* MAIN CARD */
+        .cancellation-container { max-width: 600px; margin: 0 auto; padding: 0 15px; }
+        .card { border-radius: 15px; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); border: 2px solid transparent; overflow: hidden; margin-bottom: 2rem; background: white; }
+        .card-header { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; padding: 1.5rem; text-align: center; border-bottom: none; }
+        .card-header h2 { margin: 0; font-weight: 600; font-size: 1.5rem; }
+        .card-body { padding: 2rem; }
         
-        .info-row { display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed #ddd; padding-bottom: 8px; }
-        .info-row:last-child { border-bottom: none; }
-        .info-label { font-weight: 600; color: #666; }
-        .info-value { font-weight: 700; color: var(--azul-pacifico-oscuro); }
+        .order-status { text-align: center; padding: 15px; border-radius: 10px; margin-bottom: 25px; font-weight: 600; border: 2px solid transparent; text-transform: capitalize; }
+        .status-anulado { background-color: rgba(191, 54, 12, 0.1); color: var(--terracota); border-color: var(--terracota); }
+        
+        .order-details { background: linear-gradient(135deg, #E3F2FD, #FFFFFF); padding: 20px; border-radius: 10px; margin-bottom: 25px; border: 2px solid var(--blanco-roto); }
+        .detail-row { display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--azul-pacifico-claro); }
+        .detail-label { font-weight: 500; color: var(--gris-texto); }
+        .detail-value { font-weight: 600; color: var(--azul-pacifico-oscuro); }
 
-        .status-badge { 
-            background-color: rgba(30, 136, 229, 0.1); color: var(--azul-pacifico); padding: 5px 12px; border-radius: 15px; font-size: 0.9rem;
-        }
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; margin-bottom: 8px; color: var(--gris-texto); font-weight: 600; }
+        .form-control { width: 100%; padding: 12px 15px; border: 2px solid var(--azul-pacifico-claro); border-radius: 8px; font-size: 16px; transition: all 0.3s; }
+        
+        .btn-action { padding: 15px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 16px; transition: all 0.3s; text-decoration: none; display: inline-block; text-align: center; width: 100%; color: white; margin-bottom: 10px; }
+        .btn-danger { background: linear-gradient(135deg, var(--terracota), #D84315); }
+        .btn-danger:hover:not(:disabled) { background: linear-gradient(135deg, #D84315, var(--terracota)); transform: translateY(-2px); }
+        .btn-secondary { background: linear-gradient(135deg, var(--aji-amarillo), #FFB300); color: var(--azul-pacifico-oscuro); }
+        .btn-secondary:hover:not(:disabled) { background: linear-gradient(135deg, #FFB300, var(--aji-amarillo)); transform: translateY(-2px); }
+        .btn:disabled { background: #cccccc; cursor: not-allowed; }
 
-        /* Formulario */
-        .form-select-custom {
-            width: 100%; padding: 12px; border-radius: 10px; border: 2px solid #eee; margin-bottom: 25px;
-            font-size: 1rem; color: #444; transition: border-color 0.3s;
-        }
-        .form-select-custom:focus { border-color: var(--azul-pacifico); outline: none; }
+        .message { padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 20px; display: none; font-weight: 500; }
+        .success { background-color: rgba(76, 175, 80, 0.15); color: var(--verde-menta); border: 1px solid var(--verde-menta); }
+        .error { background-color: rgba(191, 54, 12, 0.15); color: var(--terracota); border: 1px solid var(--terracota); }
 
-        /* Botón Anular */
-        .btn-cancel {
-            background-color: var(--terracota); color: white; padding: 14px 50px; border-radius: 50px;
-            font-weight: 800; text-transform: uppercase; border: none; font-size: 15px;
-            transition: all 0.3s; box-shadow: 0 4px 15px rgba(191, 54, 12, 0.2); width: 100%; max-width: 400px;
-        }
-        .btn-cancel:hover { background-color: #A02E0A; transform: translateY(-3px); box-shadow: 0 8px 25px rgba(191, 54, 12, 0.4); }
-        .btn-cancel:disabled { background-color: #ddd; color: #999; cursor: not-allowed; box-shadow: none; transform: none; }
-
-        /* Mensajes */
-        .alert-box { 
-            padding: 20px; border-radius: 12px; margin-top: 25px; width: 100%; max-width: 600px; display: none; text-align: center;
-        }
-        .alert-success { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
-        .alert-error { background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
-
-        .btn-back-link { color: var(--azul-pacifico); text-decoration: none; font-weight: 600; margin-top: 25px; display: inline-block; }
-        .btn-back-link:hover { text-decoration: underline; }
-
-        /* Utilidades */
+        /* FOOTER COMPACTO */
+        .footer { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; padding: 2rem 0 1rem; margin-top: auto; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        .footer-section h3 { margin-bottom: 0.8rem; color: var(--aji-amarillo); font-weight: 700; font-size: 1.1rem; }
+        .footer-section ul { list-style: none; padding: 0; }
+        .footer-section ul li { margin-bottom: 0.4rem; }
+        .footer-section a { color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: all 0.3s; font-size: 0.9rem; }
+        .footer-section a:hover { color: var(--aji-amarillo); padding-left: 3px; }
+        .footer-bottom { text-align: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.6); font-size: 0.85rem; }
         .d-none { display: none !important; }
+        
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; gap: 1rem; }
+            .nav-links { gap: 1rem; flex-wrap: wrap; justify-content: center; }
+            .auth-buttons { flex-direction: column; width: 100%; }
+            .auth-buttons .btn { text-align: center; }
+        }
     </style>
 </head>
+
 <body>
 
     <header class="header">
@@ -145,10 +99,13 @@
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="catalogo.html">Catálogo</a></li>
                     <li><a href="pedido.html">Mis Pedidos</a></li>
-                    <li><a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">Carrito 🛒</a></li>
+                    <li>
+                        <a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">
+                            Carrito 🛒
+                        </a>
+                    </li>
                 </ul>
-                <div class="auth-buttons" id="authButtons">
-                    </div>
+                <div class="auth-buttons" id="authContainer"></div>
             </nav>
         </div>
     </header>
@@ -156,188 +113,244 @@
     <section class="hero">
         <div class="container hero-content">
             <h1>Anulación de Pedido</h1>
-            <p>Gestiona la cancelación y solicita tu reembolso</p>
+            <p>Gestiona la cancelación de tu pedido</p>
         </div>
     </section>
 
-    <div class="container">
-        <div class="main-card">
+    <div class="cancellation-container">
+        <div class="card">
+            <div class="card-header">
+                <h2>Solicitud de Anulación</h2>
+            </div>
+            <div class="card-body">
             
-            <div id="loading" style="text-align: center;">
-                <div class="spinner-border text-secondary" role="status"></div>
-                <p class="mt-3 text-muted fw-bold">Cargando pedido...</p>
-            </div>
-
-            <div id="order-content" class="d-none" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-                
-                <h3 style="color: var(--azul-pacifico-oscuro); margin-bottom: 25px; font-weight: 700;">
-                    Pedido #<span id="orderId">...</span>
-                </h3>
-                
-                <div class="order-info-box">
-                    <div class="info-row">
-                        <span class="info-label">Estado Actual</span>
-                        <span class="status-badge" id="orderStatus">...</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Monto Total</span>
-                        <span class="info-value" id="orderTotal">...</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Fecha</span>
-                        <span class="info-value" id="orderDate">...</span>
-                    </div>
+                <div id="loadingState" style="text-align: center; padding: 2rem;">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-2">Cargando datos del pedido...</p>
                 </div>
 
-                <div id="cancellation-form" style="width: 100%; max-width: 400px; text-align: left;">
-                    <label style="font-weight: 700; margin-bottom: 10px; display: block; color: #555;">Motivo de anulación:</label>
-                    <select id="reasonSelect" class="form-select-custom">
-                        <option value="">Seleccione un motivo...</option>
-                        <option value="cambio_opinion">Cambio de opinión</option>
-                        <option value="demora">Demora en la entrega</option>
-                        <option value="error_pedido">Error en el pedido</option>
-                        <option value="otro">Otro</option>
-                    </select>
-
-                    <button id="btnCancel" class="btn-cancel">
-                        Confirmar Anulación
-                    </button>
+                <div id="errorState" class="message error" style="display: none;">
+                    <h3>❌ Error al cargar</h3>
+                    <p id="errorText">No se pudo encontrar el pedido o no tienes permiso para verlo.</p>
+                    <a href="pedido.html" class="btn-action btn-secondary" style="display:inline-block; width:auto; padding: 8px 20px;">Volver a Pedidos</a>
                 </div>
 
-                <div id="msgSuccess" class="alert-box alert-success">
-                    <i class="fas fa-check-circle fa-2x mb-2"></i><br>
-                    <strong>¡Anulación Exitosa!</strong><br>
-                    El pedido ha sido cancelado y el reembolso procesado.
+                <div id="mainContent" style="display: none;">
+                    
+                    <div id="orderStatus" class="order-status"></div>
+
+                    <div class="order-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Número de pedido:</span>
+                            <span class="detail-value" id="orderIdDisplay">#...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Fecha:</span>
+                            <span class="detail-value" id="orderDate">...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Total:</span>
+                            <span class="detail-value" id="orderTotal">...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Método de pago:</span>
+                            <span class="detail-value" id="orderPayment">...</span>
+                        </div>
+                    </div>
+
+                    <div id="cancellationBlocked" class="message error" style="display: none;"></div>
+
+                    <div id="cancellationForm" style="display: none;">
+                        <div class="form-group">
+                            <label for="cancellationReason" class="form-label">Motivo de anulación:</label>
+                            <select id="cancellationReason" class="form-control">
+                                <option value="">Seleccione un motivo</option>
+                                <option value="arrepentimiento">Arrepentimiento de compra</option>
+                                <option value="duplicado">Pedido duplicado</option>
+                                <option value="demora">Demora en la entrega</option>
+                                <option value="otro">Otro motivo</option>
+                            </select>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn-action btn-danger" id="confirmCancellation">Confirmar Anulación</button>
+                        </div>
+                    </div>
+
+                    <div id="successMessage" class="message success" style="display: none;">
+                        <strong>¡Anulación Exitosa!</strong><br>
+                        El pedido ha sido cancelado y el reembolso procesado.
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <a href="pedido.html" class="btn-action btn-secondary">Volver a Mis Pedidos</a>
+                    </div>
                 </div>
-                
-                <div id="msgError" class="alert-box alert-error"></div>
-
-                <a href="pedido.html" class="btn-back-link">← Volver a Mis Pedidos</a>
             </div>
-
-            <div id="no-order" class="d-none">
-                <i class="fas fa-search fa-3x text-muted mb-3"></i>
-                <h3 style="color: #555;">No se encontró el pedido</h3>
-                <a href="pedido.html" class="btn-back-link">Volver</a>
-            </div>
-
         </div>
     </div>
-    <footer class="footer" style="background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; padding: 3rem 0 1rem; margin-top: 3rem;">
+
+    <footer class="footer">
         <div class="container">
-            <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+            <div class="footer-content">
                 <div class="footer-section">
-                    <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Sabor Limeño</h3>
-                    <p>Auténtica cocina peruana con sabores que cuentan historias. Tradición e innovación en cada plato.</p>
+                    <h3>Sabor Limeño</h3>
+                    <p style="font-size: 0.9rem;">Tradición y sabor en cada plato.</p>
                 </div>
                 <div class="footer-section">
-                    <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Sistema Integral</h3>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="margin-bottom: 0.5rem;"><a href="signin.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Inicio de Sesión</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="catalogo.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Catálogo Digital</a></li>
-                        <li id="link-admin-panel-footer" class="d-none" style="margin-bottom: 0.5rem;"><a href="administracion.html" style="color: var(--aji-amarillo); text-decoration: none;">★ Panel Admin</a></li>
+                    <h3>Sistema</h3>
+                    <ul>
+                        <li><a href="signin.html">Inicio de Sesión</a></li>
+                        <li><a href="catalogo.html">Catálogo</a></li>
+                        <li id="link-admin-panel-footer" class="d-none"><a href="administracion.html" style="color: var(--aji-amarillo);">★ Admin</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Gestión Operativa</h3>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="margin-bottom: 0.5rem;"><a href="pedido.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Gestión de Pedidos</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="delivery.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Seguimiento Delivery</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="anularpedido.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Anular Pedido</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="boleta.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Boleta Electrónica</a></li>
+                    <h3>Operaciones</h3>
+                    <ul>
+                        <li><a href="pedido.html">Pedidos</a></li>
+                        <li><a href="delivery.html">Delivery</a></li>
+                        <li id="link-secure-support" class="d-none"><a href="newpassword.html">Soporte</a></li>
+                        <li><a href="anularpedido.html">Anular</a></li>
+                        <li><a href="boleta.html">Boleta</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="footer-bottom" style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.2); color: rgba(255, 255, 255, 0.7);">
-                <p>&copy; 2025 Sabor Limeño. Todos los derechos reservados.</p>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sabor Limeño.</p>
             </div>
         </div>
     </footer>
+
     <script>
-        document.addEventListener('DOMContentLoaded', async function() {
+        document.addEventListener('DOMContentLoaded', async function () {
             const API_URL = 'http://localhost:8000';
             const token = localStorage.getItem('authToken');
-            const adminFooterLink = document.getElementById('link-admin-panel-footer');
+            const authContainer = document.getElementById('authContainer');
             
-            // 1. Auth y Footer
+            const linkAdminFooter = document.getElementById('link-admin-panel-footer');
+            const linkSupportFooter = document.getElementById('link-secure-support');
+
+            // --- 1. Auth y Footer ---
             if (token) {
-                // Fetch para validar rol
                 fetch(API_URL + '/api/auth/me', { headers: { 'Authorization': `Bearer ${token}` } })
                 .then(res => res.json())
                 .then(user => {
                     const userName = user.nombre || 'Cliente';
-                    document.getElementById('authButtons').innerHTML = `<span class="user-greeting">Hola, ${userName}</span><button onclick="logout()" class="btn-custom btn-outline-white">Cerrar Sesión</button>`;
-                    if(user.role === 'admin' && adminFooterLink) adminFooterLink.classList.remove('d-none');
+                    authContainer.innerHTML = `<span class="user-info">Hola, ${userName}</span><button id="logoutBtn" class="btn-custom btn-outline-white">Cerrar Sesión</button>`;
+                    
+                    if(user.role === 'admin') {
+                        if(linkAdminFooter) linkAdminFooter.classList.remove('d-none');
+                        if(linkSupportFooter) linkSupportFooter.classList.remove('d-none');
+                    }
+
+                    document.getElementById('logoutBtn').addEventListener('click', () => {
+                        localStorage.clear(); window.location.href = "signin.html";
+                    });
+                })
+                .catch(() => { 
+                    authContainer.innerHTML = `<a href="signin.html" class="btn-custom btn-outline-white">Iniciar Sesión</a>`;
                 });
             } else {
-                window.location.href = 'signin.html';
+                authContainer.innerHTML = `<a href="signin.html" class="btn-custom btn-outline-white">Iniciar Sesión</a>`;
             }
-            window.logout = () => { localStorage.clear(); window.location.href = 'signin.html'; };
 
-            // (Resto de la lógica de anulación se mantiene igual)
+            // --- 2. Lógica de Anulación ---
             const urlParams = new URLSearchParams(window.location.search);
-            const orderId = urlParams.get('orderId'); 
-            const loading = document.getElementById('loading');
-            const content = document.getElementById('order-content');
-            const noOrder = document.getElementById('no-order');
-            const btnCancel = document.getElementById('btnCancel');
-            const msgSuccess = document.getElementById('msgSuccess');
-            const msgError = document.getElementById('msgError');
+            const orderId = urlParams.get('orderId');
+            
+            const loadingState = document.getElementById('loadingState');
+            const errorState = document.getElementById('errorState');
+            const mainContent = document.getElementById('mainContent');
+            const errorText = document.getElementById('errorText');
+            
+            const orderStatus = document.getElementById('orderStatus');
+            const cancellationBlocked = document.getElementById('cancellationBlocked');
+            const cancellationForm = document.getElementById('cancellationForm');
+            const successMessage = document.getElementById('successMessage');
+            const confirmCancellationBtn = document.getElementById('confirmCancellation');
 
             if (!orderId) { fetchCurrentOrder(); } else { fetchOrder(orderId); }
 
             async function fetchCurrentOrder() {
                 try {
                     const res = await fetch(`${API_URL}/api/orders/current`, { headers: { 'Authorization': `Bearer ${token}` }});
-                    if(res.ok) { renderOrder(await res.json()); } else { loading.classList.add('d-none'); noOrder.classList.remove('d-none'); }
-                } catch(e) { console.error(e); }
+                    if(res.ok) { renderOrder(await res.json()); } else { showOrderError("No tienes un pedido activo para anular."); }
+                } catch(e) { showOrderError("Error de conexión."); }
             }
+
             async function fetchOrder(id) {
                 try {
                     const res = await fetch(`${API_URL}/api/orders/${id}`, { headers: { 'Authorization': `Bearer ${token}` }});
-                    if(res.ok) { renderOrder(await res.json()); } else { loading.classList.add('d-none'); noOrder.classList.remove('d-none'); }
-                } catch(e) { console.error(e); }
+                    if(res.ok) { renderOrder(await res.json()); } else { showOrderError("No se encontró el pedido."); }
+                } catch(e) { showOrderError("Error de conexión."); }
+            }
+
+            function showOrderError(msg) {
+                loadingState.style.display = 'none';
+                errorState.style.display = 'block';
+                errorText.textContent = msg;
             }
 
             function renderOrder(order) {
-                loading.classList.add('d-none');
-                content.classList.remove('d-none');
-                document.getElementById('orderId').textContent = order.id;
-                document.getElementById('orderStatus').textContent = order.status.toUpperCase().replace('_', ' ');
-                document.getElementById('orderTotal').textContent = `$${order.totalAmount.toLocaleString('es-CL')}`;
-                document.getElementById('orderDate').textContent = order.createdAt;
+                loadingState.style.display = 'none';
+                mainContent.style.display = 'block';
 
-                if (['en_ruta', 'entregado', 'anulado'].includes(order.status)) {
-                    btnCancel.disabled = true;
-                    if(order.status === 'anulado') {
-                        msgSuccess.style.display = 'block';
-                        document.getElementById('cancellation-form').style.display = 'none';
-                        document.getElementById('orderStatus').style.color = '#BF360C';
-                    } else {
-                        msgError.innerHTML = `<i class="fas fa-exclamation-triangle"></i> No es posible anular: El pedido está <strong>${order.status.toUpperCase().replace('_', ' ')}</strong>.`;
-                        msgError.style.display = 'block';
-                    }
+                document.getElementById('orderIdDisplay').textContent = `#${order.id}`;
+                document.getElementById('orderDate').textContent = new Date(order.createdAt).toLocaleDateString();
+                document.getElementById('orderTotal').textContent = `$${order.totalAmount.toLocaleString('es-CL')}`;
+                document.getElementById('orderPayment').textContent = order.paymentMethod;
+
+                // Estado
+                orderStatus.textContent = `Estado: ${order.status.toUpperCase().replace('_', ' ')}`;
+                orderStatus.className = `order-status status-${order.status}`;
+
+                // Lógica de Negocio (Reglas)
+                cancellationBlocked.style.display = 'none';
+                cancellationForm.style.display = 'none';
+                successMessage.style.display = 'none';
+
+                if (['en_ruta', 'entregado'].includes(order.status)) {
+                    cancellationBlocked.textContent = "No es posible anular un pedido que ya está en ruta o fue entregado.";
+                    cancellationBlocked.style.display = 'block';
+                } else if (order.status === 'anulado') {
+                    successMessage.textContent = "Este pedido ya fue anulado previamente.";
+                    successMessage.style.display = 'block';
+                } else {
+                    // Permitir anular
+                    cancellationForm.style.display = 'block';
                 }
 
-                btnCancel.onclick = async () => {
-                    const reason = document.getElementById('reasonSelect').value;
-                    if(!reason) { alert("Por favor seleccione un motivo"); return; }
-                    btnCancel.disabled = true; btnCancel.innerHTML = 'Procesando...';
+                // Acción de Anular
+                confirmCancellationBtn.onclick = async () => {
+                    const reason = document.getElementById('cancellationReason').value;
+                    if (!reason) { alert("Por favor, seleccione un motivo."); return; }
+
+                    confirmCancellationBtn.disabled = true;
+                    confirmCancellationBtn.textContent = "Procesando...";
+
                     try {
                         const res = await fetch(`${API_URL}/api/orders/${order.id}/cancel`, {
-                            method: 'POST', headers: { 'Authorization': `Bearer ${token}` }
+                            method: 'POST',
+                            headers: { 'Authorization': `Bearer ${token}` }
                         });
+                        
                         const result = await res.json();
+
                         if (res.ok) {
-                            msgSuccess.style.display = 'block'; msgError.style.display = 'none';
-                            document.getElementById('cancellation-form').style.display = 'none';
-                            document.getElementById('orderStatus').textContent = "ANULADO";
-                            document.getElementById('orderStatus').style.color = '#BF360C';
+                            cancellationForm.style.display = 'none';
+                            successMessage.style.display = 'block';
+                            successMessage.innerHTML = "<strong>¡Anulación Exitosa!</strong><br>El pedido ha sido cancelado y el reembolso procesado.";
+                            orderStatus.textContent = "Estado: ANULADO";
+                            orderStatus.className = "order-status status-anulado";
                         } else {
-                            msgError.innerHTML = `${result.detail}`; msgError.style.display = 'block';
-                            btnCancel.disabled = true; btnCancel.innerHTML = "Anulación Rechazada";
+                            alert(result.detail);
+                            confirmCancellationBtn.disabled = false;
+                            confirmCancellationBtn.textContent = "Confirmar Anulación";
                         }
-                    } catch (error) { alert("Error de conexión"); btnCancel.disabled = false; }
+                    } catch (error) {
+                        alert("Error de conexión");
+                        confirmCancellationBtn.disabled = false;
+                    }
                 };
             }
         });

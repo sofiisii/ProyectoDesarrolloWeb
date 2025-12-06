@@ -154,24 +154,71 @@ def get_stats():
         "recentActivity": [] 
     }
 
-# --- SEED DATA (ACTUALIZADO CON TUS FOTOS) ---
+# --- SEED DATA (CON DESCIPCIONES REALES Y FOTOS) ---
 def seed_data():
-    # Creamos usuario admin si no existe
+    # 1. Crear Admin si no existe
     if users_collection.count_documents({}) == 0:
         print("Seeding Admin User...")
         create_user("Admin", "admin@saborlimeno.com", "1234")
     
-    # Creamos platos si no existen
+    # 2. Crear Platos si no existen
     if dishes_collection.count_documents({}) == 0:
-        print("Seeding Menu con Fotos Locales...")
+        print("Seeding Menu con Descripciones Completas...")
         
-        # Rutas exactas basadas en los archivos que subiste
-        create_dish("Lomo Saltado", 12990, "fondo", "Trozos de filete...", "Carne|Cebolla|Tomate", "imagenes/lomo saltado desarrollo web.jpg")
-        create_dish("Ceviche Clásico", 10990, "entradas", "Fresco pescado...", "Pescado|Limón|Cebolla", "imagenes/ceviche clasico peruano desarrollo web.jpg")
-        create_dish("Ají de Gallina", 11990, "fondo", "Pechuga deshilachada...", "Pollo|Ají|Nueces", "imagenes/aji de gallina desarrollo web.jpg")
-        create_dish("Causa Limeña", 8990, "entradas", "Suave puré...", "Papa|Pollo|Mayonesa", "imagenes/causa limeña desarrollo web.jpg")
-        create_dish("Suspiro a la Limeña", 6500, "postres", "Manjar blanco...", "Leche|Huevo|Oporto", "imagenes/suspiro limeño desarrollo web.jpg")
-        create_dish("Inca Kola 500ml", 1500, "postres", "Bebida gaseosa...", "Soda", "imagenes/inca kola desarrollo web.jpg")
-        create_dish("Arroz con Pato", 13990, "fondo", "Arroz verde...", "Pato|Arroz|Cilantro", "imagenes/arroz con pato desarrollo web.jpg")
+        # Lomo Saltado
+        create_dish(
+            "Lomo Saltado", 12990, "fondo", 
+            "Trozos de filete de vacuno salteados al wok con cebolla morada, tomate y salsa de soja. Acompañado de crujientes papas fritas y arroz blanco.",
+            "Carne|Cebolla|Tomate|Papas Fritas|Arroz", 
+            "imagenes/lomo saltado desarrollo web.jpg"
+        )
+        
+        # Ceviche
+        create_dish(
+            "Ceviche Clásico", 10990, "entradas", 
+            "Fresco pescado del día marinado en leche de tigre, limón de pica y ají limo. Servido con camote glaseado, choclo tierno y cancha serrana.", 
+            "Pescado|Limón|Cebolla|Camote|Choclo", 
+            "imagenes/ceviche clasico peruano desarrollo web.jpg"
+        )
+        
+        # Ají de Gallina
+        create_dish(
+            "Ají de Gallina", 11990, "fondo", 
+            "Pechuga de pollo deshilachada bañada en una cremosa salsa de ají amarillo, nueces y queso parmesano. Acompañado de papas, arroz y huevo.", 
+            "Pollo|Ají Amarillo|Nueces|Queso|Arroz", 
+            "imagenes/aji de gallina desarrollo web.jpg"
+        )
+        
+        # Causa
+        create_dish(
+            "Causa Limeña", 8990, "entradas", 
+            "Suave masa de papa amarilla prensada con limón y ají, rellena de palta fresca y pollo desmenuzado con mayonesa de la casa.", 
+            "Papa|Pollo|Palta|Mayonesa|Limón", 
+            "imagenes/causa limeña desarrollo web.jpg"
+        )
+        
+        # Suspiro
+        create_dish(
+            "Suspiro a la Limeña", 6500, "postres", 
+            "Clásico postre limeño. Manjar blanco de yemas cocinado lentamente, coronado con un merengue italiano al oporto y canela.", 
+            "Leche|Yemas|Azúcar|Oporto|Canela", 
+            "imagenes/suspiro limeño desarrollo web.jpg"
+        )
+        
+        # Inca Kola
+        create_dish(
+            "Inca Kola 500ml", 1500, "postres", 
+            "La bebida del sabor nacional. Gaseosa peruana dulce y refrescante con notas de hierba luisa, ideal para acompañar nuestros platos.", 
+            "Soda", 
+            "imagenes/inca kola desarrollo web.jpg"
+        )
+        
+        # Arroz con Pato
+        create_dish(
+            "Arroz con Pato", 13990, "fondo", 
+            "Arroz verde cocinado con cilantro y cerveza negra, servido con una pierna de pato confitada suave y jugosa, con salsa criolla.", 
+            "Pato|Arroz|Cilantro|Cerveza|Cebolla", 
+            "imagenes/arroz con pato desarrollo web.jpg"
+        )
 
 seed_data()

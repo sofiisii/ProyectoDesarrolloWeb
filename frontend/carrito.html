@@ -8,20 +8,26 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* ... (Tus estilos CSS se mantienen igual, solo ajustaremos el área de total) ... */
         :root {
-            --azul-pacifico: #1E88E5; --azul-pacifico-oscuro: #1565C0; --azul-pacifico-claro: #64B5F6;
-            --aji-amarillo: #FFC107; --aji-hover: #FFB300; --terracota: #BF360C;
-            --blanco-roto: #F8F9FA; --gris-texto: #424242; --gris-borde: #E0E0E0;
+            /* PALETA OFICIAL */
+            --azul-pacifico: #1E88E5;
+            --azul-pacifico-oscuro: #1565C0;
+            --azul-pacifico-claro: #64B5F6;
+            --aji-amarillo: #FFC107;
+            --aji-hover: #FFB300;
+            --terracota: #BF360C;
+            --blanco-roto: #F8F9FA;
+            --gris-texto: #424242;
+            --gris-borde: #E0E0E0;
         }
 
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-family: 'Open Sans', sans-serif; 
             background-color: var(--blanco-roto); 
-            color: var(--gris-texto);
-            margin: 0; padding: 0;
-            min-height: 100vh;
-            display: flex; flex-direction: column;
+            color: var(--gris-texto); 
+            margin: 0; padding: 0; 
+            min-height: 100vh; 
+            display: flex; flex-direction: column; 
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
@@ -31,34 +37,86 @@
         .nav-container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.8rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
         .nav-links { list-style: none; display: flex; gap: 2rem; margin: 0; padding: 0; }
-        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 600; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; }
         .nav-links a:hover { background-color: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
         .auth-buttons { display: flex; gap: 1rem; align-items: center; }
+        .user-info { color: white; margin-right: 15px; font-weight: 600; }
         .btn-custom { padding: 8px 20px; border-radius: 25px; font-weight: 600; text-decoration: none; transition: all 0.3s; font-size: 14px; border: none; cursor: pointer; }
         .btn-outline-white { background: transparent; border: 2px solid white; color: white; }
         .btn-outline-white:hover { background: white; color: var(--azul-pacifico); }
         .btn-yellow { background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; }
 
         /* HERO */
-        .hero { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); color: white; padding: 4rem 0; text-align: center; margin-bottom: 4rem; position: relative; overflow: hidden; }
-        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>'); background-size: cover; }
-        .hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto;}
-        .hero h1 { font-size: 2.8rem; margin-bottom: 0.5rem; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.1); text-transform: uppercase; }
-        .hero p { font-size: 1.2rem; margin-bottom: 0; opacity: 0.95; font-weight: 500; }
+        .hero { 
+            background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); 
+            color: white; padding: 3rem 0; text-align: center; margin-bottom: 3rem; position: relative; overflow: hidden; 
+        }
+        .hero::before { 
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>'); 
+            background-size: cover; 
+        }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 700; position: relative; z-index: 1; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .hero p { font-size: 1.1rem; opacity: 0.95; font-weight: 500; position: relative; z-index: 1; margin: 0; }
 
         /* CARRITO LAYOUT */
         .cart-layout { display: flex; gap: 30px; flex-wrap: wrap; align-items: flex-start; margin-bottom: 80px; }
-        .cart-card { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid #e0e0e0; }
+        .cart-card { background: white; border-radius: 15px; padding: 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.05); border: 1px solid #e0e0e0; }
         .cart-products { flex: 2; }
         .cart-checkout { flex: 1; min-width: 320px; position: sticky; top: 20px; }
         
         .card-title-custom { font-size: 1.2rem; font-weight: 700; color: var(--azul-pacifico); border-bottom: 2px solid var(--blanco-roto); padding-bottom: 15px; margin-bottom: 20px; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #f0f0f0; }
-        .item-info h5 { margin: 0; font-weight: 700; color: #333; font-size: 1.1rem; }
-        .btn-trash { color: #ccc; background: none; border: none; font-size: 1.2rem; cursor: pointer; transition: color 0.3s; }
+        
+        /* ITEMS DEL CARRITO */
+        .cart-item { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 15px 0; 
+            border-bottom: 1px solid #f0f0f0; 
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .item-image {
+            width: 70px; height: 70px; object-fit: cover; border-radius: 8px; border: 1px solid #eee;
+        }
+
+        .item-info { 
+            flex: 1; min-width: 150px; 
+        }
+        
+        .item-name { 
+            margin: 0; font-weight: 700; color: #333; font-size: 1.05rem; 
+        }
+        
+        .item-details {
+            color: #888; font-size: 0.9rem; margin-top: 3px;
+        }
+
+        .item-actions {
+            display: flex; align-items: center; gap: 10px;
+        }
+        
+        .btn-qty {
+            width: 30px; height: 30px; border-radius: 50%; border: 1px solid #ddd; background: white; color: #555; font-weight: bold; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-qty:hover { background: #f0f0f0; border-color: #ccc; }
+
+        .item-quantity {
+            font-weight: 700; font-size: 1.1rem; min-width: 25px; text-align: center;
+        }
+
+        .price-total {
+            font-weight: 700; color: var(--azul-pacifico-oscuro); font-size: 1.1rem; min-width: 80px; text-align: right;
+        }
+
+        .btn-trash { 
+            color: #ccc; background: none; border: none; font-size: 1.1rem; cursor: pointer; transition: color 0.3s; padding: 5px; margin-left: 10px;
+        }
         .btn-trash:hover { color: var(--terracota); }
 
-        /* RESUMEN TOTALES */
+        /* RESUMEN PAGO */
         .summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem; color: #666; }
         .summary-row.discount { color: #4CAF50; font-weight: 600; }
         .total-separator { border-top: 2px dashed #eee; margin: 15px 0; }
@@ -66,10 +124,22 @@
         .total-amount { font-size: 1.8rem; font-weight: 800; color: var(--azul-pacifico-oscuro); }
 
         .btn-pay-action { width: 100%; padding: 15px; background-color: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); border: none; border-radius: 50px; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; margin-top: 25px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2); }
-        .btn-pay-action:hover { background-color: var(--aji-hover); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4); }
+        .btn-pay-action:hover { background-color: #FFB300; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4); }
         
-        .empty-container { text-align: center; padding: 80px 20px; background: white; border-radius: 20px; border: 1px solid #e0e0e0; display: none; box-shadow: 0 10px 40px rgba(0,0,0,0.08); margin-bottom: 50px; }
+        /* Estado Vacío */
+        .empty-container { text-align: center; padding: 80px 20px; background: white; border-radius: 15px; border: 1px solid #e0e0e0; display: none; margin-bottom: 50px; }
         .empty-icon { font-size: 5rem; color: var(--azul-pacifico-claro); margin-bottom: 20px; }
+
+        /* FOOTER COMPACTO */
+        .footer { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; padding: 2rem 0 1rem; margin-top: auto; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        .footer-section h3 { margin-bottom: 0.8rem; color: var(--aji-amarillo); font-weight: 700; font-size: 1.1rem; }
+        .footer-section ul { list-style: none; padding: 0; }
+        .footer-section ul li { margin-bottom: 0.4rem; }
+        .footer-section a { color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: all 0.3s; font-size: 0.9rem; }
+        .footer-section a:hover { color: var(--aji-amarillo); padding-left: 3px; }
+        .footer-bottom { text-align: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.6); font-size: 0.85rem; }
+        
         .d-none { display: none !important; }
     </style>
 </head>
@@ -84,9 +154,8 @@
                     <li><a href="catalogo.html">Catálogo</a></li>
                     <li><a href="pedido.html">Mis Pedidos</a></li>
                     <li>
-                        <a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700; display: flex; align-items: center;">
-                            Carrito 🛒
-                            <span id="cart-count" class="badge bg-danger rounded-pill ms-2" style="display: none; font-size: 0.75rem;">0</span>
+                        <a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">
+                            Carrito 🛒 <span id="cart-count" class="badge bg-danger rounded-pill ms-2" style="display: none; font-size: 0.75rem;">0</span>
                         </a>
                     </li>
                 </ul>
@@ -96,7 +165,7 @@
     </header>
 
     <section class="hero">
-        <div class="container hero-content">
+        <div class="container">
             <h1>Tu Carrito</h1>
             <p>Revisa y confirma tu selección de platos peruanos</p>
         </div>
@@ -142,7 +211,7 @@
                 <div class="total-separator"></div>
 
                 <div class="total-row">
-                    <span style="font-size: 1.1rem; font-weight: 600;">TOTAL</span>
+                    <span>TOTAL</span>
                     <span class="total-amount" id="cart-total">$0</span>
                 </div>
 
@@ -151,45 +220,49 @@
             </div>
         </div>
     </div>
-    <footer class="footer" style="background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; padding: 3rem 0 1rem; margin-top: 3rem;">
+
+    <footer class="footer">
         <div class="container">
-            <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+            <div class="footer-content">
                 <div class="footer-section">
-                    <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Sabor Limeño</h3>
-                    <p>Auténtica cocina peruana con sabores que cuentan historias. Tradición e innovación en cada plato.</p>
+                    <h3>Sabor Limeño</h3>
+                    <p style="font-size: 0.9rem;">Tradición y sabor en cada plato.</p>
                 </div>
                 <div class="footer-section">
-                    <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Sistema Integral</h3>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="margin-bottom: 0.5rem;"><a href="signin.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Inicio de Sesión</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="catalogo.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Catálogo Digital</a></li>
-                        <li id="link-admin-panel-footer" class="d-none" style="margin-bottom: 0.5rem;"><a href="administracion.html" style="color: var(--aji-amarillo); text-decoration: none;">★ Panel Admin</a></li>
+                    <h3>Sistema</h3>
+                    <ul>
+                        <li><a href="signin.html">Inicio de Sesión</a></li>
+                        <li><a href="catalogo.html">Catálogo</a></li>
+                        <li id="link-admin-panel-footer" class="d-none"><a href="administracion.html" style="color: var(--aji-amarillo);">★ Admin</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Gestión Operativa</h3>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="margin-bottom: 0.5rem;"><a href="pedido.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Gestión de Pedidos</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="delivery.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Seguimiento Delivery</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="anularpedido.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Anular Pedido</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="boleta.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Boleta Electrónica</a></li>
+                    <h3>Operaciones</h3>
+                    <ul>
+                        <li><a href="pedido.html">Pedidos</a></li>
+                        <li><a href="delivery.html">Delivery</a></li>
+                        <li id="link-secure-support" class="d-none"><a href="newpassword.html">Soporte</a></li>
+                        <li><a href="anularpedido.html">Anular</a></li>
+                        <li><a href="boleta.html">Boleta</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="footer-bottom" style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.2); color: rgba(255, 255, 255, 0.7);">
-                <p>&copy; 2025 Sabor Limeño. Todos los derechos reservados.</p>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sabor Limeño.</p>
             </div>
         </div>
     </footer>
+
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
             const API_URL = 'http://localhost:8000';
-            const cartList = document.getElementById('cart-items');
+            const cartList = document.getElementById('cart-list');
             const payBtn = document.getElementById('payBtn');
             const emptyMsg = document.getElementById('empty-cart-msg');
             const cartContent = document.getElementById('cart-content');
             const authContainer = document.getElementById('authContainer');
             const adminFooterLink = document.getElementById('link-admin-panel-footer');
+            const supportLink = document.getElementById('link-secure-support');
             
             // Elementos de Totales
             const elSubtotal = document.getElementById('summary-subtotal');
@@ -202,7 +275,7 @@
             let cart = JSON.parse(localStorage.getItem('saborLimeoCart')) || [];
             const token = localStorage.getItem('authToken');
 
-            // 1. Auth & Obtener Categoría (y activar footer Admin)
+            // 1. Auth & Obtener Categoría
             if (token) {
                 try {
                     const res = await fetch(`${API_URL}/api/auth/me`, { headers: { 'Authorization': `Bearer ${token}` } });
@@ -210,11 +283,15 @@
                         const user = await response.json();
                         userCategory = user.categoria || 'nuevo'; 
                         
-                        authContainer.innerHTML = `<span class="user-greeting">Hola, ${user.nombre}</span><button id="logoutBtn" class="btn-custom btn-outline-white">Cerrar Sesión</button>`;
-                        document.getElementById('logoutBtn').addEventListener('click', () => { localStorage.clear(); window.location.href = 'signin.html'; });
+                        authContainer.innerHTML = `<span class="user-info">Hola, ${user.nombre}</span><button id="logoutBtn" class="btn-custom btn-outline-white">Cerrar Sesión</button>`;
+                        
+                        // Footer Admin
+                        if (user.role === 'admin') {
+                            if(adminFooterLink) adminFooterLink.classList.remove('d-none');
+                            if(supportLink) supportLink.classList.remove('d-none');
+                        }
 
-                        // Activar enlace admin footer
-                        if(user.role === 'admin' && adminFooterLink) adminFooterLink.classList.remove('d-none');
+                        document.getElementById('logoutBtn').addEventListener('click', () => { localStorage.clear(); window.location.href = 'signin.html'; });
                     } else { throw new Error(); }
                 } catch(e) { setupGuest(); }
             } else { setupGuest(); }
@@ -223,24 +300,44 @@
                 authContainer.innerHTML = `<a href="signin.html" class="btn-custom btn-outline-white">Iniciar Sesión</a><a href="registro.html" class="btn-custom btn-yellow">Registrarse</a>`;
             }
 
-            // 2. Renderizar Carrito
+            // 2. Renderizar Carrito con Imágenes
             function renderCart() {
                 if (cart.length === 0) { 
-                    cartContent.classList.add('d-none'); emptyMsg.style.display = 'block'; updateCartCount(); return; 
+                    cartContent.classList.add('d-none'); 
+                    emptyMsg.style.display = 'block'; 
+                    updateCartCount();
+                    return; 
                 }
                 
-                cartContent.classList.remove('d-none'); emptyMsg.style.display = 'none';
+                cartContent.classList.remove('d-none'); 
+                emptyMsg.style.display = 'none';
                 cartList.innerHTML = ''; 
                 
                 let subtotal = 0;
+
                 cart.forEach((item, index) => {
-                    const itemTotal = item.price * item.quantity; subtotal += itemTotal;
+                    const itemTotal = item.price * item.quantity; 
+                    subtotal += itemTotal;
+                    
+                    // Si el item no tiene imagen guardada, usamos un placeholder
+                    const imgUrl = item.image || "https://placehold.co/100x100?text=Plato";
+
                     cartList.innerHTML += `
                         <div class="cart-item">
-                            <div class="item-info"><h5>${item.name}</h5><div style="color:#888">Cant: ${item.quantity} x $${item.price.toLocaleString('es-CL')}</div></div>
-                            <div class="item-actions" style="display: flex; gap: 15px; align-items: center;">
-                                <span style="font-weight:700; color:#1565C0">$${itemTotal.toLocaleString('es-CL')}</span>
-                                <button class="btn-trash" onclick="removeItem(${index})"><i class="fas fa-trash-alt"></i></button>
+                            <img src="${imgUrl}" alt="${item.name}" class="item-image">
+                            
+                            <div class="item-info">
+                                <div class="item-name">${item.name}</div>
+                                <div class="item-details">${formatCurrency(item.price)}</div>
+                            </div>
+                            
+                            <div class="item-actions">
+                                <button class="btn-qty decrease-qty" data-index="${index}">-</button>
+                                <span class="item-quantity">${item.quantity}</span>
+                                <button class="btn-qty increase-qty" data-index="${index}">+</button>
+                                
+                                <span class="price-total">${formatCurrency(itemTotal)}</span>
+                                <button class="btn-trash" onclick="removeItem(${index})" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
                             </div>
                         </div>`;
                 });
@@ -248,35 +345,77 @@
                 // Descuentos
                 let discount = 0;
                 let discountText = "";
-                if (userCategory === 'frecuente') { discount = subtotal * 0.10; discountText = "Descuento Frecuente (10%)"; } 
-                else if (userCategory === 'vip') { discount = subtotal * 0.20; discountText = "Descuento VIP (20%)"; }
+
+                if (userCategory === 'frecuente') {
+                    discount = subtotal * 0.10;
+                    discountText = "Descuento Frecuente (10%)";
+                } else if (userCategory === 'vip') {
+                    discount = subtotal * 0.20;
+                    discountText = "Descuento VIP (20%)";
+                }
 
                 const finalTotal = subtotal - discount;
-                elSubtotal.textContent = `$${subtotal.toLocaleString('es-CL')}`;
-                elTotal.textContent = `$${finalTotal.toLocaleString('es-CL')}`;
+
+                // Actualizar HTML
+                elSubtotal.textContent = formatCurrency(subtotal);
+                elTotal.textContent = formatCurrency(finalTotal);
 
                 if (discount > 0) {
                     elDiscountRow.classList.remove('d-none');
                     elDiscountLabel.textContent = discountText;
-                    elDiscountAmount.textContent = `-$${discount.toLocaleString('es-CL')}`;
-                } else { elDiscountRow.classList.add('d-none'); }
+                    elDiscountAmount.textContent = `-${formatCurrency(discount)}`;
+                } else {
+                    elDiscountRow.classList.add('d-none');
+                }
 
                 updateCartCount();
             }
+            
+            // Listeners para botones de cantidad
+            cartList.addEventListener('click', (e) => {
+                if (e.target.classList.contains('increase-qty')) {
+                    const idx = e.target.dataset.index;
+                    cart[idx].quantity++;
+                    saveCart();
+                }
+                if (e.target.classList.contains('decrease-qty')) {
+                    const idx = e.target.dataset.index;
+                    if (cart[idx].quantity > 1) {
+                        cart[idx].quantity--;
+                        saveCart();
+                    } else {
+                        removeItem(idx);
+                    }
+                }
+            });
 
-            function updateCartCount() {
-                const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-                const badge = document.getElementById('cart-count');
-                if(badge) { badge.textContent = total; badge.style.display = total > 0 ? 'inline-block' : 'none'; }
+            function saveCart() {
+                localStorage.setItem('saborLimeoCart', JSON.stringify(cart));
+                renderCart();
             }
 
+            function updateCartCount() {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                const badge = document.getElementById('cart-count');
+                if(badge) {
+                    badge.textContent = totalItems;
+                    badge.style.display = totalItems > 0 ? 'inline-block' : 'none';
+                }
+            }
+            
+            const formatCurrency = (val) => `$${Math.round(val).toLocaleString('es-CL')}`;
+
             window.removeItem = function(index) { 
-                if(confirm('¿Eliminar producto?')) { cart.splice(index, 1); localStorage.setItem('saborLimeoCart', JSON.stringify(cart)); renderCart(); } 
+                if(confirm('¿Eliminar producto?')) { 
+                    cart.splice(index, 1); 
+                    saveCart(); 
+                } 
             };
 
             // 3. Pagar
             payBtn.addEventListener('click', async () => {
                 if (!token) { alert('Inicia sesión para confirmar tu pedido.'); window.location.href = 'signin.html'; return; }
+                
                 const address = document.getElementById('addressInput').value;
                 payBtn.disabled = true; payBtn.textContent = 'Procesando...';
                 
@@ -289,8 +428,10 @@
                         body: JSON.stringify({ items: itemsBackend, paymentMethod: paymentMethod, deliveryAddress: address })
                     });
                     const data = await res.json();
-                    if (res.ok) { localStorage.removeItem('saborLimeoCart'); window.location.href = `boleta.html?orderId=${data.orderId}`; } 
-                    else { throw new Error(data.detail); }
+                    if (res.ok) { 
+                        localStorage.removeItem('saborLimeoCart'); 
+                        window.location.href = `boleta.html?orderId=${data.orderId}`; 
+                    } else { throw new Error(data.detail); }
                 } catch (error) { 
                     document.getElementById('error-msg').textContent = error.message; 
                     document.getElementById('error-msg').style.display = 'block'; 

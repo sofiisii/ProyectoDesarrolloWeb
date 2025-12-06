@@ -1,294 +1,348 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Boleta Electrónica - Sabor Limeño</title>
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        <style>
-            :root {
-                --azul-pacifico: #1E88E5; --azul-pacifico-oscuro: #1565C0; --azul-pacifico-claro: #64B5F6;
-                --aji-amarillo: #FFC107; --terracota: #BF360C; --verde-menta: #4CAF50;
-                --purpura-nazca: #6A1B9A; --blanco-roto: #F8F9FA; --gris-texto: #424242;
-            }
-            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--blanco-roto); color: var(--gris-texto); margin: 0; padding: 0; }
-            .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-            .header { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); padding: 1rem 0; }
-            .nav-container { display: flex; justify-content: space-between; align-items: center; }
-            .logo { font-size: 1.8rem; font-weight: 700; }
-            .nav-links { display: flex; gap: 2rem; list-style: none; }
-            .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; }
-            .nav-links a:hover { background-color: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
-            .auth-buttons { display: flex; gap: 1rem; align-items: center; }
-            .user-info { color: white; margin-right: 15px; font-weight: 500; }
-            .btn { padding: 10px 20px; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; font-size: 14px; }
-            .btn-outline { background: transparent; border: 2px solid white; color: white; }
-            .btn-outline:hover { background: white; color: var(--azul-pacifico); }
-            .btn-primary { background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; }
-            .btn-primary:hover { background: #FFB300; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3); }
-            .hero { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); color: white; padding: 2rem 0; text-align: center; margin-bottom: 2rem; position: relative; overflow: hidden; }
-            .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>'); background-size: cover; }
-            .hero-content { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
-            .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; font-weight: 700; }
-            .hero p { font-size: 1rem; margin-bottom: 0; opacity: 0.9; }
-            .receipt-container { max-width: 700px; margin: 0 auto; padding: 0 15px; }
-            .card { border-radius: 15px; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); border: 2px solid transparent; transition: all 0.3s ease; overflow: hidden; margin-bottom: 2rem; }
-            .card:hover { box-shadow: 0 15px 35px rgba(30, 136, 229, 0.15); border-color: var(--azul-pacifico); }
-            .card-header { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; padding: 1.5rem; text-align: center; border-bottom: none; }
-            .card-header h2 { margin: 0; font-weight: 600; font-size: 1.5rem; }
-            .card-body { padding: 2rem; }
-            .email-confirmation { background-color: rgba(76, 175, 80, 0.15); border: 2px solid var(--verde-menta); border-radius: 10px; padding: 15px; margin-bottom: 25px; text-align: center; color: var(--verde-menta); font-weight: 600; }
-            .receipt { border: 2px solid var(--blanco-roto); border-radius: 12px; padding: 25px; background: linear-gradient(135deg, #E3F2FD, #FFFFFF); margin-bottom: 25px; position: relative; overflow: hidden; }
-            .receipt::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--azul-pacifico), var(--verde-menta)); }
-            .receipt-header { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--azul-pacifico-claro); }
-            .restaurant-name { font-size: 22px; font-weight: 700; color: var(--azul-pacifico-oscuro); margin-bottom: 5px; }
-            .receipt-info { font-size: 14px; color: var(--gris-texto); margin-bottom: 5px; }
-            .receipt-details { margin-bottom: 20px; }
-            .detail-row { display: flex; justify-content: space-between; margin-bottom: 8px; padding: 5px 0; }
-            .detail-label { font-weight: 500; color: var(--gris-texto); }
-            .detail-value { font-weight: 600; color: var(--azul-pacifico-oscuro); }
-            .items-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-            .items-table th { text-align: left; padding: 12px 8px; border-bottom: 2px solid var(--azul-pacifico-claro); font-weight: 600; color: var(--azul-pacifico-oscuro); background-color: rgba(30, 136, 229, 0.05); }
-            .items-table td { padding: 10px 8px; border-bottom: 1px solid var(--azul-pacifico-claro); }
-            .item-name { font-weight: 500; }
-            .item-qty, .item-price { text-align: center; }
-            .item-total { text-align: right; font-weight: 600; }
-            .total-section { background: linear-gradient(135deg, var(--verde-menta), #66BB6A); padding: 20px; border-radius: 8px; margin-top: 20px; font-weight: 600; color: white; display: flex; justify-content: space-between; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3); font-size: 18px; }
-            .btn-action { padding: 15px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 16px; transition: all 0.3s; text-decoration: none; display: inline-block; text-align: center; width: 100%; background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); margin-bottom: 10px; }
-            .btn-action:hover:not(:disabled) { background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico)); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3); }
-            .btn-secondary { background: linear-gradient(135deg, var(--aji-amarillo), #FFB300); color: var(--azul-pacifico-oscuro); box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2); }
-            .btn-secondary:hover:not(:disabled) { background: linear-gradient(135deg, #FFB300, var(--aji-amarillo)); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(255, 193, 7, 0.3); }
-            .btn-reenviar { background: linear-gradient(135deg, var(--purpura-nazca), #8E24AA); color: white; box-shadow: 0 4px 12px rgba(106, 27, 154, 0.2); }
-            .btn-reenviar:hover:not(:disabled) { background: linear-gradient(135deg, #8E24AA, var(--purpura-nazca)); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(106, 27, 154, 0.3); }
-            .btn:disabled { background: #cccccc; cursor: not-allowed; transform: none; box-shadow: none; }
-            .action-buttons { display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
-            .action-buttons .btn-action { flex: 1 1 auto; min-width: 180px; }
-            .footer-note { text-align: center; margin-top: 20px; font-size: 14px; color: var(--gris-texto); font-style: italic; padding: 15px; background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 193, 7, 0.05)); border-radius: 8px; border: 2px solid var(--aji-amarillo); }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boleta Electrónica - Sabor Limeño</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --azul-pacifico: #1E88E5; --azul-pacifico-oscuro: #1565C0; --azul-pacifico-claro: #64B5F6;
+            --aji-amarillo: #FFC107; --terracota: #BF360C; --verde-menta: #4CAF50;
+            --purpura-nazca: #6A1B9A; --blanco-roto: #F8F9FA; --gris-texto: #424242;
+        }
+        body { font-family: 'Open Sans', sans-serif; background-color: var(--blanco-roto); color: var(--gris-texto); margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* HEADER */
+        .header { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); padding: 1rem 0; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; margin:0; padding:0; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 600; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; }
+        .nav-links a:hover { background-color: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
+        .auth-buttons { display: flex; gap: 1rem; align-items: center; }
+        .user-info { color: white; margin-right: 15px; font-weight: 600; }
+        .btn-custom { padding: 8px 20px; border-radius: 25px; font-weight: 600; text-decoration: none; transition: all 0.3s; font-size: 14px; border: none; cursor: pointer; }
+        .btn-outline-white { background: transparent; border: 2px solid white; color: white; }
+        .btn-outline-white:hover { background: white; color: var(--azul-pacifico); }
+
+        /* HERO */
+        .hero { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); color: white; padding: 3rem 0; text-align: center; margin-bottom: 3rem; position: relative; overflow: hidden; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 700; }
+        .hero p { font-size: 1.1rem; margin-bottom: 0; opacity: 0.95; font-weight: 400; }
+
+        /* TARJETA BOLETA */
+        .receipt-container { max-width: 700px; margin: 0 auto; padding: 0 15px; }
+        .card { border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid #e0e0e0; overflow: hidden; margin-bottom: 2rem; background: white; }
+        .card-header { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; padding: 1.5rem; text-align: center; border-bottom: none; }
+        .card-header h2 { margin: 0; font-weight: 700; font-size: 1.5rem; }
+        .card-body { padding: 2.5rem; }
+
+        /* ESTILO TICKET */
+        .receipt { border: 2px solid #f0f0f0; border-radius: 15px; padding: 30px; background: #fff; position: relative; margin-bottom: 30px; }
+        .receipt::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--azul-pacifico), var(--verde-menta)); }
         
-            /* --- NUEVO: Estilos para Carga y Error --- */
-            #loadingState { text-align: center; padding: 3rem; font-size: 1.2rem; color: var(--gris-texto); }
-            #errorState { text-align: center; padding: 3rem; background-color: rgba(191, 54, 12, 0.1); border: 2px solid var(--terracota); border-radius: 10px; color: var(--terracota); }
+        .receipt-header { text-align: center; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 2px dashed #eee; }
+        .restaurant-name { font-size: 24px; font-weight: 800; color: var(--azul-pacifico-oscuro); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+        .receipt-info { font-size: 14px; color: #666; margin-bottom: 3px; }
+
+        .receipt-details { margin-bottom: 25px; background: #f9f9f9; padding: 15px; border-radius: 10px; }
+        .detail-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
+        .detail-label { font-weight: 600; color: #555; }
+        .detail-value { font-weight: 700; color: #333; }
+
+        .items-table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
+        .items-table th { text-align: left; padding: 10px; border-bottom: 2px solid #eee; font-weight: 700; color: #555; font-size: 14px; }
+        .items-table td { padding: 12px 10px; border-bottom: 1px solid #f5f5f5; font-size: 14px; }
+        .item-name { font-weight: 600; color: #333; }
+        .item-total { text-align: right; font-weight: 700; color: #333; }
+
+        .total-section { background: linear-gradient(135deg, var(--verde-menta), #388E3C); padding: 20px; border-radius: 10px; color: white; display: flex; justify-content: space-between; font-size: 20px; font-weight: 700; box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2); }
+
+        .footer-note { text-align: center; margin-top: 25px; font-size: 13px; color: #888; font-style: italic; }
+
+        /* BOTONES ACCIÓN */
+        .action-buttons { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+        .btn-action { flex: 1; min-width: 180px; padding: 12px; border: none; border-radius: 50px; font-weight: 700; cursor: pointer; transition: all 0.3s; font-size: 14px; color: white; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
+        
+        .btn-download { background-color: var(--azul-pacifico); }
+        .btn-download:hover { background-color: var(--azul-pacifico-oscuro); transform: translateY(-2px); }
+        
+        .btn-home { background-color: transparent; border: 2px solid var(--azul-pacifico); color: var(--azul-pacifico); }
+        .btn-home:hover { background-color: var(--azul-pacifico); color: white; }
+
+        /* Mensajes Estado */
+        #loadingState { text-align: center; padding: 3rem; }
+        #errorState { text-align: center; padding: 2rem; background: #FFF5F5; border-radius: 10px; border: 1px solid #FFCDD2; color: #C62828; }
+
+        /* Footer */
+        .footer { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; padding: 2rem 0 1rem; margin-top: auto; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        .footer-section h3 { margin-bottom: 0.8rem; color: var(--aji-amarillo); font-weight: 700; font-size: 1.1rem; }
+        .footer-section ul { list-style: none; padding: 0; }
+        .footer-section ul li { margin-bottom: 0.4rem; }
+        .footer-section a { color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: all 0.3s; font-size: 0.9rem; }
+        .footer-section a:hover { color: var(--aji-amarillo); padding-left: 3px; }
+        .footer-bottom { text-align: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.6); font-size: 0.85rem; }
+        .d-none { display: none !important; }
+
+        @media print {
+            .header, .hero, .footer, .action-buttons { display: none !important; }
+            body, .receipt-container { background: white; margin: 0; padding: 0; width: 100%; max-width: 100%; }
+            .card { box-shadow: none; border: none; }
+            .receipt { border: 2px solid #000; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <nav class="nav-container">
+                <div class="logo"><span>Sabor Limeño</span></div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="pedido.html">Mis Pedidos</a></li>
+                    <li>
+                        <a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">
+                            Carrito 🛒 <span id="cart-count" class="badge bg-danger rounded-pill ms-2" style="display: none; font-size: 0.75rem;">0</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="auth-buttons" id="authContainer"></div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Boleta Electrónica</h1>
+            <p>Comprobante oficial de tu pedido</p>
+        </div>
+    </section>
+
+    <div class="receipt-container">
+        <div class="card">
+            <div class="card-header">
+                <h2>Detalle de Transacción</h2>
+            </div>
+            <div class="card-body">
             
-            @media print {
-                .header, .hero, .action-buttons, .email-confirmation, #loadingState, #errorState { display: none !important; }
-                body { background: white; margin: 0; padding: 0; }
-                .receipt-container { max-width: 100%; margin: 0; padding: 0; }
-                .card { box-shadow: none; border: 2px solid #000; }
-                .receipt { border: 2px solid #000; }
-            }
-        </style>
-    </head>
-    <body>
-
-        <header class="header">
-            <div class="container">
-                <nav class="nav-container">
-                    <div class="logo"><span>Sabor Limeño</span></div>
-                    <ul class="nav-links">
-                        <li><a href="index.html">Inicio</a></li>
-                        <li><a href="catalogo.html">Catálogo</a></li>
-                        <li><a href="pedido.html">Mis Pedidos</a></li>
-                        <li>
-                            <a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">
-                                Carrito 🛒
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="auth-buttons">
-                        </div>
-                </nav>
-            </div>
-        </header>
-        <section class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1>Boleta Electrónica</h1>
-                    <p>Confirmación de tu compra en Sabor Limeño</p>
+                <div id="loadingState">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-2">Generando documento...</p>
                 </div>
-            </div>
-        </section>
 
-        <div class="receipt-container">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Comprobante de Pago</h2>
+                <div id="errorState" style="display: none;">
+                    <h3><i class="fas fa-exclamation-circle"></i> No se encontró el pedido</h3>
+                    <p id="errorText">Verifica el número de orden o inicia sesión.</p>
+                    <a href="index.html" class="btn-action btn-home">Ir al Inicio</a>
                 </div>
-                <div class="card-body">
                 
-                    <div id="loadingState">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Cargando...</span>
+                <div id="boletaContent" style="display: none;">
+                    <div class="receipt">
+                        <div class="receipt-header">
+                            <div class="restaurant-name">Sabor Limeño Ltda.</div>
+                            <div class="receipt-info">RUT: 76.123.456-7</div>
+                            <div class="receipt-info">Casa Matriz: Av. Perú 123, Santiago</div>
+                            <div class="receipt-info" id="boletaNumero" style="margin-top:10px; font-weight:bold;">Boleta N° ...</div>
+                            <div class="receipt-info" id="boletaFecha">Fecha: ...</div>
                         </div>
-                        <p class="mt-2">Cargando boleta...</p>
+
+                        <div class="receipt-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Cliente:</span>
+                                <span class="detail-value" id="clientName">...</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Email:</span>
+                                <span class="detail-value" id="clientEmail">...</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Dirección:</span>
+                                <span class="detail-value" id="clientAddress">...</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Pago:</span>
+                                <span class="detail-value" id="paymentMethod">...</span>
+                            </div>
+                        </div>
+
+                        <table class="items-table">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th style="text-align:center;">Cant</th>
+                                    <th style="text-align:right;">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="boletaItems">
+                                </tbody>
+                        </table>
+
+                        <div class="total-section">
+                            <span>TOTAL A PAGAR</span>
+                            <span id="boletaTotal">$0</span>
+                        </div>
+
+                        <div class="footer-note">
+                            ¡Gracias por preferir la auténtica sazón peruana!<br>
+                            Copia cedible - Sabor Limeño
+                        </div>
                     </div>
 
-                    <div id="errorState" style="display: none;">
-                        <h3>❌ Error al cargar la boleta</h3>
-                        <p id="errorText">No se pudo encontrar el pedido o no tienes permiso para verlo.</p>
-                        <a href="index.html" class="btn-action">Volver al Inicio</a>
-                    </div>
-                    
-                    <div id="boletaContent" style="display: none;">
-                        <div class="email-confirmation">
-                            Recibirá un correo electrónico con la boleta adjunta en formato PDF.
-                        </div>
-
-                        <div class="receipt">
-                            <div class="receipt-header">
-                                <div class="restaurant-name">Sabor Limeño</div>
-                                <div class="receipt-info">RUT: 76.123.456-7</div>
-                                <div class="receipt-info" id="boletaNumero">Boleta Electrónica N° B-2024-00000</div>
-                                <div class="receipt-info" id="boletaFecha">Fecha: --/--/---- --:--:--</div>
-                            </div>
-
-                            <div class="receipt-details">
-                                <div class="detail-row">
-                                    <span class="detail-label">Cliente:</span>
-                                    <span class="detail-value" id="clientName">Cargando...</span>
-                                </div>
-                                <div class="detail-row">
-                                    <span class="detail-label">Email:</span>
-                                    <span class="detail-value" id="clientEmail">Cargando...</span>
-                                </div>
-                                <div class="detail-row">
-                                    <span class="detail-label">Dirección:</span>
-                                    <span class="detail-value" id="clientAddress">Cargando...</span>
-                                </div>
-                            </div>
-
-                            <table class="items-table">
-                                <thead>
-                                    <tr>
-                                        <th>Producto</th>
-                                        <th class="item-qty">Cant</th>
-                                        <th class="item-price">P.Unit</th>
-                                        <th class="item-total">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="boletaItems">
-                                    </tbody>
-                            </table>
-
-                            <div class="total-section">
-                                <span>TOTAL:</span>
-                                <span id="boletaTotal">$0</span>
-                            </div>
-
-                            <div class="footer-note">
-                                ¡Gracias por su compra!
-                            </div>
-                        </div>
-
-                        <div class="action-buttons">
-                            <button class="btn-action btn-reenviar" id="reenviarBtn">🔄 Reenviar Boleta</button>
-                            <button class="btn-action btn-secondary" id="downloadBtn">📥 Descargar PDF</button>
-                            <button class="btn-action btn-secondary" id="printBtn">🖨️ Imprimir Boleta</button>
-                            <button class="btn-action" id="okBtn">Volver al Inicio</button>
-                        </div>
+                    <div class="action-buttons">
+                        <button class="btn-action btn-download" id="printBtn">
+                            <i class="fas fa-print"></i> Imprimir / Guardar PDF
+                        </button>
+                        <a href="index.html" class="btn-action btn-home">
+                            <i class="fas fa-home"></i> Volver al Inicio
+                        </a>
                     </div>
                 </div>
+
             </div>
         </div>
-        <footer class="footer" style="background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; padding: 3rem 0 1rem; margin-top: 3rem;">
-            <div class="container">
-                <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
-                    <div class="footer-section">
-                        <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Sabor Limeño</h3>
-                        <p>Auténtica cocina peruana con sabores que cuentan historias. Tradición e innovación en cada plato.</p>
-                    </div>
-                    <div class="footer-section">
-                        <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Sistema Integral</h3>
-                        <ul style="list-style: none; padding: 0;">
-                            <li style="margin-bottom: 0.5rem;"><a href="signin.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Inicio de Sesión</a></li>
-                            <li style="margin-bottom: 0.5rem;"><a href="catalogo.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Catálogo Digital</a></li>
-                            <li id="link-admin-panel-footer" class="d-none" style="margin-bottom: 0.5rem;"><a href="administracion.html" style="color: var(--aji-amarillo); text-decoration: none;">★ Panel Admin</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-section">
-                        <h3 style="margin-bottom: 1rem; color: var(--aji-amarillo); font-weight: 600;">Gestión Operativa</h3>
-                        <ul style="list-style: none; padding: 0;">
-                            <li style="margin-bottom: 0.5rem;"><a href="pedido.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Gestión de Pedidos</a></li>
-                            <li style="margin-bottom: 0.5rem;"><a href="delivery.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Seguimiento Delivery</a></li>
-                            <li style="margin-bottom: 0.5rem;"><a href="anularpedido.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Anular Pedido</a></li>
-                            <li style="margin-bottom: 0.5rem;"><a href="boleta.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Boleta Electrónica</a></li>
-                        </ul>
-                    </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Sabor Limeño</h3>
+                    <p style="font-size: 0.9rem;">Tradición y sabor en cada plato.</p>
                 </div>
-                <div class="footer-bottom" style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.2); color: rgba(255, 255, 255, 0.7);">
-                    <p>&copy; 2025 Sabor Limeño. Todos los derechos reservados.</p>
+                <div class="footer-section">
+                    <h3>Sistema</h3>
+                    <ul>
+                        <li><a href="signin.html">Inicio de Sesión</a></li>
+                        <li><a href="catalogo.html">Catálogo</a></li>
+                        <li id="link-admin-panel-footer" class="d-none"><a href="administracion.html" style="color: var(--aji-amarillo);">★ Admin</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Operaciones</h3>
+                    <ul>
+                        <li><a href="pedido.html">Pedidos</a></li>
+                        <li><a href="delivery.html">Delivery</a></li>
+                        <li id="link-secure-support" class="d-none"><a href="newpassword.html">Soporte</a></li>
+                        <li><a href="anularpedido.html">Anular</a></li>
+                        <li><a href="boleta.html">Boleta</a></li>
+                    </ul>
                 </div>
             </div>
-        </footer>
-        <script>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sabor Limeño.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
         document.addEventListener('DOMContentLoaded', async function() {
             const API_URL = 'http://localhost:8000';
             const token = localStorage.getItem('authToken');
-            const loadingState = document.getElementById('loadingState');
-            const errorState = document.getElementById('errorState');
-            const errorText = document.getElementById('errorText');
-            const boletaContent = document.getElementById('boletaContent');
+            const authContainer = document.getElementById('authContainer');
+            
+            // Footer Links
             const adminFooterLink = document.getElementById('link-admin-panel-footer');
+            const supportLink = document.getElementById('link-secure-support');
 
-            // --- Auth y Footer ---
-            const authButtonsContainer = document.querySelector('.header .auth-buttons');
+            // 1. Auth y Footer
             if (token) {
                 fetch(API_URL + '/api/auth/me', { headers: { 'Authorization': `Bearer ${token}` } })
-                .then(res => res.json())
+                .then(res => res.ok ? res.json() : null)
                 .then(user => {
-                    authButtonsContainer.innerHTML = `<span class="user-info" style="color:white; margin-right: 15px;">Hola, ${user.nombre}!</span><button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>`;
-                    document.getElementById('logoutBtn').addEventListener('click', () => { localStorage.clear(); window.location.href = "signin.html"; });
-                    if(user.role === 'admin' && adminFooterLink) adminFooterLink.classList.remove('d-none');
+                    if(user) {
+                        authContainer.innerHTML = `<span class="user-info">Hola, ${user.nombre}!</span><button id="logoutBtn" class="btn-custom btn-outline-white">Cerrar Sesión</button>`;
+                        document.getElementById('logoutBtn').addEventListener('click', () => { localStorage.clear(); window.location.href = "signin.html"; });
+                        
+                        if(user.role === 'admin') {
+                            if(adminFooterLink) adminFooterLink.classList.remove('d-none');
+                            if(supportLink) supportLink.classList.remove('d-none');
+                        }
+                    }
                 });
             } else {
-                authButtonsContainer.innerHTML = `<a href="signin.html" class="btn btn-outline">Iniciar Sesión</a>`;
+                authContainer.innerHTML = `<a href="signin.html" class="btn-custom btn-outline-white">Iniciar Sesión</a>`;
             }
 
-            // --- Carga de Boleta ---
+            // 2. Carga de Boleta
             const urlParams = new URLSearchParams(window.location.search);
             const orderId = urlParams.get('orderId');
+            
+            const loading = document.getElementById('loadingState');
+            const content = document.getElementById('boletaContent');
+            const errorDiv = document.getElementById('errorState');
+            const errorText = document.getElementById('errorText');
 
-            if (!orderId) { showError("No se especificó un número de pedido."); return; }
-            if (!token) { showError("Necesitas <a href='signin.html'>iniciar sesión</a>."); return; }
+            if (!orderId) { showError("No se especificó número de pedido."); return; }
+            if (!token) { showError("Inicia sesión para ver tu boleta."); return; }
 
             try {
-                const response = await fetch(`${API_URL}/api/orders/${orderId}`, { headers: { 'Authorization': `Bearer ${token}` } });
-                const data = await response.json();
-                if (!response.ok) throw new Error(data.message || "Error al cargar.");
-                populateBoleta(data);
-                loadingState.style.display = 'none'; boletaContent.style.display = 'block';
-            } catch (error) { showError(error.message); }
+                const res = await fetch(`${API_URL}/api/orders/${orderId}`, { 
+                    headers: { 'Authorization': `Bearer ${token}` } 
+                });
+                
+                if (!res.ok) throw new Error("No se encontró el pedido.");
+                const order = await res.json();
+                
+                populateBoleta(order);
+                loading.style.display = 'none';
+                content.style.display = 'block';
 
-            function populateBoleta(orderData) {
-                const formatCurrency = (v) => `$${Math.round(v).toLocaleString('es-CL')}`;
+            } catch (e) {
+                showError(e.message);
+            }
+
+            function populateBoleta(data) {
+                const formatMoney = (v) => `$${Math.round(v).toLocaleString('es-CL')}`;
                 const formatDate = (d) => new Date(d).toLocaleString('es-CL');
 
-                document.getElementById('boletaNumero').textContent = `Boleta Electrónica N° B-2024-000${orderData.id}`;
-                document.getElementById('boletaFecha').textContent = `Fecha: ${formatDate(orderData.createdAt)}`;
-                document.getElementById('clientName').textContent = orderData.clientName;
-                document.getElementById('clientEmail').textContent = orderData.clientEmail;
-                document.getElementById('clientAddress').textContent = orderData.deliveryAddress || 'Sin dirección';
-                document.getElementById('boletaTotal').textContent = formatCurrency(orderData.totalAmount);
+                document.getElementById('boletaNumero').textContent = `Boleta Electrónica N° ${data.id}`;
+                document.getElementById('boletaFecha').textContent = `Fecha: ${formatDate(data.createdAt)}`;
+                document.getElementById('clientName').textContent = data.clientName;
+                document.getElementById('clientEmail').textContent = data.clientEmail;
+                document.getElementById('clientAddress').textContent = data.deliveryAddress || 'Retiro en tienda';
+                document.getElementById('paymentMethod').textContent = data.paymentMethod;
+                document.getElementById('boletaTotal').textContent = formatMoney(data.totalAmount);
 
-                const itemsTbody = document.getElementById('boletaItems');
-                itemsTbody.innerHTML = ''; 
-                orderData.items.forEach(item => {
-                    const itemTotal = item.quantity * item.priceAtPurchase;
-                    itemsTbody.innerHTML += `<tr><td class="item-name">${item.productName}</td><td class="item-qty">${item.quantity}</td><td class="item-price">${formatCurrency(item.priceAtPurchase)}</td><td class="item-total">${formatCurrency(itemTotal)}</td></tr>`;
+                const tbody = document.getElementById('boletaItems');
+                tbody.innerHTML = '';
+                data.items.forEach(item => {
+                    const totalItem = item.quantity * item.priceAtPurchase;
+                    tbody.innerHTML += `
+                        <tr>
+                            <td class="item-name">${item.productName}</td>
+                            <td style="text-align:center;">${item.quantity}</td>
+                            <td class="item-total">${formatMoney(totalItem)}</td>
+                        </tr>
+                    `;
                 });
             }
-            
-            function showError(message) {
-                loadingState.style.display = 'none'; errorText.innerHTML = message; errorState.style.display = 'block';
+
+            function showError(msg) {
+                loading.style.display = 'none';
+                errorText.textContent = msg;
+                errorDiv.style.display = 'block';
             }
 
-            // Botones (Simulados)
-            document.getElementById('okBtn').addEventListener('click', () => window.location.href = 'index.html');
+            // 3. Contador Carrito
+            function updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('saborLimeoCart')) || [];
+                const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+                const badge = document.getElementById('cart-count');
+                if(badge) { badge.textContent = total; badge.style.display = total > 0 ? 'inline-block' : 'none'; }
+            }
+            updateCartCount();
+            
+            // Imprimir
             document.getElementById('printBtn').addEventListener('click', () => window.print());
-            document.getElementById('downloadBtn').addEventListener('click', () => alert('Boleta descargada (Simulación)'));
-            document.getElementById('reenviarBtn').addEventListener('click', () => alert('Boleta reenviada al correo (Simulación)'));
         });
     </script>
-    </body>
+</body>
 </html>

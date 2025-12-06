@@ -7,138 +7,100 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         :root {
-            --azul-pacifico: #1E88E5;
-            --azul-pacifico-oscuro: #1565C0;
-            --azul-pacifico-claro: #64B5F6;
-            --aji-amarillo: #FFC107;
-            --terracota: #BF360C;
-            --verde-menta: #4CAF50;
-            --purpura-nazca: #6A1B9A;
-            --blanco-roto: #F8F9FA;
-            --gris-texto: #424242;
+            --azul-pacifico: #1E88E5; --azul-pacifico-oscuro: #1565C0; --azul-pacifico-claro: #64B5F6;
+            --aji-amarillo: #FFC107; --terracota: #BF360C; --verde-menta: #4CAF50;
+            --purpura-nazca: #6A1B9A; --blanco-roto: #F8F9FA; --gris-texto: #424242;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--blanco-roto);
-            color: var(--gris-texto);
-            margin: 0;
-            padding: 0;
+        body { 
+            font-family: 'Open Sans', sans-serif; 
+            background-color: var(--blanco-roto); 
+            color: var(--gris-texto); 
+            margin: 0; padding: 0; 
+            min-height: 100vh; 
+            display: flex; flex-direction: column; 
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%);
-            color: white;
-            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
-            padding: 1rem 0;
-        }
-        
+        /* HEADER */
+        .header { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); padding: 1rem 0; }
         .nav-container { display: flex; justify-content: space-between; align-items: center; }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            display: flex; align-items: center; gap: 10px;
-        }
-        
+        .logo { font-size: 1.8rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
         .nav-links { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; }
-        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 600; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; }
         .nav-links a:hover { background-color: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
-        
-        .auth-buttons { display: flex; gap: 1rem; }
-        
-        .btn { padding: 10px 20px; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; font-size: 14px; }
-        .btn-outline { background: transparent; border: 2px solid white; color: white; }
-        .btn-outline:hover { background: white; color: var(--azul-pacifico); transform: translateY(-2px); }
-        
-        .btn-primary { background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; }
-        .btn-primary:hover { background: #FFB300; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3); }
+        .auth-buttons { display: flex; gap: 1rem; align-items: center; }
+        .user-info { color: white; margin-right: 15px; font-weight: 600; }
+        .btn-custom { padding: 8px 20px; border-radius: 25px; font-weight: 600; text-decoration: none; transition: all 0.3s; font-size: 14px; border: none; cursor: pointer; }
+        .btn-outline-white { background: transparent; border: 2px solid white; color: white; }
+        .btn-outline-white:hover { background: white; color: var(--azul-pacifico); }
+        .btn-yellow { background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; }
 
-        /* Hero */
-        .hero {
-            background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%);
-            color: white; padding: 2rem 0; text-align: center; margin-bottom: 2rem; position: relative; overflow: hidden;
-        }
-        .hero::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-            background-size: cover;
-        }
-        .hero-content { position: relative; z-index: 1; }
-        .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; font-weight: 700; }
-        .hero p { font-size: 1rem; margin-bottom: 0; opacity: 0.9; }
+        /* HERO */
+        .hero { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); color: white; padding: 3rem 0; text-align: center; margin-bottom: 3rem; position: relative; overflow: hidden; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 700; }
+        .hero p { font-size: 1.1rem; margin-bottom: 0; opacity: 0.95; font-weight: 400; }
 
+        /* FORMULARIO */
         .register-container { max-width: 500px; margin: 0 auto; padding: 0 15px; }
-
-        .card {
-            border-radius: 15px; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); border: 2px solid transparent;
-            transition: all 0.3s ease; overflow: hidden; margin-bottom: 2rem;
-        }
-        .card:hover { box-shadow: 0 15px 35px rgba(30, 136, 229, 0.15); border-color: var(--azul-pacifico); }
-
-        .card-header {
-            background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro));
-            color: white; padding: 1.5rem; text-align: center; border-bottom: none;
-        }
-        .card-header h2 { margin: 0; font-weight: 600; font-size: 1.5rem; }
+        .card { border-radius: 15px; box-shadow: 0 8px 25px rgba(30, 136, 229, 0.1); border: 2px solid transparent; overflow: hidden; margin-bottom: 2rem; background: white; }
+        .card-header { background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; padding: 1.5rem; text-align: center; border-bottom: none; }
+        .card-header h2 { margin: 0; font-weight: 700; font-size: 1.5rem; }
         .card-body { padding: 2rem; }
 
-        .form-control {
-            border-radius: 8px; border: 2px solid var(--azul-pacifico-claro); padding: 12px 15px; transition: all 0.3s;
-        }
-        .form-control:focus { border-color: var(--azul-pacifico); box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.2); }
+        .form-control { border-radius: 8px; border: 2px solid var(--azul-pacifico-claro); padding: 12px 15px; transition: all 0.3s; }
+        .form-control:focus { border-color: var(--azul-pacifico); box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.2); outline: none; }
         .form-label { font-weight: 600; color: var(--azul-pacifico-oscuro); margin-bottom: 8px; }
-        .form-text { font-size: 12px; color: var(--gris-texto); margin-top: 5px; font-style: italic; }
+        .form-text { font-size: 12px; color: #666; margin-top: 5px; font-style: italic; }
 
-        /* Estilos para el input con botón de ojo */
-        .input-group .form-control {
-            border-top-right-radius: 0; border-bottom-right-radius: 0;
-        }
-        .input-group .btn-toggle-password {
-            border: 2px solid var(--azul-pacifico-claro); border-left: none;
-            background-color: white; color: var(--azul-pacifico);
-            border-top-right-radius: 8px; border-bottom-right-radius: 8px;
-            z-index: 0; /* Evitar superposición */
-        }
+        /* Input Group Ojo */
+        .input-group .form-control { border-top-right-radius: 0; border-bottom-right-radius: 0; border-right: none; }
+        .input-group .btn-toggle-password { border: 2px solid var(--azul-pacifico-claro); border-left: none; background-color: white; color: var(--azul-pacifico); border-top-right-radius: 8px; border-bottom-right-radius: 8px; z-index: 0; }
         .input-group .btn-toggle-password:hover { background-color: #f0f8ff; }
 
-        .btn-register {
-            padding: 15px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 16px;
-            transition: all 0.3s; text-decoration: none; display: inline-block; text-align: center; width: 100%;
-            background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white;
-            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
-        }
-        .btn-register:hover:not(:disabled) {
-            background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico));
-            transform: translateY(-2px); box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3);
-        }
+        .btn-register { padding: 15px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 16px; transition: all 0.3s; width: 100%; background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); color: white; box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2); }
+        .btn-register:hover:not(:disabled) { background: linear-gradient(135deg, var(--azul-pacifico-oscuro), var(--azul-pacifico)); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(30, 136, 229, 0.3); }
         .btn:disabled { background: #cccccc; cursor: not-allowed; transform: none; box-shadow: none; }
 
-        .text-center a { color: var(--azul-pacifico-oscuro); text-decoration: none; font-weight: 500; transition: all 0.3s; }
+        /* Link Secundario */
+        .text-center a { color: var(--azul-pacifico-oscuro); text-decoration: none; font-weight: 600; transition: all 0.3s; }
         .text-center a:hover { color: var(--azul-pacifico); text-decoration: underline; }
 
-        /* Alertas */
-        .alert { border-radius: 8px; padding: 15px; margin-bottom: 20px; border: 2px solid transparent; font-weight: 500; }
-        .alert-success { background-color: rgba(76, 175, 80, 0.15); color: var(--verde-menta); border-color: var(--verde-menta); }
-        .alert-danger { background: linear-gradient(135deg, rgba(255, 193, 7, 0.15), rgba(255, 193, 7, 0.1)); color: var(--azul-pacifico-oscuro); border-color: var(--aji-amarillo); }
+        /* Alertas y Validadores */
+        .alert { border-radius: 8px; padding: 15px; margin-bottom: 20px; border: none; font-weight: 600; }
+        .alert-success { background-color: rgba(76, 175, 80, 0.15); color: var(--verde-menta); border: 1px solid var(--verde-menta); }
+        .alert-danger { background-color: rgba(191, 54, 12, 0.1); color: var(--terracota); border: 1px solid var(--terracota); }
 
-        /* Feedback visual */
-        .password-strength { margin-top: 5px; font-size: 12px; font-weight: 500; }
-        .password-match { margin-top: 5px; font-size: 12px; font-weight: 500; }
+        .password-strength, .password-match { margin-top: 5px; font-size: 13px; font-weight: 600; }
+        .strength-weak { color: var(--terracota); }
+        .strength-medium { color: var(--aji-amarillo); }
+        .strength-strong { color: var(--verde-menta); }
+        .match-success { color: var(--verde-menta); }
+        .match-error { color: var(--terracota); }
+
+        /* FOOTER COMPACTO */
+        .footer { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; padding: 2rem 0 1rem; margin-top: auto; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        .footer-section h3 { margin-bottom: 0.8rem; color: var(--aji-amarillo); font-weight: 700; font-size: 1.1rem; }
+        .footer-section ul { list-style: none; padding: 0; }
+        .footer-section ul li { margin-bottom: 0.4rem; }
+        .footer-section a { color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: all 0.3s; font-size: 0.9rem; }
+        .footer-section a:hover { color: var(--aji-amarillo); padding-left: 3px; }
+        .footer-bottom { text-align: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.6); font-size: 0.85rem; }
+        .d-none { display: none !important; }
         
-        /* Media Queries */
         @media (max-width: 768px) {
             .nav-container { flex-direction: column; gap: 1rem; }
             .nav-links { gap: 1rem; flex-wrap: wrap; justify-content: center; }
             .auth-buttons { flex-direction: column; width: 100%; }
             .auth-buttons .btn { text-align: center; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero p { font-size: 0.9rem; }
+            .card-body { padding: 1.5rem; }
         }
     </style>
 </head>
@@ -154,43 +116,32 @@
                     <li><a href="pedido.html">Mis Pedidos</a></li>
                     <li><a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">Carrito 🛒</a></li>
                 </ul>
-                <div class="auth-buttons">
-                    <a href="signin.html" class="btn btn-outline">Iniciar Sesión</a>
-                    <a href="registro.html" class="btn btn-primary">Registrarse</a>
-                </div>
+                <div class="auth-buttons" id="authContainer"></div>
             </nav>
         </div>
     </header>
     
     <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Únete a Sabor Limeño</h1>
-                <p>Crea tu cuenta para disfrutar de la auténtica cocina peruana</p>
-            </div>
+        <div class="container hero-content">
+            <h1>Únete a Sabor Limeño</h1>
+            <p>Crea tu cuenta para disfrutar de la auténtica cocina peruana</p>
         </div>
     </section>
     
     <div class="register-container">
         
         <div id="successMessage" class="alert alert-success d-none" role="alert">
-            ¡Registro y validación exitosa! Se ha enviado un enlace de validación a tu correo electrónico.
+            ¡Registro exitoso! Redirigiendo...
         </div>
-        
-        <div id="errorMessage" class="alert alert-danger d-none" role="alert">
-            Ha ocurrido un error. Por favor, verifica tus datos e intenta nuevamente.
-        </div>
+        <div id="errorMessage" class="alert alert-danger d-none" role="alert"></div>
 
         <div class="card">
-            <div class="card-header">
-                <h2>Crear Cuenta</h2>
-            </div>
+            <div class="card-header"><h2>Crear Cuenta</h2></div>
             <div class="card-body">
                 <form id="registrationForm">
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre completo (*)</label> 
                         <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre" required>
-                        <div id="nombreError" class="form-text text-danger"></div>
                     </div>
 
                     <div class="mb-3">
@@ -207,11 +158,8 @@
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
-                        <div class="form-text">
-                            La contraseña debe tener al menos 8 caracteres, incluir mayúsculas, minúsculas, números y un símbolo.
-                        </div>
+                        <div class="form-text">Mínimo 8 caracteres, mayúscula, minúscula, número y símbolo.</div>
                         <div id="passwordStrength" class="password-strength"></div>
-                        <div id="passwordReqError" class="form-text text-danger"></div>
                     </div>
 
                     <div class="mb-3">
@@ -235,96 +183,106 @@
         </div>
     </div>
 
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Sabor Limeño</h3>
+                    <p style="font-size: 0.9rem;">Tradición y sabor en cada plato.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Sistema</h3>
+                    <ul>
+                        <li><a href="signin.html">Inicio de Sesión</a></li>
+                        <li><a href="catalogo.html">Catálogo</a></li>
+                        <li id="link-admin-panel-footer" class="d-none"><a href="administracion.html" style="color: var(--aji-amarillo);">★ Admin</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Operaciones</h3>
+                    <ul>
+                        <li><a href="pedido.html">Pedidos</a></li>
+                        <li><a href="delivery.html">Delivery</a></li>
+                        <li id="link-secure-support" class="d-none"><a href="newpassword.html">Soporte</a></li>
+                        <li><a href="anularpedido.html">Anular</a></li>
+                        <li><a href="boleta.html">Boleta</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sabor Limeño.</p>
+            </div>
+        </div>
+    </footer>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            const API_URL = 'http://localhost:8000';
+            const token = localStorage.getItem('authToken');
+            const authContainer = document.getElementById('authContainer');
+            
+            const linkAdmin = document.getElementById('link-admin-panel-footer');
+            const linkSupport = document.getElementById('link-secure-support');
+
+            // 1. Auth y Footer
+            if (token) {
+                fetch(API_URL + '/api/auth/me', { headers: { 'Authorization': `Bearer ${token}` } })
+                .then(res => res.json())
+                .then(user => {
+                    if(user.role) {
+                        // Si ya está logueado, redirigir al index (no tiene sentido registrarse)
+                        window.location.href = 'index.html';
+                    }
+                })
+                .catch(() => showLoginBtn());
+            } else { showLoginBtn(); }
+            
+            function showLoginBtn() {
+                authContainer.innerHTML = `<a href="signin.html" class="btn-custom btn-outline-white">Iniciar Sesión</a><a href="registro.html" class="btn-custom btn-yellow">Registrarse</a>`;
+            }
+
+            // 2. Formulario y Validaciones
             const form = document.getElementById('registrationForm');
             const submitBtn = form.querySelector('button[type="submit"]');
             
-            // Campos
             const nombreInput = document.getElementById('nombre');
             const emailInput = document.getElementById('email');
             const passwordInput = document.getElementById('password');
             const confirmPasswordInput = document.getElementById('confirmPassword');
 
-            // Botones de Ojo
             const togglePasswordBtn = document.getElementById('togglePassword');
             const toggleConfirmPasswordBtn = document.getElementById('toggleConfirmPassword');
 
-            // Elementos de error/feedback
-            const nombreError = document.getElementById('nombreError');
-            const emailError = document.getElementById('emailError');
-            const passwordReqError = document.getElementById('passwordReqError');
             const passwordStrength = document.getElementById('passwordStrength');
             const passwordMatch = document.getElementById('passwordMatch');
             
             const successMessage = document.getElementById('successMessage');
             const errorMessage = document.getElementById('errorMessage');
 
-            // --- 0. LÓGICA DE MOSTRAR/OCULTAR CONTRASEÑA ---
-            function togglePasswordVisibility(inputElement, buttonElement) {
-                const type = inputElement.getAttribute('type') === 'password' ? 'text' : 'password';
-                inputElement.setAttribute('type', type);
-                
-                // Cambiar el ícono
-                const icon = buttonElement.querySelector('i');
-                icon.classList.toggle('fa-eye');
-                icon.classList.toggle('fa-eye-slash');
+            function toggleVisibility(input, btn) {
+                const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                input.setAttribute('type', type);
+                btn.querySelector('i').classList.toggle('fa-eye');
+                btn.querySelector('i').classList.toggle('fa-eye-slash');
             }
 
-            togglePasswordBtn.addEventListener('click', function() {
-                togglePasswordVisibility(passwordInput, this);
-            });
+            togglePasswordBtn.addEventListener('click', () => toggleVisibility(passwordInput, togglePasswordBtn));
+            toggleConfirmPasswordBtn.addEventListener('click', () => toggleVisibility(confirmPasswordInput, toggleConfirmPasswordBtn));
 
-            toggleConfirmPasswordBtn.addEventListener('click', function() {
-                togglePasswordVisibility(confirmPasswordInput, this);
-            });
-
-            // --- 1. LÓGICA DE VALIDACIÓN ---
-            function validatePassword(password) {
-                const minLength = 8;
-                const hasUpperCase = /[A-Z]/.test(password);
-                const hasLowerCase = /[a-z]/.test(password);
-                const hasNumbers = /\d/.test(password);
-                const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-
-                const isValidLength = password.length >= minLength;
-
-                let errors = [];
-                if (!isValidLength) errors.push("Mínimo 8 caracteres");
-                if (!hasUpperCase) errors.push("Una mayúscula");
-                if (!hasLowerCase) errors.push("Una minúscula");
-                if (!hasNumbers) errors.push("Un número");
-                if (!hasSpecialChar) errors.push("Un símbolo (!@#$...)");
-
-                return {
-                    isValid: isValidLength && hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChar,
-                    errors: errors
-                };
+            function validatePassword(p) {
+                const valid = p.length >= 8 && /[A-Z]/.test(p) && /[a-z]/.test(p) && /\d/.test(p) && /[!@#$%^&*(),.?":{}|<>]/.test(p);
+                return { isValid: valid };
             }
 
             passwordInput.addEventListener('input', function() {
                 const val = passwordInput.value;
-                const validation = validatePassword(val);
+                if (val.length === 0) { passwordStrength.textContent = ''; return; }
 
-                if (val.length === 0) {
-                    passwordStrength.textContent = '';
-                    passwordReqError.textContent = '';
-                    passwordInput.classList.remove('is-valid', 'is-invalid');
-                    return;
-                }
-
-                if (validation.isValid) {
+                if (validatePassword(val).isValid) {
                     passwordStrength.innerHTML = '<span class="text-success fw-bold">✓ Contraseña segura</span>';
-                    passwordReqError.textContent = '';
-                    passwordInput.classList.remove('is-invalid');
-                    passwordInput.classList.add('is-valid');
                 } else {
-                    passwordStrength.textContent = '';
-                    passwordReqError.innerHTML = '<span class="text-danger" style="font-size: 0.85rem;">Falta: ' + validation.errors.join(', ') + '</span>';
-                    passwordInput.classList.remove('is-valid');
-                    passwordInput.classList.add('is-invalid');
+                    passwordStrength.innerHTML = '<span class="text-danger">Faltan requisitos (8 chars, Mayus, Minus, Num, Simbolo)</span>';
                 }
-                
                 if (confirmPasswordInput.value) checkMatch();
             });
 
@@ -333,93 +291,60 @@
             function checkMatch() {
                 const p1 = passwordInput.value;
                 const p2 = confirmPasswordInput.value;
-
-                if (p2.length === 0) {
-                    passwordMatch.textContent = '';
-                    confirmPasswordInput.classList.remove('is-valid', 'is-invalid');
-                    return;
-                }
+                if (p2.length === 0) { passwordMatch.textContent = ''; return; }
 
                 if (p1 === p2) {
-                    passwordMatch.innerHTML = '<span class="text-success">✓ Las contraseñas coinciden</span>';
-                    confirmPasswordInput.classList.remove('is-invalid');
-                    confirmPasswordInput.classList.add('is-valid');
+                    passwordMatch.innerHTML = '<span class="text-success">✓ Coinciden</span>';
                 } else {
-                    passwordMatch.innerHTML = '<span class="text-danger">Las contraseñas no coinciden</span>';
-                    confirmPasswordInput.classList.remove('is-valid');
-                    confirmPasswordInput.classList.add('is-invalid');
+                    passwordMatch.innerHTML = '<span class="text-danger">No coinciden</span>';
                 }
             }
 
-            // --- 2. ENVÍO DEL FORMULARIO ---
             form.addEventListener('submit', async function (event) {
                 event.preventDefault();
-
                 successMessage.classList.add('d-none');
                 errorMessage.classList.add('d-none');
-                nombreError.textContent = '';
-                emailError.textContent = '';
 
                 const nombre = nombreInput.value.trim();
                 const email = emailInput.value.trim();
                 const password = passwordInput.value;
                 const confirmPassword = confirmPasswordInput.value;
 
-                const passValidation = validatePassword(password);
-                
-                if (!passValidation.isValid) {
-                    passwordReqError.innerHTML = '<span class="text-danger">La contraseña no cumple los requisitos de seguridad.</span>';
-                    passwordInput.focus();
+                if (!validatePassword(password).isValid) {
+                    errorMessage.textContent = 'La contraseña no cumple los requisitos de seguridad.';
+                    errorMessage.classList.remove('d-none');
                     return;
                 }
-
                 if (password !== confirmPassword) {
-                    passwordMatch.innerHTML = '<span class="text-danger">Las contraseñas no coinciden.</span>';
-                    confirmPasswordInput.focus();
+                    errorMessage.textContent = 'Las contraseñas no coinciden.';
+                    errorMessage.classList.remove('d-none');
                     return;
                 }
                 
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Registrando...';
+                submitBtn.disabled = true; submitBtn.textContent = 'Registrando...';
 
                 try {
-                    const response = await fetch('http://localhost:8000/api/auth/register', {
+                    const response = await fetch(`${API_URL}/api/auth/register`, {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ nombre, email, password })
                     });
-
                     const data = await response.json();
 
                     if (response.ok) {
-                        successMessage.textContent = data.message || "Registro exitoso. Redirigiendo...";
+                        successMessage.textContent = data.message + " Redirigiendo...";
                         successMessage.classList.remove('d-none');
                         form.reset();
-                        passwordStrength.textContent = '';
-                        passwordMatch.textContent = '';
-                        document.querySelectorAll('.is-valid').forEach(el => el.classList.remove('is-valid'));
-
-                        setTimeout(() => {
-                            window.location.href = 'signin.html';
-                        }, 2000);
+                        setTimeout(() => { window.location.href = 'signin.html'; }, 2000);
                     } else {
-                        if (response.status === 409) { 
-                            emailError.textContent = data.message;
-                            emailInput.classList.add('is-invalid');
-                        } else {
-                            errorMessage.textContent = data.message || "Error desconocido";
-                            errorMessage.classList.remove('d-none');
-                        }
+                        errorMessage.textContent = data.message || "Error al registrarse.";
+                        errorMessage.classList.remove('d-none');
                     }
                 } catch (error) {
-                    console.error('Error de red:', error);
                     errorMessage.textContent = 'Error de conexión con el servidor.';
                     errorMessage.classList.remove('d-none');
                 } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Registrarse';
+                    submitBtn.disabled = false; submitBtn.textContent = 'Registrarse';
                 }
             });
         });

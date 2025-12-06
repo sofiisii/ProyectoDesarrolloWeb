@@ -15,7 +15,7 @@
             --purpura-nazca: #6A1B9A; --blanco-roto: #F8F9FA; --gris-texto: #424242;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Open Sans', sans-serif; }
         body { background-color: var(--blanco-roto); color: var(--gris-texto); display: flex; flex-direction: column; min-height: 100vh; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
@@ -24,10 +24,10 @@
         .nav-container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.8rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
         .nav-links { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; }
-        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 600; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 25px; }
         .nav-links a:hover { background-color: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
         .auth-buttons { display: flex; gap: 1rem; align-items: center; }
-        .user-info { color: white; margin-right: 15px; font-weight: 500; }
+        .user-info { color: white; margin-right: 15px; font-weight: 600; }
         
         /* Botones */
         .btn-custom { padding: 8px 20px; border-radius: 25px; font-weight: 600; text-decoration: none; transition: all 0.3s; font-size: 14px; border: none; cursor: pointer; }
@@ -36,107 +36,81 @@
         .btn-yellow { background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; }
         .btn-yellow:hover { background: #FFB300; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3); }
         
-        .btn-large { 
-            padding: 12px 35px; 
-            font-size: 1rem; 
-            background: var(--aji-amarillo); 
-            color: var(--azul-pacifico-oscuro); 
-            font-weight: 700; 
-            text-decoration: none; 
-            border-radius: 50px; 
-            display: inline-block; 
-            margin-top: 15px; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
-        }
+        .btn-large { padding: 15px 40px; font-size: 1.1rem; background: var(--aji-amarillo); color: var(--azul-pacifico-oscuro); font-weight: 700; text-decoration: none; border-radius: 50px; display: inline-block; margin-top: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .btn-large:hover { background: #FFB300; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255, 193, 7, 0.3); }
 
-        /* Hero Section (Compacto) */
+        /* Hero */
         .hero { 
             background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-claro) 100%); 
-            color: white; 
-            padding: 3rem 0; 
-            text-align: center; 
-            position: relative; 
-            overflow: hidden; 
-            display: flex;
-            align-items: center;
+            color: white; padding: 6rem 0; text-align: center; position: relative; overflow: hidden; 
+            display: flex; align-items: center;
         }
         .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>'); background-size: cover; }
         .hero-content { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
-        
-        .hero h1 { 
-            font-size: 2.5rem; 
-            margin-bottom: 1rem; 
-            font-weight: 800; 
-            text-shadow: 0 2px 10px rgba(0,0,0,0.1); 
-        }
-        .hero p { 
-            font-size: 1.1rem; 
-            margin-bottom: 1.5rem; 
-            opacity: 0.95; 
-            font-weight: 300; 
-            line-height: 1.5; 
-        }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; font-weight: 800; text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .hero p { font-size: 1.3rem; margin-bottom: 2.5rem; opacity: 0.95; font-weight: 300; line-height: 1.6; }
 
-        /* Servicios (Cards) */
-        .cards-section { padding: 3rem 0; background-color: white; }
-        .section-title { text-align: center; font-size: 2rem; margin-bottom: 2.5rem; color: var(--azul-pacifico-oscuro); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        /* --- SECCIÓN POPULARES --- */
+        .popular-section { padding: 3rem 0; background-color: #fff; }
+        .section-title { text-align: center; font-size: 2.2rem; margin-bottom: 3rem; color: var(--azul-pacifico-oscuro); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
         
-        .card { 
-            background-color: white; border-radius: 20px; padding: 2rem; text-align: center; 
-            transition: all 0.3s ease; border: 1px solid #f0f0f0; position: relative; overflow: hidden; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); height: 100%;
+        .popular-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        
+        .pop-card {
+            background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease; border: 1px solid #eee; display: flex; flex-direction: column;
+            text-decoration: none; color: inherit; height: 100%;
         }
+        .pop-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(30, 136, 229, 0.15); border-color: var(--azul-pacifico-claro); }
+        
+        /* Imagen */
+        .pop-img-container { 
+            width: 100%; height: 200px; overflow: hidden; background: #fff; 
+            display: flex; align-items: center; justify-content: center;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .pop-img { 
+            width: 100%; height: 100%; object-fit: contain; 
+            padding: 15px; transition: transform 0.5s; 
+        }
+        .pop-card:hover .pop-img { transform: scale(1.05); }
+        
+        .pop-body { padding: 1.5rem; text-align: center; flex-grow: 1; }
+        .pop-title { font-size: 1.3rem; font-weight: 700; color: var(--azul-pacifico-oscuro); margin: 0; } /* Sin margen inferior */
+
+        /* Servicios */
+        .cards-section { padding: 4rem 0; background-color: var(--blanco-roto); }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .card { background-color: white; border-radius: 20px; padding: 2rem; text-align: center; transition: all 0.3s ease; border: 1px solid #f0f0f0; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); height: 100%; }
         .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--azul-pacifico), var(--verde-menta)); opacity: 0; transition: opacity 0.3s; }
         .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(30, 136, 229, 0.15); border-color: transparent; }
         .card:hover::before { opacity: 1; }
-        
         .card-icon { font-size: 3rem; margin-bottom: 1.5rem; background: linear-gradient(135deg, var(--azul-pacifico), var(--azul-pacifico-oscuro)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .card h3 { font-size: 1.3rem; margin-bottom: 1rem; color: var(--azul-pacifico-oscuro); font-weight: 700; }
         .card p { color: var(--gris-texto); line-height: 1.7; font-size: 1rem; }
         
         /* Botón Admin */
-        .btn-admin-panel {
-            background-color: var(--azul-pacifico);
-            color: white;
-            padding: 12px 30px;
-            font-size: 1rem;
-            font-weight: 700;
-            text-decoration: none;
-            border-radius: 50px;
-            box-shadow: 0 8px 20px rgba(30, 136, 229, 0.3);
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .btn-admin-panel:hover {
-            background-color: var(--azul-pacifico-oscuro);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(30, 136, 229, 0.4);
-            color: white;
-        }
+        .btn-admin-panel { background-color: var(--azul-pacifico); color: white; padding: 12px 30px; font-size: 1rem; font-weight: 700; text-decoration: none; border-radius: 50px; box-shadow: 0 8px 20px rgba(30, 136, 229, 0.3); transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 10px; }
+        .btn-admin-panel:hover { background-color: var(--azul-pacifico-oscuro); transform: translateY(-3px); box-shadow: 0 12px 25px rgba(30, 136, 229, 0.4); color: white; }
 
         /* Footer */
-        .footer { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; padding: 4rem 0 2rem; margin-top: auto; }
-        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; }
-        .footer-section h3 { margin-bottom: 1.5rem; color: var(--aji-amarillo); font-weight: 700; font-size: 1.2rem; }
+        .footer { background: linear-gradient(135deg, var(--azul-pacifico) 0%, var(--azul-pacifico-oscuro) 100%); color: white; padding: 2rem 0 1rem; margin-top: auto; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        .footer-section h3 { margin-bottom: 0.8rem; color: var(--aji-amarillo); font-weight: 700; font-size: 1.1rem; }
         .footer-section ul { list-style: none; padding: 0; }
-        .footer-section ul li { margin-bottom: 0.8rem; }
-        .footer-section a { color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: all 0.3s; font-size: 0.95rem; }
-        .footer-section a:hover { color: var(--aji-amarillo); padding-left: 5px; }
-        .footer-bottom { text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; }
-        
+        .footer-section ul li { margin-bottom: 0.4rem; }
+        .footer-section a { color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: all 0.3s; font-size: 0.9rem; }
+        .footer-section a:hover { color: var(--aji-amarillo); padding-left: 3px; }
+        .footer-bottom { text-align: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.6); font-size: 0.85rem; }
         .d-none { display: none !important; }
 
         @media (max-width: 768px) {
             .nav-container { flex-direction: column; gap: 1rem; }
             .nav-links { gap: 1rem; flex-wrap: wrap; justify-content: center; }
             .auth-buttons { flex-direction: column; width: 100%; }
-            .auth-buttons button, .auth-buttons a { width: 100%; text-align: center; margin-bottom: 5px;}
+            .auth-buttons .btn { text-align: center; }
             .hero h1 { font-size: 2rem; }
-            .cards-grid { grid-template-columns: 1fr; }
+            .cards-grid, .popular-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -152,8 +126,7 @@
                     <li><a href="pedido.html">Mis Pedidos</a></li>
                     <li>
                         <a href="carrito.html" style="color: var(--aji-amarillo); font-weight: 700;">
-                            Carrito 🛒
-                            <span id="cart-count" class="badge bg-danger rounded-pill ms-2" style="display: none; font-size: 0.75rem;">0</span>
+                            Carrito 🛒 <span id="cart-count" class="badge bg-danger rounded-pill ms-2" style="display: none; font-size: 0.75rem;">0</span>
                         </a>
                     </li>
                 </ul>
@@ -167,7 +140,7 @@
             <div class="hero-content">
                 <h1>Bienvenido a Sabor Limeño</h1>
                 <p>Descubre la auténtica esencia de la cocina peruana con ingredientes frescos y recetas tradicionales.</p>
-                <a href="catalogo.html" class="btn-large">Ir al Catálogo</a>
+                <a href="catalogo.html" class="btn-large btn-primary" style="text-decoration:none; border-radius:50px;">Explorar Catálogo</a>
             </div>
         </div>
     </section>
@@ -178,6 +151,21 @@
                 <i class="fas fa-cogs"></i> Ir al Panel de Administración
             </a>
         </div>
+
+        <section class="popular-section">
+            <h2 class="section-title">Platos Más Vendidos</h2>
+            <div id="popular-grid" class="popular-grid">
+                <div class="text-center text-muted" style="grid-column: 1/-1;">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-2">Cargando favoritos...</p>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="catalogo.html" style="color: var(--azul-pacifico); text-decoration: none; font-weight: 600; font-size: 1.1rem;">
+                    Ver todo el menú <i class="fas fa-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </section>
 
         <section class="cards-section" id="servicios">
             <h2 class="section-title">Nuestros Servicios</h2>
@@ -190,7 +178,7 @@
                 <div class="card">
                     <div class="card-icon">🚚</div>
                     <h3>Delivery Express</h3>
-                    <p>Seguimiento en tiempo real de tu pedido desde la cocina hasta tu puerta.</p>
+                    <p>Servicio de entrega premium con seguimiento en tiempo real y repartidores asignados inteligentemente.</p>
                 </div>
                 <div class="card">
                     <div class="card-icon">📊</div>
@@ -199,37 +187,36 @@
                 </div>
             </div>
         </section>
-
-        </div>
+    </div>
 
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Sabor Limeño</h3>
-                    <p>Llevamos lo mejor del Perú a tu mesa. Tradición, sabor y calidad en cada plato.</p>
+                    <p style="font-size: 0.9rem;">Tradición y sabor en cada plato.</p>
                 </div>
                 <div class="footer-section">
-                    <h3>Sistema Integral</h3>
+                    <h3>Sistema</h3>
                     <ul>
                         <li><a href="signin.html">Inicio de Sesión</a></li>
-                        <li><a href="catalogo.html">Catálogo Digital</a></li>
-                        <li id="link-admin-panel-footer" class="d-none"><a href="administracion.html" style="color: var(--aji-amarillo);">★ Panel Admin</a></li>
+                        <li><a href="catalogo.html">Catálogo</a></li>
+                        <li id="link-admin-panel-footer" class="d-none"><a href="administracion.html" style="color: var(--aji-amarillo);">★ Admin</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Gestión Operativa</h3>
+                    <h3>Operaciones</h3>
                     <ul>
-                        <li><a href="pedido.html">Gestión de Pedidos</a></li>
-                        <li><a href="delivery.html">Seguimiento Delivery</a></li>
-                        <li id="link-secure-support" class="d-none"><a href="newpassword.html">Soporte Seguro</a></li>
-                        <li><a href="anularpedido.html">Anular Pedido</a></li>
-                        <li><a href="boleta.html">Boleta Electrónica</a></li>
+                        <li><a href="pedido.html">Pedidos</a></li>
+                        <li><a href="delivery.html">Delivery</a></li>
+                        <li id="link-secure-support" class="d-none"><a href="newpassword.html">Soporte</a></li>
+                        <li><a href="anularpedido.html">Anular</a></li>
+                        <li><a href="boleta.html">Boleta</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Sabor Limeño. Todos los derechos reservados.</p>
+                <p>&copy; 2025 Sabor Limeño.</p>
             </div>
         </div>
     </footer>
@@ -240,52 +227,31 @@
             const token = localStorage.getItem('authToken');
             const authContainer = document.getElementById('authContainer');
             
-            // Referencias a elementos Admin
             const linkAdmin = document.getElementById('link-admin-panel-footer');
             const linkSupport = document.getElementById('link-secure-support');
             const adminAccessSection = document.getElementById('admin-access-section');
 
-            // 1. Gestión de Sesión y Roles
+            // 1. Gestión de Sesión
             if (token) {
-                fetch(API_URL + '/api/auth/me', { 
-                    headers: { 'Authorization': `Bearer ${token}` } 
-                })
-                .then(response => {
-                    if (response.ok) return response.json();
-                    throw new Error('Token inválido');
-                })
+                fetch(API_URL + '/api/auth/me', { headers: { 'Authorization': `Bearer ${token}` } })
+                .then(response => { if (response.ok) return response.json(); throw new Error('Token inválido'); })
                 .then(user => {
-                    authContainer.innerHTML = `
-                        <span class="user-info">Hola, ${user.nombre}!</span>
-                        <button id="logoutBtn" class="btn-custom btn-outline-white">Cerrar Sesión</button>
-                    `;
+                    authContainer.innerHTML = `<span class="user-info">Hola, ${user.nombre}!</span><button id="logoutBtn" class="btn-custom btn-outline-white">Cerrar Sesión</button>`;
                     
-                    // SI ES ADMIN: MOSTRAR BOTÓN Y ENLACES
                     if (user.role === 'admin') {
                         if(adminAccessSection) adminAccessSection.classList.remove('d-none');
                         if(linkAdmin) linkAdmin.classList.remove('d-none');
                         if(linkSupport) linkSupport.classList.remove('d-none');
                     }
-
-                    document.getElementById('logoutBtn').addEventListener('click', function() {
-                        localStorage.removeItem('authToken');
-                        localStorage.removeItem('userNombre');
-                        window.location.href = "signin.html";
+                    document.getElementById('logoutBtn').addEventListener('click', () => {
+                        localStorage.removeItem('authToken'); localStorage.removeItem('userNombre'); window.location.href = "signin.html";
                     });
                 })
-                .catch(error => {
-                    localStorage.removeItem('authToken');
-                    mostrarBotonesLogin();
-                });
-            } else {
-                mostrarBotonesLogin();
-            }
+                .catch(error => { localStorage.removeItem('authToken'); mostrarBotonesLogin(); });
+            } else { mostrarBotonesLogin(); }
             
             function mostrarBotonesLogin() {
-                 authContainer.innerHTML = `
-                    <a href="signin.html" class="btn-custom btn-outline-white">Iniciar Sesión</a>
-                    <a href="registro.html" class="btn-custom btn-yellow">Registrarse</a>
-                 `;
+                 authContainer.innerHTML = `<a href="signin.html" class="btn-custom btn-outline-white">Iniciar Sesión</a><a href="registro.html" class="btn-custom btn-yellow">Registrarse</a>`;
             }
 
             // 2. Contador Carrito
@@ -300,14 +266,44 @@
             }
             updateCartCount();
 
-            // 3. Animaciones
-            document.querySelectorAll('.card').forEach(card => {
-                card.addEventListener('mouseenter', function() { 
-                    this.style.transform = 'translateY(-10px)'; 
+            // 3. Cargar Populares (SOLO FOTO Y NOMBRE)
+            const popularGrid = document.getElementById('popular-grid');
+            
+            fetch(API_URL + '/api/menu/top')
+                .then(res => res.json())
+                .then(dishes => {
+                    popularGrid.innerHTML = '';
+                    if (dishes.length === 0) {
+                        popularGrid.innerHTML = '<div class="text-center text-muted" style="grid-column: 1/-1;">No hay datos disponibles aún.</div>';
+                        return;
+                    }
+                    
+                    dishes.forEach(dish => {
+                        // Usamos la misma lógica de imagen que en el catálogo
+                        const imgUrl = dish.image || "https://placehold.co/400x300?text=Plato";
+                        
+                        // AQUÍ ESTÁ EL CAMBIO: SOLO IMAGEN Y NOMBRE
+                        popularGrid.innerHTML += `
+                            <a href="catalogo.html" class="pop-card">
+                                <div class="pop-img-container">
+                                    <img src="${imgUrl}" alt="${dish.nombre}" class="pop-img">
+                                </div>
+                                <div class="pop-body">
+                                    <div class="pop-title">${dish.nombre}</div>
+                                </div>
+                            </a>
+                        `;
+                    });
+                })
+                .catch(err => {
+                    console.error(err);
+                    popularGrid.innerHTML = '<div class="text-center text-danger" style="grid-column: 1/-1;">Error al cargar populares.</div>';
                 });
-                card.addEventListener('mouseleave', function() { 
-                    this.style.transform = 'translateY(0)'; 
-                });
+
+            // 4. Animaciones
+            document.querySelectorAll('.card, .pop-card').forEach(card => {
+                card.addEventListener('mouseenter', function() { this.style.transform = 'translateY(-5px)'; });
+                card.addEventListener('mouseleave', function() { this.style.transform = 'translateY(0)'; });
             });
         });
     </script>
